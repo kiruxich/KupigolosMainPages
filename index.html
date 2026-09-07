@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="ru" data-theme="script">
+<html lang="ru" data-theme="brand">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>КупиГолос - Студия озвучивания и дубляжа в Москве</title>
   <meta name="description" content="Студия дубляжа в Москве - топ звук, лучшие голоса, уют! Озвучивание любого контента. У нас работают топовые актеры дубляжа и озвучки. Приезжайте в гости!">
   <meta name="keywords" content="купиголос, студия дубляжа, студия озвучивания, продакшн студия">
-  <meta name="theme-color" content="#17130f">
+  <meta name="theme-color" content="#f54622">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="КупиГолос">
@@ -16,11 +16,13 @@
   <meta property="og:image" content="https://kupigolos.ru/assets/hero-script.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kupigolos.ru/">
-  <link rel="preload" href="assets/hero-script.jpg" as="image">
+  <link rel="preload" href="assets/1.png" as="image">
+  <link rel="preload" href="assets/2.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Oswald:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="refresh.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,13 +50,42 @@
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
 
+  <aside class="studio-rail" data-studio-rail aria-label="Навигация по разделам страницы">
+    <a class="studio-rail-console" href="#start" aria-label="К началу страницы">
+      <span><i aria-hidden="true"></i>rec</span>
+      <strong>48<small>kHz</small></strong>
+    </a>
+    <div class="studio-rail-scale" aria-hidden="true"><span>0</span><span>-12</span><span>-24</span><span>-48</span></div>
+    <div class="studio-rail-track">
+      <span class="studio-rail-progress" data-rail-progress aria-hidden="true"></span>
+      <nav aria-label="Быстрая навигация">
+        <a href="#start" data-rail-target="start" aria-label="Старт"><i></i><span>Старт</span></a>
+        <a href="#voices" data-rail-target="voices" aria-label="Дикторы"><i></i><span>Дикторы</span></a>
+        <a href="#ai-services" data-rail-target="ai-services" aria-label="ИИ-модели"><i></i><span>ИИ-модели</span></a>
+        <a href="#about" data-rail-target="about" aria-label="О студии"><i></i><span>О студии</span></a>
+        <a href="#services" data-rail-target="services" aria-label="Услуги"><i></i><span>Услуги</span></a>
+        <a href="#portfolio" data-rail-target="portfolio" aria-label="Портфолио"><i></i><span>Портфолио</span></a>
+        <a href="#calculator" data-rail-target="calculator" aria-label="Расчёт"><i></i><span>Расчёт</span></a>
+        <a href="#advantages" data-rail-target="advantages" aria-label="Преимущества"><i></i><span>Преимущества</span></a>
+        <a href="#guarantees" data-rail-target="guarantees" aria-label="Гарантии"><i></i><span>Гарантии</span></a>
+        <a href="#process" data-rail-target="process" aria-label="Процесс"><i></i><span>Процесс</span></a>
+        <a href="#reviews" data-rail-target="reviews" aria-label="Отзывы"><i></i><span>Отзывы</span></a>
+        <a href="#clients" data-rail-target="clients" aria-label="Клиенты"><i></i><span>Клиенты</span></a>
+        <a href="#contacts" data-rail-target="contacts" aria-label="Контакты"><i></i><span>Контакты</span></a>
+      </nav>
+    </div>
+    <span class="studio-rail-counter"><em>track</em><b data-rail-current>01</b><small>/13</small></span>
+  </aside>
+
   <header class="site-header" data-header>
     <a class="brand" href="#start" aria-label="КупиГолос, на главную">
       <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M4 22h4m4-7v14m5-20v26m6-20v14m6-9v4m6-9v14m5-7h4"/></svg>
       <span>купи<span>голос</span></span>
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span></span><span></span><span class="sr-only">Открыть меню</span>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="nav-toggle-label">Меню</span>
+      <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i></span>
+      <span class="sr-only">Открыть меню</span>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
       <a href="#services">Услуги</a>
@@ -71,116 +102,276 @@
       </svg>
     </a>
   </header>
+  <section class="site-menu" id="site-menu" aria-label="Меню сайта" aria-hidden="true">
+    <div class="site-menu-inner shell">
+      <div class="site-menu-heading">
+        <p>Навигация</p>
+        <button class="menu-close" type="button" aria-label="Закрыть меню">Закрыть <span aria-hidden="true">×</span></button>
+      </div>
+      <div class="site-menu-grid">
+        <nav aria-label="Основные разделы">
+          <a href="#services">Услуги <span>→</span></a>
+          <a href="#voices">Дикторы <span>→</span></a>
+          <a href="#ai-services">ИИ-сервисы <span>→</span></a>
+          <a href="#portfolio">Портфолио <span>→</span></a>
+        </nav>
+        <nav aria-label="О студии">
+          <a href="#about">О студии <span>→</span></a>
+          <a href="#calculator">Калькулятор <span>→</span></a>
+          <a href="#reviews">Отзывы <span>→</span></a>
+          <a href="#contacts">Контакты <span>→</span></a>
+        </nav>
+        <div class="site-menu-contact">
+          <p>Нужна озвучка?</p>
+          <a href="tel:88002004551">8 800 200-45-51</a>
+          <a class="button" href="#contacts">Обсудить проект <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <main id="main-content">
-    <section class="cinema" id="start" aria-labelledby="hero-title" data-cinema data-step="0">
-      <span class="story-anchor story-anchor-voices" id="voices" aria-hidden="true"></span>
-      <span class="story-anchor story-anchor-ai" id="ai-services" aria-hidden="true"></span>
-      <div class="cinema-sticky hero" data-hero>
-      <div class="hero-media" aria-hidden="true">
-        <div class="hero-poster"></div>
-        <canvas data-shader-canvas></canvas>
-        <div class="hero-grain"></div>
-      </div>
-      <div class="hero-rule" aria-hidden="true"><span></span></div>
-      <div class="story-frame story-hero shell" data-story-frame="0">
-        <div class="hero-copy reveal">
-          <p class="kicker">Профессиональная студия</p>
+    <section class="top-stage" id="start" aria-labelledby="hero-title">
+      <div class="top-stage-backdrop" aria-hidden="true"></div>
+      <div class="shell top-hero">
+        <div class="top-hero-heading">
+          <p class="top-kicker">Профессиональная</p>
           <h1 id="hero-title">Студия озвучивания<br>в Москве</h1>
-          <p class="hero-lead">Подготовим профессиональную озвучку диктором. На любом языке мира за один день. С помощью звукового оборудования мировых брендов.</p>
-          <div class="hero-actions">
-            <a class="button" href="#voices">Выбрать голос</a>
-            <button class="text-button" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" data-audio-label="Демо студии">
-              <span class="play-icon" aria-hidden="true"></span>
-              <span data-play-label>Послушать студию</span>
-            </button>
-          </div>
         </div>
+        <p class="top-hero-copy">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+        <img class="top-hero-microphone" src="assets/2.png" alt="" aria-hidden="true">
+        <a class="hero-cta" href="#voices">
+          <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+          <span>Выбрать диктора</span>
+          <i class="cta-arrow" aria-hidden="true">→</i>
+        </a>
       </div>
-      <div class="story-frame story-metrics shell" data-story-frame="1" aria-label="Ключевые показатели">
-        <div class="story-glass metrics-glass">
-          <p class="story-title">Студия в цифрах</p>
-          <div class="hero-index">
-          <div><strong>800+</strong><span>профессиональных голосов</span></div>
-          <div><strong>60</strong><span>языков локализации</span></div>
-          <div><strong>15 000+</strong><span>реализованных проектов</span></div>
-          </div>
-          <p class="glass-note">Один продакшн. Весь путь звука.</p>
-        </div>
-      </div>
+    </section>
 
-    <div class="story-frame story-voice shell" data-story-frame="2" aria-labelledby="voices-title">
-      <div class="story-glass voice-glass">
-        <div class="story-voice-copy">
-          <h2 id="voices-title">Узнаваемые с первой фразы</h2>
-          <p>Профессиональные дикторы, актеры дубляжа и голоса федеральных проектов.</p>
+    <section class="talent-stage" id="voices" aria-labelledby="voices-title">
+      <div class="shell">
+        <h2 id="voices-title">Дикторы</h2>
+        <div class="voice-concepts">
+          <article class="voice-concept voice-concept-casting">
+            <header class="voice-concept-heading"><span>01</span><div><h3>Кастинг-лист</h3><p>Быстро сравнить несколько голосов</p></div></header>
+            <div class="casting-list" id="casting-track" data-scroll-track tabindex="0" aria-label="Лента дикторов в формате кастинг-листа">
+              <article class="casting-row">
+                <img src="assets/voices/alexey-kolgan-v2.jpg" alt="Алексей Колган">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/kolgan-aleksej">Алексей Колган</a><small>Низкий, уверенный, характерный</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3" data-audio-label="Алексей Колган" aria-label="Слушать голос Алексея Колгана"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:35</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&amp;s=f244e003b3a897c0ead731679fbb4d4a" alt="Елена Соловьёва">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/soloveva-elena">Елена Соловьёва</a><small>Тёплый, живой, рекламный</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68ce5485d99.mp3" data-audio-label="Елена Соловьёва" aria-label="Слушать голос Елены Соловьёвой"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:20</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5bbdea87a8583.jpg?p=v&amp;s=818dc8a6499df88ad1db6f39f2d80f24" alt="Татьяна Шитова">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/shitova-tatyana">Татьяна Шитова</a><small>Яркий, актёрский, узнаваемый</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3" data-audio-label="Татьяна Шитова" aria-label="Слушать голос Татьяны Шитовой"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:20</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5ab7eec080324.jpg?p=v&amp;s=c57bca7a82ee501a56531885a74025a9" alt="Владимир Зайцев">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/zajcev-vladimir">Владимир Зайцев</a><small>Глубокий, спокойный, кинематографичный</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68ccf1118e9.mp3" data-audio-label="Владимир Зайцев" aria-label="Слушать голос Владимира Зайцева"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:47</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5ab7eaad3fa32.jpg?p=v&amp;s=45c5ab64052966222d905b15e85e2220" alt="Юрий Брежнев">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/brezhnev-yurij">Юрий Брежнев</a><small>Сильный, динамичный, актёрский</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3" data-audio-label="Юрий Брежнев" aria-label="Слушать голос Юрия Брежнева"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">1:22</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5f8e9ded2f683.jpg?p=v&amp;s=b8d4521e18df7875c1bee78ce1ab1eae" alt="Артём Кретов">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/kretov-artem">Артём Кретов</a><small>Энергичный, собранный, телевизионный</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68cbee0977e.mp3" data-audio-label="Артём Кретов" aria-label="Слушать голос Артёма Кретова"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">1:04</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/61a461e1de9cd.jpg?p=v&amp;s=3fbcf7e49f147e530b81740014f7b24e" alt="Сергей Набиев">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/nabiev-sergej">Сергей Набиев</a><small>Спортивный, плотный, уверенный</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" data-audio-label="Сергей Набиев" aria-label="Слушать голос Сергея Набиева"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:32</span><strong>от 10 000 ₽</strong>
+              </article>
+              <article class="casting-row">
+                <img src="https://img.kupigolos.ru/voice/5e80e73203a16.jpg?p=v&amp;s=6f8b49e7b80d9850d948c54a43d35446" alt="Ольга Плетнёва">
+                <div class="voice-identity"><a href="https://kupigolos.ru/diktory/pletneva-olga">Ольга Плетнёва</a><small>Мягкий, интеллигентный, актёрский</small></div>
+                <button class="voice-play" type="button" data-audio-src="https://storage.kupigolos.ru/audio/demo/5f68d0682f142.mp3" data-audio-label="Ольга Плетнёва" aria-label="Слушать голос Ольги Плетнёвой"><i class="play-icon" aria-hidden="true"></i></button>
+                <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="voice-duration">0:38</span><strong>от 10 000 ₽</strong>
+              </article>
+            </div>
+            <div class="voice-scroll-controls"><span data-scroll-status-for="casting-track">1 / 2</span><button type="button" data-scroll-for="casting-track" data-scroll-direction="-1" aria-label="Предыдущие дикторы" disabled>←</button><button type="button" data-scroll-for="casting-track" data-scroll-direction="1" aria-label="Следующие дикторы">→</button></div>
+          </article>
+
+          <article class="voice-concept voice-concept-featured">
+            <header class="voice-concept-heading"><span>02</span><div><h3>Главный голос и список</h3><p>Подробно слушать одного, не теряя остальных</p></div></header>
+            <div class="featured-layout" data-featured-voice>
+              <div class="featured-voice">
+                <img data-featured-image src="assets/voices/alexey-kolgan-v2.jpg" alt="Алексей Колган">
+                <div class="featured-voice-copy">
+                  <span>Выбранный диктор</span>
+                  <a data-featured-link href="https://kupigolos.ru/diktory/kolgan-aleksej">Алексей Колган</a>
+                  <p data-featured-meta>Низкий, уверенный, характерный голос</p>
+                  <div class="featured-player">
+                    <button class="voice-play" type="button" data-featured-play data-audio-src="https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3" data-audio-label="Алексей Колган" aria-label="Слушать голос Алексея Колгана"><i class="play-icon" aria-hidden="true"></i></button>
+                    <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span data-featured-duration>0:35</span>
+                  </div>
+                  <strong data-featured-price>Цена от 10 000 ₽</strong>
+                </div>
+              </div>
+              <div class="voice-roster-panel">
+              <div class="voice-roster" id="roster-track" data-scroll-track tabindex="0" aria-label="Выбор диктора">
+                <button class="is-selected" type="button" data-featured-picker data-name="Алексей Колган" data-meta="Низкий, уверенный, характерный голос" data-duration="0:35" data-price="Цена от 10 000 ₽" data-image="assets/voices/alexey-kolgan-v2.jpg" data-href="https://kupigolos.ru/diktory/kolgan-aleksej" data-src="https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3" aria-pressed="true"><img src="assets/voices/alexey-kolgan-v2.jpg" alt=""><span><strong>Алексей Колган</strong><small>0:35</small></span></button>
+                <button type="button" data-featured-picker data-name="Елена Соловьёва" data-meta="Тёплый, живой, рекламный голос" data-duration="0:20" data-price="Цена от 10 000 ₽" data-image="https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&amp;s=f244e003b3a897c0ead731679fbb4d4a" data-href="https://kupigolos.ru/diktory/soloveva-elena" data-src="https://storage.kupigolos.ru/audio/demo/5f68ce5485d99.mp3" aria-pressed="false"><img src="https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&amp;s=f244e003b3a897c0ead731679fbb4d4a" alt=""><span><strong>Елена Соловьёва</strong><small>0:20</small></span></button>
+                <button type="button" data-featured-picker data-name="Татьяна Шитова" data-meta="Яркий, актёрский, узнаваемый голос" data-duration="0:20" data-price="Цена от 10 000 ₽" data-image="https://img.kupigolos.ru/voice/5bbdea87a8583.jpg?p=v&amp;s=818dc8a6499df88ad1db6f39f2d80f24" data-href="https://kupigolos.ru/diktory/shitova-tatyana" data-src="https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3" aria-pressed="false"><img src="https://img.kupigolos.ru/voice/5bbdea87a8583.jpg?p=v&amp;s=818dc8a6499df88ad1db6f39f2d80f24" alt=""><span><strong>Татьяна Шитова</strong><small>0:20</small></span></button>
+                <button type="button" data-featured-picker data-name="Владимир Зайцев" data-meta="Глубокий, спокойный, кинематографичный голос" data-duration="0:47" data-price="Цена от 10 000 ₽" data-image="https://img.kupigolos.ru/voice/5ab7eec080324.jpg?p=v&amp;s=c57bca7a82ee501a56531885a74025a9" data-href="https://kupigolos.ru/diktory/zajcev-vladimir" data-src="https://storage.kupigolos.ru/audio/demo/5f68ccf1118e9.mp3" aria-pressed="false"><img src="https://img.kupigolos.ru/voice/5ab7eec080324.jpg?p=v&amp;s=c57bca7a82ee501a56531885a74025a9" alt=""><span><strong>Владимир Зайцев</strong><small>0:47</small></span></button>
+                <button type="button" data-featured-picker data-name="Юрий Брежнев" data-meta="Сильный, динамичный, актёрский голос" data-duration="1:22" data-price="Цена от 10 000 ₽" data-image="https://img.kupigolos.ru/voice/5ab7eaad3fa32.jpg?p=v&amp;s=45c5ab64052966222d905b15e85e2220" data-href="https://kupigolos.ru/diktory/brezhnev-yurij" data-src="https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3" aria-pressed="false"><img src="https://img.kupigolos.ru/voice/5ab7eaad3fa32.jpg?p=v&amp;s=45c5ab64052966222d905b15e85e2220" alt=""><span><strong>Юрий Брежнев</strong><small>1:22</small></span></button>
+                <button type="button" data-featured-picker data-name="Артём Кретов" data-meta="Энергичный, собранный, телевизионный голос" data-duration="1:04" data-price="Цена от 10 000 ₽" data-image="https://img.kupigolos.ru/voice/5f8e9ded2f683.jpg?p=v&amp;s=b8d4521e18df7875c1bee78ce1ab1eae" data-href="https://kupigolos.ru/diktory/kretov-artem" data-src="https://storage.kupigolos.ru/audio/demo/5f68cbee0977e.mp3" aria-pressed="false"><img src="https://img.kupigolos.ru/voice/5f8e9ded2f683.jpg?p=v&amp;s=b8d4521e18df7875c1bee78ce1ab1eae" alt=""><span><strong>Артём Кретов</strong><small>1:04</small></span></button>
+              </div>
+              <div class="voice-scroll-cue" data-scroll-cue-for="roster-track">
+                <span>Листайте список</span>
+                <i aria-hidden="true"><b></b></i>
+              </div>
+              </div>
+            </div>
+          </article>
         </div>
-        <div class="voice-carousel" data-voice-carousel role="region" aria-roledescription="слайдер" aria-label="Известные дикторы" tabindex="0">
-          <div class="voice-portrait-stack">
-            <img data-voice-image src="https://img.kupigolos.ru/voice/61a461e1de9cd.jpg?p=v&amp;s=3fbcf7e49f147e530b81740014f7b24e" alt="Диктор Сергей Набиев" draggable="false">
+        <a class="button talent-cta" href="https://kupigolos.ru/diktory">Показать всех <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="talent-stage talent-stage-ai" id="ai-services" aria-labelledby="ai-title">
+      <div class="shell">
+        <div class="ai-section-heading reveal">
+          <h2 id="ai-title">ИИ-модели</h2>
+          <p>Выберите характер голоса, послушайте демо и сразу переходите к озвучке текста.</p>
+        </div>
+        <div class="ai-voice-lab reveal" data-ai-voice-lab>
+          <div class="ai-feature-shell">
+            <article class="ai-feature">
+              <div class="ai-portrait">
+                <img data-ai-image src="assets/ai-voices/ilya-enhanced-v2.jpg" alt="ИИ-модель Илья">
+                <span class="ai-model-code" data-ai-code>KG / AI 01</span>
+                <span class="ai-model-status"><i aria-hidden="true"></i> модель доступна</span>
+              </div>
+              <div class="ai-feature-copy">
+                <p class="ai-feature-label">Выбранный голос</p>
+                <h3 data-ai-name>Илья</h3>
+                <p data-ai-meta>Динамичная и собранная подача для промо, социальных сетей и коротких форматов.</p>
+                <div class="ai-tags" aria-label="Характеристики голоса">
+                  <span>RU</span><span>Студийный</span><span>Natural</span>
+                </div>
+                <div class="ai-player">
+                  <button class="ai-play" type="button" data-ai-play data-audio-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" data-audio-label="ИИ-модель Илья" aria-label="Слушать ИИ-модель Илья"><i class="play-icon" aria-hidden="true"></i></button>
+                  <div class="ai-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <span data-ai-duration>0:09</span>
+                </div>
+                <div class="ai-feature-footer">
+                  <span><small>Стоимость</small><strong data-ai-price>от 30 ₽</strong></span>
+                  <a class="hero-cta ai-cta" data-ai-link href="https://kupigolos.ru/ai"><span>Озвучить текст</span><i class="cta-arrow" aria-hidden="true">→</i></a>
+                </div>
+              </div>
+            </article>
           </div>
-          <div class="voice-slide" data-voice-slide aria-live="polite" aria-atomic="true">
-            <p class="voice-role" data-voice-role>Диктор · голос телеканала Матч ТВ</p>
-            <a class="voice-name-link" data-voice-link href="https://kupigolos.ru/diktory/nabiev-sergej" target="_blank" rel="noopener">
-              <h3 data-voice-name>Сергей Набиев</h3>
+
+          <div class="ai-model-panel">
+            <div class="ai-model-panel-head"><span>Голоса</span><strong>06 моделей</strong></div>
+            <div class="ai-model-list" role="list" aria-label="Выбор ИИ-модели">
+              <button class="is-selected" type="button" role="listitem" data-ai-picker data-name="Илья" data-code="KG / AI 01" data-meta="Динамичная и собранная подача для промо, социальных сетей и коротких форматов." data-duration="0:09" data-price="от 30 ₽" data-image="assets/ai-voices/ilya-enhanced-v2.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="true"><img src="assets/ai-voices/ilya-enhanced-v2.jpg" alt=""><span><strong>Илья</strong><small>Динамичный</small></span><i>01</i></button>
+              <button type="button" role="listitem" data-ai-picker data-name="Дарья" data-code="KG / AI 02" data-meta="Тёплый и естественный тембр для рекламы, видео и спокойной подачи." data-duration="0:10" data-price="от 30 ₽" data-image="assets/ai-voices/darya-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/darya-enhanced-v3.jpg" alt=""><span><strong>Дарья</strong><small>Мягкая подача</small></span><i>02</i></button>
+              <button type="button" role="listitem" data-ai-picker data-name="Даниил" data-code="KG / AI 03" data-meta="Спокойный деловой голос для презентаций, инструкций и корпоративных видео." data-duration="0:20" data-price="от 30 ₽" data-image="assets/ai-voices/daniil-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/daniil-enhanced-v3.jpg" alt=""><span><strong>Даниил</strong><small>Деловая подача</small></span><i>03</i></button>
+              <button type="button" role="listitem" data-ai-picker data-name="Станислав" data-code="KG / AI 04" data-meta="Выразительный низкий тембр для историй, персонажей и эмоциональных роликов." data-duration="0:17" data-price="от 30 ₽" data-image="assets/ai-voices/stanislav-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/stanislav-enhanced-v3.jpg" alt=""><span><strong>Станислав</strong><small>Характерный</small></span><i>04</i></button>
+              <button type="button" role="listitem" data-ai-picker data-name="Владимир" data-code="KG / AI 05" data-meta="Глубокий уверенный голос для документального кино, трейлеров и брендов." data-duration="0:11" data-price="от 30 ₽" data-image="assets/ai-voices/vladimir-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/vladimir-enhanced-v3.jpg" alt=""><span><strong>Владимир</strong><small>Глубокий тембр</small></span><i>05</i></button>
+              <button type="button" role="listitem" data-ai-picker data-name="Роман" data-code="KG / AI 06" data-meta="Зрелый доверительный тембр для аудиокниг, обучения и серьёзного повествования." data-duration="0:07" data-price="от 30 ₽" data-image="assets/ai-voices/roman-enhanced-v2.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/roman-enhanced-v2.jpg" alt=""><span><strong>Роман</strong><small>Доверительный</small></span><i>06</i></button>
+            </div>
+          </div>
+        </div>
+        <section class="ai-toolkit reveal" aria-labelledby="ai-tools-title">
+          <header class="ai-toolkit-heading">
+            <div>
+              <p class="kicker">AI production desk</p>
+              <h3 id="ai-tools-title">ИИ-инструменты</h3>
+            </div>
+            <p>От первой строки до готовой звуковой дорожки: голос, дубляж, музыка и песни собраны в одном кабинете.</p>
+            <a class="ai-toolkit-hub" href="https://ai.kupigolos.ru/">
+              <span>Открыть все сервисы</span><i aria-hidden="true">↗</i>
             </a>
-            <span class="voice-waveform" aria-hidden="true"></span>
-          </div>
-          <button class="voice-play" type="button" data-voice-play data-audio-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" data-audio-label="Сергей Набиев" aria-label="Слушать голос: Сергей Набиев">
-            <span class="play-icon" aria-hidden="true"></span>
-          </button>
-          <div class="voice-carousel-controls" aria-label="Навигация по дикторам">
-            <button type="button" data-voice-prev aria-label="Предыдущий диктор">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7M8 12h11"/></svg>
-            </button>
-            <p class="voice-counter" aria-label="Текущий диктор"><strong data-voice-current>01</strong><span>/</span><span data-voice-total>19</span></p>
-            <button type="button" data-voice-next aria-label="Следующий диктор">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7M5 12h11"/></svg>
-            </button>
-          </div>
-        </div>
-        <a class="arrow-link" href="https://kupigolos.ru/diktory">Смотреть всех дикторов <span>↗</span></a>
-      </div>
-    </div>
+          </header>
 
-    <div class="story-frame story-ai shell" data-story-frame="3" aria-labelledby="ai-title">
-      <div class="story-glass ai-glass">
-        <div class="ai-intro">
-          <h2 id="ai-title">Звучат как живые.<br>Стоят от 20 ₽</h2>
-          <p>Шесть разных инструментов для быстрых задач. Каждый сервис решает свою часть производства звука.</p>
-          <a class="button button-ghost" href="https://kupigolos.ru/ai">Попробовать ИИ-озвучку</a>
-        </div>
-        <div class="ai-list">
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/voice/ai-voice-generator">
-            <span class="ai-number">01</span><h3>Генератор голоса</h3><p>Создайте уникальный цифровой голос под задачу</p><span class="ai-arrow">↗</span>
-          </a>
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/voice/text-to-speech">
-            <span class="ai-number">02</span><h3>Озвучка текста</h3><p>Превратите готовый текст в естественную речь</p><span class="ai-arrow">↗</span>
-          </a>
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/voice/ai-voice-over">
-            <span class="ai-number">03</span><h3>ИИ-озвучка</h3><p>Быстро соберите черновую или финальную дорожку</p><span class="ai-arrow">↗</span>
-          </a>
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/dubbing-video">
-            <span class="ai-number">04</span><h3>Озвучка видео</h3><p>Синхронизируйте голос с видеорядом</p><span class="ai-arrow">↗</span>
-          </a>
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/music/ai-music-generator">
-            <span class="ai-number">05</span><h3>Генератор музыки</h3><p>Создайте музыкальный фон нужного настроения</p><span class="ai-arrow">↗</span>
-          </a>
-          <a class="ai-row reveal" href="https://kupigolos.ru/ai/music/song-generator">
-            <span class="ai-number">06</span><h3>Генератор песен</h3><p>Соберите песню из идеи, текста и выбранного стиля</p><span class="ai-arrow">↗</span>
-          </a>
-        </div>
-      </div>
-    </div>
+          <div class="ai-tool-grid">
+            <a class="ai-tool-card ai-tool-card-voice" href="https://kupigolos.ru/ai/voice/ai-voice-generator">
+              <span class="ai-tool-number">01 / Voice AI</span>
+              <div class="ai-tool-copy">
+                <h4>Генератор голоса</h4>
+                <p>Введите текст, выберите голос и настройте темп, стиль, паузы и интонации. Результат можно скачать в MP3 или WAV.</p>
+              </div>
+              <div class="ai-tool-waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="ai-tool-route"><b>Текст → голос</b><i aria-hidden="true">↗</i></span>
+            </a>
 
-      <div class="story-progress" data-story-progress aria-label="Прогресс истории">
-        <button type="button" data-story-jump="0" aria-label="Начало" aria-current="true"><span></span></button>
-        <button type="button" data-story-jump="1" aria-label="Студия в цифрах"><span></span></button>
-        <button type="button" data-story-jump="2" aria-label="Голоса"><span></span></button>
-        <button type="button" data-story-jump="3" aria-label="ИИ-сервисы"><span></span></button>
-      </div>
-      <p class="hero-caption">Сценарий. Каждая интонация начинается со строки.</p>
-      <a class="scroll-cue" href="#voices"><span></span>Листайте</a>
+            <a class="ai-tool-card ai-tool-card-text" href="https://kupigolos.ru/ai/voice/text-to-speech">
+              <span class="ai-tool-number">02 / Text to speech</span>
+              <h4>Озвучка текста</h4>
+              <p>Естественная речь для видео, курсов, презентаций и длинных материалов прямо в браузере.</p>
+              <div class="ai-tool-text-preview" aria-hidden="true"><i></i><i></i><i></i><span>Aa</span></div>
+              <span class="ai-tool-route"><b>Текст → аудио</b><i aria-hidden="true">↗</i></span>
+            </a>
+
+            <a class="ai-tool-card ai-tool-card-over" href="https://kupigolos.ru/ai/voice/ai-voice-over">
+              <span class="ai-tool-number">03 / AI voice over</span>
+              <h4>ИИ-озвучка</h4>
+              <p>Создавайте речь для текста, видео, диалогов и голосовых ботов. Доступны разные языки, стили и Voice Clone.</p>
+              <div class="ai-tool-modes" aria-hidden="true"><span>Текст</span><span>Видео</span><span>Бот</span><span>Clone</span></div>
+              <span class="ai-tool-route"><b>Собрать озвучку</b><i aria-hidden="true">↗</i></span>
+            </a>
+
+            <a class="ai-tool-card ai-tool-card-video" href="https://kupigolos.ru/ai/dubbing-video">
+              <span class="ai-tool-number">04 / Video dubbing</span>
+              <div class="ai-tool-copy">
+                <h4>Озвучка<br>видео</h4>
+                <p>Добавьте закадровую речь, реплики или локализованную дорожку. Настройте голос, темп и эмоциональную подачу.</p>
+              </div>
+              <div class="ai-video-timeline" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+              <span class="ai-tool-route"><b>Видео → речь</b><i aria-hidden="true">↗</i></span>
+            </a>
+
+            <a class="ai-tool-card ai-tool-card-music" href="https://kupigolos.ru/ai/music/ai-music-generator">
+              <span class="ai-tool-number">05 / Music AI</span>
+              <h4>Генератор музыки</h4>
+              <p>Опишите жанр, настроение, BPM и инструменты, а нейросеть соберёт мелодию и аранжировку.</p>
+              <div class="ai-music-disc" aria-hidden="true"><i></i><b>110</b><small>BPM</small></div>
+              <span class="ai-tool-route"><b>Идея → трек</b><i aria-hidden="true">↗</i></span>
+            </a>
+
+            <a class="ai-tool-card ai-tool-card-song" href="https://kupigolos.ru/ai/music/song-generator">
+              <span class="ai-tool-number">06 / Song studio</span>
+              <h4>Генератор песен</h4>
+              <p>Создайте песню по идее или своим словам: музыка, мелодия, аранжировка и вокал в готовом треке.</p>
+              <div class="ai-song-lines" aria-hidden="true"><i></i><i></i><i></i><span>02:54</span></div>
+              <span class="ai-tool-route"><b>Текст → песня</b><i aria-hidden="true">↗</i></span>
+            </a>
+          </div>
+
+          <footer class="ai-toolkit-facts" aria-label="Преимущества ИИ-сервисов">
+            <span><i aria-hidden="true"></i>Работает без VPN</span>
+            <span><i aria-hidden="true"></i>Оплата российскими картами</span>
+            <span><i aria-hidden="true"></i>Единая подписка</span>
+            <span><i aria-hidden="true"></i>Генерация в браузере</span>
+          </footer>
+        </section>
       </div>
     </section>
 
@@ -215,12 +406,12 @@
             <div class="service-visual service-wave" aria-hidden="true"><svg viewBox="0 0 520 240"><path d="M0 120 C55 120 55 45 110 45 S165 195 220 195 S275 70 330 70 S385 155 440 155 S495 120 520 120"/></svg></div>
           </article>
           <div class="service-columns">
-            <article class="service-item reveal"><span>01</span><h3>Запись дикторов</h3><p>Российские и иностранные голоса для любых форматов.</p><a href="https://kupigolos.ru/diktory">Выбрать голос ↗</a></article>
-            <article class="service-item reveal"><span>02</span><h3>Аудиореклама</h3><p>Идея, сценарий, запись, музыка и мастеринг под ключ.</p><a href="https://kupigolos.ru/uslugi/audio-reklama">Заказать ролик ↗</a></article>
-            <article class="service-item reveal"><span>03</span><h3>IVR и голосовые меню</h3><p>Приветствия и навигация для контактных центров.</p><a href="https://kupigolos.ru/uslugi/ivr">Создать IVR ↗</a></article>
-            <article class="service-item reveal"><span>04</span><h3>Написание сценариев</h3><p>Тексты, которые хорошо читаются и запоминаются.</p><a href="https://kupigolos.ru/uslugi/scenarii">Заказать текст ↗</a></article>
-            <article class="service-item reveal"><span>05</span><h3>Аудиокниги и аудиогиды</h3><p>Большие формы с устойчивым качеством и подачей.</p><a href="https://kupigolos.ru/uslugi/audiobooks">Записать книгу ↗</a></article>
-            <article class="service-item reveal"><span>06</span><h3>Другие услуги</h3><p>Саунд-дизайн, обработка, монтаж и нестандартные задачи.</p><a href="https://kupigolos.ru/uslugi">Все услуги ↗</a></article>
+            <a class="service-item service-item-voice reveal" href="https://kupigolos.ru/diktory"><span class="service-number">01</span><span class="service-type">500+ голосов</span><h3>Запись дикторов</h3><p>Российские и иностранные голоса для рекламы, видео, игр и корпоративных проектов.</p><span class="service-price">от 200 ₽</span><span class="service-action">Выбрать голос ↗</span></a>
+            <a class="service-item service-item-ad reveal" href="https://kupigolos.ru/uslugi/audio-reklama"><span class="service-number">02</span><span class="service-type">под ключ</span><h3>Аудиореклама</h3><p>Идея, сценарий, запись диктора, музыка, саунд-дизайн и готовый мастер.</p><span class="service-price">от 2 500 ₽</span><span class="service-action">Заказать ролик ↗</span></a>
+            <a class="service-item service-item-ivr reveal" href="https://kupigolos.ru/uslugi/ivr"><span class="service-number">03</span><span class="service-type">телефония</span><h3>IVR и голосовые меню</h3><p>Приветствия, навигация и сообщения для контактных центров и автоответчиков.</p><span class="service-price">от 1 500 ₽</span><span class="service-action">Создать IVR ↗</span></a>
+            <a class="service-item service-item-copy reveal" href="https://kupigolos.ru/uslugi/scenarii"><span class="service-number">04</span><span class="service-type">текст</span><h3>Написание сценариев</h3><p>Тексты под заданный хронометраж, формат площадки и характер подачи.</p><span class="service-price">от 2 000 ₽</span><span class="service-action">Заказать текст ↗</span></a>
+            <a class="service-item service-item-books reveal" href="https://kupigolos.ru/uslugi/audiobooks"><span class="service-number">05</span><span class="service-type">long-form</span><h3>Аудиокниги и аудиогиды</h3><p>Длинные проекты с режиссурой, единым звучанием и контролем качества каждой главы.</p><span class="service-price">расчёт по объёму</span><span class="service-action">Записать книгу ↗</span></a>
+            <a class="service-item service-item-more reveal" href="https://kupigolos.ru/uslugi"><span class="service-number">06</span><span class="service-type">production</span><h3>Другие услуги</h3><p>Саунд-дизайн, обработка, монтаж, локализация и нестандартные звуковые задачи.</p><span class="service-price">индивидуально</span><span class="service-action">Все услуги ↗</span></a>
           </div>
           <nav class="service-index reveal" aria-labelledby="service-index-title">
             <div class="service-index-heading">
@@ -328,7 +519,7 @@
       </div>
     </section>
 
-    <section class="talent-stage" aria-labelledby="talent-title">
+    <section class="talent-stage voice-categories-stage" id="voice-categories" aria-labelledby="talent-title">
       <div class="shell">
         <div class="section-heading split-heading reveal">
           <div><p class="kicker">Большая база</p><h2 id="talent-title">Найдите нужный тембр</h2></div>

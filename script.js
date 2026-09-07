@@ -1,150 +1,53 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const createMotionScheduler = window.KupiMotion?.createMotionScheduler;
-let cinemaProgress = 0;
-const activeHero = { image: 'assets/hero-script.jpg' };
-let renderHeroShader = null;
-
 const navToggle = document.querySelector('.nav-toggle');
 const navigation = document.querySelector('#site-nav');
+const siteMenu = document.querySelector('#site-menu');
+const menuClose = document.querySelector('.menu-close');
+const pageHeader = document.querySelector('[data-header]');
+function setMenu(isOpen) {
+  navToggle?.setAttribute('aria-expanded', String(isOpen));
+  navigation?.classList.toggle('is-open', isOpen);
+  siteMenu?.classList.toggle('is-open', isOpen);
+  siteMenu?.setAttribute('aria-hidden', String(!isOpen));
+  document.body.classList.toggle('menu-open', isOpen);
+}
 
-navToggle?.addEventListener('click', () => {
-  const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!isOpen));
-  navigation?.classList.toggle('is-open', !isOpen);
+navToggle?.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+menuClose?.addEventListener('click', () => {
+  setMenu(false);
+  navToggle?.focus();
 });
 
 navigation?.addEventListener('click', (event) => {
   if (!event.target.closest('a')) return;
-  navToggle?.setAttribute('aria-expanded', 'false');
-  navigation.classList.remove('is-open');
+  setMenu(false);
 });
 
-const cinema = document.querySelector('[data-cinema]');
-const storyFrames = [...document.querySelectorAll('[data-story-frame]')];
-const storyJumps = [...document.querySelectorAll('[data-story-jump]')];
-const pageHeader = document.querySelector('[data-header]');
-let activeStoryStep = -1;
-let cinemaStart = 0;
-let cinemaRange = 1;
-let cinemaEnd = 1;
-let lastHeaderScrollY = Number.NaN;
-let headerSampleY = 83;
+siteMenu?.addEventListener('click', (event) => {
+  if (event.target === siteMenu) setMenu(false);
+  if (event.target.closest('a')) setMenu(false);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && siteMenu?.classList.contains('is-open')) {
+    setMenu(false);
+    navToggle?.focus();
+  }
+});
 
 function syncHeaderTone() {
   if (!pageHeader) return;
-  const sampleY = Math.min(window.innerHeight - 1, headerSampleY);
+  const sampleY = Math.min(window.innerHeight - 1, (pageHeader.offsetHeight || 82) + 1);
   const surface = document.elementFromPoint(window.innerWidth / 2, sampleY)
-    ?.closest?.('[data-cinema], main > section, .site-footer');
-  const isDark = surface?.matches('[data-cinema], .section-dark, .founder-stage, .contact-stage, .site-footer');
+    ?.closest?.('main > section, .site-footer');
+  const isDark = surface?.matches('.site-footer');
   pageHeader.classList.toggle('on-light', Boolean(surface) && !isDark);
 }
 
-function measureCinema() {
-  if (cinema) {
-    cinemaStart = cinema.offsetTop;
-    cinemaRange = Math.max(1, cinema.offsetHeight - window.innerHeight);
-    cinemaEnd = cinemaStart + cinema.offsetHeight;
-  }
-  headerSampleY = (pageHeader?.offsetHeight || 82) + 1;
-}
-
-function setStoryStep(step) {
-  if (!cinema || step === activeStoryStep) return;
-  const previousStep = activeStoryStep;
-  activeStoryStep = step;
-  cinema.dataset.step = String(step);
-  cinema.dataset.direction = previousStep < 0 || step >= previousStep ? 'forward' : 'backward';
-  storyFrames.forEach((frame) => {
-    const frameStep = Number(frame.dataset.storyFrame);
-    const isHidden = !reducedMotion.matches && frameStep !== step;
-    frame.dataset.storyState = frameStep === step ? 'active' : frameStep < step ? 'past' : 'future';
-    frame.setAttribute('aria-hidden', String(isHidden));
-  });
-  storyJumps.forEach((button) => {
-    if (Number(button.dataset.storyJump) === step) button.setAttribute('aria-current', 'true');
-    else button.removeAttribute('aria-current');
-  });
-}
-
-reducedMotion.addEventListener?.('change', () => {
-  storyFrames.forEach((frame) => frame.setAttribute('aria-hidden', 'false'));
-  activeStoryStep = -1;
-  requestStoryFrame({ immediate: reducedMotion.matches });
-});
-
-storyJumps.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (!cinema) return;
-    const step = Number(button.dataset.storyJump);
-    window.scrollTo({
-      top: cinemaStart + cinemaRange * (step / Math.max(1, storyFrames.length - 1)),
-      behavior: reducedMotion.matches ? 'auto' : 'smooth',
-    });
-  });
-});
-
-function renderStory(progress, now) {
-  cinemaProgress = progress;
-  if (cinema) {
-    cinema.style.setProperty('--cinema-progress', cinemaProgress.toFixed(4));
-    const storyPosition = cinemaProgress * storyFrames.length;
-    const step = Math.min(storyFrames.length - 1, Math.floor(storyPosition));
-    cinema.style.setProperty('--story-local-progress', Math.min(1, storyPosition - step).toFixed(4));
-    setStoryStep(Math.max(0, step));
-    const cinemaVisible = window.scrollY < cinemaEnd && window.scrollY + window.innerHeight > cinemaStart;
-    if (renderHeroShader && cinemaVisible && !reducedMotion.matches) return renderHeroShader(now);
-  }
-  return false;
-}
-
-function syncScrollChrome() {
-  if (window.scrollY === lastHeaderScrollY) return;
-  lastHeaderScrollY = window.scrollY;
-  pageHeader?.classList.toggle('is-scrolled', window.scrollY > 24);
-  syncHeaderTone();
-}
-
-const cinemaMotion = createMotionScheduler
-  ? createMotionScheduler({
-      initialValue: 0,
-      precision: 0.00008,
-      responsiveness: 20,
-      render(progress, now) {
-        syncScrollChrome();
-        return renderStory(progress, now);
-      },
-    })
-  : {
-      getValue: () => cinemaProgress,
-      invalidate() {
-        renderStory(cinemaProgress, performance.now());
-        syncScrollChrome();
-      },
-      isRunning: () => false,
-      setTarget(value) {
-        renderStory(value, performance.now());
-        syncScrollChrome();
-      },
-    };
-
-function requestStoryFrame({ immediate = false } = {}) {
-  if (!cinema) {
-    cinemaMotion.invalidate();
-    return;
-  }
-  const progress = Math.min(1, Math.max(0, (window.scrollY - cinemaStart) / cinemaRange));
-  cinemaMotion.setTarget(progress, { immediate });
-}
-
-measureCinema();
-window.addEventListener('scroll', requestStoryFrame, { passive: true });
-window.addEventListener('resize', () => {
-  measureCinema();
-  requestStoryFrame();
-}, { passive: true });
-if ('ResizeObserver' in window && cinema) new ResizeObserver(measureCinema).observe(cinema);
-setStoryStep(0);
-requestStoryFrame({ immediate: true });
+const headerObserver = new IntersectionObserver(syncHeaderTone, { threshold: [0, 1] });
+document.querySelectorAll('main > section, .site-footer').forEach((section) => headerObserver.observe(section));
+window.addEventListener('resize', syncHeaderTone, { passive: true });
+syncHeaderTone();
 
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
@@ -172,6 +75,7 @@ let activeAudioButton = null;
 function resetAudioUI() {
   audioButtons.forEach((button) => button.classList.remove('is-playing'));
   audioToast?.classList.remove('is-visible');
+  document.body.classList.remove('is-audio-playing');
   activeAudioButton = null;
 }
 
@@ -187,6 +91,7 @@ async function toggleAudio(button) {
   resetAudioUI();
   activeAudioButton = button;
   button.classList.add('is-playing');
+  document.body.classList.add('is-audio-playing');
   audio.src = source;
   if (audioName) audioName.textContent = button.dataset.audioLabel || 'Демо';
   audioToast?.classList.add('is-visible');
@@ -207,9 +112,212 @@ audioStop?.addEventListener('click', () => {
   resetAudioUI();
 });
 
+const studioRailLinks = [...document.querySelectorAll('[data-rail-target]')];
+const studioRailProgress = document.querySelector('[data-rail-progress]');
+const studioRailCurrent = document.querySelector('[data-rail-current]');
+const studioRailSections = studioRailLinks
+  .map((link) => document.getElementById(link.dataset.railTarget))
+  .filter(Boolean);
+
+function setStudioRailSection(sectionId) {
+  const activeIndex = studioRailLinks.findIndex((link) => link.dataset.railTarget === sectionId);
+  if (activeIndex < 0) return;
+  studioRailLinks.forEach((link, index) => {
+    const active = index === activeIndex;
+    link.classList.toggle('is-active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+  if (studioRailProgress) {
+    const denominator = Math.max(1, studioRailLinks.length - 1);
+    studioRailProgress.style.setProperty('--rail-progress', String(activeIndex / denominator));
+  }
+  if (studioRailCurrent) studioRailCurrent.textContent = String(activeIndex + 1).padStart(2, '0');
+}
+
+studioRailLinks.forEach((link) => {
+  link.addEventListener('click', () => setStudioRailSection(link.dataset.railTarget));
+});
+
+if ('IntersectionObserver' in window && studioRailSections.length) {
+  const studioRailObserver = new IntersectionObserver((entries) => {
+    const activeEntry = entries.find((entry) => entry.isIntersecting);
+    if (activeEntry) setStudioRailSection(activeEntry.target.id);
+  }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
+  studioRailSections.forEach((section) => studioRailObserver.observe(section));
+  setStudioRailSection(studioRailSections[0].id);
+}
+
+const featuredVoicePickers = [...document.querySelectorAll('[data-featured-picker]')];
+
+featuredVoicePickers.forEach((picker) => {
+  picker.addEventListener('click', () => {
+    const root = picker.closest('[data-featured-voice]');
+    const image = root?.querySelector('[data-featured-image]');
+    const link = root?.querySelector('[data-featured-link]');
+    const meta = root?.querySelector('[data-featured-meta]');
+    const duration = root?.querySelector('[data-featured-duration]');
+    const price = root?.querySelector('[data-featured-price]');
+    const play = root?.querySelector('[data-featured-play]');
+
+    audio.pause();
+    resetAudioUI();
+    featuredVoicePickers.forEach((button) => {
+      const selected = button === picker;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+
+    if (image) {
+      image.src = picker.dataset.image;
+      image.alt = picker.dataset.name;
+    }
+    if (link) {
+      link.textContent = picker.dataset.name;
+      link.href = picker.dataset.href;
+    }
+    if (meta) meta.textContent = picker.dataset.meta;
+    if (duration) duration.textContent = picker.dataset.duration;
+    if (price) price.textContent = picker.dataset.price;
+    if (play) {
+      play.dataset.audioSrc = picker.dataset.src;
+      play.dataset.audioLabel = picker.dataset.name;
+      play.setAttribute('aria-label', `Слушать голос ${picker.dataset.name}`);
+    }
+  });
+});
+
+const aiModelPickers = [...document.querySelectorAll('[data-ai-picker]')];
+const aiModelNames = [...document.querySelectorAll('[data-ai-name]')];
+
+function fitAiModelName(name) {
+  name.style.removeProperty('--ai-name-size');
+  const maxSize = Number.parseFloat(getComputedStyle(name).fontSize);
+  const availableWidth = name.clientWidth;
+  if (!maxSize || !availableWidth) return;
+
+  const responsiveMinimum = window.innerWidth <= 560 ? 38 : 52;
+  let low = Math.min(maxSize, responsiveMinimum);
+  let high = maxSize;
+
+  name.style.setProperty('--ai-name-size', `${high}px`);
+  if (name.scrollWidth <= availableWidth + 1) return;
+
+  for (let iteration = 0; iteration < 9; iteration += 1) {
+    const candidate = (low + high) / 2;
+    name.style.setProperty('--ai-name-size', `${candidate}px`);
+    if (name.scrollWidth <= availableWidth + 1) low = candidate;
+    else high = candidate;
+  }
+
+  name.style.setProperty('--ai-name-size', `${Math.max(responsiveMinimum, low - .5)}px`);
+}
+
+function fitAllAiModelNames() {
+  aiModelNames.forEach(fitAiModelName);
+}
+
+requestAnimationFrame(fitAllAiModelNames);
+document.fonts?.ready.then(fitAllAiModelNames);
+
+let aiNameResizeFrame;
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(aiNameResizeFrame);
+  aiNameResizeFrame = requestAnimationFrame(fitAllAiModelNames);
+});
+
+aiModelPickers.forEach((picker) => {
+  picker.addEventListener('click', () => {
+    const root = picker.closest('[data-ai-voice-lab]');
+    const image = root?.querySelector('[data-ai-image]');
+    const name = root?.querySelector('[data-ai-name]');
+    const code = root?.querySelector('[data-ai-code]');
+    const meta = root?.querySelector('[data-ai-meta]');
+    const duration = root?.querySelector('[data-ai-duration]');
+    const price = root?.querySelector('[data-ai-price]');
+    const link = root?.querySelector('[data-ai-link]');
+    const play = root?.querySelector('[data-ai-play]');
+
+    audio.pause();
+    resetAudioUI();
+    root?.querySelectorAll('[data-ai-picker]').forEach((button) => {
+      const selected = button === picker;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+
+    if (image) {
+      image.src = picker.dataset.image;
+      image.alt = `ИИ-модель ${picker.dataset.name}`;
+    }
+    if (name) {
+      name.textContent = picker.dataset.name;
+      requestAnimationFrame(() => fitAiModelName(name));
+    }
+    if (code) code.textContent = picker.dataset.code;
+    if (meta) meta.textContent = picker.dataset.meta;
+    if (duration) duration.textContent = picker.dataset.duration;
+    if (price) price.textContent = picker.dataset.price;
+    if (link) link.href = picker.dataset.href;
+    if (play) {
+      play.dataset.audioSrc = picker.dataset.src;
+      play.dataset.audioLabel = `ИИ-модель ${picker.dataset.name}`;
+      play.setAttribute('aria-label', `Слушать ИИ-модель ${picker.dataset.name}`);
+    }
+  });
+});
+
+const voiceScrollTracks = [...document.querySelectorAll('[data-scroll-track]')];
+
+function voiceScrollAxis(track) {
+  return track.scrollWidth > track.clientWidth + 2 ? 'x' : 'y';
+}
+
+function syncVoiceScroll(track) {
+  const axis = voiceScrollAxis(track);
+  const position = axis === 'x' ? track.scrollLeft : track.scrollTop;
+  const viewport = axis === 'x' ? track.clientWidth : track.clientHeight;
+  const total = axis === 'x' ? track.scrollWidth : track.scrollHeight;
+  const max = Math.max(0, total - viewport);
+  const pages = Math.max(1, Math.ceil(total / Math.max(1, viewport)));
+  const current = max <= 2 ? 1 : Math.min(pages, Math.round((position / max) * (pages - 1)) + 1);
+  const status = document.querySelector(`[data-scroll-status-for="${track.id}"]`);
+  const cue = document.querySelector(`[data-scroll-cue-for="${track.id}"]`);
+  const previous = document.querySelector(`[data-scroll-for="${track.id}"][data-scroll-direction="-1"]`);
+  const next = document.querySelector(`[data-scroll-for="${track.id}"][data-scroll-direction="1"]`);
+
+  if (status) status.textContent = `${current} / ${pages}`;
+  if (cue && max <= 2) cue.classList.add('is-dismissed');
+  if (cue && position > 8) cue.classList.add('is-dismissed');
+  if (previous) previous.disabled = position <= 2;
+  if (next) next.disabled = position >= max - 2;
+}
+
+voiceScrollTracks.forEach((track) => {
+  track.addEventListener('scroll', () => syncVoiceScroll(track), { passive: true });
+  syncVoiceScroll(track);
+});
+
+document.querySelectorAll('[data-scroll-for]').forEach((control) => {
+  control.addEventListener('click', () => {
+    const track = document.getElementById(control.dataset.scrollFor);
+    if (!track) return;
+    const axis = voiceScrollAxis(track);
+    const direction = Number(control.dataset.scrollDirection);
+    const distance = (axis === 'x' ? track.clientWidth : track.clientHeight) * .92 * direction;
+    track.scrollBy({
+      left: axis === 'x' ? distance : 0,
+      top: axis === 'y' ? distance : 0,
+      behavior: reducedMotion.matches ? 'auto' : 'smooth'
+    });
+  });
+});
+
+window.addEventListener('resize', () => voiceScrollTracks.forEach(syncVoiceScroll));
+
 const voiceSlides = [
   { name: 'Сергей Набиев', role: 'телекана Матч ТВ', audio: 'https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3', image: 'https://img.kupigolos.ru/voice/61a461e1de9cd.jpg?p=v&s=3fbcf7e49f147e530b81740014f7b24e', href: 'https://kupigolos.ru/diktory/nabiev-sergej' },
-  { name: 'Алексей Колган', role: 'Шрека', audio: 'https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3', image: 'https://img.kupigolos.ru/voice/5ab7eb7985751.jpg?p=v&s=4f549f56b6f0ccc027da1c736ed7ec1d', href: 'https://kupigolos.ru/diktory/kolgan-aleksej' },
+  { name: 'Алексей Колган', role: 'Шрека', audio: 'https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3', image: 'assets/voices/alexey-kolgan-v2.jpg', href: 'https://kupigolos.ru/diktory/kolgan-aleksej' },
   { name: 'Елена Соловьёва', role: 'телекана Домашний', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ce5485d99.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&s=f244e003b3a897c0ead731679fbb4d4a', href: 'https://kupigolos.ru/diktory/soloveva-elena' },
   { name: 'Александр Головчанский', role: 'Шерлока Холмса', audio: 'https://storage.kupigolos.ru/audio/demo/58c157649caee.mp3', image: 'https://img.kupigolos.ru/voice/61a3c8f91b460.jpg?p=v&s=2f50143fd1e19489787236a415e155c6', href: 'https://kupigolos.ru/diktory/golovchanskij-aleksandr' },
   { name: 'Ольга Плетнёва', role: 'Умы Турман', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d0682f142.mp3', image: 'https://img.kupigolos.ru/voice/5e80e73203a16.jpg?p=v&s=6f8b49e7b80d9850d948c54a43d35446', href: 'https://kupigolos.ru/diktory/pletneva-olga' },

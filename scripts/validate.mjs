@@ -5,6 +5,7 @@ const root = resolve(import.meta.dirname, '..');
 const paths = {
   html: resolve(root, 'index.html'),
   css: resolve(root, 'styles.css'),
+  refresh: resolve(root, 'refresh.css'),
   js: resolve(root, 'script.js'),
 };
 
@@ -20,6 +21,7 @@ for (const [name, file] of Object.entries(paths)) {
 if (!failures.length) {
   const html = readFileSync(paths.html, 'utf8');
   const css = readFileSync(paths.css, 'utf8');
+  const refresh = readFileSync(paths.refresh, 'utf8');
   const js = readFileSync(paths.js, 'utf8');
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   const requiredSections = [
@@ -46,21 +48,35 @@ if (!failures.length) {
   check(/rel="canonical" href="https:\/\/kupigolos\.ru\/"/.test(html), 'html: canonical is missing');
   check(/property="og:title"/.test(html) && /property="og:image"/.test(html), 'html: social sharing metadata is missing');
   check(/application\/ld\+json/.test(html), 'html: JSON-LD is missing');
-  check(/<html lang="ru" data-theme="script">/.test(html), 'html: script direction must be the only active theme');
+  check(/<html lang="ru" data-theme="brand">/.test(html), 'html: brand direction must be active');
   check(!/data-theme-option=/.test(html), 'html: obsolete theme switcher is still present');
   check(!/class="theme-dock"/.test(html), 'html: obsolete theme dock is still present');
   check(!/class="marquee"/.test(html), 'html: decorative marquee is still present');
-  check(/rel="preload" href="assets\/hero-script\.jpg"/.test(html), 'html: script hero must be preloaded');
-  check(/data-shader-canvas/.test(html), 'html: shader canvas hook is missing');
-  check(/data-cinema/.test(html), 'html: cinematic scroll scene is missing');
-  check((html.match(/data-story-frame=/g) || []).length === 4, 'html: expected four cinematic story frames');
-  check(/data-story-progress/.test(html), 'html: story progress control is missing');
+  check(/class="top-stage"/.test(html), 'html: Figma-aligned opening stage is missing');
+  check(/class="top-stage-backdrop"/.test(html) && /assets\/1\.png/.test(html), 'html: hero background image is missing');
+  check(/class="top-hero-microphone"/.test(html) && /assets\/2\.png/.test(html), 'html: hero microphone image is missing');
+  check(/id="site-menu"/.test(html) && /class="menu-close"/.test(html), 'html: expanded navigation panel is missing');
+  check(/class="studio-rail"/.test(html) && (html.match(/data-rail-target=/g) || []).length === 13, 'html: studio navigation rail is incomplete');
+  check(!/font-switcher|data-font-choice/.test(html), 'html: obsolete font switcher is still present');
+  check(/Cormorant\+Garamond/.test(html) && /Manrope:wght/.test(html) && !/Jost:wght/.test(html), 'html: selected Cormorant/Manrope pair is not locked');
+  check((html.match(/class="hero-cta"/g) || []).length === 1 && !/cta-option-/.test(html), 'html: final hero CTA is missing or comparison variants remain');
+  check(!/simple-liquid-glass|liquid-web/.test(html), 'html: rejected liquid button libraries are still present');
+  check(/class="talent-stage voice-categories-stage"/.test(html), 'html: voice category component scope is missing');
+  check(!/data-cinema|data-story-frame|data-shader-canvas/.test(html), 'html: retired cinematic scene hooks are still present');
   check(!/class="voice-stage/.test(html), 'html: legacy voice card section is still present');
   check(!/class="ai-stage/.test(html), 'html: legacy AI list section is still present');
   check(/data-audio-src/.test(html), 'html: audio controls are missing');
-  check(/data-voice-carousel/.test(html), 'html: featured voice carousel is missing');
-  check(/aria-roledescription="слайдер"/.test(html), 'html: carousel semantics are missing');
-  check(/data-voice-prev/.test(html) && /data-voice-next/.test(html), 'html: carousel navigation is missing');
+  check((html.match(/class="voice-concept voice-concept-/g) || []).length === 2, 'html: expected two retained voice design concepts');
+  check(html.includes('assets/voices/alexey-kolgan-v2.jpg'), 'html: enhanced local Alexey Kolgan portrait is missing');
+  check(html.includes('data-scroll-cue-for="roster-track"') && !html.includes('data-scroll-for="roster-track"'), 'html: roster should use a scroll cue without arrow controls');
+  check((html.match(/data-scroll-track/g) || []).length === 2 && (html.match(/data-scroll-for=/g) || []).length === 2, 'html: casting controls and roster scrolling hooks are incomplete');
+  check(/class="ai-voice-lab/.test(html), 'html: AI voice lab is missing');
+  check((html.match(/data-ai-picker/g) || []).length === 6, 'html: expected six AI model selectors');
+  check((html.match(/assets\/ai-voices\/[a-z]+-enhanced-v[23]\.jpg/g) || []).length >= 6, 'html: enhanced local AI portraits are missing');
+  check(html.includes('data-ai-image src="assets/ai-voices/ilya-enhanced-v2.jpg"') && html.includes('data-ai-name>Илья</h3>'), 'html: Ilya must be the default AI model');
+  check(/class="ai-toolkit reveal"/.test(html), 'html: full AI tools section is missing');
+  check((html.match(/class="ai-tool-card ai-tool-card-/g) || []).length === 6, 'html: expected six featured AI tools');
+  check(!/class="ai-tool-links/.test(html), 'html: collapsed AI tool link list remains');
   check(/class="portfolio-reel"/.test(html) && (html.match(/data-project data-project-name=/g) || []).length === 3, 'html: editorial portfolio reel is missing');
   check(/class="calculator-summary"/.test(html) && /aria-live="polite"/.test(html), 'html: calculator estimate summary is missing');
   check(/class="service-index/.test(html), 'html: crawlable service index is missing');
@@ -90,14 +106,20 @@ if (!failures.length) {
   }
   check(css.includes('prefers-reduced-motion'), 'css: reduced-motion support is missing');
   check(css.includes(':focus-visible'), 'css: visible focus styles are missing');
-  check(css.includes('.cinema-sticky'), 'css: sticky cinematic viewport is missing');
-  check(css.includes('.story-glass'), 'css: optical glass surface is missing');
-  check(/\.story-metrics \.hero-index \{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/s.test(css), 'css: metrics frame must use a horizontal three-column layout');
-  check(/\.story-metrics \.hero-index strong \{[^}]*white-space:\s*nowrap/s.test(css), 'css: metric values must not wrap');
-  check(/\.story-ai \.ai-row:is\(:hover,\s*:focus-visible\) \{[^}]*background:\s*transparent/s.test(css), 'css: AI service hover must keep a transparent background');
-  check(/\.story-ai \.ai-row:is\(:hover,\s*:focus-visible\)::after \{[^}]*transform:\s*scaleX\(1\)/s.test(css), 'css: AI service hover accent line is missing');
+  check(css.includes('.top-stage') && css.includes('.top-hero'), 'css: opening layout styles are missing');
+  check(css.includes('.top-stage-backdrop') && css.includes('.site-menu'), 'css: hero composition or menu panel styles are missing');
+  check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
+  check(refresh.includes('.hero-cta') && !refresh.includes('.cta-option-clear') && !refresh.includes('.cta-option-orbit'), 'refresh: final hero CTA is missing or comparison styles remain');
+  check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
+  check(refresh.includes('.casting-row') && refresh.includes('.featured-layout') && !refresh.includes('.portrait-grid'), 'refresh: retained voice concepts are incomplete or rejected portrait concept remains');
+  check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');
+  check(refresh.includes('.ai-tool-grid') && refresh.includes('.ai-tool-card-video') && refresh.includes('.ai-toolkit-facts'), 'refresh: AI tool section treatment is incomplete');
+  check(refresh.includes('.service-item::before') && refresh.includes('.service-action'), 'refresh: full service cards are missing');
+  check(refresh.includes('.voice-categories-stage .talent-card'), 'refresh: voice category card treatment is missing');
+  check(/\.talent-grid \{[^}]*grid-template-columns:\s*repeat\(6,/s.test(css), 'css: six-card desktop shelf is missing');
+  check(css.includes('#f54622'), 'css: public brand accent is missing');
   check(/\.site-header \.header-project\.button \{[^}]*color:\s*white/s.test(css), 'css: header project link must be visible before hover');
-  check(/\.service-item a:is\(:hover,\s*:focus-visible\) \{[^}]*transform:\s*translateX\(8px\)/s.test(css), 'css: coral service links must shift right on interaction');
+  check((html.match(/class="service-item service-item-/g) || []).length === 6, 'html: expected six full service cards');
   check(!css.includes('transition: color .22s, padding-left .22s'), 'css: link interactions must avoid layout-triggering padding animation');
   check(/\.portfolio-reel \{[^}]*grid-template-columns:/s.test(css), 'css: editorial portfolio layout is missing');
   check(/\.calculator-choice \{[^}]*grid-template-columns:/s.test(css), 'css: calculator option rows are missing');
@@ -108,15 +130,17 @@ if (!failures.length) {
   check(!js.includes('themechange'), 'js: obsolete theme switching is still present');
   check(!js.includes("event.preventDefault();\n  const button = event.currentTarget.querySelector('button[type=\"submit\"]')"), 'js: fake contact submission handler is still present');
   check(js.includes('IntersectionObserver'), 'js: reveal observer is missing');
-  check(js.includes('requestAnimationFrame'), 'js: animation loop is missing');
-  check(js.includes('data-story-frame'), 'js: story frame controller is missing');
-  check(js.includes('const isHidden = !reducedMotion.matches && frameStep !== step'), 'js: reduced-motion story frames must remain exposed to assistive technology');
-  check(js.includes('WebGLRenderingContext'), 'js: WebGL capability check is missing');
   check(js.includes('HTMLAudioElement'), 'js: audio feature check is missing');
-  check(js.includes("event.key === 'ArrowLeft'") && js.includes("event.key === 'ArrowRight'"), 'js: carousel keyboard navigation is missing');
-  check(js.includes("pointerdown") && js.includes("pointerup"), 'js: carousel swipe navigation is missing');
   check(js.includes('function selectPortfolioProject(project)'), 'js: portfolio project controller is missing');
   check(js.includes('function syncHeaderTone()') && js.includes("classList.toggle('on-light'"), 'js: automatic header contrast switching is missing');
+  check(js.includes('function setMenu(isOpen)') && js.includes("event.key === 'Escape'"), 'js: navigation panel interaction is missing');
+  check(js.includes('function setStudioRailSection(sectionId)') && js.includes('studioRailObserver'), 'js: studio navigation rail controller is missing');
+  check(js.includes('data-featured-picker') && js.includes('data-featured-play'), 'js: featured voice picker is missing');
+  check(js.includes('data-ai-picker') && js.includes('data-ai-play'), 'js: AI model picker is missing');
+  check(js.includes('fitAiModelName') && refresh.includes('--ai-name-size'), 'AI model names are not fitted to their available width');
+  check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: voice carousel controls are missing');
+  check(!js.includes('setFontMode') && !js.includes('fontChoices'), 'js: obsolete font comparison controller is still present');
+  check(!js.includes('window.LiquidWeb') && !js.includes('initializeLiquidButton'), 'js: obsolete Liquid Web controller is still present');
 }
 
 if (failures.length) {
