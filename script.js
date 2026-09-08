@@ -373,41 +373,16 @@ function scheduleStudioRailProgress({ recalculate = false } = {}) {
   if (!studioRailProgressFrame) studioRailProgressFrame = requestAnimationFrame(updateStudioRailProgress);
 }
 
-let studioRailScrollFrame = 0;
 let studioRailScrollTarget = '';
 
 function scrollStudioRailTo(target) {
-  if (studioRailScrollFrame) cancelAnimationFrame(studioRailScrollFrame);
-  if (reducedMotion.matches) {
-    target.scrollIntoView({ behavior: 'auto', block: 'start' });
-    studioRailScrollTarget = '';
-    setStudioRailSection(target.id);
-    return;
-  }
-
-  const startY = window.scrollY;
-  const scrollOffset = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
-  const targetY = Math.max(0, target.getBoundingClientRect().top + startY - scrollOffset);
-  const distance = targetY - startY;
-  const duration = Math.min(760, Math.max(440, Math.abs(distance) * .12));
-  const startedAt = performance.now();
   studioRailScrollTarget = target.id;
-  window.scrollTo(0, startY);
-
-  const step = (now) => {
-    const progress = Math.min(1, (now - startedAt) / duration);
-    const eased = (1 - Math.cos(Math.PI * progress)) / 2;
-    window.scrollTo(0, startY + distance * eased);
-    if (progress < 1) {
-      studioRailScrollFrame = requestAnimationFrame(step);
-      return;
-    }
-    studioRailScrollFrame = 0;
-    studioRailScrollTarget = '';
-    setStudioRailSection(target.id);
-  };
-
-  studioRailScrollFrame = requestAnimationFrame(step);
+  target.scrollIntoView({
+    behavior: reducedMotion.matches ? 'auto' : 'smooth',
+    block: 'start'
+  });
+  studioRailScrollTarget = '';
+  setStudioRailSection(target.id);
 }
 
 studioRailLinks.forEach((link) => {
@@ -431,6 +406,7 @@ if ('IntersectionObserver' in window && studioRailSections.length) {
 }
 
 if (studioRailProgress && studioRailSections.length > 1) {
+  studioRailProgress.style.transition = 'none';
   scheduleStudioRailProgress({ recalculate: true });
   window.addEventListener('scroll', () => scheduleStudioRailProgress(), { passive: true });
   window.addEventListener('resize', () => scheduleStudioRailProgress({ recalculate: true }), { passive: true });
