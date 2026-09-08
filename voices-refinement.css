@@ -3,7 +3,7 @@
 #voices .figma-voices-panel > h2 {
   display: grid;
   gap: 14px;
-  margin-bottom: clamp(38px, 4.5vw, 58px);
+  margin-bottom: clamp(16px, 2vw, 28px);
   color: var(--ink);
   font-family: var(--display);
   font-size: clamp(3.35rem, 5.6vw, 6rem);
@@ -31,7 +31,9 @@
 }
 
 #voices .figma-voice-portrait {
-  margin-block: 13px 16px;
+  width: 132px;
+  height: 132px;
+  margin-block: 10px 12px;
 }
 
 :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
@@ -125,9 +127,11 @@
 @media (max-width: 620px) {
   #voices .figma-voices-panel > h2 {
     gap: 11px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     font-size: clamp(3rem, 16vw, 4.5rem);
   }
+
+  #voices .figma-voice-portrait { width: 120px; height: 120px; }
 
   #voices .figma-voice-body {
     min-height: 282px;
@@ -206,6 +210,53 @@
 #voices .figma-voice-card:not(.is-active):hover .figma-voice-body {
   border-color: rgba(var(--brand-accent-rgb), .4);
   background: #fff;
+}
+
+/* Only the selected voice carries details; adjacent portraits hint at the next choice. */
+#voices .figma-voice-meta,
+#voices .figma-voice-name,
+#voices .figma-voice-price,
+#voices .figma-voice-portrait,
+#voices .figma-voice-portrait .voice-play {
+  transition: opacity .2s ease;
+}
+
+#voices .figma-voice-card:not(.is-active) :is(.figma-voice-meta, .figma-voice-name, .figma-voice-price, .voice-play),
+#voices .figma-voice-card:not(.is-active):not([data-deck-offset="-1"]):not([data-deck-offset="1"]) .figma-voice-portrait,
+#voices .figma-voice-card:not(.is-active) .figma-voice-portrait::before {
+  opacity: 0;
+}
+
+#voices .figma-voice-body .figma-voice-name {
+  display: grid;
+  min-height: 2.4em;
+  align-items: end;
+  color: var(--ink);
+  font-size: var(--type-body, 1rem);
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: normal;
+  text-wrap: balance;
+  text-decoration: none;
+}
+
+#voices .figma-voice-body .figma-voice-price {
+  color: var(--muted);
+  font-size: var(--type-meta, .875rem);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price):is(:hover, :focus-visible) {
+  color: var(--header-rust);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price):focus-visible {
+  outline: 2px solid var(--header-rust);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 #voices .figma-voices-footer {
@@ -297,7 +348,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   #voices .figma-voice-card,
-  #voices .figma-voice-body {
+  #voices .figma-voice-body,
+  #voices .figma-voice-role,
+  #voices .figma-voice-meta,
+  #voices .figma-voice-name,
+  #voices .figma-voice-price,
+  #voices .figma-voice-portrait,
+  #voices .figma-voice-portrait .voice-play {
     transition: none;
   }
 }
