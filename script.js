@@ -1,37 +1,128 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const navToggle = document.querySelector('.nav-toggle');
 const navigation = document.querySelector('#site-nav');
-const siteMenu = document.querySelector('#site-menu');
-const menuClose = document.querySelector('.menu-close');
 const pageHeader = document.querySelector('[data-header]');
-function setMenu(isOpen) {
-  navToggle?.setAttribute('aria-expanded', String(isOpen));
-  navigation?.classList.toggle('is-open', isOpen);
-  siteMenu?.classList.toggle('is-open', isOpen);
-  siteMenu?.setAttribute('aria-hidden', String(!isOpen));
-  document.body.classList.toggle('menu-open', isOpen);
+const headerTriggers = [...document.querySelectorAll('[data-header-trigger]')];
+const headerPanels = [...document.querySelectorAll('[data-header-panel]')];
+const callbackOpeners = [...document.querySelectorAll('[data-callback-open]')];
+const callbackDrawer = document.querySelector('[data-callback-drawer]');
+const mobileMenu = document.querySelector('[data-mobile-menu]');
+const siteOverlay = document.querySelector('[data-overlay]');
+const drawers = [callbackDrawer, mobileMenu].filter(Boolean);
+const pointerCanHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+let activeHeaderTrigger = null;
+let activeDrawer = null;
+let activeDrawerOpener = null;
+
+function closeHeaderPanels({ restoreFocus = false } = {}) {
+  headerTriggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
+  headerPanels.forEach((panel) => {
+    panel.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+  });
+  if (restoreFocus) activeHeaderTrigger?.focus();
+  activeHeaderTrigger = null;
 }
 
-navToggle?.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
-menuClose?.addEventListener('click', () => {
-  setMenu(false);
-  navToggle?.focus();
+function openHeaderPanel(panelName) {
+  const trigger = headerTriggers.find((item) => item.dataset.headerTrigger === panelName);
+  const panel = headerPanels.find((item) => item.dataset.headerPanel === panelName);
+  closeHeaderPanels();
+  if (!trigger || !panel) return;
+  activeHeaderTrigger = trigger;
+  trigger.setAttribute('aria-expanded', 'true');
+  panel.classList.add('is-open');
+  panel.setAttribute('aria-hidden', 'false');
+}
+
+function syncOverlayState() {
+  const isOpen = Boolean(activeDrawer);
+  siteOverlay?.classList.toggle('is-open', isOpen);
+  document.body.classList.toggle('overlay-open', isOpen);
+}
+
+function setDrawer(drawer, isOpen, trigger = null, { restoreFocus = false } = {}) {
+  if (!drawer) return;
+
+  if (isOpen) {
+    closeHeaderPanels();
+    drawers.forEach((item) => {
+      item.classList.remove('is-open');
+      item.setAttribute('aria-hidden', 'true');
+    });
+    callbackOpeners.forEach((item) => item.setAttribute('aria-expanded', String(drawer === callbackDrawer)));
+    navToggle?.setAttribute('aria-expanded', String(drawer === mobileMenu));
+    activeDrawer = drawer;
+    activeDrawerOpener = trigger?.closest('[data-mobile-menu]') ? navToggle : trigger;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    syncOverlayState();
+    requestAnimationFrame(() => drawer.querySelector('[data-drawer-close]')?.focus());
+    return;
+  }
+
+  drawer.classList.remove('is-open');
+  drawer.setAttribute('aria-hidden', 'true');
+  callbackOpeners.forEach((item) => item.setAttribute('aria-expanded', 'false'));
+  navToggle?.setAttribute('aria-expanded', 'false');
+  const focusTarget = activeDrawerOpener;
+  if (activeDrawer === drawer) {
+    activeDrawer = null;
+    activeDrawerOpener = null;
+  }
+  syncOverlayState();
+  if (restoreFocus) focusTarget?.focus();
+}
+
+headerTriggers.forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    if (isOpen && !pointerCanHover.matches) closeHeaderPanels({ restoreFocus: true });
+    else openHeaderPanel(trigger.dataset.headerTrigger);
+  });
+  trigger.addEventListener('mouseenter', () => {
+    if (pointerCanHover.matches) openHeaderPanel(trigger.dataset.headerTrigger);
+  });
 });
+
+headerPanels.forEach((panel) => panel.addEventListener('click', (event) => {
+  if (event.target.closest('a')) closeHeaderPanels();
+}));
 
 navigation?.addEventListener('click', (event) => {
-  if (!event.target.closest('a')) return;
-  setMenu(false);
+  if (event.target.closest('a')) closeHeaderPanels();
 });
 
-siteMenu?.addEventListener('click', (event) => {
-  if (event.target === siteMenu) setMenu(false);
-  if (event.target.closest('a')) setMenu(false);
+navToggle?.addEventListener('click', () => {
+  setDrawer(mobileMenu, navToggle.getAttribute('aria-expanded') !== 'true', navToggle, { restoreFocus: true });
+});
+
+callbackOpeners.forEach((trigger) => trigger.addEventListener('click', () => {
+  setDrawer(callbackDrawer, true, trigger);
+}));
+
+document.querySelectorAll('[data-drawer-close]').forEach((button) => {
+  button.addEventListener('click', () => setDrawer(button.closest('aside'), false, null, { restoreFocus: true }));
+});
+
+drawers.forEach((drawer) => drawer.addEventListener('click', (event) => {
+  if (event.target.closest('a')) setDrawer(drawer, false);
+}));
+
+siteOverlay?.addEventListener('click', () => {
+  if (activeDrawer) setDrawer(activeDrawer, false, null, { restoreFocus: true });
+});
+
+document.addEventListener('click', (event) => {
+  if (!activeHeaderTrigger) return;
+  if (event.target.closest('[data-header-trigger], [data-header-panel]')) return;
+  closeHeaderPanels();
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && siteMenu?.classList.contains('is-open')) {
-    setMenu(false);
-    navToggle?.focus();
+  if (event.key === 'Escape') {
+    if (activeDrawer) setDrawer(activeDrawer, false, null, { restoreFocus: true });
+    else if (activeHeaderTrigger) closeHeaderPanels({ restoreFocus: true });
   }
 });
 
@@ -48,37 +139,6 @@ const headerObserver = new IntersectionObserver(syncHeaderTone, { threshold: [0,
 document.querySelectorAll('main > section, .site-footer').forEach((section) => headerObserver.observe(section));
 window.addEventListener('resize', syncHeaderTone, { passive: true });
 syncHeaderTone();
-
-const heroBlurControl = document.querySelector('[data-hero-blur-control]');
-const heroBlurInput = document.querySelector('[data-hero-blur-input]');
-const heroBlurOutput = document.querySelector('[data-hero-blur-output]');
-
-function updateHeroBackgroundBlur(value) {
-  const minimum = Number(heroBlurInput?.min || 0);
-  const maximum = Number(heroBlurInput?.max || 18);
-  const blur = Math.min(maximum, Math.max(minimum, Number(value) || 0));
-  const fill = maximum > minimum ? ((blur - minimum) / (maximum - minimum)) * 100 : 0;
-  document.documentElement.style.setProperty('--hero-background-blur', `${blur}px`);
-  document.documentElement.style.setProperty('--hero-blur-fill', `${fill}%`);
-  if (heroBlurOutput) heroBlurOutput.textContent = `${blur} px`;
-  heroBlurInput?.setAttribute('aria-valuetext', `${blur} пикселей`);
-}
-
-heroBlurInput?.addEventListener('input', (event) => updateHeroBackgroundBlur(event.currentTarget.value));
-heroBlurInput?.addEventListener('change', (event) => updateHeroBackgroundBlur(event.currentTarget.value));
-updateHeroBackgroundBlur(heroBlurInput?.value || 0);
-
-if (heroBlurControl && 'IntersectionObserver' in window) {
-  const visibleHeroOptions = new Set();
-  const heroBlurVisibilityObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) visibleHeroOptions.add(entry.target);
-      else visibleHeroOptions.delete(entry.target);
-    });
-    heroBlurControl.classList.toggle('is-visible', visibleHeroOptions.size > 0);
-  }, { threshold: 0.01 });
-  document.querySelectorAll('[data-hero-option]').forEach((section) => heroBlurVisibilityObserver.observe(section));
-}
 
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
@@ -167,7 +227,14 @@ function setStudioRailSection(sectionId) {
 }
 
 studioRailLinks.forEach((link) => {
-  link.addEventListener('click', () => setStudioRailSection(link.dataset.railTarget));
+  link.addEventListener('click', (event) => {
+    const target = document.getElementById(link.dataset.railTarget);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    history.replaceState(null, '', `#${target.id}`);
+    setStudioRailSection(target.id);
+  });
 });
 
 if ('IntersectionObserver' in window && studioRailSections.length) {
