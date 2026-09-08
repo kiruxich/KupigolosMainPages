@@ -40,7 +40,8 @@
   function renderRailProgress(element, progress) {
     if (!element?.style) return;
     const value = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
-    element.style.transform = `scaleY(${value})`;
+    const hiddenPercent = Number(((1 - value) * 100).toFixed(4));
+    element.style.clipPath = `inset(0 0 ${hiddenPercent}% 0)`;
   }
 
   function configureScrollPerformance({ rail, progress, lazyImages = [] } = {}) {
@@ -53,8 +54,7 @@
       progress.style.height = 'auto';
       progress.style.bottom = '0px';
       progress.style.transition = 'none';
-      progress.style.willChange = 'transform';
-      progress.style.transformOrigin = 'top';
+      progress.style.willChange = 'clip-path';
     }
 
     Array.from(lazyImages).forEach((image) => {

@@ -352,7 +352,10 @@ function updateStudioRailProgress() {
 
   const progress = window.KupiMotion?.calculateSectionProgress(window.scrollY, studioRailSectionAnchors) ?? 0;
   if (window.KupiMotion?.renderRailProgress) window.KupiMotion.renderRailProgress(studioRailProgress, progress);
-  else studioRailProgress.style.transform = `scaleY(${progress})`;
+  else {
+    const hiddenPercent = Number(((1 - progress) * 100).toFixed(4));
+    studioRailProgress.style.clipPath = `inset(0 0 ${hiddenPercent}% 0)`;
+  }
 }
 
 function scheduleStudioRailProgress({ recalculate = false } = {}) {

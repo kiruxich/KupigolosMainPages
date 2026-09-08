@@ -120,13 +120,14 @@ test('staggered reveal ranges stay ordered without growing unbounded', () => {
   assert.deepEqual(calculateRevealRange(-3), { start: '8%', end: '74%' });
 });
 
-test('rail progress uses compositor transforms instead of layout height', () => {
+test('rail progress clips a full-size tick pattern instead of scaling it', () => {
   assert.equal(typeof renderRailProgress, 'function', 'rail progress renderer is not implemented');
-  const style = { transform: '', height: 'unchanged' };
+  const style = { clipPath: '', transform: 'unchanged', height: 'unchanged' };
 
   renderRailProgress({ style }, 0.42);
 
-  assert.equal(style.transform, 'scaleY(0.42)');
+  assert.equal(style.clipPath, 'inset(0 0 58% 0)');
+  assert.equal(style.transform, 'unchanged', 'the tick pattern itself must not be scaled');
   assert.equal(style.height, 'unchanged', 'scroll updates must not mutate layout height');
 });
 
@@ -143,6 +144,6 @@ test('scroll surfaces avoid fixed blur and decode lazy images asynchronously', (
   assert.equal(progress.style.height, 'auto');
   assert.equal(progress.style.bottom, '0px');
   assert.equal(progress.style.transition, 'none');
-  assert.equal(progress.style.willChange, 'transform');
+  assert.equal(progress.style.willChange, 'clip-path');
   assert.deepEqual(images.map((image) => image.decoding), ['async', 'async']);
 });
