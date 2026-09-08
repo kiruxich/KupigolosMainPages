@@ -5041,7 +5041,7 @@ main > section:not(.hero-product) .section-heading h2,
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg, #fbfaf7 0 43%, rgba(251, 250, 247, .97) 55%, rgba(251, 250, 247, .76) 66%, rgba(251, 250, 247, 0) 80%);
+  background: linear-gradient(90deg, #fbfaf7 0 35%, rgba(251, 250, 247, .94) 47%, rgba(251, 250, 247, .48) 59%, rgba(251, 250, 247, 0) 72%);
   content: "";
   pointer-events: none;
 }
@@ -5109,7 +5109,7 @@ main > section:not(.hero-product) .section-heading h2,
 }
 
 .voice-categories-stage .talent-card-children::before {
-  background: linear-gradient(90deg, #fdfaf7 0 43%, rgba(253, 250, 247, .97) 56%, rgba(249, 232, 225, .78) 68%, rgba(249, 232, 225, 0) 82%);
+  background: linear-gradient(90deg, #fdfaf7 0 35%, rgba(253, 250, 247, .94) 47%, rgba(249, 232, 225, .5) 60%, rgba(249, 232, 225, 0) 74%);
 }
 
 .voice-categories-stage .talent-card-children .talent-card-art {
