@@ -6,7 +6,9 @@ const paths = {
   html: resolve(root, 'index.html'),
   css: resolve(root, 'styles.css'),
   refresh: resolve(root, 'refresh.css'),
+  voiceRefinement: resolve(root, 'voices-refinement.css'),
   js: resolve(root, 'script.js'),
+  voiceCarousel: resolve(root, 'voices-carousel.js'),
 };
 
 const failures = [];
@@ -22,7 +24,9 @@ if (!failures.length) {
   const html = readFileSync(paths.html, 'utf8');
   const css = readFileSync(paths.css, 'utf8');
   const refresh = readFileSync(paths.refresh, 'utf8');
+  const voiceRefinement = readFileSync(paths.voiceRefinement, 'utf8');
   const js = readFileSync(paths.js, 'utf8');
+  const voiceCarousel = readFileSync(paths.voiceCarousel, 'utf8');
   const stripTags = (value) => value
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
@@ -125,7 +129,8 @@ if (!failures.length) {
   check(!/class="ai-stage/.test(html), 'html: legacy AI list section is still present');
   check(/data-audio-src/.test(html), 'html: audio controls are missing');
   check(/class="figma-voices-panel"/.test(html), 'html: Figma voice panel is missing');
-  check((html.match(/class="figma-voice-card"/g) || []).length === 5, 'html: expected five Figma voice cards');
+  check((html.match(/class="figma-voice-card"/g) || []).length === 5, 'html: expected five fallback Figma voice cards before the live catalogue loads');
+  check(/data-voice-deck-prev/.test(html) && /data-voice-deck-next/.test(html) && /data-voice-deck-current/.test(html), 'html: voice carousel controls are missing');
   check(html.includes('assets/voices/alexey-kolgan-v2.jpg'), 'html: enhanced local Alexey Kolgan portrait is missing');
   check(!/Кастинг-лист|voice-concept|casting-row|data-scroll-for="casting-track"/.test(html), 'html: obsolete casting or featured voice block remains');
   check(!/ИИ-модели|class="ai-voice-lab|data-ai-picker/.test(html), 'html: removed AI model showcase remains');
@@ -153,7 +158,7 @@ if (!failures.length) {
   }
   const voiceDataBlock = js.match(/const voiceSlides = \[([\s\S]*?)\n\];/);
   check(Boolean(voiceDataBlock), 'js: featured voice data is missing');
-  check((voiceDataBlock?.[1].match(/\{ name:/g) || []).length === 19, 'js: expected 19 featured voices from the live homepage');
+  check((voiceDataBlock?.[1].match(/\{ name:/g) || []).length === 20, 'js: expected 20 featured voices from the live homepage');
 
   check(!css.includes('[data-theme="console"]'), 'css: console theme is still present');
   check(!css.includes('[data-theme="studio"]'), 'css: studio theme is still present');
@@ -174,6 +179,8 @@ if (!failures.length) {
   check(!/\.studio-rail(?::(?:hover|focus-within)|:is\([^{}]*?(?:hover|focus-within)[^{}]*?\))/s.test(railCss), 'css: rail expansion selectors remain');
   check(!refresh.includes('.hero-blur-control') && !refresh.includes('--hero-blur-fill'), 'refresh: hero blur controls remain');
   check(refresh.includes('.figma-voices-panel') && refresh.includes('.figma-voice-card') && !refresh.includes('.featured-layout'), 'refresh: Figma voice section is incomplete or featured voice block remains');
+  check(refresh.includes('--type-xl') && refresh.includes('--type-lg') && refresh.includes('--type-md') && refresh.includes('--type-body') && refresh.includes('--type-meta'), 'refresh: five-step typography scale is incomplete');
+  check(voiceRefinement.includes('Final type authority: five readable steps') && voiceRefinement.includes('#voices .figma-voices-panel > h2 { font-size: var(--type-lg); }'), 'voices: carousel must use the shared typography scale');
   check(refresh.includes('.ai-tool-grid') && refresh.includes('.ai-tool-card-video') && refresh.includes('.ai-toolkit-facts'), 'refresh: AI tool section treatment is incomplete');
   check(refresh.includes('.service-item::before') && refresh.includes('.service-action'), 'refresh: full service cards are missing');
   check(refresh.includes('.voice-categories-stage .talent-card'), 'refresh: voice category card treatment is missing');
@@ -205,7 +212,8 @@ if (!failures.length) {
   check(js.includes('KupiMotion.renderRailProgress') && !js.includes("setProperty('--rail-progress-height'"), 'js: rail progress must use a compositor transform instead of layout height updates');
   check(!js.includes('data-featured-picker') && !js.includes('data-featured-play'), 'js: removed featured voice picker remains');
   check(!js.includes('data-ai-picker') && !js.includes('fitAiModelName'), 'js: removed AI model controller remains');
-  check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: voice carousel controls are missing');
+  check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: legacy voice carousel controls are missing');
+  check(voiceCarousel.includes('getNextCardIndex') && voiceCarousel.includes('populateVoiceDeck') && voiceCarousel.includes('data-voice-deck-prev'), 'js: horizontal voice gallery controls are missing');
   check(!js.includes('setFontMode') && !js.includes('fontChoices'), 'js: obsolete font comparison controller is still present');
   check(!js.includes('window.LiquidWeb') && !js.includes('initializeLiquidButton'), 'js: obsolete Liquid Web controller is still present');
 }

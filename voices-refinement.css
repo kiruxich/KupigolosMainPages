@@ -424,3 +424,35 @@
     transition: none;
   }
 }
+
+/* Final type authority: five readable steps across content sections.
+   The approved first screen and the compact studio rail deliberately stay outside this layer. */
+#voices .figma-voices-panel > h2 { font-size: var(--type-lg); }
+
+#voices .figma-voices-panel > h2::before,
+#voices .figma-voice-role,
+#voices .figma-voice-meta > span,
+#voices .figma-voice-name,
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+  font-size: var(--type-meta);
+}
+
+#voices .figma-voice-price { font-size: var(--type-body); }
+
+.about-copy .lead-copy { font-size: var(--type-md); }
+
+.about-copy > p:not(.lead-copy),
+.about-copy details p,
+.service-index-heading > p:last-child,
+.voice-directory-copy > p:not(.kicker),
+.sticky-title > p:last-child,
+.service-index-groups a,
+.voice-directory-links a,
+.site-header .site-nav,
+.site-header .header-phone { font-size: var(--type-body); }
+
+.service-copy > span,
+.service-index-groups h4,
+.service-index-groups a span,
+.voice-directory-links a span,
+.voice-directory-links a::after { font-size: var(--type-meta); }
