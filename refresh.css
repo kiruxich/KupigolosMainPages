@@ -872,7 +872,35 @@ main > section h2 {
 .clients-stage { background: transparent; }
 .about-grid { gap: clamp(60px, 11vw, 160px); }
 .about-title h2 { font-size: clamp(4rem, 7.5vw, 8rem); }
-.about-copy { padding: clamp(26px, 4vw, 46px); border-left: 1px solid var(--line); background: rgba(255, 255, 255, .38); }
+.about-copy {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  padding: clamp(26px, 4vw, 46px);
+  background: transparent;
+}
+.about-copy::before {
+  position: absolute;
+  z-index: -1;
+  top: -80px;
+  right: -64px;
+  bottom: -80px;
+  left: -42px;
+  background: radial-gradient(115% 88% at 76% 50%, rgba(255, 255, 255, .72) 0%, rgba(255, 255, 255, .5) 48%, rgba(255, 255, 255, 0) 78%);
+  content: "";
+  pointer-events: none;
+}
+.about-copy::after {
+  position: absolute;
+  z-index: -1;
+  top: 9%;
+  bottom: 9%;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(39, 55, 120, .18) 16%, rgba(39, 55, 120, .18) 84%, transparent);
+  content: "";
+  pointer-events: none;
+}
 .about-copy .lead-copy { color: var(--ink); font-family: var(--display); font-size: clamp(1.6rem, 2.5vw, 2.7rem); line-height: 1.08; }
 
 .service-feature {
@@ -1058,7 +1086,9 @@ main > section h2 {
   .ai-feature-copy h3 { --ai-name-default: clamp(3.6rem, 12vw, 5.6rem); }
   .service-columns { grid-template-columns: 1fr; }
   .service-item { min-height: 300px; }
-  .about-copy { padding-inline: 0; border-left: 0; background: transparent; }
+  .about-copy { padding-inline: 0; }
+  .about-copy::before,
+  .about-copy::after { display: none; }
 }
 
 @media (max-width: 560px) {
