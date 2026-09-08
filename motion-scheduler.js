@@ -37,6 +37,31 @@
     };
   }
 
+  function renderRailProgress(element, progress) {
+    if (!element?.style) return;
+    const value = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
+    element.style.transform = `scaleY(${value})`;
+  }
+
+  function configureScrollPerformance({ rail, progress, lazyImages = [] } = {}) {
+    if (rail?.style) {
+      rail.style.backdropFilter = 'none';
+      rail.style.webkitBackdropFilter = 'none';
+    }
+
+    if (progress?.style) {
+      progress.style.height = 'auto';
+      progress.style.bottom = '0px';
+      progress.style.transition = 'none';
+      progress.style.willChange = 'transform';
+      progress.style.transformOrigin = 'top';
+    }
+
+    Array.from(lazyImages).forEach((image) => {
+      image.decoding = 'async';
+    });
+  }
+
   function createMotionScheduler({
     initialValue = 0,
     precision = 0.0001,
@@ -84,5 +109,11 @@
     };
   }
 
-  return { calculateRevealRange, calculateSectionProgress, createMotionScheduler };
+  return {
+    calculateRevealRange,
+    calculateSectionProgress,
+    configureScrollPerformance,
+    createMotionScheduler,
+    renderRailProgress,
+  };
 }));

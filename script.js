@@ -251,21 +251,7 @@ window.addEventListener('resize', syncHeaderTone, { passive: true });
 syncHeaderTone();
 
 const revealItems = document.querySelectorAll('.reveal');
-const supportsScrollDrivenReveal = typeof CSS !== 'undefined'
-  && CSS.supports('animation-timeline: view()');
-
-if (supportsScrollDrivenReveal && !reducedMotion.matches) {
-  const revealOrderBySection = new Map();
-  revealItems.forEach((item) => {
-    const section = item.closest('main > section') || item.parentElement;
-    const order = revealOrderBySection.get(section) || 0;
-    const range = window.KupiMotion?.calculateRevealRange(order) || { start: '8%', end: '74%' };
-    revealOrderBySection.set(section, order + 1);
-    item.dataset.scrollReveal = '';
-    item.style.setProperty('--reveal-entry-start', range.start);
-    item.style.setProperty('--reveal-entry-end', range.end);
-  });
-} else if ('IntersectionObserver' in window && !reducedMotion.matches) {
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -328,6 +314,7 @@ audioStop?.addEventListener('click', () => {
 });
 
 const studioRailLinks = [...document.querySelectorAll('[data-rail-target]')];
+const studioRail = document.querySelector('[data-studio-rail]');
 const studioRailProgress = document.querySelector('[data-rail-progress]');
 const studioRailCurrent = document.querySelector('[data-rail-current]');
 const studioRailSections = studioRailLinks
@@ -364,8 +351,8 @@ function updateStudioRailProgress() {
   if (studioRailSectionAnchors.length !== studioRailSections.length) cacheStudioRailSectionAnchors();
 
   const progress = window.KupiMotion?.calculateSectionProgress(window.scrollY, studioRailSectionAnchors) ?? 0;
-  studioRailProgress.style.setProperty('--rail-progress', String(progress));
-  studioRailProgress.style.setProperty('--rail-progress-height', `${progress * 100}%`);
+  if (window.KupiMotion?.renderRailProgress) window.KupiMotion.renderRailProgress(studioRailProgress, progress);
+  else studioRailProgress.style.transform = `scaleY(${progress})`;
 }
 
 function scheduleStudioRailProgress({ recalculate = false } = {}) {
@@ -406,7 +393,11 @@ if ('IntersectionObserver' in window && studioRailSections.length) {
 }
 
 if (studioRailProgress && studioRailSections.length > 1) {
-  studioRailProgress.style.transition = 'none';
+  window.KupiMotion?.configureScrollPerformance?.({
+    rail: studioRail,
+    progress: studioRailProgress,
+    lazyImages: document.querySelectorAll('img[loading="lazy"]')
+  });
   scheduleStudioRailProgress({ recalculate: true });
   window.addEventListener('scroll', () => scheduleStudioRailProgress(), { passive: true });
   window.addEventListener('resize', () => scheduleStudioRailProgress({ recalculate: true }), { passive: true });

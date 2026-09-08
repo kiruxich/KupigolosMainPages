@@ -7,13 +7,23 @@ const require = createRequire(import.meta.url);
 let createMotionScheduler;
 let calculateSectionProgress;
 let calculateRevealRange;
+let configureScrollPerformance;
+let renderRailProgress;
 
 try {
-  ({ createMotionScheduler, calculateSectionProgress, calculateRevealRange } = require(resolve(import.meta.dirname, '..', 'motion-scheduler.js')));
+  ({
+    createMotionScheduler,
+    calculateSectionProgress,
+    calculateRevealRange,
+    configureScrollPerformance,
+    renderRailProgress,
+  } = require(resolve(import.meta.dirname, '..', 'motion-scheduler.js')));
 } catch {
   createMotionScheduler = undefined;
   calculateSectionProgress = undefined;
   calculateRevealRange = undefined;
+  configureScrollPerformance = undefined;
+  renderRailProgress = undefined;
 }
 
 function createHarness({ frameMs = 1000 / 60 } = {}) {
@@ -108,4 +118,31 @@ test('staggered reveal ranges stay ordered without growing unbounded', () => {
   assert.deepEqual(calculateRevealRange(2), { start: '13%', end: '79%' });
   assert.deepEqual(calculateRevealRange(20), { start: '18%', end: '84%' });
   assert.deepEqual(calculateRevealRange(-3), { start: '8%', end: '74%' });
+});
+
+test('rail progress uses compositor transforms instead of layout height', () => {
+  assert.equal(typeof renderRailProgress, 'function', 'rail progress renderer is not implemented');
+  const style = { transform: '', height: 'unchanged' };
+
+  renderRailProgress({ style }, 0.42);
+
+  assert.equal(style.transform, 'scaleY(0.42)');
+  assert.equal(style.height, 'unchanged', 'scroll updates must not mutate layout height');
+});
+
+test('scroll surfaces avoid fixed blur and decode lazy images asynchronously', () => {
+  assert.equal(typeof configureScrollPerformance, 'function', 'scroll performance configuration is not implemented');
+  const rail = { style: {} };
+  const progress = { style: {} };
+  const images = [{ decoding: 'auto' }, { decoding: 'auto' }];
+
+  configureScrollPerformance({ rail, progress, lazyImages: images });
+
+  assert.equal(rail.style.backdropFilter, 'none');
+  assert.equal(rail.style.webkitBackdropFilter, 'none');
+  assert.equal(progress.style.height, 'auto');
+  assert.equal(progress.style.bottom, '0px');
+  assert.equal(progress.style.transition, 'none');
+  assert.equal(progress.style.willChange, 'transform');
+  assert.deepEqual(images.map((image) => image.decoding), ['async', 'async']);
 });

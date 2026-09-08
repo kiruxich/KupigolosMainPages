@@ -197,9 +197,9 @@ if (!failures.length) {
   check(js.includes('function setStudioRailSection(sectionId)') && js.includes('studioRailObserver'), 'js: studio navigation rail controller is missing');
   check(js.includes('calculateSectionProgress(window.scrollY, studioRailSectionAnchors)'), 'js: rail progress must interpolate continuously between section anchors');
   check(js.includes("window.addEventListener('scroll', () => scheduleStudioRailProgress()"), 'js: rail progress must update throughout scrolling');
-  check(js.includes("CSS.supports('animation-timeline: view()')") && js.includes("item.dataset.scrollReveal = ''"), 'js: native scroll-driven reveal enhancement is missing');
+  check(!js.includes("CSS.supports('animation-timeline: view()')") && !js.includes("item.dataset.scrollReveal = ''"), 'js: reveal items must avoid continuous scroll-driven animation work');
   check(!js.includes('window.scrollY / scrollableHeight'), 'js: rail progress must not use whole-document scroll percentage');
-  check(js.includes("setProperty('--rail-progress-height'"), 'js: rail progress must set height without compressing its tick pattern');
+  check(js.includes('KupiMotion.renderRailProgress') && !js.includes("setProperty('--rail-progress-height'"), 'js: rail progress must use a compositor transform instead of layout height updates');
   check(!js.includes('data-featured-picker') && !js.includes('data-featured-play'), 'js: removed featured voice picker remains');
   check(!js.includes('data-ai-picker') && !js.includes('fitAiModelName'), 'js: removed AI model controller remains');
   check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: voice carousel controls are missing');
