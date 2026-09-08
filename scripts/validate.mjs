@@ -23,7 +23,21 @@ if (!failures.length) {
   const css = readFileSync(paths.css, 'utf8');
   const refresh = readFileSync(paths.refresh, 'utf8');
   const js = readFileSync(paths.js, 'utf8');
+  const stripTags = (value) => value
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
   const h1Count = (html.match(/<h1\b/gi) || []).length;
+  const heroVariantMatches = [...html.matchAll(/<section\b[^>]*data-hero-variant(?:="[^"]*")?[^>]*>[\s\S]*?<\/section>/gi)]
+    .map((match) => ({
+      html: match[0],
+      index: match.index ?? -1,
+      endIndex: (match.index ?? -1) + match[0].length,
+      text: stripTags(match[0]),
+    }));
+  const voicesSectionMatch = html.match(/<section\b[^>]*id="voices"[^>]*>/i);
   const requiredSections = [
     'start', 'voices', 'ai-services', 'about', 'services', 'portfolio',
     'calculator', 'advantages', 'guarantees', 'process', 'reviews',
@@ -52,12 +66,34 @@ if (!failures.length) {
   check(!/data-theme-option=/.test(html), 'html: obsolete theme switcher is still present');
   check(!/class="theme-dock"/.test(html), 'html: obsolete theme dock is still present');
   check(!/class="marquee"/.test(html), 'html: decorative marquee is still present');
-  check((html.match(/class="top-stage hero-product"/g) || []).length === 1, 'html: expected one product hero');
-  check(!/data-hero-option|hero-option-backdrop|data-hero-blur-input/.test(html), 'html: obsolete hero comparison controls remain');
-  check((html.match(/class="hero-proof"/g) || []).length === 3, 'html: expected three hero proof items');
-  check(/class="hero-studio-visual"/.test(html), 'html: informative studio visual is missing');
-  check(/href="#voices"[\s\S]*?Выбрать диктора/.test(html), 'html: primary hero action is missing');
-  check(/href="#calculator"[\s\S]*?Рассчитать стоимость/.test(html), 'html: secondary hero action is missing');
+  check(heroVariantMatches.length === 3, `html: expected exactly three hero sections via [data-hero-variant], found ${heroVariantMatches.length}`);
+  check(!/data-hero-option|hero-option-|hero-option-label|hero-option-id|Вариант\s*\d+/iu.test(html), 'html: option labels remain');
+  check(!/data-hero-blur-control|data-hero-blur-input|data-hero-blur-output|hero-blur-control/iu.test(html), 'html: hero blur controls remain');
+  check(!/class="hero-proof"/.test(html), 'html: proof statistics remain');
+  check(!/<form\b[^>]*action="(?!mailto:)[^"]+"/i.test(html), 'html: backend form submission remains');
+  if (heroVariantMatches.length === 3) {
+    const heroCopy = {
+      kicker: 'Профессиональная',
+      title: 'Студия озвучивания в Москве',
+      lead: 'Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.',
+      cta: 'Выбрать диктора',
+    };
+    heroVariantMatches.forEach(({ html: sectionHtml, text }, index) => {
+      const heroNumber = index + 1;
+      check(text.includes(heroCopy.kicker), `html: hero ${heroNumber} is missing the original kicker`);
+      check(text.includes(heroCopy.title), `html: hero ${heroNumber} is missing the original title`);
+      check(text.includes(heroCopy.lead), `html: hero ${heroNumber} is missing the original lead`);
+      check(text.includes(heroCopy.cta) && sectionHtml.includes('href="#voices"'), `html: hero ${heroNumber} is missing the original CTA link to #voices`);
+      check(heroNumber === 1 ? /<h1\b/i.test(sectionHtml) : /<h2\b/i.test(sectionHtml), `html: hero ${heroNumber} has the wrong title level`);
+    });
+    for (const asset of ['assets/hero-studio.jpg', 'assets/hero-console.jpg', 'assets/hero-script.jpg']) {
+      check(heroVariantMatches.some(({ html: sectionHtml }) => sectionHtml.includes(asset)), `html: hero comparison is missing ${asset}`);
+    }
+    check(Boolean(voicesSectionMatch), 'html: #voices section is missing');
+    if (voicesSectionMatch) {
+      check((voicesSectionMatch.index ?? -1) > heroVariantMatches[2].endIndex, 'html: #voices must occur after the third hero');
+    }
+  }
   check(!/assets\/[12]\.png/.test(html) && !/class="top-hero-microphone"/.test(html), 'html: retired atomic hero artwork remains');
   check((html.match(/data-header-trigger=/g) || []).length === 3, 'html: expected three desktop mega-menu triggers');
   check((html.match(/data-header-panel=/g) || []).length === 3, 'html: expected three desktop mega menus');
@@ -92,7 +128,6 @@ if (!failures.length) {
   check(/class="service-index/.test(html), 'html: crawlable service index is missing');
   check((html.match(/class="voice-directory-links"[\s\S]*?<\/div>/)?.[0].match(/<a href=/g) || []).length === 19, 'html: expected 19 crawlable featured voice links');
   check((html.match(/class="service-index-groups"[\s\S]*?<\/nav>/)?.[0].match(/<a href=/g) || []).length >= 19, 'html: service index must expose the live service taxonomy');
-  check(/action="mailto:info@kupigolos\.ru"/.test(html), 'html: contact form must have an honest static-site delivery path');
   check((html.match(/\brequired\b/g) || []).length >= 3, 'html: contact fields must be required');
   check(!/[\u2013\u2014]/.test(html), 'html: en/em dash detected');
 
@@ -116,15 +151,12 @@ if (!failures.length) {
   }
   check(css.includes('prefers-reduced-motion'), 'css: reduced-motion support is missing');
   check(css.includes(':focus-visible'), 'css: visible focus styles are missing');
-  check(css.includes('.top-stage') && css.includes('.top-hero'), 'css: opening layout styles are missing');
-  check(css.includes('.top-stage-backdrop') && css.includes('.site-menu'), 'css: base hero composition or menu panel styles are missing');
   check(!css.includes('assets/1.png') && !css.includes('top-hero-microphone'), 'css: retired atomic hero artwork remains');
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
-  check(refresh.includes('.hero-cta') && !refresh.includes('.cta-option-clear') && !refresh.includes('.cta-option-orbit'), 'refresh: final hero CTA is missing or comparison styles remain');
-  check(refresh.includes('.hero-product-grid') && refresh.includes('.hero-studio-visual'), 'refresh: product hero styles are missing');
   check(!refresh.includes('.hero-concepts-stage') && !refresh.includes('.hero-concept-preview'), 'refresh: old miniature hero comparison styles remain');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
-  check(/\.studio-rail:is\(:hover, :focus-within\)/.test(refresh), 'refresh: expandable rail state is missing');
+  check(!/\.studio-rail:is\(:hover, :focus-within\)/.test(refresh), 'refresh: rail expansion selectors remain');
+  check(!refresh.includes('.hero-blur-control') && !refresh.includes('--hero-blur-fill'), 'refresh: hero blur controls remain');
   check(refresh.includes('.figma-voices-panel') && refresh.includes('.figma-voice-card') && !refresh.includes('.featured-layout'), 'refresh: Figma voice section is incomplete or featured voice block remains');
   check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');
   check(refresh.includes('.ai-tool-grid') && refresh.includes('.ai-tool-card-video') && refresh.includes('.ai-toolkit-facts'), 'refresh: AI tool section treatment is incomplete');
