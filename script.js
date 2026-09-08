@@ -267,14 +267,13 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
 const supportsAudio = 'HTMLAudioElement' in window;
 const audio = new Audio();
 audio.preload = 'none';
-const audioButtons = [...document.querySelectorAll('[data-audio-src]')];
 const audioToast = document.querySelector('[data-audio-toast]');
 const audioName = document.querySelector('[data-audio-name]');
 const audioStop = document.querySelector('[data-audio-stop]');
 let activeAudioButton = null;
 
 function resetAudioUI() {
-  audioButtons.forEach((button) => button.classList.remove('is-playing'));
+  document.querySelectorAll('[data-audio-src].is-playing').forEach((button) => button.classList.remove('is-playing'));
   audioToast?.classList.remove('is-visible');
   document.body.classList.remove('is-audio-playing');
   activeAudioButton = null;
@@ -304,7 +303,15 @@ async function toggleAudio(button) {
   }
 }
 
-audioButtons.forEach((button) => button.addEventListener('click', () => toggleAudio(button)));
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-audio-src]');
+  if (button) toggleAudio(button);
+});
+document.addEventListener('voice-deck-change', (event) => {
+  if (!activeAudioButton || !event.target.contains(activeAudioButton)) return;
+  audio.pause();
+  resetAudioUI();
+});
 audio.addEventListener('ended', resetAudioUI);
 audio.addEventListener('error', resetAudioUI);
 audioStop?.addEventListener('click', () => {
@@ -455,27 +462,31 @@ document.querySelectorAll('[data-scroll-for]').forEach((control) => {
 
 window.addEventListener('resize', () => voiceScrollTracks.forEach(syncVoiceScroll));
 
+// Names, roles and demos: kupigolos.ru; advertising rates verified in each profile on 2026-09-08.
 const voiceSlides = [
-  { name: 'Сергей Набиев', role: 'телекана Матч ТВ', audio: 'https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3', image: 'https://img.kupigolos.ru/voice/61a461e1de9cd.jpg?p=v&s=3fbcf7e49f147e530b81740014f7b24e', href: 'https://kupigolos.ru/diktory/nabiev-sergej' },
-  { name: 'Алексей Колган', role: 'Шрека', audio: 'https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3', image: 'assets/voices/alexey-kolgan-v2.jpg', href: 'https://kupigolos.ru/diktory/kolgan-aleksej' },
-  { name: 'Елена Соловьёва', role: 'телекана Домашний', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ce5485d99.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&s=f244e003b3a897c0ead731679fbb4d4a', href: 'https://kupigolos.ru/diktory/soloveva-elena' },
-  { name: 'Александр Головчанский', role: 'Шерлока Холмса', audio: 'https://storage.kupigolos.ru/audio/demo/58c157649caee.mp3', image: 'https://img.kupigolos.ru/voice/61a3c8f91b460.jpg?p=v&s=2f50143fd1e19489787236a415e155c6', href: 'https://kupigolos.ru/diktory/golovchanskij-aleksandr' },
-  { name: 'Ольга Плетнёва', role: 'Умы Турман', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d0682f142.mp3', image: 'https://img.kupigolos.ru/voice/5e80e73203a16.jpg?p=v&s=6f8b49e7b80d9850d948c54a43d35446', href: 'https://kupigolos.ru/diktory/pletneva-olga' },
-  { name: 'Владимир Ерёмин', role: 'Аль Пачино', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ccd6d0fc4.mp3', image: 'https://img.kupigolos.ru/voice/5ab95307ee237.jpg?p=v&s=58c0d1ec10c31d9a56ea8a201d5bc63a', href: 'https://kupigolos.ru/diktory/eremin-vladimir' },
-  { name: 'Пётр Иващенко', role: 'Дэдпула', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d0efd410d.mp3', image: 'https://img.kupigolos.ru/voice/5e80d69a61a3b.jpg?p=v&s=385198074237323c70db657ce3c806fa', href: 'https://kupigolos.ru/diktory/ivashchenko-petr' },
-  { name: 'Игорь Старосельцев', role: 'Моргана Фримена', audio: 'https://storage.kupigolos.ru/audio/demo/592d35f316a2e.mp3', image: 'https://img.kupigolos.ru/voice/65e5e2327ec24.jpeg?p=v&s=555624c6649af5f6f6ec28dbdb081fd3', href: 'https://kupigolos.ru/diktory/staroselcev-igor' },
-  { name: 'Владимир Зайцев', role: 'Роберта Дауни младшего', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ccf1118e9.mp3', image: 'https://img.kupigolos.ru/voice/5ab7eec080324.jpg?p=v&s=c57bca7a82ee501a56531885a74025a9', href: 'https://kupigolos.ru/diktory/zajcev-vladimir' },
-  { name: 'Всеволод Полищук', role: 'телеканала ТНТ', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cd4dd0fce.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f4dea8e64.jpg?p=v&s=1f2fc2853a3aa7e2dfbea0be30242a34', href: 'https://kupigolos.ru/diktory/polishchuk-vsevolod' },
-  { name: 'Руслан Габидуллин', role: 'студии «Кубик в Кубе»', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d125d82d3.mp3', image: 'https://img.kupigolos.ru/voice/5abaaf329e737.jpg?p=v&s=9a5ed390b68dcc96a6aafc395a2cb931', href: 'https://kupigolos.ru/diktory/gabidullin-ruslan' },
-  { name: 'Илья Исаев', role: 'Тома Харди и Майкла Фассбендера', audio: 'https://storage.kupigolos.ru/audio/demo/592d2e96026d5.mp3', image: 'https://img.kupigolos.ru/voice/5aba34090931d.jpg?p=v&s=63d4d22e2593d73e7612e0fb186b5a36', href: 'https://kupigolos.ru/diktory/isaev-ilya' },
-  { name: 'Артём Кретов', role: 'телеканала РЕН ТВ', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cbee0977e.mp3', image: 'https://img.kupigolos.ru/voice/5f8e9ded2f683.jpg?p=v&s=b8d4521e18df7875c1bee78ce1ab1eae', href: 'https://kupigolos.ru/diktory/kretov-artem' },
-  { name: 'Владимир Антоник', role: 'Сильвестра Сталлоне', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cc74296ef.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f51c5a644.jpg?p=v&s=dc2dec602a793299380b01373ae079b3', href: 'https://kupigolos.ru/diktory/antonik-vladimir' },
-  { name: 'Сергей Чонишвили', role: 'телеканала СТС и Вина Дизеля', audio: 'https://storage.kupigolos.ru/audio/demo/5881cd5a01f49.mp3', image: 'https://img.kupigolos.ru/voice/5cf2ffb54368b.jpeg?p=v&s=35f1168c623d6b99834de2b7aa0d7164', href: 'https://kupigolos.ru/diktory/chonishvili-sergej' },
-  { name: 'Татьяна Шитова', role: 'Алисы от Яндекса', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d1b1252a6.mp3', image: 'https://img.kupigolos.ru/voice/5bbdea87a8583.jpg?p=v&s=818dc8a6499df88ad1db6f39f2d80f24', href: 'https://kupigolos.ru/diktory/shitova-tatyana' },
-  { name: 'Юрий Брежнев', role: 'Дуэйна Джонсона', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3', image: 'https://img.kupigolos.ru/voice/5ab7eaad3fa32.jpg?p=v&s=45c5ab64052966222d905b15e85e2220', href: 'https://kupigolos.ru/diktory/brezhnev-yurij' },
-  { name: 'Алексей Неклюдов', role: 'Первого канала', audio: 'https://storage.kupigolos.ru/audio/demo/5f68c9f442274.mp3', image: 'https://img.kupigolos.ru/voice/5ab8efd6cd064.jpeg?p=v&s=f2891789b450278af99e37def5ce510c', href: 'https://kupigolos.ru/diktory/neklyudov-aleksej' },
-  { name: 'Борис Репетур', role: '«Галилео»', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cc3a12082.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f4a78a84b.jpg?p=v&s=d633c52ab79603d901693a59ac3822eb', href: 'https://kupigolos.ru/diktory/repetur-boris' },
+  { name: 'Сергей Набиев', role: 'телеканала Матч ТВ', audio: 'https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3', image: 'https://img.kupigolos.ru/voice/61a461e1de9cd.jpg?p=v&s=3fbcf7e49f147e530b81740014f7b24e', href: 'https://kupigolos.ru/diktory/nabiev-sergej', price: 'Реклама от 20 000 ₽' },
+  { name: 'Алексей Колган', role: 'Шрека', audio: 'https://storage.kupigolos.ru/audio/demo/58986e384c0f0.mp3', image: 'assets/voices/alexey-kolgan-v2.jpg', href: 'https://kupigolos.ru/diktory/kolgan-aleksej', price: 'Цена договорная' },
+  { name: 'Елена Соловьёва', role: 'телеканала Домашний', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ce5485d99.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f6e512c0d.jpeg?p=v&s=f244e003b3a897c0ead731679fbb4d4a', href: 'https://kupigolos.ru/diktory/soloveva-elena', price: 'Реклама от 20 000 ₽' },
+  { name: 'Александр Головчанский', role: 'Шерлока Холмса', audio: 'https://storage.kupigolos.ru/audio/demo/58c157649caee.mp3', image: 'https://img.kupigolos.ru/voice/61a3c8f91b460.jpg?p=v&s=2f50143fd1e19489787236a415e155c6', href: 'https://kupigolos.ru/diktory/golovchanskij-aleksandr', price: 'Реклама от 20 000 ₽' },
+  { name: 'Ольга Плетнёва', role: 'Умы Турман', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d0682f142.mp3', image: 'https://img.kupigolos.ru/voice/5e80e73203a16.jpg?p=v&s=6f8b49e7b80d9850d948c54a43d35446', href: 'https://kupigolos.ru/diktory/pletneva-olga', price: 'Цена договорная' },
+  { name: 'Владимир Ерёмин', role: 'Аль Пачино', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ccd6d0fc4.mp3', image: 'https://img.kupigolos.ru/voice/5ab95307ee237.jpg?p=v&s=58c0d1ec10c31d9a56ea8a201d5bc63a', href: 'https://kupigolos.ru/diktory/eremin-vladimir', price: 'Реклама от 31 000 ₽' },
+  { name: 'Пётр Иващенко', role: 'Дэдпула', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d0efd410d.mp3', image: 'https://img.kupigolos.ru/voice/5e80d69a61a3b.jpg?p=v&s=385198074237323c70db657ce3c806fa', href: 'https://kupigolos.ru/diktory/ivashchenko-petr', price: 'Реклама от 18 000 ₽' },
+  { name: 'Игорь Старосельцев', role: 'Моргана Фримена', audio: 'https://storage.kupigolos.ru/audio/demo/592d35f316a2e.mp3', image: 'https://img.kupigolos.ru/voice/65e5e2327ec24.jpeg?p=v&s=555624c6649af5f6f6ec28dbdb081fd3', href: 'https://kupigolos.ru/diktory/staroselcev-igor', price: 'Реклама от 14 000 ₽' },
+  { name: 'Владимир Зайцев', role: 'Роберта Дауни младшего', audio: 'https://storage.kupigolos.ru/audio/demo/5f68ccf1118e9.mp3', image: 'https://img.kupigolos.ru/voice/5ab7eec080324.jpg?p=v&s=c57bca7a82ee501a56531885a74025a9', href: 'https://kupigolos.ru/diktory/zajcev-vladimir', price: 'Цена договорная' },
+  { name: 'Всеволод Полищук', role: 'телеканала ТНТ', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cd4dd0fce.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f4dea8e64.jpg?p=v&s=1f2fc2853a3aa7e2dfbea0be30242a34', href: 'https://kupigolos.ru/diktory/polishchuk-vsevolod', price: 'Реклама от 10 000 ₽' },
+  { name: 'Руслан Габидуллин', role: 'студии «Кубик в Кубе»', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d125d82d3.mp3', image: 'https://img.kupigolos.ru/voice/5abaaf329e737.jpg?p=v&s=9a5ed390b68dcc96a6aafc395a2cb931', href: 'https://kupigolos.ru/diktory/gabidullin-ruslan', price: 'Реклама от 50 000 ₽' },
+  { name: 'Илья Исаев', role: 'Тома Харди и Майкла Фассбендера', audio: 'https://storage.kupigolos.ru/audio/demo/592d2e96026d5.mp3', image: 'https://img.kupigolos.ru/voice/5aba34090931d.jpg?p=v&s=63d4d22e2593d73e7612e0fb186b5a36', href: 'https://kupigolos.ru/diktory/isaev-ilya', price: 'Реклама от 20 000 ₽' },
+  { name: 'Артём Кретов', role: 'телеканала РЕН ТВ', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cbee0977e.mp3', image: 'https://img.kupigolos.ru/voice/5f8e9ded2f683.jpg?p=v&s=b8d4521e18df7875c1bee78ce1ab1eae', href: 'https://kupigolos.ru/diktory/kretov-artem', price: 'Реклама от 14 000 ₽' },
+  { name: 'Владимир Антоник', role: 'Сильвестра Сталлоне', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cc74296ef.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f51c5a644.jpg?p=v&s=dc2dec602a793299380b01373ae079b3', href: 'https://kupigolos.ru/diktory/antonik-vladimir', price: 'Реклама от 30 000 ₽' },
+  { name: 'Сергей Чонишвили', role: 'телеканала СТС и Вина Дизеля', audio: 'https://storage.kupigolos.ru/audio/demo/5881cd5a01f49.mp3', image: 'https://img.kupigolos.ru/voice/5cf2ffb54368b.jpeg?p=v&s=35f1168c623d6b99834de2b7aa0d7164', href: 'https://kupigolos.ru/diktory/chonishvili-sergej', price: 'Реклама от 16 000 ₽' },
+  { name: 'Татьяна Шитова', role: 'Алисы от Яндекса', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d1b1252a6.mp3', image: 'https://img.kupigolos.ru/voice/5bbdea87a8583.jpg?p=v&s=818dc8a6499df88ad1db6f39f2d80f24', href: 'https://kupigolos.ru/diktory/shitova-tatyana', price: 'Цена договорная' },
+  { name: 'Юрий Брежнев', role: 'Дуэйна Джонсона', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d1d2e6c93.mp3', image: 'https://img.kupigolos.ru/voice/5ab7eaad3fa32.jpg?p=v&s=45c5ab64052966222d905b15e85e2220', href: 'https://kupigolos.ru/diktory/brezhnev-yurij', price: 'Реклама от 20 000 ₽' },
+  { name: 'Алексей Неклюдов', role: 'Первого канала', audio: 'https://storage.kupigolos.ru/audio/demo/5f68c9f442274.mp3', image: 'https://img.kupigolos.ru/voice/5ab8efd6cd064.jpeg?p=v&s=f2891789b450278af99e37def5ce510c', href: 'https://kupigolos.ru/diktory/neklyudov-aleksej', price: 'Цена договорная' },
+  { name: 'Борис Репетур', role: '«Галилео»', audio: 'https://storage.kupigolos.ru/audio/demo/5f68cc3a12082.mp3', image: 'https://img.kupigolos.ru/voice/5ab8f4a78a84b.jpg?p=v&s=d633c52ab79603d901693a59ac3822eb', href: 'https://kupigolos.ru/diktory/repetur-boris', price: 'Реклама от 14 000 ₽' },
+  { name: 'Станислав Концевич', role: 'Николаса Кейджа и Тома Хэнкса', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d18f728bf.mp3', image: 'https://img.kupigolos.ru/voice/5aba04eae31bb.jpg?p=v&s=989349f8f67bdef18f41c704f8c09e65', href: 'https://kupigolos.ru/diktory/koncevich-stanislav', price: 'Реклама от 3 000 ₽' },
 ];
+
+window.KupiVoiceCatalog = voiceSlides;
 
 const voiceCarousel = document.querySelector('[data-voice-carousel]');
 const voiceImage = document.querySelector('[data-voice-image]');

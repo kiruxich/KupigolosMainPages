@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=section-flow-2">
   <link rel="stylesheet" href="refresh.css?v=section-flow-2">
-  <link rel="stylesheet" href="voices-refinement.css?v=voice-cards-1">
+  <link rel="stylesheet" href="voices-refinement.css?v=voice-fan-2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,8 +45,8 @@
   }
   </script>
   <script src="motion-scheduler.js?v=section-flow-2" defer></script>
-  <script src="script.js?v=section-flow-2" defer></script>
-  <script src="voices-carousel.js?v=voice-deck-1" defer></script>
+  <script src="script.js?v=voice-fan-2" defer></script>
+  <script src="voices-carousel.js?v=voice-fan-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -256,7 +256,7 @@
       <div class="shell">
         <div class="figma-voices-panel">
           <h2 id="voices-title">Дикторы</h2>
-          <div class="figma-voices-grid">
+          <div class="figma-voices-grid" id="voices-deck">
             <article class="figma-voice-card">
               <p class="figma-voice-role">Голос Шрека</p>
               <div class="figma-voice-body">
@@ -342,7 +342,17 @@
               </div>
             </article>
           </div>
-          <a class="figma-voices-cta" href="https://kupigolos.ru/diktory">Показать всех <span aria-hidden="true">→</span></a>
+          <div class="figma-voices-footer">
+            <a class="figma-voices-cta" href="https://kupigolos.ru/diktory">Показать всех <span aria-hidden="true">→</span></a>
+            <div class="figma-voices-deck-controls" aria-label="Управление каруселью дикторов">
+              <p class="figma-voices-deck-status" aria-live="polite"><span data-voice-deck-current>01</span><span aria-hidden="true"> / </span><span data-voice-deck-total>05</span></p>
+              <p class="figma-voices-deck-hint">Листайте карточки</p>
+              <div class="figma-voices-deck-actions">
+                <button type="button" data-voice-deck-prev aria-controls="voices-deck" aria-label="Предыдущий диктор"><span aria-hidden="true">←</span></button>
+                <button type="button" data-voice-deck-next aria-controls="voices-deck" aria-label="Следующий диктор"><span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

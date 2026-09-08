@@ -2,108 +2,81 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { runInNewContext } = require('node:vm');
+const deck = require('../voices-carousel.js');
 
-const voiceDeck = require('../voices-carousel.js');
-
-test('selects the card nearest the horizontal center of the deck', () => {
-  const cards = [
-    { getBoundingClientRect: () => ({ left: -170, width: 220 }) },
-    { getBoundingClientRect: () => ({ left: 70, width: 220 }) },
-    { getBoundingClientRect: () => ({ left: 310, width: 220 }) },
-  ];
-
-  assert.equal(typeof voiceDeck.getCenteredCardIndex, 'function');
-  assert.equal(
-    voiceDeck.getCenteredCardIndex(cards, { left: 0, width: 420 }),
-    1,
-  );
+test('all twenty cards retain unique slots and one centered card through a full cycle', () => {
+  for (let active = 0; active < 20; active++) {
+    const offsets = Array.from({ length: 20 }, (_, i) => deck.getDeckOffset(i, active, 20));
+    assert.equal(new Set(offsets).size, 20);
+    assert.equal(offsets[active], 0);
+    assert.equal(Math.min(...offsets), -10);
+    assert.equal(Math.max(...offsets), 9);
+  }
+  assert.equal(deck.getNextCardIndex(19, 1, 20), 0);
+  assert.equal(deck.getNextCardIndex(0, -1, 20), 19);
+  assert.equal(deck.getNextCardIndex(0, -41, 20), 19);
+  assert.equal(deck.getNextCardIndex(0, 1, 0), -1);
 });
 
-test('derives equal side padding so the active card can snap to center', () => {
-  assert.equal(typeof voiceDeck.getCenterPadding, 'function');
-  assert.equal(voiceDeck.getCenterPadding(640, 232), 204);
-  assert.equal(voiceDeck.getCenterPadding(220, 232), 0);
+test('fan reaches both edges, overlaps every neighbour and keeps the active card on top', () => {
+  for (const [width, cardWidth] of [[1450, 244], [940, 210], [343, 210], [256, 186]]) {
+    const layout = Array.from({ length: 20 }, (_, i) => deck.getDeckLayout(i - 10, 20, width, cardWidth));
+    const bounds = layout.map(({ x, scale }) => ({ left: width / 2 + x - cardWidth * scale / 2, right: width / 2 + x + cardWidth * scale / 2 }));
+    assert.ok(Math.abs(bounds[0].left) < .001);
+    assert.ok(Math.abs(bounds[19].right - width) < .001);
+    assert.equal(layout[10].x, 0);
+    assert.equal(layout[10].scale, 1);
+    for (let i = 0; i < 20; i++) {
+      assert.ok(bounds[i].left >= -.001 && bounds[i].right <= width + .001);
+      if (i !== 10) assert.ok(layout[i].layer < layout[10].layer);
+      if (i < 19) assert.ok(bounds[i].right > bounds[i + 1].left);
+    }
+  }
 });
 
-test('marks only the centered card as active', () => {
-  const createCard = (left) => {
+test('mounts once and handles arrows, direct selection and swipes without activating hidden controls', () => {
+  const listeners = {};
+  const windowListeners = {};
+  const previous = { addEventListener: (_, fn) => { listeners.previous = fn; } };
+  const next = { addEventListener: (_, fn) => { listeners.next = fn; } };
+  const current = { setAttribute() {} };
+  const total = {};
+  const cards = Array.from({ length: 20 }, (_, i) => {
     const classes = new Set();
-    const attributes = new Map();
-    return {
-      classList: {
-        toggle(name, enabled) {
-          if (enabled) classes.add(name);
-          else classes.delete(name);
-        },
-        contains(name) {
-          return classes.has(name);
-        },
-      },
-      getBoundingClientRect: () => ({ left, width: 220 }),
-      setAttribute(name, value) {
-        attributes.set(name, value);
-      },
-      removeAttribute(name) {
-        attributes.delete(name);
-      },
-      getAttribute(name) {
-        return attributes.get(name);
-      },
-    };
+    const body = {};
+    const attrs = new Map();
+    return { dataset: { voiceName: `Voice ${i}` }, offsetWidth: 232,
+      classList: { toggle: (k, v) => v ? classes.add(k) : classes.delete(k), contains: (k) => classes.has(k) },
+      style: { setProperty() {} }, contains: () => false,
+      setAttribute: (k, v) => attrs.set(k, v), removeAttribute: (k) => attrs.delete(k),
+      getAttribute: (k) => attrs.get(k), querySelector: () => body };
+  });
+  const panel = { querySelector: (sel) => ({ '[data-voice-deck-current]': current, '[data-voice-deck-total]': total, '[data-voice-deck-prev]': previous, '[data-voice-deck-next]': next })[sel] };
+  const track = { clientWidth: 1300, dataset: {}, querySelectorAll: () => cards,
+    closest: () => panel, setAttribute() {}, dispatchEvent() {},
+    addEventListener: (name, fn) => { listeners[name] = fn; } };
+  const document = { readyState: 'complete', querySelectorAll: () => [track] };
+  const window = { document, addEventListener: (name, fn) => { windowListeners[name] = fn; }, CustomEvent: class {} };
+  runInNewContext(readFileSync(require.resolve('../voices-carousel.js'), 'utf8'), { window });
+  const checkActive = (index) => {
+    assert.equal(track.dataset.activeCard, String(index + 1));
+    assert.equal(cards.filter(c => c.classList.contains('is-active')).length, 1);
+    assert.equal(cards[index].getAttribute('aria-current'), 'true');
+    cards.forEach((c, i) => assert.equal(c.querySelector().inert, i !== index));
   };
-  const cards = [createCard(-170), createCard(70), createCard(310)];
-  const track = {
-    dataset: {},
-    querySelectorAll: () => cards,
-    getBoundingClientRect: () => ({ left: 0, width: 420 }),
-  };
-
-  assert.equal(typeof voiceDeck.syncActiveCard, 'function');
-  assert.equal(voiceDeck.syncActiveCard(track), 1);
-  assert.deepEqual(cards.map((card) => card.classList.contains('is-active')), [false, true, false]);
-  assert.equal(cards[1].getAttribute('aria-current'), 'true');
-  assert.equal(cards[0].getAttribute('aria-current'), undefined);
-});
-
-test('boots in a browser context and marks the first centered card active', () => {
-  const classes = new Set();
-  const card = {
-    classList: {
-      toggle(name, enabled) {
-        if (enabled) classes.add(name);
-        else classes.delete(name);
-      },
-      contains: (name) => classes.has(name),
-    },
-    getBoundingClientRect: () => ({ left: 90, width: 220 }),
-    offsetLeft: 90,
-    offsetWidth: 220,
-    setAttribute() {},
-    removeAttribute() {},
-  };
-  const track = {
-    clientWidth: 400,
-    dataset: {},
-    style: { setProperty() {} },
-    querySelectorAll: () => [card],
-    getBoundingClientRect: () => ({ left: 0, width: 400 }),
-    setAttribute() {},
-    addEventListener() {},
-  };
-  const document = {
-    readyState: 'complete',
-    querySelectorAll: () => [track],
-  };
-  const window = {
-    document,
-    requestAnimationFrame(callback) {
-      callback();
-      return 1;
-    },
-  };
-  const source = readFileSync(require.resolve('../voices-carousel.js'), 'utf8');
-
-  assert.doesNotThrow(() => runInNewContext(source, { window }));
-  assert.equal(track.dataset.voiceDeckReady, 'true');
-  assert.equal(classes.has('is-active'), true);
+  checkActive(10);
+  assert.equal(total.textContent, '20');
+  listeners.next(); checkActive(11);
+  listeners.previous(); checkActive(10);
+  listeners.keydown({ key: 'Home', preventDefault() {} }); checkActive(0);
+  listeners.keydown({ key: 'ArrowLeft', preventDefault() {} }); checkActive(19);
+  listeners.keydown({ key: 'ArrowRight', preventDefault() {} }); checkActive(0);
+  listeners.click({ target: { closest: () => cards[4] }, preventDefault() {}, stopPropagation() {} }); checkActive(4);
+  listeners.pointerdown({ button: 0, clientX: 200, clientY: 100, pointerId: 1 });
+  windowListeners.pointerup({ clientX: 100, clientY: 104, pointerId: 1 }); checkActive(5);
+  listeners.click({ preventDefault() {}, stopPropagation() {} }); checkActive(5);
+  // Vertical page scrolling must not change the selected voice.
+  listeners.pointerdown({ button: 0, clientX: 200, clientY: 100, pointerId: 1 });
+  windowListeners.pointerup({ clientX: 170, clientY: 250, pointerId: 1 }); checkActive(5);
+  deck.mountVoiceDecks(document); checkActive(5);
 });
