@@ -4,15 +4,66 @@ const navigation = document.querySelector('#site-nav');
 const pageHeader = document.querySelector('[data-header]');
 const headerTriggers = [...document.querySelectorAll('[data-header-trigger]')];
 const headerPanels = [...document.querySelectorAll('[data-header-panel]')];
+const headerPopoverTriggers = [...document.querySelectorAll('[data-header-popover-trigger]')];
+const headerPopovers = [...document.querySelectorAll('[data-header-popover]')];
+const headerUtilityMenu = document.querySelector('[data-header-utility]');
 const callbackOpeners = [...document.querySelectorAll('[data-callback-open]')];
+const orderOpeners = [...document.querySelectorAll('[data-order-open]')];
 const callbackDrawer = document.querySelector('[data-callback-drawer]');
+const orderModal = document.querySelector('[data-order-modal]');
 const mobileMenu = document.querySelector('[data-mobile-menu]');
 const siteOverlay = document.querySelector('[data-overlay]');
-const drawers = [callbackDrawer, mobileMenu].filter(Boolean);
+const drawers = [callbackDrawer, orderModal, mobileMenu].filter(Boolean);
 const pointerCanHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+const desktopHeader = window.matchMedia('(min-width: 901px)');
 let activeHeaderTrigger = null;
+let activeHeaderPopover = null;
 let activeDrawer = null;
 let activeDrawerOpener = null;
+let headerCloseTimer = 0;
+let popoverCloseTimer = 0;
+
+function closeHeaderPopovers({ restoreFocus = false } = {}) {
+  headerPopoverTriggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
+  headerPopovers.forEach((popover) => {
+    popover.classList.remove('is-open');
+    popover.setAttribute('aria-hidden', 'true');
+  });
+  if (restoreFocus) activeHeaderPopover?.focus();
+  activeHeaderPopover = null;
+}
+
+function closeUtilityMenu({ restoreFocus = false } = {}) {
+  if (!headerUtilityMenu) return;
+  headerUtilityMenu.classList.remove('is-open');
+  headerUtilityMenu.setAttribute('aria-hidden', 'true');
+  if (desktopHeader.matches) navToggle?.setAttribute('aria-expanded', 'false');
+  if (restoreFocus) navToggle?.focus();
+}
+
+function setHeaderPopover(name, isOpen) {
+  window.clearTimeout(popoverCloseTimer);
+  closeHeaderPopovers();
+  if (!isOpen) return;
+  closeHeaderPanels();
+  closeUtilityMenu();
+  const trigger = headerPopoverTriggers.find((item) => item.dataset.headerPopoverTrigger === name);
+  const popover = headerPopovers.find((item) => item.dataset.headerPopover === name);
+  if (!trigger || !popover) return;
+  activeHeaderPopover = trigger;
+  trigger.setAttribute('aria-expanded', 'true');
+  popover.classList.add('is-open');
+  popover.setAttribute('aria-hidden', 'false');
+}
+
+function setUtilityMenu(isOpen) {
+  if (!headerUtilityMenu) return;
+  closeHeaderPanels();
+  closeHeaderPopovers();
+  headerUtilityMenu.classList.toggle('is-open', isOpen);
+  headerUtilityMenu.setAttribute('aria-hidden', String(!isOpen));
+  navToggle?.setAttribute('aria-expanded', String(isOpen));
+}
 
 function closeHeaderPanels({ restoreFocus = false } = {}) {
   headerTriggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
@@ -28,6 +79,8 @@ function openHeaderPanel(panelName) {
   const trigger = headerTriggers.find((item) => item.dataset.headerTrigger === panelName);
   const panel = headerPanels.find((item) => item.dataset.headerPanel === panelName);
   closeHeaderPanels();
+  closeHeaderPopovers();
+  closeUtilityMenu();
   if (!trigger || !panel) return;
   activeHeaderTrigger = trigger;
   trigger.setAttribute('aria-expanded', 'true');
@@ -46,11 +99,14 @@ function setDrawer(drawer, isOpen, trigger = null, { restoreFocus = false } = {}
 
   if (isOpen) {
     closeHeaderPanels();
+    closeHeaderPopovers();
+    closeUtilityMenu();
     drawers.forEach((item) => {
       item.classList.remove('is-open');
       item.setAttribute('aria-hidden', 'true');
     });
     callbackOpeners.forEach((item) => item.setAttribute('aria-expanded', String(drawer === callbackDrawer)));
+    orderOpeners.forEach((item) => item.setAttribute('aria-expanded', String(drawer === orderModal)));
     navToggle?.setAttribute('aria-expanded', String(drawer === mobileMenu));
     activeDrawer = drawer;
     activeDrawerOpener = trigger?.closest('[data-mobile-menu]') ? navToggle : trigger;
@@ -64,6 +120,7 @@ function setDrawer(drawer, isOpen, trigger = null, { restoreFocus = false } = {}
   drawer.classList.remove('is-open');
   drawer.setAttribute('aria-hidden', 'true');
   callbackOpeners.forEach((item) => item.setAttribute('aria-expanded', 'false'));
+  orderOpeners.forEach((item) => item.setAttribute('aria-expanded', 'false'));
   navToggle?.setAttribute('aria-expanded', 'false');
   const focusTarget = activeDrawerOpener;
   if (activeDrawer === drawer) {
@@ -81,7 +138,44 @@ headerTriggers.forEach((trigger) => {
     else openHeaderPanel(trigger.dataset.headerTrigger);
   });
   trigger.addEventListener('mouseenter', () => {
+    window.clearTimeout(headerCloseTimer);
     if (pointerCanHover.matches) openHeaderPanel(trigger.dataset.headerTrigger);
+  });
+});
+
+function scheduleHeaderClose() {
+  window.clearTimeout(headerCloseTimer);
+  headerCloseTimer = window.setTimeout(() => closeHeaderPanels(), 130);
+}
+
+pageHeader?.addEventListener('mouseleave', () => {
+  if (pointerCanHover.matches && activeHeaderTrigger) scheduleHeaderClose();
+});
+
+const headerMegaLayer = document.querySelector('.header-mega-layer');
+headerMegaLayer?.addEventListener('mouseenter', () => window.clearTimeout(headerCloseTimer));
+headerMegaLayer?.addEventListener('mouseleave', () => {
+  if (pointerCanHover.matches) scheduleHeaderClose();
+});
+
+headerPopoverTriggers.forEach((trigger) => {
+  const wrapper = trigger.closest('.header-popover');
+  trigger.addEventListener('click', (event) => {
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    if (pointerCanHover.matches && event.detail > 0) {
+      if (!isOpen) setHeaderPopover(trigger.dataset.headerPopoverTrigger, true);
+      return;
+    }
+    setHeaderPopover(trigger.dataset.headerPopoverTrigger, !isOpen);
+  });
+  wrapper?.addEventListener('mouseenter', () => {
+    window.clearTimeout(popoverCloseTimer);
+    if (pointerCanHover.matches) setHeaderPopover(trigger.dataset.headerPopoverTrigger, true);
+  });
+  wrapper?.addEventListener('mouseleave', () => {
+    if (!pointerCanHover.matches) return;
+    window.clearTimeout(popoverCloseTimer);
+    popoverCloseTimer = window.setTimeout(() => closeHeaderPopovers(), 130);
   });
 });
 
@@ -94,11 +188,17 @@ navigation?.addEventListener('click', (event) => {
 });
 
 navToggle?.addEventListener('click', () => {
-  setDrawer(mobileMenu, navToggle.getAttribute('aria-expanded') !== 'true', navToggle, { restoreFocus: true });
+  const shouldOpen = navToggle.getAttribute('aria-expanded') !== 'true';
+  if (desktopHeader.matches) setUtilityMenu(shouldOpen);
+  else setDrawer(mobileMenu, shouldOpen, navToggle, { restoreFocus: true });
 });
 
 callbackOpeners.forEach((trigger) => trigger.addEventListener('click', () => {
   setDrawer(callbackDrawer, true, trigger);
+}));
+
+orderOpeners.forEach((trigger) => trigger.addEventListener('click', () => {
+  setDrawer(orderModal, true, trigger);
 }));
 
 document.querySelectorAll('[data-drawer-close]').forEach((button) => {
@@ -114,17 +214,27 @@ siteOverlay?.addEventListener('click', () => {
 });
 
 document.addEventListener('click', (event) => {
-  if (!activeHeaderTrigger) return;
-  if (event.target.closest('[data-header-trigger], [data-header-panel]')) return;
-  closeHeaderPanels();
+  if (activeHeaderTrigger && !event.target.closest('[data-header-trigger], [data-header-panel]')) closeHeaderPanels();
+  if (activeHeaderPopover && !event.target.closest('.header-popover')) closeHeaderPopovers();
+  if (headerUtilityMenu?.classList.contains('is-open') && !event.target.closest('[data-header-utility], .nav-toggle')) closeUtilityMenu();
 });
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     if (activeDrawer) setDrawer(activeDrawer, false, null, { restoreFocus: true });
     else if (activeHeaderTrigger) closeHeaderPanels({ restoreFocus: true });
+    else if (activeHeaderPopover) closeHeaderPopovers({ restoreFocus: true });
+    else if (headerUtilityMenu?.classList.contains('is-open')) closeUtilityMenu({ restoreFocus: true });
   }
 });
+
+function syncNavToggleTarget() {
+  navToggle?.setAttribute('aria-controls', desktopHeader.matches ? 'header-utility-menu' : 'mobile-menu');
+  closeUtilityMenu();
+}
+
+desktopHeader.addEventListener('change', syncNavToggleTarget);
+syncNavToggleTarget();
 
 function syncHeaderTone() {
   if (!pageHeader) return;
@@ -141,7 +251,21 @@ window.addEventListener('resize', syncHeaderTone, { passive: true });
 syncHeaderTone();
 
 const revealItems = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
+const supportsScrollDrivenReveal = typeof CSS !== 'undefined'
+  && CSS.supports('animation-timeline: view()');
+
+if (supportsScrollDrivenReveal && !reducedMotion.matches) {
+  const revealOrderBySection = new Map();
+  revealItems.forEach((item) => {
+    const section = item.closest('main > section') || item.parentElement;
+    const order = revealOrderBySection.get(section) || 0;
+    const range = window.KupiMotion?.calculateRevealRange(order) || { start: '8%', end: '74%' };
+    revealOrderBySection.set(section, order + 1);
+    item.dataset.scrollReveal = '';
+    item.style.setProperty('--reveal-entry-start', range.start);
+    item.style.setProperty('--reveal-entry-end', range.end);
+  });
+} else if ('IntersectionObserver' in window && !reducedMotion.matches) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -219,11 +343,71 @@ function setStudioRailSection(sectionId) {
     if (active) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');
   });
-  if (studioRailProgress) {
-    const denominator = Math.max(1, studioRailLinks.length - 1);
-    studioRailProgress.style.setProperty('--rail-progress', String(activeIndex / denominator));
-  }
   if (studioRailCurrent) studioRailCurrent.textContent = String(activeIndex + 1).padStart(2, '0');
+}
+
+let studioRailSectionAnchors = [];
+let studioRailProgressFrame = 0;
+
+function cacheStudioRailSectionAnchors() {
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  studioRailSectionAnchors = studioRailSections.map((section) => {
+    const scrollOffset = Number.parseFloat(getComputedStyle(section).scrollMarginTop) || 0;
+    const sectionY = section.getBoundingClientRect().top + window.scrollY - scrollOffset;
+    return Math.min(maxScroll, Math.max(0, sectionY));
+  });
+}
+
+function updateStudioRailProgress() {
+  studioRailProgressFrame = 0;
+  if (!studioRailProgress || studioRailSections.length < 2) return;
+  if (studioRailSectionAnchors.length !== studioRailSections.length) cacheStudioRailSectionAnchors();
+
+  const progress = window.KupiMotion?.calculateSectionProgress(window.scrollY, studioRailSectionAnchors) ?? 0;
+  studioRailProgress.style.setProperty('--rail-progress', String(progress));
+  studioRailProgress.style.setProperty('--rail-progress-height', `${progress * 100}%`);
+}
+
+function scheduleStudioRailProgress({ recalculate = false } = {}) {
+  if (recalculate) studioRailSectionAnchors = [];
+  if (!studioRailProgressFrame) studioRailProgressFrame = requestAnimationFrame(updateStudioRailProgress);
+}
+
+let studioRailScrollFrame = 0;
+let studioRailScrollTarget = '';
+
+function scrollStudioRailTo(target) {
+  if (studioRailScrollFrame) cancelAnimationFrame(studioRailScrollFrame);
+  if (reducedMotion.matches) {
+    target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    studioRailScrollTarget = '';
+    setStudioRailSection(target.id);
+    return;
+  }
+
+  const startY = window.scrollY;
+  const scrollOffset = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+  const targetY = Math.max(0, target.getBoundingClientRect().top + startY - scrollOffset);
+  const distance = targetY - startY;
+  const duration = Math.min(760, Math.max(440, Math.abs(distance) * .12));
+  const startedAt = performance.now();
+  studioRailScrollTarget = target.id;
+  window.scrollTo(0, startY);
+
+  const step = (now) => {
+    const progress = Math.min(1, (now - startedAt) / duration);
+    const eased = (1 - Math.cos(Math.PI * progress)) / 2;
+    window.scrollTo(0, startY + distance * eased);
+    if (progress < 1) {
+      studioRailScrollFrame = requestAnimationFrame(step);
+      return;
+    }
+    studioRailScrollFrame = 0;
+    studioRailScrollTarget = '';
+    setStudioRailSection(target.id);
+  };
+
+  studioRailScrollFrame = requestAnimationFrame(step);
 }
 
 studioRailLinks.forEach((link) => {
@@ -231,19 +415,26 @@ studioRailLinks.forEach((link) => {
     const target = document.getElementById(link.dataset.railTarget);
     if (!target) return;
     event.preventDefault();
-    target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    scrollStudioRailTo(target);
     history.replaceState(null, '', `#${target.id}`);
-    setStudioRailSection(target.id);
   });
 });
 
 if ('IntersectionObserver' in window && studioRailSections.length) {
   const studioRailObserver = new IntersectionObserver((entries) => {
+    if (studioRailScrollTarget) return;
     const activeEntry = entries.find((entry) => entry.isIntersecting);
     if (activeEntry) setStudioRailSection(activeEntry.target.id);
   }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
   studioRailSections.forEach((section) => studioRailObserver.observe(section));
   setStudioRailSection(studioRailSections[0].id);
+}
+
+if (studioRailProgress && studioRailSections.length > 1) {
+  scheduleStudioRailProgress({ recalculate: true });
+  window.addEventListener('scroll', () => scheduleStudioRailProgress(), { passive: true });
+  window.addEventListener('resize', () => scheduleStudioRailProgress({ recalculate: true }), { passive: true });
+  window.addEventListener('load', () => scheduleStudioRailProgress({ recalculate: true }), { once: true });
 }
 
 const voiceScrollTracks = [...document.querySelectorAll('[data-scroll-track]')];

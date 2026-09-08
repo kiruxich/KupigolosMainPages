@@ -16,12 +16,12 @@
   <meta property="og:image" content="https://kupigolos.ru/assets/hero-script.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kupigolos.ru/">
-  <link rel="preload" href="assets/hero-studio-product.png" as="image">
+  <link rel="preload" href="assets/hero-studio-session-v1.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="refresh.css">
+  <link rel="stylesheet" href="styles.css?v=section-flow-2">
+  <link rel="stylesheet" href="refresh.css?v=section-flow-2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,8 +43,8 @@
     }
   }
   </script>
-  <script src="motion-scheduler.js" defer></script>
-  <script src="script.js?v=header-product-hero-2" defer></script>
+  <script src="motion-scheduler.js?v=section-flow-2" defer></script>
+  <script src="script.js?v=section-flow-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -82,27 +82,49 @@
         <img src="assets/kupigolos-logo-white.svg" alt="" width="109" height="51">
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
-        <button type="button" data-header-trigger="services" aria-expanded="false" aria-controls="header-panel-services">Услуги <span aria-hidden="true">⌄</span></button>
-        <button type="button" data-header-trigger="voices" aria-expanded="false" aria-controls="header-panel-voices">Дикторы <span aria-hidden="true">⌄</span></button>
-        <a href="https://kupigolos.ru/ai">ИИ сервисы</a>
-        <button type="button" data-header-trigger="info" aria-expanded="false" aria-controls="header-panel-info">Инфопортал <span aria-hidden="true">⌄</span></button>
+        <button type="button" data-header-trigger="services" aria-expanded="false" aria-controls="header-panel-services">Услуги</button>
+        <button type="button" data-header-trigger="voices" aria-expanded="false" aria-controls="header-panel-voices">Дикторы</button>
+        <button class="header-ai-trigger" type="button" data-header-trigger="ai" aria-expanded="false" aria-controls="header-panel-ai"><i aria-hidden="true"></i>ИИ сервисы</button>
+        <button type="button" data-header-trigger="info" aria-expanded="false" aria-controls="header-panel-info">Инфопортал</button>
         <a href="https://kupigolos.ru/articles">Статьи</a>
       </nav>
       <div class="header-actions">
-        <a class="header-phone" href="tel:88002004551" aria-label="Позвонить: 8 800 200-45-51">
-          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.1 3.8 4.7 5.1c-.8.5-1.1 1.5-.7 2.4 2.7 6.7 8 12 14.7 14.7.9.4 1.9.1 2.4-.7l1.3-2.4-4.2-2.2-1.4 1.5a14.7 14.7 0 0 1-5.2-5.2l1.5-1.4-2.2-4.2Z"/></svg>
-        </a>
-        <a class="header-networks" href="#contacts" aria-label="Мессенджеры и социальные сети">
-          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.4 7.4 0 0 1-8 7.4 8.5 8.5 0 0 1-3.3-.7L4 20l1.8-4.1A7.2 7.2 0 0 1 4.6 12 7.4 7.4 0 0 1 12 4.6a7.4 7.4 0 0 1 8 6.9Z"/></svg>
-        </a>
+        <div class="header-popover">
+          <button class="header-phone" type="button" data-header-popover-trigger="phone" aria-expanded="false" aria-controls="header-phone-popover" aria-label="Телефон">
+            <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.1 3.8 4.7 5.1c-.8.5-1.1 1.5-.7 2.4 2.7 6.7 8 12 14.7 14.7.9.4 1.9.1 2.4-.7l1.3-2.4-4.2-2.2-1.4 1.5a14.7 14.7 0 0 1-5.2-5.2l1.5-1.4-2.2-4.2Z"/></svg>
+          </button>
+          <div class="header-action-popover header-phone-popover" id="header-phone-popover" data-header-popover="phone" aria-hidden="true">
+            <a href="tel:88002004551">8 800 200-45-51</a>
+            <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
+          </div>
+        </div>
+        <div class="header-popover">
+          <button class="header-networks" type="button" data-header-popover-trigger="networks" aria-expanded="false" aria-controls="header-networks-popover" aria-label="Мессенджеры и социальные сети">
+            <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.4 7.4 0 0 1-8 7.4 8.5 8.5 0 0 1-3.3-.7L4 20l1.8-4.1A7.2 7.2 0 0 1 4.6 12 7.4 7.4 0 0 1 12 4.6a7.4 7.4 0 0 1 8 6.9Z"/></svg>
+          </button>
+          <nav class="header-action-popover header-networks-popover" id="header-networks-popover" data-header-popover="networks" aria-hidden="true" aria-label="Связаться в мессенджере">
+            <a href="https://telegram.dog/studio_kupigolos" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
+            <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener" aria-label="MAX">MAX</a>
+            <a href="https://wa.me/79302125534" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+          </nav>
+        </div>
         <a class="header-favorites" href="https://kupigolos.ru/favourites" aria-label="Избранное">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5 4.8 13.7C1.1 10.2 3 4.5 7.7 4.5c1.8 0 3.4.9 4.3 2.2.9-1.3 2.5-2.2 4.3-2.2 4.7 0 6.6 5.7 2.9 9.2L12 20.5Z"/></svg>
         </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="header-utility-menu">
           <span class="nav-toggle-label">Меню</span>
-          <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i></span>
+          <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="sr-only">Открыть меню</span>
         </button>
+        <nav class="header-utility-menu" id="header-utility-menu" data-header-utility aria-hidden="true" aria-label="Дополнительное меню">
+          <a href="https://kupigolos.ru/login">Личный кабинет</a>
+          <span aria-hidden="true"></span>
+          <a href="https://kupigolos.ru/price">Цены</a>
+          <a href="https://kupigolos.ru/oplata">Оплата</a>
+          <a href="https://kupigolos.ru/voprosy-i-otvety">FAQ</a>
+          <a href="https://kupigolos.ru/studio">О студии</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
       </div>
     </div>
   </header>
@@ -127,6 +149,14 @@
         <div><a class="header-mega-group-link" href="https://kupigolos.ru/ai">ИИ голоса</a></div>
       </div>
     </section>
+    <section class="header-mega" id="header-panel-ai" data-header-panel="ai" aria-hidden="true" aria-label="ИИ сервисы">
+      <div class="shell header-mega-grid header-mega-grid-ai">
+        <div><p>Голос и озвучка</p><a href="https://kupigolos.ru/ai/voice/ai-voice-generator">Генератор голоса</a><a href="https://kupigolos.ru/ai/voice/text-to-speech">Озвучка текста</a><a href="https://kupigolos.ru/ai/voice/ai-voice-over">ИИ-озвучка</a><a href="https://kupigolos.ru/ai/voice/library">Каталог голосов</a><a href="https://kupigolos.ru/ai/voice/changer">Изменение голоса</a></div>
+        <div><p>Музыка и песни</p><a href="https://kupigolos.ru/ai/music/ai-music-generator">Генератор музыки</a><a href="https://kupigolos.ru/ai/music/song-generator">Генератор песен</a><a href="https://kupigolos.ru/ai/music/lyrics-generator">Генератор текстов песен</a></div>
+        <div><p>Видео и расшифровка</p><a href="https://kupigolos.ru/ai/dubbing-video">Озвучка видео</a><a href="https://kupigolos.ru/ai/transcription">Транскрибация</a><a href="https://kupigolos.ru/ai/transcription/audio-to-text">Аудио в текст</a><a href="https://kupigolos.ru/ai/transcription/video-to-text">Видео в текст</a></div>
+        <a class="header-mega-feature" href="https://ai.kupigolos.ru/"><span>ИИ сервисы</span><strong>Озвучьте свой проект с помощью нейросети</strong><i aria-hidden="true">Перейти в сервисы →</i></a>
+      </div>
+    </section>
     <section class="header-mega" id="header-panel-info" data-header-panel="info" aria-hidden="true" aria-label="Инфопортал">
       <div class="shell header-mega-grid header-mega-grid-info">
         <div><a class="header-mega-group-link" href="https://kupigolos.ru/kto-ozvuchivaet">Кто озвучивает</a></div>
@@ -136,16 +166,32 @@
   </div>
 
   <button class="site-overlay" type="button" data-overlay aria-label="Закрыть открытое меню"></button>
-  <aside class="callback-drawer" id="callback-drawer" data-callback-drawer aria-hidden="true" aria-label="Заказать обратный звонок">
+  <aside class="callback-drawer" id="callback-drawer" data-callback-drawer aria-hidden="true" aria-labelledby="callback-title" role="dialog" aria-modal="true">
     <button class="drawer-close" type="button" data-drawer-close aria-label="Закрыть форму обратного звонка">Закрыть <span aria-hidden="true">×</span></button>
     <a class="drawer-brand brand" href="#start" aria-label="КупиГолос, на главную"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M4 22h4m4-7v14m5-20v26m6-20v14m6-9v4m6-9v14m5-7h4"/></svg><span>купи<span>голос</span></span></a>
-    <div class="callback-copy"><p>Обратный звонок</p><h2>Перезвоним и обсудим задачу</h2><span>Оставьте номер или позвоните нам напрямую.</span></div>
+    <div class="callback-copy"><p>Обратный звонок</p><h2 id="callback-title">Оставьте контакты</h2><span>Оставьте контактные данные и мы вам перезвоним.</span></div>
     <div class="callback-form" role="group" aria-label="Телефон для обратного звонка">
-      <label><span>Телефон</span><input type="tel" name="phone" placeholder="+7 999 000-00-00" autocomplete="tel" required></label>
-      <button type="button">Позвоните мне</button>
+      <label><span>Ваше имя</span><input type="text" name="name" placeholder="Ваше имя" autocomplete="name" required></label>
+      <label><span>Телефон</span><input type="tel" name="phone" placeholder="+7 (999) 000-00-00" autocomplete="tel" required></label>
+      <label class="callback-consent"><input type="checkbox" checked><span>Я согласен с условиями обработки персональных данных</span></label>
+      <button type="button">Перезвоните мне</button>
     </div>
     <a class="callback-phone" href="tel:88002004551">8 800 200-45-51</a>
     <a class="callback-contact" href="#contacts">Все контакты <span aria-hidden="true">→</span></a>
+  </aside>
+
+  <aside class="order-modal" id="order-modal" data-order-modal aria-hidden="true" aria-labelledby="order-title" role="dialog" aria-modal="true">
+    <button class="drawer-close" type="button" data-drawer-close aria-label="Закрыть форму заявки">Закрыть <span aria-hidden="true">×</span></button>
+    <div class="callback-copy"><p>Быстрый заказ</p><h2 id="order-title">Отправить запрос</h2><span>Опишите задачу и мы сориентируем по срокам и стоимости.</span></div>
+    <div class="callback-form" role="group" aria-label="Данные заявки">
+      <label><span>Ваше имя</span><input type="text" name="order-name" placeholder="Ваше имя" autocomplete="name" required></label>
+      <label><span>E-mail</span><input type="email" name="order-email" placeholder="E-mail" autocomplete="email" required></label>
+      <label><span>Телефон</span><input type="tel" name="order-phone" placeholder="Телефон для связи" autocomplete="tel"></label>
+      <label><span>Задача</span><textarea name="order-message" rows="4" placeholder="Опишите задачу, которую необходимо решить" required></textarea></label>
+      <label class="callback-consent"><input type="checkbox" checked><span>Я согласен с условиями обработки персональных данных</span></label>
+      <button type="button">Отправить</button>
+    </div>
+    <a class="callback-phone" href="tel:88002004551">8 800 200-45-51</a>
   </aside>
 
   <aside class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true" aria-label="Меню сайта">
@@ -167,7 +213,7 @@
     </nav>
     <div class="mobile-menu-contact"><a href="tel:88002004551">8 800 200-45-51</a><button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button><a href="mailto:info@kupigolos.ru">info@kupigolos.ru</a></div>
     <nav class="mobile-menu-socials" aria-label="Мессенджеры"><a href="https://t.me/kupigolos">Telegram</a><a href="https://wa.me/78002004551">WhatsApp</a><a href="#contacts">Max</a></nav>
-    <button class="mobile-menu-order" type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Быстрый заказ</button>
+    <button class="mobile-menu-order" type="button" data-order-open aria-expanded="false" aria-controls="order-modal">Быстрый заказ</button>
     <a class="mobile-menu-promo header-mega-feature" href="https://kupigolos.ru/ai"><span>ИИ сервисы</span><strong>Озвучьте свой проект с помощью нейросети</strong><i aria-hidden="true">Сгенерировать озвучку →</i></a>
   </aside>
 
@@ -176,20 +222,30 @@
       <div class="shell hero-product-grid">
         <div class="hero-product-copy">
           <p class="top-kicker">Профессиональная</p>
-          <h1 class="hero-product-title" id="hero-title">Студия озвучивания в Москве</h1>
+          <h1 class="hero-product-title" id="hero-title"><span class="hero-title-main">Студия озвучивания</span><span class="hero-title-accent">в Москве</span></h1>
           <p class="hero-product-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
-          <ul class="hero-proof" aria-label="Ключевые возможности студии">
-            <li><span class="hero-proof-icon" aria-hidden="true">◉</span><strong>Более 800 голосов</strong></li>
-            <li><span class="hero-proof-icon" aria-hidden="true">◎</span><strong>60 языков</strong></li>
-            <li><span class="hero-proof-icon" aria-hidden="true">ϟ</span><strong>Озвучка за один день</strong></li>
-          </ul>
-          <div class="hero-actions">
-            <a class="hero-cta" href="#voices"><span>Выбрать диктора</span><i aria-hidden="true">→</i></a>
-            <a class="hero-cta-secondary" href="#calculator"><span>Рассчитать стоимость</span><i aria-hidden="true">▦</i></a>
+          <div class="hero-actions" aria-label="Действия">
+            <button class="hero-action-button hero-action-primary" type="button" data-order-open aria-expanded="false" aria-controls="order-modal">
+              <span class="hero-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 6.5h14v9H9l-4 3v-12Z"/></svg></span>
+              <span>Обсудить проект</span><i aria-hidden="true">↗</i>
+            </button>
+            <a class="hero-action-button" href="#portfolio">
+              <span class="hero-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 7 7 5-7 5V7Z"/></svg></span>
+              <span>Послушать примеры</span><i aria-hidden="true">↗</i>
+            </a>
+            <a class="hero-action-button" href="#calculator">
+              <span class="hero-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4.5" width="12" height="15" rx="1.5"/><path d="M8.5 8h7M9 12h.01M12 12h.01M15 12h.01M9 15.5h.01M12 15.5h.01M15 15.5h.01"/></svg></span>
+              <span>Рассчитать стоимость</span><i aria-hidden="true">↗</i>
+            </a>
           </div>
         </div>
         <figure class="hero-studio-visual">
-          <img src="assets/hero-studio-product.png" alt="Профессиональный студийный микрофон, поп-фильтр и наушники">
+          <img src="assets/hero-studio-session-v1.png" alt="Диктор записывает голос в студии, звукорежиссёр работает за пультом">
+          <ul class="hero-proof" aria-label="Ключевые возможности студии">
+            <li><span aria-hidden="true"></span><strong>Более 800 голосов</strong></li>
+            <li><span aria-hidden="true"></span><strong>60 языков</strong></li>
+            <li><span aria-hidden="true"></span><strong>Озвучка за один день</strong></li>
+          </ul>
         </figure>
       </div>
     </section>
@@ -505,7 +561,7 @@
             <span>Предварительная смета</span>
             <strong data-calculator-total aria-live="polite">2 500 ₽</strong>
             <p>Точную стоимость подтвердим после знакомства со сценарием и задачей.</p>
-            <a class="button" href="#contacts">Получить точный расчет</a>
+            <a class="button" href="#contacts">Получить точную смету</a>
           </div>
         </form>
       </div>
@@ -515,42 +571,30 @@
       <div class="shell">
         <div class="section-heading split-heading reveal">
           <div><p class="kicker">Большая база</p><h2 id="talent-title">Найдите нужный тембр</h2></div>
-          <p>Мужские, женские, иностранные голоса и точные пародии.</p>
+          <p>Мужские, женские, детские, иностранные и известные голоса, а также точные пародии.</p>
         </div>
         <div class="talent-grid">
-          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/muzhskie"><img src="https://kupigolos.ru/img/speakers/male.png" alt="Мужские голоса" loading="lazy"><h3>Мужские</h3><span>Слушать ↗</span></a>
-          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/zhenskie"><img src="https://kupigolos.ru/img/speakers/female.png" alt="Женские голоса" loading="lazy"><h3>Женские</h3><span>Слушать ↗</span></a>
-          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/parodisty"><img src="https://kupigolos.ru/img/speakers/parody.png" alt="Пародисты" loading="lazy"><h3>Пародисты</h3><span>Слушать ↗</span></a>
-          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/inostrannye_golosa"><img src="https://kupigolos.ru/img/speakers/foreign.png" alt="Иностранные голоса" loading="lazy"><h3>Иностранные</h3><span>Слушать ↗</span></a>
-        </div>
-        <div class="voice-directory reveal" aria-labelledby="voice-directory-title">
-          <div class="voice-directory-copy">
-            <p class="kicker">Известные голоса</p>
-            <h3 id="voice-directory-title">Актеры дубляжа и топ-дикторы</h3>
-            <p>Голоса федеральных телеканалов, известных персонажей кино и популярных проектов. Откройте страницу диктора, чтобы послушать демо и уточнить стоимость записи.</p>
-            <a class="arrow-link" href="https://kupigolos.ru/diktory/izvestnye_golosa">Смотреть всех известных дикторов <span>↗</span></a>
-          </div>
-          <div class="voice-directory-links">
-            <a href="https://kupigolos.ru/diktory/nabiev-sergej">Сергей Набиев <span>Матч ТВ</span></a>
-            <a href="https://kupigolos.ru/diktory/kolgan-aleksej">Алексей Колган <span>Шрек</span></a>
-            <a href="https://kupigolos.ru/diktory/soloveva-elena">Елена Соловьёва <span>Домашний</span></a>
-            <a href="https://kupigolos.ru/diktory/golovchanskij-aleksandr">Александр Головчанский <span>Шерлок Холмс</span></a>
-            <a href="https://kupigolos.ru/diktory/pletneva-olga">Ольга Плетнёва <span>Ума Турман</span></a>
-            <a href="https://kupigolos.ru/diktory/eremin-vladimir">Владимир Ерёмин <span>Аль Пачино</span></a>
-            <a href="https://kupigolos.ru/diktory/ivashchenko-petr">Пётр Иващенко <span>Дэдпул</span></a>
-            <a href="https://kupigolos.ru/diktory/staroselcev-igor">Игорь Старосельцев <span>Морган Фримен</span></a>
-            <a href="https://kupigolos.ru/diktory/zajcev-vladimir">Владимир Зайцев <span>Роберт Дауни-младший</span></a>
-            <a href="https://kupigolos.ru/diktory/polishchuk-vsevolod">Всеволод Полищук <span>ТНТ</span></a>
-            <a href="https://kupigolos.ru/diktory/gabidullin-ruslan">Руслан Габидуллин <span>Кубик в Кубе</span></a>
-            <a href="https://kupigolos.ru/diktory/isaev-ilya">Илья Исаев <span>Том Харди</span></a>
-            <a href="https://kupigolos.ru/diktory/kretov-artem">Артём Кретов <span>РЕН ТВ</span></a>
-            <a href="https://kupigolos.ru/diktory/antonik-vladimir">Владимир Антоник <span>Сильвестр Сталлоне</span></a>
-            <a href="https://kupigolos.ru/diktory/chonishvili-sergej">Сергей Чонишвили <span>СТС</span></a>
-            <a href="https://kupigolos.ru/diktory/shitova-tatyana">Татьяна Шитова <span>Алиса</span></a>
-            <a href="https://kupigolos.ru/diktory/brezhnev-yurij">Юрий Брежнев <span>Дуэйн Джонсон</span></a>
-            <a href="https://kupigolos.ru/diktory/neklyudov-aleksej">Алексей Неклюдов <span>Первый канал</span></a>
-            <a href="https://kupigolos.ru/diktory/repetur-boris">Борис Репетур <span>Галилео</span></a>
-          </div>
+          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/muzhskie"><img src="https://kupigolos.ru/img/speakers/male.png" alt="Мужские голоса" loading="lazy"><div class="talent-card-copy"><h3>Мужские</h3><p>Уверенные, рекламные и характерные тембры.</p></div><span>Выбрать голоса →</span></a>
+          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/zhenskie"><img src="https://kupigolos.ru/img/speakers/female.png" alt="Женские голоса" loading="lazy"><div class="talent-card-copy"><h3>Женские</h3><p>Мягкие, деловые и эмоциональные подачи.</p></div><span>Выбрать голоса →</span></a>
+          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/parodisty"><img src="https://kupigolos.ru/img/speakers/parody.png" alt="Пародисты" loading="lazy"><div class="talent-card-copy"><h3>Пародисты</h3><p>Узнаваемые персонажи, образы и пародии.</p></div><span>Выбрать голоса →</span></a>
+          <a class="talent-card reveal" href="https://kupigolos.ru/diktory/inostrannye_golosa"><img src="https://kupigolos.ru/img/speakers/foreign.png" alt="Иностранные голоса" loading="lazy"><div class="talent-card-copy"><h3>Иностранные</h3><p>Носители языка для локализации проектов.</p></div><span>Выбрать голоса →</span></a>
+          <a class="talent-card talent-card-children reveal" href="https://kupigolos.ru/diktory/detskie_golosa">
+            <svg class="talent-card-art" viewBox="0 0 360 250" aria-hidden="true">
+              <path d="M85 194c8-42 36-66 76-66s68 24 76 66"/>
+              <circle cx="161" cy="90" r="49"/>
+              <path d="M121 79c11-32 63-42 88-4M141 94h1M180 94h1M145 111c10 8 22 8 32 0M227 117c24 7 40 23 48 48M242 91c26 5 46 24 56 50"/>
+            </svg>
+            <div class="talent-card-copy"><h3>Детские голоса</h3><p>Живые детские тембры для рекламы, игр и анимации.</p></div>
+            <span>Выбрать голоса →</span>
+          </a>
+          <a class="talent-card talent-card-famous reveal" href="https://kupigolos.ru/diktory/izvestnye_golosa">
+            <div class="talent-card-art talent-card-famous-art" aria-hidden="true">
+              <strong>ТОП</strong>
+              <svg viewBox="0 0 120 120"><path d="m60 12 11 28 30 2-23 19 8 30-26-16-26 16 8-30-23-19 30-2z"/></svg>
+            </div>
+            <div class="talent-card-copy"><h3>Известные дикторы</h3><p>Актеры дубляжа, телеведущие и дикторы федерального масштаба.</p></div>
+            <span>Выбрать голоса →</span>
+          </a>
         </div>
       </div>
     </section>

@@ -82,28 +82,32 @@ if (!failures.length) {
       kicker: 'Профессиональная',
       title: 'Студия озвучивания в Москве',
       lead: 'Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.',
-      cta: 'Выбрать диктора',
+      cta: 'Обсудить проект',
     };
     const { html: sectionHtml, text } = heroVariantMatches[0];
-    const ctaCount = (sectionHtml.match(/class="hero-cta"/g) || []).length;
+    const ctaCount = (sectionHtml.match(/class="[^"]*hero-action-primary[^"]*"/g) || []).length;
     check(text.includes(heroCopy.kicker), 'html: hero is missing the original kicker');
     check(text.includes(heroCopy.title), 'html: hero is missing the original title');
     check(text.includes(heroCopy.lead), 'html: hero is missing the original lead');
     check(ctaCount === 1, `html: hero must contain exactly one primary CTA, found ${ctaCount}`);
-    check(text.includes(heroCopy.cta) && sectionHtml.includes('href="#voices"'), 'html: hero is missing the original CTA link to #voices');
+    check(text.includes(heroCopy.cta) && sectionHtml.includes('data-order-open'), 'html: hero is missing the primary project discussion action');
     check(/<h1\b/i.test(sectionHtml), 'html: hero title must be h1');
     check(['Более 800 голосов', '60 языков', 'Озвучка за один день'].every((fact) => text.includes(fact)), 'html: hero proof facts are incomplete');
-    check(sectionHtml.includes('assets/hero-studio-product.png'), 'html: product-led hero asset is missing');
-    check(existsSync(resolve(root, 'assets/hero-studio-product.png')), 'assets: generated hero product image is missing');
+    check(sectionHtml.includes('assets/hero-studio-session-v1.png'), 'html: studio-window hero asset is missing');
+    check(existsSync(resolve(root, 'assets/hero-studio-session-v1.png')), 'assets: studio-window hero image is missing');
     check(sectionHtml.includes('href="#calculator"'), 'html: calculator action is missing from hero');
+    check(sectionHtml.includes('href="#portfolio"'), 'html: portfolio listening action is missing from hero');
     if (voicesSectionMatches.length === 1) {
       check(voicesSectionMatches[0].index > heroVariantMatches[0].endIndex, 'html: #voices must occur after the hero');
     }
   }
   check(!/assets\/[12]\.png/.test(html) && !/class="top-hero-microphone"/.test(html), 'html: retired atomic hero artwork remains');
-  check((html.match(/data-header-trigger=/g) || []).length === 3, 'html: expected three desktop mega-menu triggers');
-  check((html.match(/data-header-panel=/g) || []).length === 3, 'html: expected three desktop mega menus');
+  check((html.match(/data-header-trigger=/g) || []).length === 4, 'html: expected four desktop mega-menu triggers');
+  check((html.match(/data-header-panel=/g) || []).length === 4, 'html: expected four desktop mega menus');
+  check((html.match(/data-header-popover-trigger=/g) || []).length === 2, 'html: header action popovers are incomplete');
+  check(/data-header-utility/.test(html), 'html: desktop utility menu is missing');
   check(/data-callback-drawer/.test(html), 'html: callback drawer is missing');
+  check(/data-order-modal/.test(html), 'html: quick order modal is missing');
   check(/data-mobile-menu/.test(html), 'html: mobile navigation drawer is missing');
   check(/class="studio-rail"/.test(html) && (html.match(/data-rail-target=/g) || []).length === 13, 'html: studio navigation rail is incomplete');
   check(!/font-switcher|data-font-choice/.test(html), 'html: obsolete font switcher is still present');
@@ -114,6 +118,8 @@ if (!failures.length) {
   check(!/data-hero-blur-control|data-hero-blur-output/.test(html), 'html: obsolete hero blur control remains');
   check(!/simple-liquid-glass|liquid-web/.test(html), 'html: rejected liquid button libraries are still present');
   check(/class="talent-stage voice-categories-stage"/.test(html), 'html: voice category component scope is missing');
+  check(html.includes('href="https://kupigolos.ru/diktory/detskie_golosa"'), 'html: children voice category is missing');
+  check(html.includes('href="https://kupigolos.ru/diktory/izvestnye_golosa"'), 'html: famous voice category is missing');
   check(!/data-cinema|data-story-frame|data-shader-canvas/.test(html), 'html: retired cinematic scene hooks are still present');
   check(!/class="voice-stage/.test(html), 'html: legacy voice card section is still present');
   check(!/class="ai-stage/.test(html), 'html: legacy AI list section is still present');
@@ -129,7 +135,6 @@ if (!failures.length) {
   check(/class="portfolio-reel"/.test(html) && (html.match(/data-project data-project-name=/g) || []).length === 3, 'html: editorial portfolio reel is missing');
   check(/class="calculator-summary"/.test(html) && /aria-live="polite"/.test(html), 'html: calculator estimate summary is missing');
   check(/class="service-index/.test(html), 'html: crawlable service index is missing');
-  check((html.match(/class="voice-directory-links"[\s\S]*?<\/div>/)?.[0].match(/<a href=/g) || []).length === 19, 'html: expected 19 crawlable featured voice links');
   check((html.match(/class="service-index-groups"[\s\S]*?<\/nav>/)?.[0].match(/<a href=/g) || []).length >= 19, 'html: service index must expose the live service taxonomy');
   check((html.match(/\brequired\b/g) || []).length >= 3, 'html: contact fields must be required');
   check(!/[\u2013\u2014]/.test(html), 'html: en/em dash detected');
@@ -153,11 +158,16 @@ if (!failures.length) {
     check(css.includes(`max-width: ${width}`), `css: missing ${width} breakpoint`);
   }
   check(css.includes('prefers-reduced-motion'), 'css: reduced-motion support is missing');
+  check(!/\.reveal\s*\{[^}]*\btransform\s*:/s.test(css), 'css: legacy reveal transform conflicts with interactive element transforms');
   check(css.includes(':focus-visible'), 'css: visible focus styles are missing');
   check(!css.includes('assets/1.png') && !css.includes('top-hero-microphone'), 'css: retired atomic hero artwork remains');
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
   check(!refresh.includes('.hero-concepts-stage') && !refresh.includes('.hero-concept-preview'), 'refresh: old miniature hero comparison styles remain');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
+  check(refresh.includes('height: var(--rail-progress-height, 0%)') && refresh.includes('transform: none'), 'refresh: rail progress must grow by height instead of scaleY');
+  check(refresh.includes('@supports (animation-timeline: view())') && refresh.includes('animation-timeline: view(block)'), 'refresh: continuous scroll-driven reveals are missing');
+  check(refresh.includes('translate: 0 18px') && refresh.includes('studio-reveal-scroll'), 'refresh: restrained compositor-only reveal motion is missing');
+  check(refresh.includes('#main-content > section { padding-left: var(--rail-width); }'), 'refresh: section backgrounds must continue beneath the translucent rail');
   check(!/\.studio-rail(?::(?:hover|focus-within)|:is\([^{}]*?(?:hover|focus-within)[^{}]*?\))/s.test(railCss), 'css: rail expansion selectors remain');
   check(!refresh.includes('.hero-blur-control') && !refresh.includes('--hero-blur-fill'), 'refresh: hero blur controls remain');
   check(refresh.includes('.figma-voices-panel') && refresh.includes('.figma-voice-card') && !refresh.includes('.featured-layout'), 'refresh: Figma voice section is incomplete or featured voice block remains');
@@ -185,6 +195,11 @@ if (!failures.length) {
   check(js.includes('function syncHeaderTone()') && js.includes("classList.toggle('on-light'"), 'js: automatic header contrast switching is missing');
   check(js.includes('function setDrawer(') && js.includes("event.key === 'Escape'"), 'js: drawer interaction is missing');
   check(js.includes('function setStudioRailSection(sectionId)') && js.includes('studioRailObserver'), 'js: studio navigation rail controller is missing');
+  check(js.includes('calculateSectionProgress(window.scrollY, studioRailSectionAnchors)'), 'js: rail progress must interpolate continuously between section anchors');
+  check(js.includes("window.addEventListener('scroll', () => scheduleStudioRailProgress()"), 'js: rail progress must update throughout scrolling');
+  check(js.includes("CSS.supports('animation-timeline: view()')") && js.includes("item.dataset.scrollReveal = ''"), 'js: native scroll-driven reveal enhancement is missing');
+  check(!js.includes('window.scrollY / scrollableHeight'), 'js: rail progress must not use whole-document scroll percentage');
+  check(js.includes("setProperty('--rail-progress-height'"), 'js: rail progress must set height without compressing its tick pattern');
   check(!js.includes('data-featured-picker') && !js.includes('data-featured-play'), 'js: removed featured voice picker remains');
   check(!js.includes('data-ai-picker') && !js.includes('fitAiModelName'), 'js: removed AI model controller remains');
   check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: voice carousel controls are missing');

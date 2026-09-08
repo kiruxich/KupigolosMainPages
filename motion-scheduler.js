@@ -1,9 +1,42 @@
 (function attachMotionScheduler(root, factory) {
   const api = factory();
 
-  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (typeof window === 'undefined' && typeof module === 'object' && module.exports) module.exports = api;
   else root.KupiMotion = api;
 }(typeof globalThis !== 'undefined' ? globalThis : this, () => {
+  function calculateSectionProgress(scrollY, sectionAnchors) {
+    if (!Array.isArray(sectionAnchors) || sectionAnchors.length < 2) return 0;
+
+    const lastIndex = sectionAnchors.length - 1;
+    const position = Number.isFinite(scrollY) ? scrollY : 0;
+    if (position <= sectionAnchors[0]) return 0;
+    if (position >= sectionAnchors[lastIndex]) return 1;
+
+    for (let upperIndex = 1; upperIndex <= lastIndex; upperIndex += 1) {
+      const upperAnchor = sectionAnchors[upperIndex];
+      if (position > upperAnchor) continue;
+
+      const lowerIndex = upperIndex - 1;
+      const lowerAnchor = sectionAnchors[lowerIndex];
+      const span = upperAnchor - lowerAnchor;
+      const localProgress = span > 0
+        ? Math.min(1, Math.max(0, (position - lowerAnchor) / span))
+        : 1;
+      return (lowerIndex + localProgress) / lastIndex;
+    }
+
+    return 1;
+  }
+
+  function calculateRevealRange(index) {
+    const order = Number.isFinite(index) ? Math.max(0, Math.floor(index)) : 0;
+    const offset = Math.min(10, order * 2.5);
+    return {
+      start: `${8 + offset}%`,
+      end: `${74 + offset}%`,
+    };
+  }
+
   function createMotionScheduler({
     initialValue = 0,
     precision = 0.0001,
@@ -51,5 +84,5 @@
     };
   }
 
-  return { createMotionScheduler };
+  return { calculateRevealRange, calculateSectionProgress, createMotionScheduler };
 }));

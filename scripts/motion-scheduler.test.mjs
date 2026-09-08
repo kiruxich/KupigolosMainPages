@@ -5,11 +5,15 @@ import { resolve } from 'node:path';
 
 const require = createRequire(import.meta.url);
 let createMotionScheduler;
+let calculateSectionProgress;
+let calculateRevealRange;
 
 try {
-  ({ createMotionScheduler } = require(resolve(import.meta.dirname, '..', 'motion-scheduler.js')));
+  ({ createMotionScheduler, calculateSectionProgress, calculateRevealRange } = require(resolve(import.meta.dirname, '..', 'motion-scheduler.js')));
 } catch {
   createMotionScheduler = undefined;
+  calculateSectionProgress = undefined;
+  calculateRevealRange = undefined;
 }
 
 function createHarness({ frameMs = 1000 / 60 } = {}) {
@@ -83,4 +87,25 @@ test('uses time-based damping at both 60 Hz and 120 Hz', () => {
   for (let elapsed = 0; elapsed < 250; elapsed += 1000 / 120) oneTwenty.step();
 
   assert.ok(Math.abs(sixty.scheduler.getValue() - oneTwenty.scheduler.getValue()) < 0.015);
+});
+
+test('interpolates progress continuously between uneven section anchors', () => {
+  assert.equal(typeof calculateSectionProgress, 'function', 'section progress calculator is not implemented');
+  const anchors = [0, 1000, 4000, 4600];
+  const closeTo = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-9);
+
+  closeTo(calculateSectionProgress(0, anchors), 0);
+  closeTo(calculateSectionProgress(500, anchors), 1 / 6);
+  closeTo(calculateSectionProgress(2500, anchors), 1 / 2);
+  closeTo(calculateSectionProgress(4300, anchors), 5 / 6);
+  closeTo(calculateSectionProgress(9999, anchors), 1);
+});
+
+test('staggered reveal ranges stay ordered without growing unbounded', () => {
+  assert.equal(typeof calculateRevealRange, 'function', 'reveal range calculator is not implemented');
+
+  assert.deepEqual(calculateRevealRange(0), { start: '8%', end: '74%' });
+  assert.deepEqual(calculateRevealRange(2), { start: '13%', end: '79%' });
+  assert.deepEqual(calculateRevealRange(20), { start: '18%', end: '84%' });
+  assert.deepEqual(calculateRevealRange(-3), { start: '8%', end: '74%' });
 });
