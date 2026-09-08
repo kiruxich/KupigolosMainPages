@@ -518,33 +518,109 @@
     </section>
 
     <section class="portfolio-stage" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="shell">
+      <div class="shell" data-portfolio>
         <div class="section-heading portfolio-heading reveal">
           <p class="kicker">Портфолио</p><h2 id="portfolio-title">Примеры работ</h2>
-          <p>Реклама, брендинг и видео, где голос становится частью истории.</p>
+          <p>Видео, аудиореклама и голосовые меню - реальные проекты можно посмотреть, послушать и скачать.</p>
         </div>
-        <div class="portfolio-reel" aria-label="Примеры работ">
-          <button class="portfolio-project portfolio-project-featured is-active" type="button" aria-pressed="true" data-project data-project-name="NOVO BI" data-project-type="Видео и дубляж" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/611b7c84ad30c.mp3" data-audio-label="Портфолио NOVO BI">
-            <img src="https://img.kupigolos.ru/video/64b6e5a5ed654.jpg?p=vi&amp;s=91afa85294f67357ad2b66e6d60eb15e" alt="Кадр видеопроекта NOVO BI" loading="lazy">
-            <span class="portfolio-project-scrim" aria-hidden="true"></span>
-            <span class="portfolio-project-type">Видео и дубляж</span>
-            <span class="portfolio-project-copy"><strong>NOVO BI</strong><small>Слушать фрагмент</small></span>
-            <span class="portfolio-project-play"><span class="play-icon" aria-hidden="true"></span><span class="sr-only">Слушать проект NOVO BI</span></span>
-          </button>
-          <button class="portfolio-project" type="button" aria-pressed="false" data-project data-project-name="HELL Energy" data-project-type="Реклама" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5a09b147211e5.mp3" data-audio-label="Портфолио HELL Energy">
-            <img src="https://img.kupigolos.ru/video/5abe47ea2c391.jpg?p=vi&amp;s=ad28330e2462ea8c3925a4b62f75dbb4" alt="Кадр рекламного проекта HELL Energy" loading="lazy">
-            <span class="portfolio-project-scrim" aria-hidden="true"></span>
-            <span class="portfolio-project-type">Реклама</span>
-            <span class="portfolio-project-copy"><strong>HELL Energy</strong><small>Слушать фрагмент</small></span>
-            <span class="portfolio-project-play"><span class="play-icon" aria-hidden="true"></span><span class="sr-only">Слушать проект HELL Energy</span></span>
-          </button>
-          <button class="portfolio-project" type="button" aria-pressed="false" data-project data-project-name="Роял кредит банк" data-project-type="Аудиореклама" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5abe3ba3a95d3.mp3" data-audio-label="Роял кредит банк">
-            <img src="assets/hero-script.jpg" alt="Микрофон и сценарий в студии для аудиорекламы" loading="lazy">
-            <span class="portfolio-project-scrim" aria-hidden="true"></span>
-            <span class="portfolio-project-type">Аудиореклама</span>
-            <span class="portfolio-project-copy"><strong>Роял кредит банк</strong><small>Слушать фрагмент</small></span>
-            <span class="portfolio-project-play"><span class="play-icon" aria-hidden="true"></span><span class="sr-only">Слушать проект Роял кредит банк</span></span>
-          </button>
+        <div class="portfolio-toolbar reveal">
+          <div class="portfolio-tabs" role="tablist" aria-label="Категории работ">
+            <button id="portfolio-tab-video" class="portfolio-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="portfolio-panel-video" data-portfolio-tab="video">Видеоработы</button>
+            <button id="portfolio-tab-audio" class="portfolio-tab" type="button" role="tab" aria-selected="false" aria-controls="portfolio-panel-audio" data-portfolio-tab="audio">Аудиоролики</button>
+            <button id="portfolio-tab-ivr" class="portfolio-tab" type="button" role="tab" aria-selected="false" aria-controls="portfolio-panel-ivr" data-portfolio-tab="ivr">Автоответчики</button>
+          </div>
+          <p class="portfolio-count" aria-live="polite" data-portfolio-status>Показано 3 из 6</p>
+        </div>
+
+        <div class="portfolio-panel" id="portfolio-panel-video" role="tabpanel" aria-labelledby="portfolio-tab-video" data-portfolio-panel="video">
+          <div class="portfolio-grid">
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/64b6e5a5ed654.jpg?p=vi&amp;s=91afa85294f67357ad2b66e6d60eb15e" alt="Кадр видеопроекта NOVO BI" loading="lazy"><span class="portfolio-card-number">01</span><span class="portfolio-duration">02:28</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Реклама · закадровый</p><h3>NOVO BI</h3><p>Озвучка и сведение ролика на английском.</p><a class="portfolio-video-link" href="https://rutube.ru/play/embed/34fefd23988d956eab05d066e3f15cfb" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/5abe47ea2c391.jpg?p=vi&amp;s=ad28330e2462ea8c3925a4b62f75dbb4" alt="Кадр рекламного проекта HELL Energy" loading="lazy"><span class="portfolio-card-number">02</span><span class="portfolio-duration">00:30</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Имиджевый видеоролик</p><h3>HELL Energy</h3><p>Озвучка Дениса Беспалого для ролика с Брюсом Уиллисом.</p><a class="portfolio-video-link" href="https://rutube.ru/play/embed/4365fc86f8eb72684eb0798798d6e145" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/6114bf3ed7380.jpg?p=vi&amp;s=3320723ddcac571f4997912cf6c31220" alt="Кадр анимационного проекта Cheetos Crunchy true" loading="lazy"><span class="portfolio-card-number">03</span><span class="portfolio-duration">03:14</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Анимационный ролик</p><h3>Cheetos Crunchy true</h3><p>Запись актёра в студии с присутствием заказчика.</p><a class="portfolio-video-link" href="https://rutube.ru/play/embed/ec0645347280fb63a95f618824dbc58e" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/5c62988a1b9aa.jpg?p=vi&amp;s=77ad197edd9adf112f5939b46e3cec14" alt="Кадр проекта M.INT" loading="lazy"><span class="portfolio-card-number">04</span><span class="portfolio-duration">01:14</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Имиджевый видеоролик</p><h3>M.INT</h3><p>Озвучка для франко-итальянского бренда люксовой парфюмерии.</p><a class="portfolio-video-link" href="https://rutube.ru/play/embed/f8d825ea3370461cd68fbbcc27980d32" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/5ac207100a9b2.jpg?p=vi&amp;s=5097aa9a69ea02fa9cae2b160aa6ed66" alt="Кадр проекта Tefal - рецепты" loading="lazy"><span class="portfolio-card-number">05</span><span class="portfolio-duration">01:00</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Игровой видеоролик</p><h3>Tefal - рецепты</h3><p>Локализация ролика с британским ресторатором Джейми Оливером.</p><a class="portfolio-video-link" href="https://rutube.ru/play/embed/0317dd2247ff4fbaefcf39c790268e31" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="portfolio-card portfolio-card-video" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="https://img.kupigolos.ru/video/5abe4977f2dff.jpg?p=vi&amp;s=42e59d63f4be289ece53fcba5519edfc" alt="Кадр рекламы Красный Октябрь" loading="lazy"><span class="portfolio-card-number">06</span><span class="portfolio-duration">00:30</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Имиджевый видеоролик</p><h3>Красный Октябрь</h3><p>Атмосферная реклама с голосом Александра Головчанского.</p><a class="portfolio-video-link" href="https://www.youtube.com/watch?v=EXhTObD48uM" target="_blank" rel="noopener">Смотреть работу <span aria-hidden="true">↗</span></a></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="portfolio-panel" id="portfolio-panel-audio" role="tabpanel" aria-labelledby="portfolio-tab-audio" data-portfolio-panel="audio" hidden>
+          <div class="portfolio-grid">
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-console.jpg" alt="Студийный пульт звукорежиссёра" loading="lazy"><span class="portfolio-card-number">01</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Информационный ролик</p><h3>Olympea Blossom</h3><p>Рекламный аудиоролик с музыкальным оформлением.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/611b7c84ad30c.mp3" data-audio-label="Olympea Blossom"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/1340" download aria-label="Скачать Olympea Blossom">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-studio-product.png" alt="Работа над рекламным проектом в студии" loading="lazy"><span class="portfolio-card-number">02</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Информационный ролик</p><h3>Fix Price</h3><p>Аудиоролик для Fix Price на латышском языке.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5a09b147211e5.mp3" data-audio-label="Fix Price"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/79" download aria-label="Скачать Fix Price">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-script.jpg" alt="Сценарий аудиоролика у студийного микрофона" loading="lazy"><span class="portfolio-card-number">03</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Информационный ролик</p><h3>Роял кредит банк</h3><p>Аудиоролик про кредиты для бизнеса.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5abe3ba3a95d3.mp3" data-audio-label="Роял кредит банк"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/113" download aria-label="Скачать Роял кредит банк">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-studio.jpg" alt="Сессия записи мотивирующего ролика" loading="lazy"><span class="portfolio-card-number">04</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Игровой ролик</p><h3>Убери границы</h3><p>Мотивирующий ролик с известным голосом.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5abe33d1f15ff.mp3" data-audio-label="Убери границы"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/109" download aria-label="Скачать Убери границы">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-options/01-directors-desk.png" alt="Рабочее место аудиопродакшена" loading="lazy"><span class="portfolio-card-number">05</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Информационный ролик</p><h3>СтройЛидер</h3><p>Имиджевый ролик строительной компании.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/64b82a0af405e.wav" data-audio-label="СтройЛидер"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/1744" download aria-label="Скачать СтройЛидер">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-options/04-recording-archive.png" alt="Архив готовых аудиопроектов" loading="lazy"><span class="portfolio-card-number">06</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Игровой ролик</p><h3>Имиджстрой</h3><p>Имиджевый радиоролик для строительной компании.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5a09a9fada950.mp3" data-audio-label="Имиджстрой"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/45" download aria-label="Скачать Имиджстрой">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="portfolio-panel" id="portfolio-panel-ivr" role="tabpanel" aria-labelledby="portfolio-tab-ivr" data-portfolio-panel="ivr" hidden>
+          <div class="portfolio-grid">
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-options/03-human-voice.png" alt="Запись голоса для телефонного меню" loading="lazy"><span class="portfolio-card-number">01</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>РКФ</h3><p>Голосовое меню для кинологической федерации.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5cc9deaba27c2.mp3" data-audio-label="Автоответчик РКФ"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/388" download aria-label="Скачать автоответчик РКФ">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-console.jpg" alt="Монтаж голосового меню страховой компании" loading="lazy"><span class="portfolio-card-number">02</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>Компания НСК</h3><p>Голосовое меню страховой компании голосом Рахленко.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5ad6f1db66170.mp3" data-audio-label="Автоответчик компании НСК"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/169" download aria-label="Скачать автоответчик компании НСК">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card>
+              <div class="portfolio-card-media"><img src="assets/hero-studio.jpg" alt="Студийная запись голосового приветствия" loading="lazy"><span class="portfolio-card-number">03</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>АМК Групп</h3><p>Приветствие голосом Оптимуса Прайма.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5abf7f031a30d.mp3" data-audio-label="Автоответчик АМК Групп"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/128" download aria-label="Скачать автоответчик АМК Групп">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-script.jpg" alt="Сценарий телефонного автоответчика" loading="lazy"><span class="portfolio-card-number">04</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>Мистер Химчист</h3><p>Автоответчик для сети химчисток.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5abf4bb072b56.mp3" data-audio-label="Автоответчик Мистер Химчист"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/124" download aria-label="Скачать автоответчик Мистер Химчист">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-options/05-night-control-room.png" alt="Ночная студийная сессия для системы умного дома" loading="lazy"><span class="portfolio-card-number">05</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>СИГМА</h3><p>Оригинальное приветствие системы умного дома.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5ac35fac1f49c.mp3" data-audio-label="Автоответчик СИГМА"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/158" download aria-label="Скачать автоответчик СИГМА">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+            <article class="portfolio-card portfolio-card-audio" data-portfolio-card hidden>
+              <div class="portfolio-card-media"><img src="assets/hero-options/02-through-glass.png" alt="Запись автоответчика для детского клуба" loading="lazy"><span class="portfolio-card-number">06</span></div>
+              <div class="portfolio-card-body"><p class="portfolio-card-type">Автоответчик</p><h3>Послушайка</h3><p>Атмосферный автоответчик для детского клуба.</p><div class="portfolio-card-actions"><button class="portfolio-listen" type="button" aria-pressed="false" data-audio-src="https://storage.kupigolos.ru/audio/portfolio/5ac35bebe5156.mp3" data-audio-label="Автоответчик Послушайка"><span class="play-icon" aria-hidden="true"></span><span>Слушать</span><i class="portfolio-track" aria-hidden="true"></i></button><a class="portfolio-download" href="https://kupigolos.ru/download/audio/156" download aria-label="Скачать автоответчик Послушайка">Скачать <span aria-hidden="true">↓</span></a></div></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="portfolio-more-row reveal">
+          <button class="portfolio-more" type="button" data-portfolio-more>Больше работ <span aria-hidden="true">＋</span></button>
         </div>
       </div>
     </section>

@@ -273,7 +273,11 @@ const audioStop = document.querySelector('[data-audio-stop]');
 let activeAudioButton = null;
 
 function resetAudioUI() {
-  document.querySelectorAll('[data-audio-src].is-playing').forEach((button) => button.classList.remove('is-playing'));
+  document.querySelectorAll('[data-audio-src]').forEach((button) => {
+    button.classList.remove('is-playing');
+    button.setAttribute('aria-pressed', 'false');
+    button.style.removeProperty('--audio-progress');
+  });
   audioToast?.classList.remove('is-visible');
   document.body.classList.remove('is-audio-playing');
   activeAudioButton = null;
@@ -291,6 +295,7 @@ async function toggleAudio(button) {
   resetAudioUI();
   activeAudioButton = button;
   button.classList.add('is-playing');
+  button.setAttribute('aria-pressed', 'true');
   document.body.classList.add('is-audio-playing');
   audio.src = source;
   if (audioName) audioName.textContent = button.dataset.audioLabel || 'Демо';
@@ -311,6 +316,10 @@ document.addEventListener('voice-deck-change', (event) => {
   if (!activeAudioButton || !event.target.contains(activeAudioButton)) return;
   audio.pause();
   resetAudioUI();
+});
+audio.addEventListener('timeupdate', () => {
+  if (!activeAudioButton || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
+  activeAudioButton.style.setProperty('--audio-progress', `${(audio.currentTime / audio.duration) * 100}%`);
 });
 audio.addEventListener('ended', resetAudioUI);
 audio.addEventListener('error', resetAudioUI);
@@ -577,21 +586,65 @@ voiceCarousel?.addEventListener('pointercancel', () => { voicePointerStart = nul
 
 renderVoice();
 
-const portfolioProjects = [...document.querySelectorAll('[data-project]')];
+const portfolio = document.querySelector('[data-portfolio]');
+const portfolioTabs = [...(portfolio?.querySelectorAll('[data-portfolio-tab]') || [])];
+const portfolioPanels = [...(portfolio?.querySelectorAll('[data-portfolio-panel]') || [])];
+const portfolioMore = portfolio?.querySelector('[data-portfolio-more]');
+const portfolioStatus = portfolio?.querySelector('[data-portfolio-status]');
+const portfolioBatchSize = 3;
+const portfolioVisibleCounts = new Map(portfolioTabs.map((tab) => [tab.dataset.portfolioTab, portfolioBatchSize]));
+let activePortfolioCategory = portfolioTabs.find((tab) => tab.classList.contains('is-active'))?.dataset.portfolioTab || 'video';
 
-function selectPortfolioProject(project) {
-  if (!project || project.classList.contains('is-active')) return;
-  portfolioProjects.forEach((item) => {
-    const isActive = item === project;
-    item.classList.toggle('is-active', isActive);
-    item.setAttribute('aria-pressed', String(isActive));
+function renderPortfolio() {
+  portfolioTabs.forEach((tab) => {
+    const isActive = tab.dataset.portfolioTab === activePortfolioCategory;
+    tab.classList.toggle('is-active', isActive);
+    tab.setAttribute('aria-selected', String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
   });
+
+  let activeCards = [];
+  portfolioPanels.forEach((panel) => {
+    const isActive = panel.dataset.portfolioPanel === activePortfolioCategory;
+    panel.hidden = !isActive;
+    if (isActive) activeCards = [...panel.querySelectorAll('[data-portfolio-card]')];
+  });
+
+  const visibleCount = Math.min(portfolioVisibleCounts.get(activePortfolioCategory) || portfolioBatchSize, activeCards.length);
+  activeCards.forEach((card, index) => { card.hidden = index >= visibleCount; });
+  if (portfolioStatus) portfolioStatus.textContent = `Показано ${visibleCount} из ${activeCards.length}`;
+  if (portfolioMore) portfolioMore.hidden = visibleCount >= activeCards.length;
 }
 
-portfolioProjects.forEach((project) => {
-  project.addEventListener('focus', () => selectPortfolioProject(project));
-  project.addEventListener('click', () => selectPortfolioProject(project));
+function selectPortfolioCategory(category, moveFocus = false) {
+  if (!portfolioVisibleCounts.has(category)) return;
+  if (activeAudioButton?.closest('[data-portfolio-panel]')) {
+    audio.pause();
+    resetAudioUI();
+  }
+  activePortfolioCategory = category;
+  renderPortfolio();
+  if (moveFocus) portfolioTabs.find((tab) => tab.dataset.portfolioTab === category)?.focus();
+}
+
+portfolioTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectPortfolioCategory(tab.dataset.portfolioTab));
+  tab.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    let nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? portfolioTabs.length - 1 : index + (event.key === 'ArrowRight' ? 1 : -1);
+    nextIndex = (nextIndex + portfolioTabs.length) % portfolioTabs.length;
+    selectPortfolioCategory(portfolioTabs[nextIndex].dataset.portfolioTab, true);
+  });
 });
+
+portfolioMore?.addEventListener('click', () => {
+  const current = portfolioVisibleCounts.get(activePortfolioCategory) || portfolioBatchSize;
+  portfolioVisibleCounts.set(activePortfolioCategory, current + portfolioBatchSize);
+  renderPortfolio();
+});
+
+renderPortfolio();
 
 const calculator = document.querySelector('[data-calculator]');
 const calculatorTotal = document.querySelector('[data-calculator-total]');

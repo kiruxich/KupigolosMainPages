@@ -132,7 +132,10 @@ if (!failures.length) {
   check(/class="ai-toolkit reveal"/.test(html), 'html: full AI tools section is missing');
   check((html.match(/class="ai-tool-card ai-tool-card-/g) || []).length === 6, 'html: expected six featured AI tools');
   check(!/class="ai-tool-links/.test(html), 'html: collapsed AI tool link list remains');
-  check(/class="portfolio-reel"/.test(html) && (html.match(/data-project data-project-name=/g) || []).length === 3, 'html: editorial portfolio reel is missing');
+  check((html.match(/data-portfolio-panel=/g) || []).length === 3, 'html: video, audio and IVR portfolio panels are required');
+  check((html.match(/data-portfolio-card/g) || []).length === 18, 'html: expected six portfolio cards in each category');
+  check((html.match(/class="portfolio-download"/g) || []).length === 12, 'html: every audio and IVR project needs a download action');
+  check(/data-portfolio-more/.test(html), 'html: portfolio load-more control is missing');
   check(/class="calculator-summary"/.test(html) && /aria-live="polite"/.test(html), 'html: calculator estimate summary is missing');
   check(/class="service-index/.test(html), 'html: crawlable service index is missing');
   check((html.match(/class="service-index-groups"[\s\S]*?<\/nav>/)?.[0].match(/<a href=/g) || []).length >= 19, 'html: service index must expose the live service taxonomy');
@@ -179,7 +182,7 @@ if (!failures.length) {
   check(/\.site-header \.header-project\.button \{[^}]*color:\s*white/s.test(css), 'css: header project link must be visible before hover');
   check((html.match(/class="service-item service-item-/g) || []).length === 6, 'html: expected six full service cards');
   check(!css.includes('transition: color .22s, padding-left .22s'), 'css: link interactions must avoid layout-triggering padding animation');
-  check(/\.portfolio-reel \{[^}]*grid-template-columns:/s.test(css), 'css: editorial portfolio layout is missing');
+  check(/\.portfolio-grid \{[^}]*grid-template-columns:\s*repeat\(3,/s.test(refresh), 'css: three-column portfolio batches are missing');
   check(/\.calculator-choice \{[^}]*grid-template-columns:/s.test(css), 'css: calculator option rows are missing');
   check(/\.site-header\.on-light \{[^}]*color:\s*var\(--ink\)/s.test(css), 'css: light-surface header contrast state is missing');
   check(/\.site-nav \{[^}]*font-size:\s*\.92rem[^}]*font-weight:\s*600/s.test(css), 'css: header navigation type must remain legible');
@@ -191,7 +194,7 @@ if (!failures.length) {
   check(js.includes('function openHeaderPanel(') && js.includes('function closeHeaderPanels('), 'js: header panel controller is missing');
   check(!js.includes('updateHeroBackgroundBlur') && !js.includes('--hero-blur-fill'), 'js: obsolete hero blur controller remains');
   check(js.includes('HTMLAudioElement'), 'js: audio feature check is missing');
-  check(js.includes('function selectPortfolioProject(project)'), 'js: portfolio project controller is missing');
+  check(js.includes('const portfolioBatchSize = 3') && js.includes('function renderPortfolio()'), 'js: three-item portfolio controller is missing');
   check(js.includes('function syncHeaderTone()') && js.includes("classList.toggle('on-light'"), 'js: automatic header contrast switching is missing');
   check(js.includes('function setDrawer(') && js.includes("event.key === 'Escape'"), 'js: drawer interaction is missing');
   check(js.includes('function setStudioRailSection(sectionId)') && js.includes('studioRailObserver'), 'js: studio navigation rail controller is missing');
