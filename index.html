@@ -16,8 +16,7 @@
   <meta property="og:image" content="https://kupigolos.ru/assets/hero-script.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kupigolos.ru/">
-  <link rel="preload" href="assets/1.png" as="image">
-  <link rel="preload" href="assets/2.png" as="image">
+  <link rel="preload" href="assets/hero-options/01-directors-desk.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -45,7 +44,7 @@
   }
   </script>
   <script src="motion-scheduler.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=blur-control-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -131,20 +130,83 @@
   </section>
 
   <main id="main-content">
-    <section class="top-stage" id="start" aria-labelledby="hero-title">
-      <div class="top-stage-backdrop" aria-hidden="true"></div>
-      <div class="shell top-hero">
-        <div class="top-hero-heading">
+    <section class="top-stage hero-option hero-option-director" id="start" data-hero-option="01" aria-labelledby="hero-title">
+      <div class="hero-option-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-option-shell">
+        <div class="hero-option-copy">
           <p class="top-kicker">Профессиональная</p>
-          <h1 id="hero-title">Студия озвучивания<br>в Москве</h1>
+          <h1 class="hero-option-title" id="hero-title">Студия озвучивания<br>в Москве</h1>
+          <p class="hero-option-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+          <a class="hero-cta" href="#voices">
+            <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+            <span>Выбрать диктора</span>
+            <i class="cta-arrow" aria-hidden="true">→</i>
+          </a>
         </div>
-        <p class="top-hero-copy">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
-        <img class="top-hero-microphone" src="assets/2.png" alt="" aria-hidden="true">
-        <a class="hero-cta" href="#voices">
-          <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
-          <span>Выбрать диктора</span>
-          <i class="cta-arrow" aria-hidden="true">→</i>
-        </a>
+      </div>
+    </section>
+
+    <section class="top-stage hero-option hero-option-glass" data-hero-option="02" aria-labelledby="hero-option-title-02">
+      <div class="hero-option-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-option-shell">
+        <div class="hero-option-copy">
+          <p class="top-kicker">Профессиональная</p>
+          <h2 class="hero-option-title" id="hero-option-title-02">Студия озвучивания<br>в Москве</h2>
+          <p class="hero-option-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+          <a class="hero-cta" href="#voices">
+            <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+            <span>Выбрать диктора</span>
+            <i class="cta-arrow" aria-hidden="true">→</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="top-stage hero-option hero-option-human" data-hero-option="03" aria-labelledby="hero-option-title-03">
+      <div class="hero-option-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-option-shell">
+        <div class="hero-option-copy">
+          <p class="top-kicker">Профессиональная</p>
+          <h2 class="hero-option-title" id="hero-option-title-03">Студия озвучивания<br>в Москве</h2>
+          <p class="hero-option-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+          <a class="hero-cta" href="#voices">
+            <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+            <span>Выбрать диктора</span>
+            <i class="cta-arrow" aria-hidden="true">→</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="top-stage hero-option hero-option-archive" data-hero-option="04" aria-labelledby="hero-option-title-04">
+      <div class="hero-option-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-option-shell">
+        <div class="hero-option-copy">
+          <p class="top-kicker">Профессиональная</p>
+          <h2 class="hero-option-title" id="hero-option-title-04">Студия озвучивания<br>в Москве</h2>
+          <p class="hero-option-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+          <a class="hero-cta" href="#voices">
+            <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+            <span>Выбрать диктора</span>
+            <i class="cta-arrow" aria-hidden="true">→</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="top-stage hero-option hero-option-night" data-hero-option="05" aria-labelledby="hero-option-title-05">
+      <div class="hero-option-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-option-shell">
+        <div class="hero-option-copy">
+          <p class="top-kicker">Профессиональная</p>
+          <h2 class="hero-option-title" id="hero-option-title-05">Студия озвучивания<br>в Москве</h2>
+          <p class="hero-option-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
+          <a class="hero-cta" href="#voices">
+            <i class="cta-levels" aria-hidden="true"><b></b><b></b><b></b></i>
+            <span>Выбрать диктора</span>
+            <i class="cta-arrow" aria-hidden="true">→</i>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -634,6 +696,14 @@
     </div>
     <div class="shell footer-bottom"><span>© 2013 - 2026 КупиГолос</span><a href="https://kupigolos.ru/privacy">Политика конфиденциальности</a><a href="#start">Наверх ↑</a></div>
   </footer>
+
+  <aside class="hero-blur-control is-visible" data-hero-blur-control aria-label="Настройка размытия фона">
+    <label for="hero-blur-range">
+      <span>Размытие фона</span>
+      <output for="hero-blur-range" data-hero-blur-output>0 px</output>
+    </label>
+    <input id="hero-blur-range" data-hero-blur-input type="range" min="0" max="18" step="1" value="0" aria-label="Размытие фона в пикселях">
+  </aside>
 
   <div class="audio-toast" data-audio-toast aria-live="polite"><span class="audio-eq"><i></i><i></i><i></i></span><span data-audio-name>Демо</span><button type="button" data-audio-stop aria-label="Остановить аудио">×</button></div>
 </body>

@@ -49,6 +49,37 @@ document.querySelectorAll('main > section, .site-footer').forEach((section) => h
 window.addEventListener('resize', syncHeaderTone, { passive: true });
 syncHeaderTone();
 
+const heroBlurControl = document.querySelector('[data-hero-blur-control]');
+const heroBlurInput = document.querySelector('[data-hero-blur-input]');
+const heroBlurOutput = document.querySelector('[data-hero-blur-output]');
+
+function updateHeroBackgroundBlur(value) {
+  const minimum = Number(heroBlurInput?.min || 0);
+  const maximum = Number(heroBlurInput?.max || 18);
+  const blur = Math.min(maximum, Math.max(minimum, Number(value) || 0));
+  const fill = maximum > minimum ? ((blur - minimum) / (maximum - minimum)) * 100 : 0;
+  document.documentElement.style.setProperty('--hero-background-blur', `${blur}px`);
+  document.documentElement.style.setProperty('--hero-blur-fill', `${fill}%`);
+  if (heroBlurOutput) heroBlurOutput.textContent = `${blur} px`;
+  heroBlurInput?.setAttribute('aria-valuetext', `${blur} пикселей`);
+}
+
+heroBlurInput?.addEventListener('input', (event) => updateHeroBackgroundBlur(event.currentTarget.value));
+heroBlurInput?.addEventListener('change', (event) => updateHeroBackgroundBlur(event.currentTarget.value));
+updateHeroBackgroundBlur(heroBlurInput?.value || 0);
+
+if (heroBlurControl && 'IntersectionObserver' in window) {
+  const visibleHeroOptions = new Set();
+  const heroBlurVisibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) visibleHeroOptions.add(entry.target);
+      else visibleHeroOptions.delete(entry.target);
+    });
+    heroBlurControl.classList.toggle('is-visible', visibleHeroOptions.size > 0);
+  }, { threshold: 0.01 });
+  document.querySelectorAll('[data-hero-option]').forEach((section) => heroBlurVisibilityObserver.observe(section));
+}
+
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
   const revealObserver = new IntersectionObserver((entries, observer) => {

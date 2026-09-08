@@ -52,14 +52,24 @@ if (!failures.length) {
   check(!/data-theme-option=/.test(html), 'html: obsolete theme switcher is still present');
   check(!/class="theme-dock"/.test(html), 'html: obsolete theme dock is still present');
   check(!/class="marquee"/.test(html), 'html: decorative marquee is still present');
-  check(/class="top-stage"/.test(html), 'html: Figma-aligned opening stage is missing');
-  check(/class="top-stage-backdrop"/.test(html) && /assets\/1\.png/.test(html), 'html: hero background image is missing');
-  check(/class="top-hero-microphone"/.test(html) && /assets\/2\.png/.test(html), 'html: hero microphone image is missing');
+  check(/class="top-stage hero-option hero-option-director"/.test(html), 'html: opening hero option is missing');
+  check((html.match(/class="hero-option-backdrop"/g) || []).length === 5, 'html: expected five full hero backdrops');
+  check((html.match(/data-hero-option="0[1-5]"/g) || []).length === 5, 'html: expected five full hero sections');
+  for (const file of [
+    '01-directors-desk.png', '02-through-glass.png', '03-human-voice.png',
+    '04-recording-archive.png', '05-night-control-room.png',
+  ]) {
+    check(existsSync(resolve(root, 'assets', 'hero-options', file)), `asset: missing hero option ${file}`);
+  }
+  check(!/assets\/[12]\.png/.test(html) && !/class="top-hero-microphone"/.test(html), 'html: retired atomic hero artwork remains');
   check(/id="site-menu"/.test(html) && /class="menu-close"/.test(html), 'html: expanded navigation panel is missing');
   check(/class="studio-rail"/.test(html) && (html.match(/data-rail-target=/g) || []).length === 13, 'html: studio navigation rail is incomplete');
   check(!/font-switcher|data-font-choice/.test(html), 'html: obsolete font switcher is still present');
   check(/Cormorant\+Garamond/.test(html) && /Manrope:wght/.test(html) && !/Jost:wght/.test(html), 'html: selected Cormorant/Manrope pair is not locked');
-  check((html.match(/class="hero-cta"/g) || []).length === 1 && !/cta-option-/.test(html), 'html: final hero CTA is missing or comparison variants remain');
+  check((html.match(/class="hero-cta"/g) || []).length === 5 && !/cta-option-/.test(html), 'html: expected one CTA in each full hero option');
+  check(!/hero-concepts-stage|hero-concept-preview/.test(html), 'html: old miniature hero comparison remains');
+  check(!/hero-option-id|Вариант 0[1-5]/.test(html), 'html: temporary hero option labels remain');
+  check(/data-hero-blur-input/.test(html) && /type="range"/.test(html) && /data-hero-blur-output/.test(html), 'html: hero background blur control is missing');
   check(!/simple-liquid-glass|liquid-web/.test(html), 'html: rejected liquid button libraries are still present');
   check(/class="talent-stage voice-categories-stage"/.test(html), 'html: voice category component scope is missing');
   check(!/data-cinema|data-story-frame|data-shader-canvas/.test(html), 'html: retired cinematic scene hooks are still present');
@@ -106,9 +116,13 @@ if (!failures.length) {
   check(css.includes('prefers-reduced-motion'), 'css: reduced-motion support is missing');
   check(css.includes(':focus-visible'), 'css: visible focus styles are missing');
   check(css.includes('.top-stage') && css.includes('.top-hero'), 'css: opening layout styles are missing');
-  check(css.includes('.top-stage-backdrop') && css.includes('.site-menu'), 'css: hero composition or menu panel styles are missing');
+  check(css.includes('.top-stage-backdrop') && css.includes('.site-menu'), 'css: base hero composition or menu panel styles are missing');
+  check(!css.includes('assets/1.png') && !css.includes('top-hero-microphone'), 'css: retired atomic hero artwork remains');
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
   check(refresh.includes('.hero-cta') && !refresh.includes('.cta-option-clear') && !refresh.includes('.cta-option-orbit'), 'refresh: final hero CTA is missing or comparison styles remain');
+  check(refresh.includes('.hero-option-director') && refresh.includes('.hero-option-night'), 'refresh: full hero option styles are missing');
+  check(!refresh.includes('.hero-concepts-stage') && !refresh.includes('.hero-concept-preview'), 'refresh: old miniature hero comparison styles remain');
+  check(refresh.includes('.hero-blur-control') && refresh.includes('--hero-background-blur'), 'refresh: hero blur control styles are missing');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
   check(refresh.includes('.casting-row') && !refresh.includes('.featured-layout') && !refresh.includes('.portrait-grid'), 'refresh: retained voice concept is incomplete or rejected portrait concept remains');
   check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');
@@ -129,6 +143,7 @@ if (!failures.length) {
   check(!js.includes('themechange'), 'js: obsolete theme switching is still present');
   check(!js.includes("event.preventDefault();\n  const button = event.currentTarget.querySelector('button[type=\"submit\"]')"), 'js: fake contact submission handler is still present');
   check(js.includes('IntersectionObserver'), 'js: reveal observer is missing');
+  check(js.includes('updateHeroBackgroundBlur') && js.includes('--hero-blur-fill'), 'js: hero blur interaction is missing');
   check(js.includes('HTMLAudioElement'), 'js: audio feature check is missing');
   check(js.includes('function selectPortfolioProject(project)'), 'js: portfolio project controller is missing');
   check(js.includes('function syncHeaderTone()') && js.includes("classList.toggle('on-light'"), 'js: automatic header contrast switching is missing');
