@@ -31,8 +31,8 @@
 }
 
 #voices .figma-voice-portrait {
-  width: 132px;
-  height: 132px;
+  width: 164px;
+  height: 164px;
   margin-block: 10px 12px;
 }
 
@@ -152,17 +152,17 @@
   }
 }
 
-/* The full-width fan keeps one selected voice above all nineteen neighbours. */
+/* The full-width fan shows the selected voice and its nearest neighbours from the full catalogue. */
 #voices .figma-voices-panel { --voice-panel-gutter: clamp(28px, 4.8vw, 62px); }
 
 #voices .figma-voices-grid {
-  --voice-card-width: clamp(210px, 18vw, 244px);
+  --voice-card-width: clamp(280px, 23vw, 320px);
   position: relative;
   display: block;
   isolation: isolate;
   width: calc(100% + var(--voice-panel-gutter) * 2 - 32px);
   max-width: none;
-  height: 380px;
+  height: 480px;
   margin-inline: calc(16px - var(--voice-panel-gutter));
   padding: 0;
   overflow: visible;
@@ -184,6 +184,8 @@
 }
 
 #voices .figma-voice-body {
+  min-height: 400px;
+  grid-template-rows: 24px minmax(160px, 1fr) 58px auto auto;
   border: 1px solid rgba(39, 55, 120, .12);
   background: #f9fafc;
   box-shadow: -5px 5px 14px rgba(37, 43, 69, .07);
@@ -221,7 +223,7 @@
   transition: opacity .2s ease;
 }
 
-#voices .figma-voice-card:not(.is-active) :is(.figma-voice-meta, .figma-voice-name, .figma-voice-price, .voice-play),
+#voices .figma-voice-card:not(.is-active) :is(.figma-voice-meta, .figma-voice-name, .figma-voice-price, .voice-play, .voice-waveform),
 #voices .figma-voice-card:not(.is-active):not([data-deck-offset="-1"]):not([data-deck-offset="1"]) .figma-voice-portrait,
 #voices .figma-voice-card:not(.is-active) .figma-voice-portrait::before {
   opacity: 0;
@@ -232,7 +234,7 @@
   min-height: 2.4em;
   align-items: end;
   color: var(--ink);
-  font-size: var(--type-body, 1rem);
+  font-size: clamp(18px, 1.4vw, 20px);
   font-weight: 800;
   line-height: 1.2;
   white-space: normal;
@@ -257,6 +259,61 @@
   outline: 2px solid var(--header-rust);
   outline-offset: 3px;
   border-radius: 3px;
+}
+
+#voices .figma-voice-card[hidden] { display: none; }
+
+#voices .voice-card-spine {
+  position: absolute;
+  top: 90px;
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  writing-mode: vertical-rl;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+#voices .figma-voice-card[data-deck-side="left"] .voice-card-spine { left: 20px; transform: rotate(180deg); }
+#voices .figma-voice-card[data-deck-side="right"] .voice-card-spine { right: 20px; }
+#voices .figma-voice-card.is-active .voice-card-spine { opacity: 0; }
+
+#voices .voice-waveform {
+  --voice-progress: 0%;
+  width: 100%;
+  max-width: 240px;
+  align-self: center;
+  transition: opacity .2s ease;
+}
+
+#voices .voice-waveform-track {
+  position: relative;
+  height: 36px;
+  color: #cbd0de;
+}
+
+#voices .voice-waveform-track svg { display: block; width: 100%; height: 36px; fill: currentColor; }
+
+#voices .voice-waveform-played {
+  position: absolute;
+  inset: 0;
+  color: var(--header-rust);
+  clip-path: inset(0 calc(100% - var(--voice-progress)) 0 0);
+  transition: clip-path .2s linear;
+}
+
+#voices .voice-waveform-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
 }
 
 #voices .figma-voices-footer {
@@ -334,9 +391,15 @@
 
 @media (max-width: 620px) {
   #voices .figma-voices-grid {
-    --voice-card-width: min(58vw, 210px);
-    height: 360px;
+    --voice-card-width: min(68vw, 280px);
+    height: 445px;
   }
+
+  #voices .figma-voice-body { min-height: 370px; }
+  #voices .figma-voice-portrait { width: 140px; height: 140px; }
+  #voices .voice-card-spine { font-size: 10px; }
+  #voices .figma-voice-card[data-deck-side="left"] .voice-card-spine { left: 7px; }
+  #voices .figma-voice-card[data-deck-side="right"] .voice-card-spine { right: 7px; }
 
   #voices .figma-voices-footer {
     align-items: flex-start;
@@ -354,7 +417,10 @@
   #voices .figma-voice-name,
   #voices .figma-voice-price,
   #voices .figma-voice-portrait,
-  #voices .figma-voice-portrait .voice-play {
+  #voices .figma-voice-portrait .voice-play,
+  #voices .voice-card-spine,
+  #voices .voice-waveform,
+  #voices .voice-waveform-played {
     transition: none;
   }
 }

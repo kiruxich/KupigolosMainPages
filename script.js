@@ -272,7 +272,19 @@ const audioName = document.querySelector('[data-audio-name]');
 const audioStop = document.querySelector('[data-audio-stop]');
 let activeAudioButton = null;
 
+function syncVoiceWaveform(button) {
+  const waveform = button?.closest('.figma-voice-card')?.querySelector('.voice-waveform');
+  if (!waveform) return;
+  const duration = Number.isFinite(audio.duration) ? audio.duration : Number(waveform.dataset.duration);
+  const progress = duration > 0 ? Math.min(100, (audio.currentTime / duration) * 100) : 0;
+  waveform.style.setProperty('--voice-progress', `${progress}%`);
+  waveform.querySelector('[role="progressbar"]').setAttribute('aria-valuenow', String(Math.round(progress)));
+  const elapsed = Math.floor(audio.currentTime || 0);
+  waveform.querySelector('[data-voice-elapsed]').textContent = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
+}
+
 function resetAudioUI() {
+  syncVoiceWaveform(activeAudioButton);
   document.querySelectorAll('[data-audio-src]').forEach((button) => {
     button.classList.remove('is-playing');
     button.setAttribute('aria-pressed', 'false');
@@ -297,7 +309,8 @@ async function toggleAudio(button) {
   button.classList.add('is-playing');
   button.setAttribute('aria-pressed', 'true');
   document.body.classList.add('is-audio-playing');
-  audio.src = source;
+  if (audio.src !== new URL(source, document.baseURI).href) audio.src = source;
+  syncVoiceWaveform(button);
   if (audioName) audioName.textContent = button.dataset.audioLabel || 'Демо';
   audioToast?.classList.add('is-visible');
 
@@ -315,9 +328,12 @@ document.addEventListener('click', (event) => {
 document.addEventListener('voice-deck-change', (event) => {
   if (!activeAudioButton || !event.target.contains(activeAudioButton)) return;
   audio.pause();
+  audio.currentTime = 0;
+  syncVoiceWaveform(activeAudioButton);
   resetAudioUI();
 });
 audio.addEventListener('timeupdate', () => {
+  syncVoiceWaveform(activeAudioButton);
   if (!activeAudioButton || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
   activeAudioButton.style.setProperty('--audio-progress', `${(audio.currentTime / audio.duration) * 100}%`);
 });

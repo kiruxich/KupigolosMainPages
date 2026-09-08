@@ -18,18 +18,23 @@ test('all twenty cards retain unique slots and one centered card through a full 
   assert.equal(deck.getNextCardIndex(0, 1, 0), -1);
 });
 
-test('fan reaches both edges, overlaps every neighbour and keeps the active card on top', () => {
-  for (const [width, cardWidth] of [[1450, 244], [940, 210], [343, 210], [256, 186]]) {
-    const layout = Array.from({ length: 20 }, (_, i) => deck.getDeckLayout(i - 10, 20, width, cardWidth));
+test('visible fan reaches both edges with nine desktop or five mobile cards', () => {
+  for (const [width, cardWidth, count] of [[1450, 320, 9], [1098, 294, 9], [702, 280, 9], [374, 265.2, 5], [304, 217.6, 5]]) {
+    assert.equal(deck.getVisibleCardCount(width, 20), count);
+    const half = Math.floor(count / 2);
+    const layout = Array.from({ length: count }, (_, i) => deck.getDeckLayout(i - half, count, width, cardWidth));
     const bounds = layout.map(({ x, scale }) => ({ left: width / 2 + x - cardWidth * scale / 2, right: width / 2 + x + cardWidth * scale / 2 }));
     assert.ok(Math.abs(bounds[0].left) < .001);
-    assert.ok(Math.abs(bounds[19].right - width) < .001);
-    assert.equal(layout[10].x, 0);
-    assert.equal(layout[10].scale, 1);
-    for (let i = 0; i < 20; i++) {
+    assert.ok(Math.abs(bounds[count - 1].right - width) < .001);
+    assert.equal(layout[half].x, 0);
+    assert.equal(layout[half].scale, 1);
+    for (let i = 0; i < count; i++) {
       assert.ok(bounds[i].left >= -.001 && bounds[i].right <= width + .001);
-      if (i !== 10) assert.ok(layout[i].layer < layout[10].layer);
-      if (i < 19) assert.ok(bounds[i].right > bounds[i + 1].left);
+      if (i !== half) assert.ok(layout[i].layer < layout[half].layer);
+      if (i < count - 1) {
+        assert.ok(bounds[i].right > bounds[i + 1].left);
+        assert.ok(layout[i + 1].x > layout[i].x);
+      }
     }
   }
 });
@@ -60,6 +65,8 @@ test('mounts once and handles arrows, direct selection and swipes without activa
   runInNewContext(readFileSync(require.resolve('../voices-carousel.js'), 'utf8'), { window });
   const checkActive = (index) => {
     assert.equal(track.dataset.activeCard, String(index + 1));
+    assert.equal(cards.filter(c => !c.hidden).length, 9);
+    assert.equal(cards[index].hidden, false);
     assert.equal(cards.filter(c => c.classList.contains('is-active')).length, 1);
     assert.equal(cards[index].getAttribute('aria-current'), 'true');
     cards.forEach((c, i) => assert.equal(c.querySelector().inert, i !== index));
@@ -79,4 +86,21 @@ test('mounts once and handles arrows, direct selection and swipes without activa
   listeners.pointerdown({ button: 0, clientX: 200, clientY: 100, pointerId: 1 });
   windowListeners.pointerup({ clientX: 170, clientY: 250, pointerId: 1 }); checkActive(5);
   deck.mountVoiceDecks(document); checkActive(5);
+});
+
+test('every catalogue demo has a real envelope and a positive duration', () => {
+  const window = {};
+  runInNewContext(readFileSync(require.resolve('../voice-waveforms.js'), 'utf8'), { window });
+  const source = readFileSync(require.resolve('../script.js'), 'utf8').split('const voiceSlides = [')[1].split('\n];')[0];
+  const urls = [...source.matchAll(/audio: '([^']+)'/g)].map(match => match[1]);
+  assert.equal(urls.length, 20);
+  const shapes = new Set();
+  for (const url of urls) {
+    const sample = window.KupiVoiceWaveforms[url];
+    assert.ok(sample.duration > 0);
+    assert.equal(sample.bars.length, 48);
+    assert.ok(sample.bars.every(bar => Number.isInteger(bar) && bar >= 3 && bar <= 34));
+    shapes.add(sample.bars.join(','));
+  }
+  assert.equal(shapes.size, 20);
 });
