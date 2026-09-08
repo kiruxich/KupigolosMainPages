@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://kupigolos.ru/assets/hero-script.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kupigolos.ru/">
-  <link rel="preload" href="assets/hero-studio.jpg" as="image">
+  <link rel="preload" href="assets/hero-studio-product.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@
   }
   </script>
   <script src="motion-scheduler.js" defer></script>
-  <script src="script.js?v=header-hero-rail-1" defer></script>
+  <script src="script.js?v=header-product-hero-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -60,7 +60,7 @@
       <nav aria-label="Быстрая навигация">
         <a href="#start" data-rail-target="start" aria-label="Старт"><i></i><span>Старт</span></a>
         <a href="#voices" data-rail-target="voices" aria-label="Дикторы"><i></i><span>Дикторы</span></a>
-        <a href="#ai-services" data-rail-target="ai-services" aria-label="ИИ-модели"><i></i><span>ИИ-модели</span></a>
+        <a href="#ai-services" data-rail-target="ai-services" aria-label="ИИ-сервисы"><i></i><span>ИИ-сервисы</span></a>
         <a href="#about" data-rail-target="about" aria-label="О студии"><i></i><span>О студии</span></a>
         <a href="#services" data-rail-target="services" aria-label="Услуги"><i></i><span>Услуги</span></a>
         <a href="#portfolio" data-rail-target="portfolio" aria-label="Портфолио"><i></i><span>Портфолио</span></a>
@@ -79,8 +79,7 @@
   <header class="site-header" data-header>
     <div class="site-header-inner shell">
       <a class="brand" href="#start" aria-label="КупиГолос, на главную">
-        <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M4 22h4m4-7v14m5-20v26m6-20v14m6-9v4m6-9v14m5-7h4"/></svg>
-        <span>купи<span>голос</span></span>
+        <img src="assets/kupigolos-logo-white.svg" alt="" width="109" height="51">
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
         <button type="button" data-header-trigger="services" aria-expanded="false" aria-controls="header-panel-services">Услуги <span aria-hidden="true">⌄</span></button>
@@ -179,35 +178,19 @@
           <p class="top-kicker">Профессиональная</p>
           <h1 class="hero-product-title" id="hero-title">Студия озвучивания в Москве</h1>
           <p class="hero-product-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
-          <div class="hero-actions"><a class="hero-cta" href="#voices"><span>Выбрать диктора</span><i aria-hidden="true">→</i></a></div>
+          <ul class="hero-proof" aria-label="Ключевые возможности студии">
+            <li><span class="hero-proof-icon" aria-hidden="true">◉</span><strong>Более 800 голосов</strong></li>
+            <li><span class="hero-proof-icon" aria-hidden="true">◎</span><strong>60 языков</strong></li>
+            <li><span class="hero-proof-icon" aria-hidden="true">ϟ</span><strong>Озвучка за один день</strong></li>
+          </ul>
+          <div class="hero-actions">
+            <a class="hero-cta" href="#voices"><span>Выбрать диктора</span><i aria-hidden="true">→</i></a>
+            <a class="hero-cta-secondary" href="#calculator"><span>Рассчитать стоимость</span><i aria-hidden="true">▦</i></a>
+          </div>
         </div>
         <figure class="hero-studio-visual">
-          <img src="assets/hero-studio.jpg" alt="Студийный микрофон для профессиональной записи голоса">
+          <img src="assets/hero-studio-product.png" alt="Профессиональный студийный микрофон, поп-фильтр и наушники">
         </figure>
-      </div>
-    </section>
-
-    <section class="hero-product" data-hero-variant aria-labelledby="hero-title-console">
-      <div class="shell hero-product-grid">
-        <div class="hero-product-copy">
-          <p class="top-kicker">Профессиональная</p>
-          <h2 class="hero-product-title" id="hero-title-console">Студия озвучивания в Москве</h2>
-          <p class="hero-product-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
-          <div class="hero-actions"><a class="hero-cta" href="#voices"><span>Выбрать диктора</span><i aria-hidden="true">→</i></a></div>
-        </div>
-        <figure class="hero-studio-visual"><img src="assets/hero-console.jpg" alt="Звукорежиссёрский пульт в студии озвучивания"></figure>
-      </div>
-    </section>
-
-    <section class="hero-product" data-hero-variant aria-labelledby="hero-title-script">
-      <div class="shell hero-product-grid">
-        <div class="hero-product-copy">
-          <p class="top-kicker">Профессиональная</p>
-          <h2 class="hero-product-title" id="hero-title-script">Студия озвучивания в Москве</h2>
-          <p class="hero-product-lead">Подготовим профессиональную озвучку диктором на любом языке мира за один день. Работаем на оборудовании мировых брендов.</p>
-          <div class="hero-actions"><a class="hero-cta" href="#voices"><span>Выбрать диктора</span><i aria-hidden="true">→</i></a></div>
-        </div>
-        <figure class="hero-studio-visual"><img src="assets/hero-script.jpg" alt="Сценарий для записи профессиональной озвучки"></figure>
       </div>
     </section>
 
@@ -306,52 +289,8 @@
       </div>
     </section>
 
-    <section class="talent-stage talent-stage-ai" id="ai-services" aria-labelledby="ai-title">
+    <section class="talent-stage talent-stage-ai" id="ai-services" aria-labelledby="ai-tools-title">
       <div class="shell">
-        <div class="ai-section-heading reveal">
-          <h2 id="ai-title">ИИ-модели</h2>
-          <p>Выберите характер голоса, послушайте демо и сразу переходите к озвучке текста.</p>
-        </div>
-        <div class="ai-voice-lab reveal" data-ai-voice-lab>
-          <div class="ai-feature-shell">
-            <article class="ai-feature">
-              <div class="ai-portrait">
-                <img data-ai-image src="assets/ai-voices/ilya-enhanced-v2.jpg" alt="ИИ-модель Илья">
-                <span class="ai-model-code" data-ai-code>KG / AI 01</span>
-                <span class="ai-model-status"><i aria-hidden="true"></i> модель доступна</span>
-              </div>
-              <div class="ai-feature-copy">
-                <p class="ai-feature-label">Выбранный голос</p>
-                <h3 data-ai-name>Илья</h3>
-                <p data-ai-meta>Динамичная и собранная подача для промо, социальных сетей и коротких форматов.</p>
-                <div class="ai-tags" aria-label="Характеристики голоса">
-                  <span>RU</span><span>Студийный</span><span>Natural</span>
-                </div>
-                <div class="ai-player">
-                  <button class="ai-play" type="button" data-ai-play data-audio-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" data-audio-label="ИИ-модель Илья" aria-label="Слушать ИИ-модель Илья"><i class="play-icon" aria-hidden="true"></i></button>
-                  <div class="ai-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                  <span data-ai-duration>0:09</span>
-                </div>
-                <div class="ai-feature-footer">
-                  <span><small>Стоимость</small><strong data-ai-price>от 30 ₽</strong></span>
-                  <a class="hero-cta ai-cta" data-ai-link href="https://kupigolos.ru/ai"><span>Озвучить текст</span><i class="cta-arrow" aria-hidden="true">→</i></a>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div class="ai-model-panel">
-            <div class="ai-model-panel-head"><span>Голоса</span><strong>06 моделей</strong></div>
-            <div class="ai-model-list" role="list" aria-label="Выбор ИИ-модели">
-              <button class="is-selected" type="button" role="listitem" data-ai-picker data-name="Илья" data-code="KG / AI 01" data-meta="Динамичная и собранная подача для промо, социальных сетей и коротких форматов." data-duration="0:09" data-price="от 30 ₽" data-image="assets/ai-voices/ilya-enhanced-v2.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="true"><img src="assets/ai-voices/ilya-enhanced-v2.jpg" alt=""><span><strong>Илья</strong><small>Динамичный</small></span><i>01</i></button>
-              <button type="button" role="listitem" data-ai-picker data-name="Дарья" data-code="KG / AI 02" data-meta="Тёплый и естественный тембр для рекламы, видео и спокойной подачи." data-duration="0:10" data-price="от 30 ₽" data-image="assets/ai-voices/darya-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/darya-enhanced-v3.jpg" alt=""><span><strong>Дарья</strong><small>Мягкая подача</small></span><i>02</i></button>
-              <button type="button" role="listitem" data-ai-picker data-name="Даниил" data-code="KG / AI 03" data-meta="Спокойный деловой голос для презентаций, инструкций и корпоративных видео." data-duration="0:20" data-price="от 30 ₽" data-image="assets/ai-voices/daniil-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/daniil-enhanced-v3.jpg" alt=""><span><strong>Даниил</strong><small>Деловая подача</small></span><i>03</i></button>
-              <button type="button" role="listitem" data-ai-picker data-name="Станислав" data-code="KG / AI 04" data-meta="Выразительный низкий тембр для историй, персонажей и эмоциональных роликов." data-duration="0:17" data-price="от 30 ₽" data-image="assets/ai-voices/stanislav-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/stanislav-enhanced-v3.jpg" alt=""><span><strong>Станислав</strong><small>Характерный</small></span><i>04</i></button>
-              <button type="button" role="listitem" data-ai-picker data-name="Владимир" data-code="KG / AI 05" data-meta="Глубокий уверенный голос для документального кино, трейлеров и брендов." data-duration="0:11" data-price="от 30 ₽" data-image="assets/ai-voices/vladimir-enhanced-v3.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/vladimir-enhanced-v3.jpg" alt=""><span><strong>Владимир</strong><small>Глубокий тембр</small></span><i>05</i></button>
-              <button type="button" role="listitem" data-ai-picker data-name="Роман" data-code="KG / AI 06" data-meta="Зрелый доверительный тембр для аудиокниг, обучения и серьёзного повествования." data-duration="0:07" data-price="от 30 ₽" data-image="assets/ai-voices/roman-enhanced-v2.jpg" data-href="https://kupigolos.ru/ai" data-src="https://storage.kupigolos.ru/audio/demo/5d25e43d9f7a4.mp3" aria-pressed="false"><img src="assets/ai-voices/roman-enhanced-v2.jpg" alt=""><span><strong>Роман</strong><small>Доверительный</small></span><i>06</i></button>
-            </div>
-          </div>
-        </div>
         <section class="ai-toolkit reveal" aria-labelledby="ai-tools-title">
           <header class="ai-toolkit-heading">
             <div>

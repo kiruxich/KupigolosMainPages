@@ -231,7 +231,7 @@ studioRailLinks.forEach((link) => {
     const target = document.getElementById(link.dataset.railTarget);
     if (!target) return;
     event.preventDefault();
-    target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: 'auto', block: 'start' });
     history.replaceState(null, '', `#${target.id}`);
     setStudioRailSection(target.id);
   });
@@ -245,86 +245,6 @@ if ('IntersectionObserver' in window && studioRailSections.length) {
   studioRailSections.forEach((section) => studioRailObserver.observe(section));
   setStudioRailSection(studioRailSections[0].id);
 }
-
-const aiModelPickers = [...document.querySelectorAll('[data-ai-picker]')];
-const aiModelNames = [...document.querySelectorAll('[data-ai-name]')];
-
-function fitAiModelName(name) {
-  name.style.removeProperty('--ai-name-size');
-  const maxSize = Number.parseFloat(getComputedStyle(name).fontSize);
-  const availableWidth = name.clientWidth;
-  if (!maxSize || !availableWidth) return;
-
-  const responsiveMinimum = window.innerWidth <= 560 ? 38 : 52;
-  let low = Math.min(maxSize, responsiveMinimum);
-  let high = maxSize;
-
-  name.style.setProperty('--ai-name-size', `${high}px`);
-  if (name.scrollWidth <= availableWidth + 1) return;
-
-  for (let iteration = 0; iteration < 9; iteration += 1) {
-    const candidate = (low + high) / 2;
-    name.style.setProperty('--ai-name-size', `${candidate}px`);
-    if (name.scrollWidth <= availableWidth + 1) low = candidate;
-    else high = candidate;
-  }
-
-  name.style.setProperty('--ai-name-size', `${Math.max(responsiveMinimum, low - .5)}px`);
-}
-
-function fitAllAiModelNames() {
-  aiModelNames.forEach(fitAiModelName);
-}
-
-requestAnimationFrame(fitAllAiModelNames);
-document.fonts?.ready.then(fitAllAiModelNames);
-
-let aiNameResizeFrame;
-window.addEventListener('resize', () => {
-  cancelAnimationFrame(aiNameResizeFrame);
-  aiNameResizeFrame = requestAnimationFrame(fitAllAiModelNames);
-});
-
-aiModelPickers.forEach((picker) => {
-  picker.addEventListener('click', () => {
-    const root = picker.closest('[data-ai-voice-lab]');
-    const image = root?.querySelector('[data-ai-image]');
-    const name = root?.querySelector('[data-ai-name]');
-    const code = root?.querySelector('[data-ai-code]');
-    const meta = root?.querySelector('[data-ai-meta]');
-    const duration = root?.querySelector('[data-ai-duration]');
-    const price = root?.querySelector('[data-ai-price]');
-    const link = root?.querySelector('[data-ai-link]');
-    const play = root?.querySelector('[data-ai-play]');
-
-    audio.pause();
-    resetAudioUI();
-    root?.querySelectorAll('[data-ai-picker]').forEach((button) => {
-      const selected = button === picker;
-      button.classList.toggle('is-selected', selected);
-      button.setAttribute('aria-pressed', String(selected));
-    });
-
-    if (image) {
-      image.src = picker.dataset.image;
-      image.alt = `ИИ-модель ${picker.dataset.name}`;
-    }
-    if (name) {
-      name.textContent = picker.dataset.name;
-      requestAnimationFrame(() => fitAiModelName(name));
-    }
-    if (code) code.textContent = picker.dataset.code;
-    if (meta) meta.textContent = picker.dataset.meta;
-    if (duration) duration.textContent = picker.dataset.duration;
-    if (price) price.textContent = picker.dataset.price;
-    if (link) link.href = picker.dataset.href;
-    if (play) {
-      play.dataset.audioSrc = picker.dataset.src;
-      play.dataset.audioLabel = `ИИ-модель ${picker.dataset.name}`;
-      play.setAttribute('aria-label', `Слушать ИИ-модель ${picker.dataset.name}`);
-    }
-  });
-});
 
 const voiceScrollTracks = [...document.querySelectorAll('[data-scroll-track]')];
 
