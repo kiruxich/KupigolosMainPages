@@ -29,6 +29,7 @@ if (!failures.length) {
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+  const railCss = `${css}\n${refresh}`;
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   const heroVariantMatches = [...html.matchAll(/<section\b[^>]*data-hero-variant(?:="[^"]*")?[^>]*>[\s\S]*?<\/section>/gi)]
     .map((match) => ({
@@ -37,7 +38,11 @@ if (!failures.length) {
       endIndex: (match.index ?? -1) + match[0].length,
       text: stripTags(match[0]),
     }));
-  const voicesSectionMatch = html.match(/<section\b[^>]*id="voices"[^>]*>/i);
+  const voicesSectionMatches = [...html.matchAll(/<section\b[^>]*id="voices"[^>]*>/gi)]
+    .map((match) => ({
+      html: match[0],
+      index: match.index ?? -1,
+    }));
   const requiredSections = [
     'start', 'voices', 'ai-services', 'about', 'services', 'portfolio',
     'calculator', 'advantages', 'guarantees', 'process', 'reviews',
@@ -71,6 +76,7 @@ if (!failures.length) {
   check(!/data-hero-blur-control|data-hero-blur-input|data-hero-blur-output|hero-blur-control/iu.test(html), 'html: hero blur controls remain');
   check(!/class="hero-proof"/.test(html), 'html: proof statistics remain');
   check(!/<form\b[^>]*action="(?!mailto:)[^"]+"/i.test(html), 'html: backend form submission remains');
+  check(voicesSectionMatches.length === 1, `html: expected exactly one #voices section, found ${voicesSectionMatches.length}`);
   if (heroVariantMatches.length === 3) {
     const heroCopy = {
       kicker: 'Профессиональная',
@@ -80,18 +86,19 @@ if (!failures.length) {
     };
     heroVariantMatches.forEach(({ html: sectionHtml, text }, index) => {
       const heroNumber = index + 1;
+      const ctaCount = (sectionHtml.match(/class="hero-cta"/g) || []).length;
       check(text.includes(heroCopy.kicker), `html: hero ${heroNumber} is missing the original kicker`);
       check(text.includes(heroCopy.title), `html: hero ${heroNumber} is missing the original title`);
       check(text.includes(heroCopy.lead), `html: hero ${heroNumber} is missing the original lead`);
+      check(ctaCount === 1, `html: hero ${heroNumber} must contain exactly one primary CTA, found ${ctaCount}`);
       check(text.includes(heroCopy.cta) && sectionHtml.includes('href="#voices"'), `html: hero ${heroNumber} is missing the original CTA link to #voices`);
       check(heroNumber === 1 ? /<h1\b/i.test(sectionHtml) : /<h2\b/i.test(sectionHtml), `html: hero ${heroNumber} has the wrong title level`);
     });
     for (const asset of ['assets/hero-studio.jpg', 'assets/hero-console.jpg', 'assets/hero-script.jpg']) {
       check(heroVariantMatches.some(({ html: sectionHtml }) => sectionHtml.includes(asset)), `html: hero comparison is missing ${asset}`);
     }
-    check(Boolean(voicesSectionMatch), 'html: #voices section is missing');
-    if (voicesSectionMatch) {
-      check((voicesSectionMatch.index ?? -1) > heroVariantMatches[2].endIndex, 'html: #voices must occur after the third hero');
+    if (voicesSectionMatches.length === 1) {
+      check(voicesSectionMatches[0].index > heroVariantMatches[2].endIndex, 'html: #voices must occur after the third hero');
     }
   }
   check(!/assets\/[12]\.png/.test(html) && !/class="top-hero-microphone"/.test(html), 'html: retired atomic hero artwork remains');
@@ -155,7 +162,7 @@ if (!failures.length) {
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
   check(!refresh.includes('.hero-concepts-stage') && !refresh.includes('.hero-concept-preview'), 'refresh: old miniature hero comparison styles remain');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
-  check(!/\.studio-rail:is\(:hover, :focus-within\)/.test(refresh), 'refresh: rail expansion selectors remain');
+  check(!/\.studio-rail(?::|[\s>+~\[])[^{]*:(?:hover|focus-within)|\.studio-rail(?::|[\s>+~\[])[^{]*:is\([^)]*(?:hover|focus-within)[^)]*\)/.test(railCss), 'css: rail expansion selectors remain');
   check(!refresh.includes('.hero-blur-control') && !refresh.includes('--hero-blur-fill'), 'refresh: hero blur controls remain');
   check(refresh.includes('.figma-voices-panel') && refresh.includes('.figma-voice-card') && !refresh.includes('.featured-layout'), 'refresh: Figma voice section is incomplete or featured voice block remains');
   check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');

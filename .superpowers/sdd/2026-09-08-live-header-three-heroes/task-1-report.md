@@ -18,3 +18,22 @@ Verification:
 
 Concerns:
 - The current markup still reflects the old single-hero/expanded-rail structure, so the validator remains intentionally red until later tasks update the HTML/CSS.
+
+## Round 1/5 fix
+
+Updated `scripts/validate.mjs` to close the three review gaps:
+- replaced the single global hero CTA check with a per-hero CTA count, so each `[data-hero-variant]` must carry exactly one `hero-cta`
+- required exactly one `#voices` section and kept the source-order check against the third hero
+- broadened rail-expansion rejection across both `styles.css` and `refresh.css` by checking for standalone `studio-rail` expansion selectors instead of one exact string
+
+Commands:
+- `node --check scripts/validate.mjs`
+- `node scripts/validate.mjs`
+
+Output:
+- `node --check scripts/validate.mjs` ✅
+- `node scripts/validate.mjs` ❌ `Validation failed (4):`
+  - `html: expected exactly three hero sections via [data-hero-variant], found 0`
+  - `html: proof statistics remain`
+  - `css: rail expansion selectors remain`
+  - `refresh: hero blur controls remain`
