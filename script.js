@@ -566,50 +566,20 @@ voiceCarousel?.addEventListener('pointercancel', () => { voicePointerStart = nul
 
 renderVoice();
 
-const portfolioScreen = document.querySelector('.portfolio-screen');
-const portfolioImage = document.querySelector('[data-project-image]');
-const portfolioName = document.querySelector('[data-project-name]:not([data-project])');
-const portfolioType = document.querySelector('[data-project-type]:not([data-project])');
-const portfolioFrame = document.querySelector('[data-project-frame]:not([data-project])');
 const portfolioProjects = [...document.querySelectorAll('[data-project]')];
-let portfolioChangeTimer = 0;
 
 function selectPortfolioProject(project) {
-  if (!portfolioScreen || !portfolioImage || project.classList.contains('is-active')) return;
-
-  window.clearTimeout(portfolioChangeTimer);
+  if (!project || project.classList.contains('is-active')) return;
   portfolioProjects.forEach((item) => {
     const isActive = item === project;
     item.classList.toggle('is-active', isActive);
     item.setAttribute('aria-pressed', String(isActive));
   });
-
-  const commit = () => {
-    portfolioImage.src = project.dataset.projectImage;
-    portfolioImage.alt = project.dataset.projectAlt;
-    if (portfolioName) portfolioName.textContent = project.dataset.projectName;
-    if (portfolioType) portfolioType.textContent = project.dataset.projectType;
-    if (portfolioFrame) portfolioFrame.textContent = project.dataset.projectFrame;
-    portfolioScreen.classList.remove('is-changing');
-    portfolioChangeTimer = 0;
-  };
-
-  if (reducedMotion.matches) {
-    commit();
-    return;
-  }
-
-  portfolioScreen.classList.add('is-changing');
-  portfolioChangeTimer = window.setTimeout(commit, 170);
 }
 
 portfolioProjects.forEach((project) => {
-  project.addEventListener('pointerenter', () => selectPortfolioProject(project));
   project.addEventListener('focus', () => selectPortfolioProject(project));
   project.addEventListener('click', () => selectPortfolioProject(project));
-
-  const preview = new Image();
-  preview.src = project.dataset.projectImage;
 });
 
 const calculator = document.querySelector('[data-calculator]');
