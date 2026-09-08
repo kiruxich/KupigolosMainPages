@@ -1053,7 +1053,7 @@ body.menu-open { overflow: hidden; }
   .service-index-groups > div:nth-child(odd) { border-right: 1px solid var(--line); }
   .service-index-groups > div:nth-child(even) { padding-left: 28px; }
   .service-index-groups h4 { margin-bottom: 20px; color: var(--accent); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
-  .service-index-groups a { display: flex; gap: 18px; align-items: baseline; justify-content: space-between; padding: 9px 0; color: var(--ink); font: 500 clamp(1.125rem, 1.45vw, 1.5rem)/1.3 var(--display); transition: color .22s, transform .22s; }
+  .service-index-groups a { display: flex; gap: 18px; align-items: baseline; justify-content: space-between; padding: 9px 0; color: var(--ink); font: 600 clamp(1.25rem, 1.75vw, 1.75rem)/1.3 var(--display); transition: color .22s, transform .22s; }
   .service-index-groups a span { flex: 0 0 auto; color: var(--muted); font-family: var(--body); font-size: .82rem; }
   .service-index-groups a:is(:hover, :focus-visible) { color: var(--accent); transform: translateX(8px); }
 
