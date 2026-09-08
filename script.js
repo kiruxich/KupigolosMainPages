@@ -148,45 +148,6 @@ if ('IntersectionObserver' in window && studioRailSections.length) {
   setStudioRailSection(studioRailSections[0].id);
 }
 
-const featuredVoicePickers = [...document.querySelectorAll('[data-featured-picker]')];
-
-featuredVoicePickers.forEach((picker) => {
-  picker.addEventListener('click', () => {
-    const root = picker.closest('[data-featured-voice]');
-    const image = root?.querySelector('[data-featured-image]');
-    const link = root?.querySelector('[data-featured-link]');
-    const meta = root?.querySelector('[data-featured-meta]');
-    const duration = root?.querySelector('[data-featured-duration]');
-    const price = root?.querySelector('[data-featured-price]');
-    const play = root?.querySelector('[data-featured-play]');
-
-    audio.pause();
-    resetAudioUI();
-    featuredVoicePickers.forEach((button) => {
-      const selected = button === picker;
-      button.classList.toggle('is-selected', selected);
-      button.setAttribute('aria-pressed', String(selected));
-    });
-
-    if (image) {
-      image.src = picker.dataset.image;
-      image.alt = picker.dataset.name;
-    }
-    if (link) {
-      link.textContent = picker.dataset.name;
-      link.href = picker.dataset.href;
-    }
-    if (meta) meta.textContent = picker.dataset.meta;
-    if (duration) duration.textContent = picker.dataset.duration;
-    if (price) price.textContent = picker.dataset.price;
-    if (play) {
-      play.dataset.audioSrc = picker.dataset.src;
-      play.dataset.audioLabel = picker.dataset.name;
-      play.setAttribute('aria-label', `Слушать голос ${picker.dataset.name}`);
-    }
-  });
-});
-
 const aiModelPickers = [...document.querySelectorAll('[data-ai-picker]')];
 const aiModelNames = [...document.querySelectorAll('[data-ai-name]')];
 

@@ -66,10 +66,9 @@ if (!failures.length) {
   check(!/class="voice-stage/.test(html), 'html: legacy voice card section is still present');
   check(!/class="ai-stage/.test(html), 'html: legacy AI list section is still present');
   check(/data-audio-src/.test(html), 'html: audio controls are missing');
-  check((html.match(/class="voice-concept voice-concept-/g) || []).length === 2, 'html: expected two retained voice design concepts');
+  check((html.match(/class="voice-concept voice-concept-/g) || []).length === 1, 'html: expected one retained voice design concept');
   check(html.includes('assets/voices/alexey-kolgan-v2.jpg'), 'html: enhanced local Alexey Kolgan portrait is missing');
-  check(html.includes('data-scroll-cue-for="roster-track"') && !html.includes('data-scroll-for="roster-track"'), 'html: roster should use a scroll cue without arrow controls');
-  check((html.match(/data-scroll-track/g) || []).length === 2 && (html.match(/data-scroll-for=/g) || []).length === 2, 'html: casting controls and roster scrolling hooks are incomplete');
+  check((html.match(/data-scroll-track/g) || []).length === 1 && (html.match(/data-scroll-for=/g) || []).length === 2, 'html: casting controls are incomplete');
   check(/class="ai-voice-lab/.test(html), 'html: AI voice lab is missing');
   check((html.match(/data-ai-picker/g) || []).length === 6, 'html: expected six AI model selectors');
   check((html.match(/assets\/ai-voices\/[a-z]+-enhanced-v[23]\.jpg/g) || []).length >= 6, 'html: enhanced local AI portraits are missing');
@@ -111,7 +110,7 @@ if (!failures.length) {
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
   check(refresh.includes('.hero-cta') && !refresh.includes('.cta-option-clear') && !refresh.includes('.cta-option-orbit'), 'refresh: final hero CTA is missing or comparison styles remain');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
-  check(refresh.includes('.casting-row') && refresh.includes('.featured-layout') && !refresh.includes('.portrait-grid'), 'refresh: retained voice concepts are incomplete or rejected portrait concept remains');
+  check(refresh.includes('.casting-row') && !refresh.includes('.featured-layout') && !refresh.includes('.portrait-grid'), 'refresh: retained voice concept is incomplete or rejected portrait concept remains');
   check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');
   check(refresh.includes('.ai-tool-grid') && refresh.includes('.ai-tool-card-video') && refresh.includes('.ai-toolkit-facts'), 'refresh: AI tool section treatment is incomplete');
   check(refresh.includes('.service-item::before') && refresh.includes('.service-action'), 'refresh: full service cards are missing');
@@ -135,7 +134,7 @@ if (!failures.length) {
   check(js.includes('function syncHeaderTone()') && js.includes("classList.toggle('on-light'"), 'js: automatic header contrast switching is missing');
   check(js.includes('function setMenu(isOpen)') && js.includes("event.key === 'Escape'"), 'js: navigation panel interaction is missing');
   check(js.includes('function setStudioRailSection(sectionId)') && js.includes('studioRailObserver'), 'js: studio navigation rail controller is missing');
-  check(js.includes('data-featured-picker') && js.includes('data-featured-play'), 'js: featured voice picker is missing');
+  check(!js.includes('data-featured-picker') && !js.includes('data-featured-play'), 'js: removed featured voice picker remains');
   check(js.includes('data-ai-picker') && js.includes('data-ai-play'), 'js: AI model picker is missing');
   check(js.includes('fitAiModelName') && refresh.includes('--ai-name-size'), 'AI model names are not fitted to their available width');
   check(js.includes('function syncVoiceScroll(track)') && js.includes('track.scrollBy'), 'js: voice carousel controls are missing');

@@ -774,8 +774,7 @@ main > section:not(.top-stage) h2 {
 }
 .voice-play:is(:hover, .is-playing) { color: #fff; background: var(--accent); transform: translateY(-2px); }
 .voice-play:active { transform: translateY(1px) scale(.97); }
-.voice-play:focus-visible,
-.voice-roster button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.voice-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .voice-wave { display: flex; width: 100%; min-width: 90px; height: 30px; align-items: center; justify-content: space-between; }
 .voice-wave i { width: clamp(2px, .2vw, 3px); height: 28%; flex: 0 0 clamp(2px, .2vw, 3px); border-radius: 2px; background: rgba(39, 55, 120, .22); }
 .voice-wave i:nth-child(6n + 1) { height: 46%; }
@@ -819,8 +818,7 @@ main > section:not(.top-stage) h2 {
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
-.casting-list::-webkit-scrollbar,
-.voice-roster::-webkit-scrollbar { display: none; }
+.casting-list::-webkit-scrollbar { display: none; }
 .casting-row {
   display: grid;
   grid-template-columns: 72px minmax(120px, 1fr) 44px auto;
@@ -841,106 +839,7 @@ main > section:not(.top-stage) h2 {
 .casting-row .voice-wave { min-width: 0; grid-column: 2 / 4; grid-row: 2; }
 .casting-row .voice-duration { grid-column: 4; grid-row: 2; color: var(--muted); font-size: .68rem; font-variant-numeric: tabular-nums; }
 .casting-row > strong { grid-column: 4; grid-row: 1; color: var(--ink); font-size: .68rem; white-space: nowrap; }
-.casting-row:has(.voice-play.is-playing) .voice-wave i,
-.featured-player:has(.voice-play.is-playing) .voice-wave i { background: var(--accent); }
-
-/* 02: one featured voice with a compact roster. */
-.voice-concept-featured { background: rgba(255, 243, 238, .6); }
-.featured-layout { display: grid; min-width: 0; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr); gap: 14px; }
-.featured-voice {
-  display: grid;
-  grid-template-columns: minmax(190px, .72fr) minmax(260px, 1.28fr);
-  min-height: 390px;
-  overflow: hidden;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, .72);
-  box-shadow: inset 0 1px 0 #fff, 0 16px 44px rgba(39, 55, 120, .08);
-}
-.featured-voice > img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.86) contrast(1.04); }
-.featured-voice-copy { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: clamp(24px, 3.6vw, 46px); }
-.featured-voice-copy > span { color: var(--accent); font-size: .66rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
-.featured-voice-copy > a { margin-top: 14px; color: var(--ink); font: 600 clamp(2.4rem, 4.5vw, 5.1rem)/.82 var(--display); letter-spacing: -.04em; }
-.featured-voice-copy > p { max-width: 30ch; margin: 20px 0 0; color: var(--muted); font-size: .74rem; line-height: 1.55; }
-.featured-player { display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: center; margin-top: 32px; }
-.featured-player .voice-play { padding: 0; }
-.featured-player > span:last-child { color: var(--muted); font-size: .68rem; font-variant-numeric: tabular-nums; }
-.featured-voice-copy > strong { margin-top: 24px; color: var(--ink); font-size: .76rem; }
-.voice-roster-panel { display: grid; min-width: 0; align-content: start; }
-.voice-roster {
-  display: grid;
-  max-height: 350px;
-  gap: 7px;
-  align-content: start;
-  overflow-y: auto;
-  padding: 2px 6px 2px 2px;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none;
-}
-.voice-roster button {
-  display: grid;
-  width: 100%;
-  min-height: 82px;
-  grid-template-columns: 54px 1fr;
-  gap: 14px;
-  align-items: center;
-  padding: 10px 14px 10px 10px;
-  border: 0;
-  border-radius: 19px;
-  color: var(--ink);
-  background: rgba(255, 255, 255, .48);
-  cursor: pointer;
-  scroll-snap-align: start;
-  text-align: left;
-  transition: color .2s ease, background .2s ease, transform .22s cubic-bezier(.2, .8, .2, 1);
-}
-.voice-roster button:is(:hover, .is-selected) { color: var(--accent); background: rgba(255, 255, 255, .88); transform: translateX(-4px); }
-.voice-roster button img { width: 54px; height: 58px; border-radius: 14px; object-fit: cover; }
-.voice-roster button span { display: grid; gap: 7px; min-width: 0; }
-.voice-roster button strong { overflow: hidden; font-size: .72rem; text-overflow: ellipsis; white-space: nowrap; }
-.voice-roster button small { color: var(--muted); font-size: .64rem; }
-.voice-scroll-cue {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: flex-end;
-  min-height: 42px;
-  margin-top: 14px;
-  padding-right: 8px;
-  color: rgba(39, 55, 120, .58);
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  transition: opacity .35s ease, transform .35s ease;
-}
-.voice-scroll-cue > i {
-  position: relative;
-  width: 18px;
-  height: 30px;
-  border: 1px solid rgba(245, 70, 34, .34);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, .42);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
-}
-.voice-scroll-cue > i > b {
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  width: 3px;
-  height: 7px;
-  border-radius: 3px;
-  background: var(--accent);
-  transform: translateX(-50%);
-  animation: roster-scroll-cue 1.8s cubic-bezier(.4, 0, .2, 1) infinite;
-}
-.voice-scroll-cue.is-dismissed { opacity: 0; transform: translateY(4px); pointer-events: none; }
-@keyframes roster-scroll-cue {
-  0%, 18% { opacity: 0; transform: translate(-50%, 0); }
-  35% { opacity: 1; }
-  76% { opacity: .9; transform: translate(-50%, 10px); }
-  100% { opacity: 0; transform: translate(-50%, 10px); }
-}
+.casting-row:has(.voice-play.is-playing) .voice-wave i { background: var(--accent); }
 
 /* Content sections */
 .about-stage,
@@ -1078,20 +977,6 @@ main > section:not(.top-stage) h2 {
   .ai-feature { min-height: 560px; }
   .ai-model-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ai-model-list button:nth-child(odd) { border-right: 1px solid rgba(39, 55, 120, .1); }
-  .featured-layout { grid-template-columns: 1fr; }
-  .voice-roster {
-    max-height: none;
-    grid-auto-columns: minmax(220px, 32%);
-    grid-auto-flow: column;
-    grid-template-rows: 1fr;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 2px 2px 8px;
-    scroll-snap-type: x mandatory;
-  }
-  .voice-scroll-cue { justify-content: flex-start; padding-left: 2px; }
-  .voice-scroll-cue > i { width: 30px; height: 18px; }
-  .voice-scroll-cue > i > b { top: 50%; left: 5px; width: 7px; height: 3px; transform: translateY(-50%); animation-name: roster-scroll-cue-horizontal; }
   .voice-categories-stage .talent-grid { grid-template-columns: repeat(2, 1fr); }
   .voice-categories-stage .talent-card { min-height: 380px; }
 }
@@ -1119,8 +1004,6 @@ main > section:not(.top-stage) h2 {
   .casting-row .voice-wave { grid-column: 2; grid-row: 2; width: 100%; }
   .casting-row .voice-duration { grid-column: 3; grid-row: 2; }
   .casting-row > strong { grid-column: 2 / 4; grid-row: 3; }
-  .voice-roster { grid-auto-columns: 70%; }
-  .featured-voice { grid-template-columns: minmax(170px, .7fr) 1.3fr; }
   .service-columns { grid-template-columns: 1fr; }
   .service-item { min-height: 300px; }
   .about-copy { padding-inline: 0; border-left: 0; background: transparent; }
@@ -1165,10 +1048,6 @@ main > section:not(.top-stage) h2 {
   .casting-row > img { width: 58px; height: 62px; }
   .voice-identity small { display: none; }
   .casting-row .voice-wave { min-width: 0; }
-  .featured-voice { grid-template-columns: 1fr; }
-  .featured-voice > img { height: 250px; }
-  .featured-voice-copy > a { font-size: clamp(2.6rem, 14vw, 4rem); }
-  .voice-roster { grid-auto-columns: 84%; }
   .voice-categories-stage .talent-grid { grid-template-columns: 1fr; }
   .voice-categories-stage .talent-card { min-height: 340px; }
   .voice-categories-stage .talent-card h3 { margin-top: 36px; }
@@ -1181,7 +1060,6 @@ main > section:not(.top-stage) h2 {
   .calculator,
   .contact-form,
   .voice-concept,
-  .featured-voice,
   .ai-model-panel { background: #fff; backdrop-filter: none; }
   .hero-cta { background: #fff; backdrop-filter: none; }
 }
@@ -1201,13 +1079,5 @@ main > section:not(.top-stage) h2 {
   .ai-model-list button,
   .ai-model-list button::before,
   .ai-portrait img,
-  .voice-roster button { transition: none; }
   .voice-scroll-cue > i > b { animation: none; }
-}
-
-@keyframes roster-scroll-cue-horizontal {
-  0%, 18% { opacity: 0; transform: translate(0, -50%); }
-  35% { opacity: 1; }
-  76% { opacity: .9; transform: translate(10px, -50%); }
-  100% { opacity: 0; transform: translate(10px, -50%); }
 }
