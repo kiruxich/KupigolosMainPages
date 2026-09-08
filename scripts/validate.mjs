@@ -90,7 +90,7 @@ if (!failures.length) {
     check(text.includes(heroCopy.title), 'html: hero is missing the original title');
     check(text.includes(heroCopy.lead), 'html: hero is missing the original lead');
     check(ctaCount === 1, `html: hero must contain exactly one primary CTA, found ${ctaCount}`);
-    check(text.includes(heroCopy.cta) && sectionHtml.includes('data-order-open'), 'html: hero is missing the primary project discussion action');
+    check(text.includes(heroCopy.cta) && sectionHtml.includes('href="#contacts"'), 'html: hero is missing the primary contact action');
     check(/<h1\b/i.test(sectionHtml), 'html: hero title must be h1');
     check(['Более 800 голосов', '60 языков', 'Озвучка за один день'].every((fact) => text.includes(fact)), 'html: hero proof facts are incomplete');
     check(sectionHtml.includes('assets/hero-studio-session-v1.png'), 'html: studio-window hero asset is missing');
