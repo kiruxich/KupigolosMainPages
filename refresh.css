@@ -5168,21 +5168,21 @@ main > section:not(.hero-product) .section-heading h2,
 
 /* Service directory type belongs to the final cascade, alongside the refined section. */
 .service-index-groups h4 {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .service-index-groups a {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.35;
 }
 
 .service-index-groups a span {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 @media (max-width: 560px) {
-  .service-index-groups h4 { font-size: 15px; }
+  .service-index-groups h4 { font-size: 19px; }
   .service-index-groups a,
-  .service-index-groups a span { font-size: 13px; }
+  .service-index-groups a span { font-size: 17px; }
 }
