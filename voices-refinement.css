@@ -158,7 +158,7 @@
   isolation: isolate;
   width: calc(100% + var(--voice-panel-gutter) * 2 - 32px);
   max-width: none;
-  height: 410px;
+  height: 380px;
   margin-inline: calc(16px - var(--voice-panel-gutter));
   padding: 0;
   overflow: visible;
@@ -200,7 +200,7 @@
 #voices .figma-voice-card.is-active .figma-voice-body {
   border-color: rgba(var(--brand-accent-rgb), .4);
   background: #fff;
-  box-shadow: 0 22px 42px rgba(37, 43, 69, .16);
+  box-shadow: 0 12px 28px rgba(37, 43, 69, .12);
 }
 
 #voices .figma-voice-card:not(.is-active):hover .figma-voice-body {
@@ -284,7 +284,7 @@
 @media (max-width: 620px) {
   #voices .figma-voices-grid {
     --voice-card-width: min(58vw, 210px);
-    height: 390px;
+    height: 360px;
   }
 
   #voices .figma-voices-footer {

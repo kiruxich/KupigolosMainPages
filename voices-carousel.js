@@ -25,13 +25,13 @@
   function getDeckLayout(offset, length, trackWidth, cardWidth) {
     const distance = Math.abs(offset);
     const sideCount = offset < 0 ? Math.floor(length / 2) : Math.floor((length - 1) / 2);
-    const outerScale = 1 - sideCount * .018;
+    const outerScale = 1 - sideCount * .004;
     const span = Math.max(0, (trackWidth - cardWidth * outerScale) / 2);
     // Neighbours peek out by half a card; the remaining cards compress toward the edges.
     const firstStep = Math.min(cardWidth * .5, span / Math.max(1, sideCount) * 2);
     const x = distance ? firstStep + (span - firstStep) * (distance - 1) / Math.max(1, sideCount - 1) : 0;
-    return { x: Math.sign(offset) * x, y: distance ? 12 + distance * 3 : 0,
-      scale: 1 - distance * .018, layer: length - distance };
+    return { x: Math.sign(offset) * x, y: distance ? 4 + distance * .4 : 0,
+      scale: 1 - distance * .004, layer: length - distance };
   }
 
   function populateVoiceDeck(track, catalog) {
