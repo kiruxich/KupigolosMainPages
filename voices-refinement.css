@@ -446,13 +446,10 @@
 .service-index-heading > p:last-child,
 .voice-directory-copy > p:not(.kicker),
 .sticky-title > p:last-child,
-.service-index-groups a,
 .voice-directory-links a,
 .site-header .site-nav,
 .site-header .header-phone { font-size: var(--type-body); }
 
 .service-copy > span,
-.service-index-groups h4,
-.service-index-groups a span,
 .voice-directory-links a span,
 .voice-directory-links a::after { font-size: var(--type-meta); }
