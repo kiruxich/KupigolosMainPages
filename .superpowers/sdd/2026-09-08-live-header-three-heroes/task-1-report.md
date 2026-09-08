@@ -37,3 +37,22 @@ Output:
   - `html: proof statistics remain`
   - `css: rail expansion selectors remain`
   - `refresh: hero blur controls remain`
+
+## Round 2/5 fix
+
+Updated `scripts/validate.mjs` again to finish the review cleanup:
+- removed the stale global `hero-cta` count assertion that required exactly one total CTA
+- replaced it with the per-hero CTA enforcement already tied to each `[data-hero-variant]`
+- tightened the rail expansion rejection to catch only standalone `.studio-rail` expansion selectors, including `:hover`, `:focus-within`, and `:is(...)`, across both `styles.css` and `refresh.css`
+
+Commands:
+- `node --check scripts/validate.mjs`
+- `node scripts/validate.mjs`
+
+Output:
+- `node --check scripts/validate.mjs` ✅
+- `node scripts/validate.mjs` ❌ `Validation failed (4):`
+  - `html: expected exactly three hero sections via [data-hero-variant], found 0`
+  - `html: proof statistics remain`
+  - `css: rail expansion selectors remain`
+  - `refresh: hero blur controls remain`

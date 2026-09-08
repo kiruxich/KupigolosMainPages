@@ -109,7 +109,7 @@ if (!failures.length) {
   check(/class="studio-rail"/.test(html) && (html.match(/data-rail-target=/g) || []).length === 13, 'html: studio navigation rail is incomplete');
   check(!/font-switcher|data-font-choice/.test(html), 'html: obsolete font switcher is still present');
   check(/Cormorant\+Garamond/.test(html) && /Manrope:wght/.test(html) && !/Jost:wght/.test(html), 'html: selected Cormorant/Manrope pair is not locked');
-  check((html.match(/class="hero-cta"/g) || []).length === 1 && !/cta-option-/.test(html), 'html: expected one primary hero CTA');
+  check(!/cta-option-/.test(html), 'html: comparison CTA options remain');
   check(!/hero-concepts-stage|hero-concept-preview/.test(html), 'html: old miniature hero comparison remains');
   check(!/hero-option-id|Вариант 0[1-5]/.test(html), 'html: temporary hero option labels remain');
   check(!/data-hero-blur-control|data-hero-blur-output/.test(html), 'html: obsolete hero blur control remains');
@@ -162,7 +162,7 @@ if (!failures.length) {
   check(!refresh.includes('.font-switcher') && !refresh.includes('data-font="airy"'), 'refresh: obsolete font comparison styles are still present');
   check(!refresh.includes('.hero-concepts-stage') && !refresh.includes('.hero-concept-preview'), 'refresh: old miniature hero comparison styles remain');
   check(refresh.includes('.studio-rail-console') && refresh.includes('studio-active-signal') && refresh.includes('.studio-rail-progress'), 'refresh: studio signal monitor treatment is missing');
-  check(!/\.studio-rail(?::|[\s>+~\[])[^{]*:(?:hover|focus-within)|\.studio-rail(?::|[\s>+~\[])[^{]*:is\([^)]*(?:hover|focus-within)[^)]*\)/.test(railCss), 'css: rail expansion selectors remain');
+  check(!/\.studio-rail(?::(?:hover|focus-within)|:is\([^{}]*?(?:hover|focus-within)[^{}]*?\))/s.test(railCss), 'css: rail expansion selectors remain');
   check(!refresh.includes('.hero-blur-control') && !refresh.includes('--hero-blur-fill'), 'refresh: hero blur controls remain');
   check(refresh.includes('.figma-voices-panel') && refresh.includes('.figma-voice-card') && !refresh.includes('.featured-layout'), 'refresh: Figma voice section is incomplete or featured voice block remains');
   check(refresh.includes('.ai-voice-lab') && refresh.includes('.ai-model-list') && refresh.includes('.ai-player'), 'refresh: AI voice lab treatment is incomplete');
