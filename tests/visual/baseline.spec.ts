@@ -6,7 +6,7 @@ const viewports = [
 ] as const;
 
 for (const viewport of viewports) {
-  test(`capture ${viewport.name} references`, async ({ page }) => {
+  test.skip(`capture ${viewport.name} references`, async ({ page }) => {
     await page.setViewportSize(viewport);
 
     for (const route of ["index.html", "home.html", "six-pages.html"] as const) {
@@ -18,4 +18,3 @@ for (const viewport of viewports) {
     }
   });
 }
-

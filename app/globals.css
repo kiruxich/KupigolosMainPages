@@ -1,3 +1,11 @@
 @import "tailwindcss";
 @import "../styles/legacy.css";
 
+/* Restore browser defaults intentionally relied on by the static homepage. */
+.service-index-groups h4 {
+  margin-block-start: 1.33em;
+  font-weight: 700;
+}
+
+.contact-form input { padding: 1px 2px; }
+.contact-form textarea { padding: 12px 2px 2px; }
