@@ -4,45 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f54622">
-  <title>КупиГолос — проекты</title>
+  <title>КупиГолос - проекты</title>
   <style>
     :root { color-scheme: light; font-family: Manrope, Arial, sans-serif; }
     * { box-sizing: border-box; }
     body { min-height: 100dvh; margin: 0; color: #273778; background: #f4f5f8; }
     main { width: min(1200px, calc(100% - 40px)); margin: 0 auto; padding: clamp(40px, 8vw, 112px) 0; }
-    .page-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; color: #687096; font-size: .75rem; font-weight: 800; letter-spacing: .12em; }
     h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 4.5rem); letter-spacing: -.06em; line-height: .95; }
     p { margin: 0; color: #687096; font-size: 1rem; line-height: 1.6; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); gap: 18px; margin-top: clamp(40px, 7vw, 80px); }
-    .card { display: flex; min-height: 230px; flex-direction: column; justify-content: space-between; padding: 28px; border: 1px solid rgba(39, 55, 120, .12); border-radius: 18px; color: inherit; background: #fff; box-shadow: 0 18px 48px rgba(39, 55, 120, .08); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
-    .card:hover, .card:focus-visible { box-shadow: 0 24px 56px rgba(39, 55, 120, .16); outline: none; transform: translateY(-5px); }
-    .card:active { transform: translateY(-1px); }
+    .card { position: relative; display: flex; min-height: 250px; flex-direction: column; justify-content: space-between; padding: 28px; border: 1px solid rgba(39, 55, 120, .12); border-radius: 18px; color: inherit; background: #fff; box-shadow: 0 18px 48px rgba(39, 55, 120, .08); transition: transform .2s ease, box-shadow .2s ease; }
+    .card:has(.card__link:hover), .card:has(.card__link:focus-visible) { box-shadow: 0 24px 56px rgba(39, 55, 120, .16); outline: none; transform: translateY(-5px); }
+    .card:has(.card__link:active) { transform: translateY(-1px); }
+    .card__link { position: absolute; z-index: 1; inset: 0; border-radius: inherit; }
+    .card__link:focus-visible { outline: 3px solid rgba(245, 70, 34, .38); outline-offset: 4px; }
     .card__number { color: #f54622; font-size: .75rem; font-weight: 800; letter-spacing: .16em; }
     .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .badge { padding: 7px 9px; border-radius: 999px; color: #fff; background: #f54622; font-size: .65rem; font-weight: 800; letter-spacing: .1em; line-height: 1; }
-    .card h2 { margin: auto 0 8px; font-size: 1.75rem; letter-spacing: -.04em; }
-    .card__open { color: #f54622; font-size: .9rem; font-weight: 800; }
-    .card--upcoming { cursor: default; }
+    .card__body { margin: auto 0; }
+    .card h2 { margin: 0 0 8px; font-size: 1.75rem; letter-spacing: -.04em; }
+    .card__footer { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+    .card__date { color: #687096; font-size: .75rem; font-weight: 700; letter-spacing: .06em; }
+    .status-control { display: grid; gap: 5px; color: #687096; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .status-control select { min-width: 128px; padding: 9px 30px 9px 11px; border: 1px solid rgba(39, 55, 120, .16); border-radius: 10px; color: #273778; background: #f4f5f8; font: 700 .78rem/1 Manrope, Arial, sans-serif; cursor: pointer; text-transform: none; }
+    .status-control select:focus-visible { border-color: #f54622; outline: 3px solid rgba(245, 70, 34, .18); }
     @media (max-width: 600px) { main { width: min(100% - 32px, 1200px); } .card { min-height: 200px; } }
     @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
   </style>
 </head>
 <body>
   <main>
-    <div class="page-meta"><time datetime="2026-09-09">09.09.2026</time></div>
     <h1>Проекты</h1>
     <p>Рабочие страницы для показа.</p>
     <section class="grid" aria-label="Список проектов">
-      <a class="card" href="home.html">
-        <span class="card__top"><span class="card__number">01</span></span>
-        <div><h2>Главная страница</h2><p>Текущая версия сайта КупиГолос</p></div>
-        <span class="card__open">Открыть →</span>
-      </a>
-      <article class="card card--upcoming">
+      <article class="card">
+        <a class="card__link" href="home.html" aria-label="Открыть главную страницу"></a>
+        <div class="card__top"><span class="card__number">01</span></div>
+        <div class="card__body"><h2>Главная страница</h2><p>Текущая версия сайта КупиГолос</p></div>
+        <div class="card__footer">
+          <time class="card__date" datetime="2026-09-09">09.09.2026</time>
+          <label class="status-control"><span>Статус</span><select data-project-status="homepage"><option value="in-progress">В работе</option><option value="completed" selected>Завершён</option><option value="deferred">Отложен</option></select></label>
+        </div>
+      </article>
+      <article class="card">
         <div class="card__top"><span class="card__number">02</span><span class="badge">ТЕКУЩЕЕ</span></div>
-        <div><h2>6 страниц</h2><p>Следующий блок страниц в работе</p></div>
+        <div class="card__body"><h2>6 страниц</h2><p>Следующий блок страниц в работе</p></div>
+        <div class="card__footer">
+          <time class="card__date" datetime="2026-09-09">09.09.2026</time>
+          <label class="status-control"><span>Статус</span><select data-project-status="six-pages"><option value="in-progress" selected>В работе</option><option value="completed">Завершён</option><option value="deferred">Отложен</option></select></label>
+        </div>
       </article>
     </section>
   </main>
+  <script>
+    const statusControls = document.querySelectorAll('[data-project-status]');
+
+    statusControls.forEach((control) => {
+      const storageKey = `kupigolos-project-status:${control.dataset.projectStatus}`;
+      try {
+        const savedStatus = localStorage.getItem(storageKey);
+        if (savedStatus && [...control.options].some((option) => option.value === savedStatus)) control.value = savedStatus;
+      } catch {}
+
+      control.addEventListener('change', () => {
+        try { localStorage.setItem(storageKey, control.value); } catch {}
+      });
+    });
+  </script>
 </body>
 </html>
