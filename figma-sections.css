@@ -1,0 +1,508 @@
+/* Figma frame 4404:18160: compact voice shelf and services grid. */
+
+:root {
+  --figma-panel: #eceef8;
+  --figma-card: rgba(255, 255, 255, .82);
+  --figma-blue: #303f7a;
+  --figma-rust: #bd4f35;
+  --figma-rust-dark: #a9432d;
+}
+
+/* Voice shelf */
+#voices.talent-stage-figma {
+  min-height: 0;
+  padding: clamp(26px, 3vw, 42px) 0 clamp(44px, 5vw, 68px);
+  background: #fff;
+}
+
+#voices .figma-voices-panel {
+  --voice-panel-gutter: clamp(24px, 3vw, 42px);
+  padding: clamp(34px, 4vw, 48px) var(--voice-panel-gutter) clamp(28px, 3.5vw, 40px);
+  border-radius: clamp(28px, 3vw, 38px);
+  background: var(--figma-panel);
+}
+
+#voices .figma-voices-panel > h2 {
+  display: block;
+  margin: 0 0 clamp(28px, 3vw, 40px);
+  color: var(--figma-blue);
+  font-family: var(--body);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+
+#voices .figma-voices-panel > h2::before { content: none; }
+
+#voices .figma-voices-grid {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: repeat(var(--voice-visible-cards, 6), minmax(0, 1fr));
+  gap: clamp(10px, 1.15vw, 16px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+
+#voices .figma-voice-card {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: grid;
+  width: auto;
+  min-width: 0;
+  grid-template-rows: 42px minmax(0, 1fr);
+  gap: 10px;
+  order: var(--voice-order, 0);
+  margin: 0;
+  cursor: default;
+  transform: none;
+  transition: opacity .22s ease;
+}
+
+#voices .figma-voice-role,
+#voices .figma-voice-card.is-active .figma-voice-role {
+  align-self: end;
+  margin: 0;
+  color: #3e496f;
+  font-size: clamp(9px, .78vw, 11px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  opacity: 1;
+}
+
+#voices .figma-voice-body,
+#voices .figma-voice-card.is-active .figma-voice-body,
+#voices .figma-voice-card:not(.is-active):hover .figma-voice-body {
+  display: grid;
+  min-height: clamp(210px, 19vw, 246px);
+  grid-template-rows: 22px minmax(96px, 1fr) auto auto;
+  justify-items: center;
+  padding: 14px 12px 18px;
+  overflow: hidden;
+  border: 0;
+  border-radius: clamp(20px, 2vw, 27px);
+  background: var(--figma-card);
+  box-shadow: none;
+  pointer-events: auto;
+}
+
+#voices .figma-voice-card:not(.is-active) :is(.figma-voice-meta, .figma-voice-name, .figma-voice-price, .voice-play),
+#voices .figma-voice-card:not(.is-active) .figma-voice-portrait,
+#voices .figma-voice-card:not(.is-active) .figma-voice-portrait::before {
+  opacity: 1;
+}
+
+#voices .figma-voice-meta {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 22px 1fr 22px;
+  align-items: center;
+  color: var(--figma-rust);
+}
+
+#voices .figma-voice-meta > a,
+#voices .figma-voice-meta > i {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+}
+
+#voices .figma-voice-meta svg { width: 16px; height: 16px; }
+#voices .figma-voice-meta > span { color: #68718f; font-size: 10px; }
+
+#voices .figma-voice-portrait {
+  width: clamp(88px, 8.3vw, 108px);
+  height: clamp(88px, 8.3vw, 108px);
+  align-self: center;
+  margin: 7px 0 10px;
+}
+
+#voices .figma-voice-portrait::before {
+  inset: -4px;
+  border-width: 4px;
+  border-top-color: var(--figma-rust);
+  border-right-color: var(--figma-rust);
+}
+
+#voices .figma-voice-portrait .voice-play {
+  top: 1px;
+  left: -11px;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  background: var(--figma-rust);
+  box-shadow: 0 4px 10px rgba(98, 50, 38, .14);
+}
+
+#voices .figma-voice-body .figma-voice-name,
+#voices .figma-voice-body .figma-voice-price {
+  display: block;
+  max-width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#voices .figma-voice-body .figma-voice-name {
+  color: var(--figma-rust);
+  font-size: clamp(10px, .82vw, 12px);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#voices .figma-voice-body .figma-voice-price {
+  margin-top: 5px;
+  color: #313957;
+  font-size: clamp(10px, .82vw, 12px);
+  font-weight: 700;
+}
+
+#voices .voice-card-spine,
+#voices .voice-waveform { display: none; }
+
+#voices .figma-voices-footer {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: clamp(25px, 3vw, 34px);
+}
+
+#voices .figma-voices-cta,
+#voices .figma-voices-footer .figma-voices-cta {
+  display: inline-flex;
+  width: auto;
+  min-width: 196px;
+  min-height: 48px;
+  grid-template-columns: none;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 26px;
+  overflow: visible;
+  border: 0;
+  border-radius: 11px;
+  color: #fff;
+  background: var(--figma-rust);
+  box-shadow: none;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#voices .figma-voices-cta::before { display: none; }
+#voices .figma-voices-cta::after {
+  display: block;
+  width: auto;
+  height: auto;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  content: "→";
+  font-size: 16px;
+  transform: none;
+}
+
+#voices .figma-voices-cta:is(:hover, :focus-visible) {
+  color: #fff;
+  background: var(--figma-rust-dark);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+#voices .figma-voices-cta:is(:hover, :focus-visible)::after { background: transparent; transform: translateX(3px); }
+#voices .figma-voices-deck-status,
+#voices .figma-voices-deck-hint { display: none; }
+#voices .figma-voices-deck-controls { display: block; }
+#voices .figma-voices-deck-actions { gap: 8px; }
+
+#voices .figma-voices-deck-actions button {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  color: #9da4b7;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 3px 12px rgba(49, 57, 87, .08);
+}
+
+/* Services */
+#services.services-stage {
+  position: relative;
+  padding: clamp(44px, 6vw, 78px) 0 clamp(70px, 8vw, 110px);
+  background: transparent;
+}
+
+#services .figma-services-panel {
+  padding: clamp(32px, 4vw, 48px);
+  border-radius: clamp(28px, 3vw, 38px);
+  background: var(--figma-panel);
+}
+
+#services .figma-services-panel > h2 {
+  margin: 0 0 clamp(28px, 3vw, 38px);
+  color: var(--figma-blue);
+  font-family: var(--body);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+
+#services .figma-services-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+#services .figma-service-feature {
+  position: relative;
+  display: grid;
+  min-height: 424px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(150px, .85fr);
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .9);
+}
+
+#services .figma-service-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(26px, 3vw, 34px);
+}
+
+#services .figma-service-copy h3,
+#services .service-item h3 {
+  color: #29345f;
+  font-family: var(--body);
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+#services .figma-service-copy h3 {
+  margin: 0;
+  font-size: clamp(1.65rem, 2.4vw, 2.25rem);
+  line-height: 1.08;
+}
+
+#services .figma-service-copy p {
+  max-width: 42ch;
+  margin: 22px 0 18px;
+  color: #515b77;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.45;
+}
+
+.figma-service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.figma-service-tags span {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  padding: 0 9px;
+  border-radius: 999px;
+  color: #5e6680;
+  background: #f0f1f5;
+  font-size: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#services .figma-service-copy > a,
+#services .service-action {
+  display: inline-flex;
+  min-height: 38px;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 0 18px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--figma-rust);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+#services .figma-service-copy > a:is(:hover, :focus-visible),
+#services .service-item:is(:hover, :focus-visible) .service-action { background: var(--figma-rust-dark); }
+
+#services .service-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+#services .service-item,
+#services .service-item:nth-child(-n+3),
+#services .service-item:nth-child(3n) {
+  position: relative;
+  display: grid;
+  min-height: 134px;
+  grid-template-columns: minmax(0, 1fr) 74px;
+  grid-template-rows: auto auto 1fr;
+  gap: 7px 8px;
+  padding: 16px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  color: #29345f;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: none;
+  transform: none;
+}
+
+#services .service-item::before { content: none; }
+
+#services .service-item h3 {
+  grid-column: 1 / -1;
+  align-self: auto;
+  max-width: calc(100% - 64px);
+  margin: 0;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.15;
+}
+
+#services .service-item .figma-service-tags { grid-column: 1; }
+#services .service-item .figma-service-tags span { min-height: 18px; padding-inline: 7px; font-size: 7px; }
+
+#services .service-item .service-action {
+  position: static;
+  z-index: 2;
+  min-height: 32px;
+  grid-column: 1;
+  align-self: end;
+  justify-self: start;
+  gap: 12px;
+  margin: 0;
+  padding: 0 12px;
+  font-size: 8px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#services .service-action b { font-size: 12px; font-weight: 600; }
+#services .service-item:is(:hover, :focus-visible) { box-shadow: 0 12px 28px rgba(48, 63, 122, .09); transform: translateY(-2px); }
+
+#services .figma-service-art {
+  display: grid;
+  color: #9f6a59;
+  place-items: center;
+  pointer-events: none;
+}
+
+#services .figma-service-art svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: rgba(189, 79, 53, .08);
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.8;
+  filter: drop-shadow(0 9px 9px rgba(82, 52, 45, .09));
+}
+
+#services .figma-service-art-video {
+  align-self: end;
+  width: min(100%, 230px);
+  height: 230px;
+  margin: 0 18px 12px 0;
+  color: #b88877;
+  transform: rotate(-4deg);
+}
+
+#services .service-item > .figma-service-art {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  width: 72px;
+  height: 82px;
+  opacity: .82;
+  transform: rotate(3deg);
+}
+
+#services .service-item:nth-child(even) > .figma-service-art { transform: rotate(-4deg); }
+
+@media (max-width: 980px) {
+  #services .figma-services-grid { grid-template-columns: 1fr; }
+  #services .figma-service-feature { min-height: 350px; }
+  #services .service-item { min-height: 146px; }
+}
+
+@media (max-width: 760px) {
+  #voices .figma-voice-body { min-height: 236px; }
+  #voices .figma-voice-portrait { width: 106px; height: 106px; }
+  #services .figma-service-feature { min-height: 330px; }
+}
+
+@media (max-width: 560px) {
+  #voices.talent-stage-figma,
+  #services.services-stage { padding-inline: 0; }
+
+  #voices.talent-stage-figma > .shell,
+  #services.services-stage > .shell { width: 100%; }
+
+  #voices .figma-voices-panel,
+  #services .figma-services-panel {
+    padding: 30px 20px 26px;
+    border-radius: 26px;
+  }
+
+  #voices .figma-voice-card { grid-template-rows: 38px 1fr; }
+  #voices .figma-voice-body { min-height: 250px; }
+  #voices .figma-voice-portrait { width: 116px; height: 116px; }
+  #voices .figma-voices-footer { align-items: stretch; flex-direction: column; }
+  #voices .figma-voices-cta { width: 100%; }
+  #voices .figma-voices-deck-controls { align-self: flex-end; }
+
+  #services .figma-service-feature {
+    min-height: 410px;
+    grid-template-columns: 1fr;
+  }
+
+  #services .figma-service-copy { padding-bottom: 145px; }
+  #services .figma-service-copy p { margin-block: 16px; }
+  #services .figma-service-art-video {
+    position: absolute;
+    right: 8px;
+    bottom: 2px;
+    width: 160px;
+    height: 160px;
+  }
+
+  #services .service-columns { grid-template-columns: 1fr; }
+  #services .service-item { min-height: 140px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #voices .figma-voice-card,
+  #services .service-item { transition: none; }
+}

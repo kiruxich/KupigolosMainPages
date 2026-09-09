@@ -511,6 +511,13 @@ const voiceSlides = [
   { name: 'Станислав Концевич', role: 'Николаса Кейджа и Тома Хэнкса', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d18f728bf.mp3', image: 'https://img.kupigolos.ru/voice/5aba04eae31bb.jpg?p=v&s=989349f8f67bdef18f41c704f8c09e65', href: 'https://kupigolos.ru/diktory/koncevich-stanislav', price: 'Реклама от 3 000 ₽' },
 ];
 
+const figmaVoiceOrder = ['Алексей Колган', 'Елена Соловьёва', 'Татьяна Шитова', 'Владимир Зайцев', 'Юрий Брежнев', 'Артём Кретов'];
+voiceSlides.sort((a, b) => {
+  const aIndex = figmaVoiceOrder.indexOf(a.name);
+  const bIndex = figmaVoiceOrder.indexOf(b.name);
+  return (aIndex < 0 ? figmaVoiceOrder.length : aIndex) - (bIndex < 0 ? figmaVoiceOrder.length : bIndex);
+});
+
 window.KupiVoiceCatalog = voiceSlides;
 
 const voiceCarousel = document.querySelector('[data-voice-carousel]');

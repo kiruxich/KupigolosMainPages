@@ -23,19 +23,13 @@
   }
 
   function getVisibleCardCount(width, length) {
-    return Math.min(length, width < 600 ? 5 : 9);
+    const count = width < 560 ? 1 : width < 760 ? 2 : width < 980 ? 4 : 6;
+    return Math.min(length, count);
   }
 
   function getDeckLayout(offset, length, trackWidth, cardWidth) {
-    const distance = Math.abs(offset);
-    const sideCount = offset < 0 ? Math.floor(length / 2) : Math.floor((length - 1) / 2);
-    const outerScale = 1 - sideCount * .004;
-    const span = Math.max(0, (trackWidth - cardWidth * outerScale) / 2);
-    // Neighbours peek out by half a card; the remaining cards compress toward the edges.
-    const firstStep = Math.min(cardWidth * .5, span * (sideCount <= 1 ? 1 : .55));
-    const x = distance ? firstStep + (span - firstStep) * (distance - 1) / Math.max(1, sideCount - 1) : 0;
-    return { x: Math.sign(offset) * x, y: distance ? 4 + distance * .4 : 0,
-      scale: 1 - distance * .004, layer: length - distance };
+    const gap = 14;
+    return { x: offset * (cardWidth + gap), y: 0, scale: 1, layer: length - offset };
   }
 
   function populateVoiceDeck(track, catalog) {
@@ -54,6 +48,9 @@
       const duration = card.querySelector('.figma-voice-meta > span');
 
       role.textContent = `Голос ${voice.role}`;
+      image.addEventListener('error', () => {
+        image.src = 'assets/voices/alexey-kolgan-v2.jpg';
+      }, { once: true });
       image.src = voice.image;
       image.alt = voice.name;
       audioLinks.forEach((element) => {
@@ -67,29 +64,15 @@
           element.setAttribute('aria-label', `Слушать голос ${voice.name}`);
         }
       });
-      if (duration) duration.textContent = 'Демо голоса';
+      const sample = globalScope?.KupiVoiceWaveforms?.[voice.audio];
+      if (duration && sample) {
+        const seconds = Math.floor(sample.duration);
+        duration.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+      }
       name.href = voice.href;
       name.textContent = voice.name;
       price.href = voice.href;
       price.textContent = voice.price || 'Узнать стоимость';
-      card.querySelector('.figma-voice-meta > i')?.remove();
-      const spine = track.ownerDocument.createElement('span');
-      spine.className = 'voice-card-spine';
-      spine.textContent = voice.name;
-      spine.setAttribute('aria-hidden', 'true');
-      card.append(spine);
-      const sample = globalScope?.KupiVoiceWaveforms?.[voice.audio];
-      if (sample) {
-        const waveform = track.ownerDocument.createElement('div');
-        waveform.className = 'voice-waveform';
-        waveform.dataset.duration = String(sample.duration);
-        const seconds = Math.floor(sample.duration);
-        const total = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
-        const bars = sample.bars.map((height, index) => `<rect x="${index * 5}" y="${(36 - height) / 2}" width="2.5" height="${height}" rx="1.25"/>`).join('');
-        const svg = `<svg viewBox="0 0 240 36" preserveAspectRatio="none" aria-hidden="true">${bars}</svg>`;
-        waveform.innerHTML = `<div class="voice-waveform-track" role="progressbar" aria-label="Прогресс демозаписи" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">${svg}<span class="voice-waveform-played">${svg}</span></div><div class="voice-waveform-times"><span data-voice-elapsed>0:00</span><span>${total}</span></div>`;
-        name.before(waveform);
-      }
       card.dataset.voiceName = voice.name;
       fragment.append(card);
     });
@@ -102,31 +85,26 @@
     if (!cards.length) return -1;
     activeIndex = getNextCardIndex(activeIndex, 0, cards.length);
     const width = track.clientWidth;
-    const cardWidth = cards.find((card) => !card.hidden)?.offsetWidth || cards[activeIndex].offsetWidth;
     const visibleCount = getVisibleCardCount(width, cards.length);
-    const half = Math.floor(visibleCount / 2);
     cards.forEach((card, index) => {
       const isActive = index === activeIndex;
-      const offset = getDeckOffset(index, activeIndex, cards.length);
-      const visible = Math.abs(offset) <= half;
+      const offset = getNextCardIndex(index - activeIndex, 0, cards.length);
+      const visible = offset < visibleCount;
       card.hidden = !visible;
-      card.dataset.deckSide = offset < 0 ? 'left' : offset > 0 ? 'right' : 'center';
-      const layout = getDeckLayout(Math.max(-half, Math.min(half, offset)), visibleCount, width, cardWidth);
+      card.dataset.deckSide = isActive ? 'start' : 'next';
       card.dataset.deckOffset = String(offset);
       card.classList.toggle('is-active', isActive);
-      card.style.setProperty('--voice-x', `${layout.x}px`);
-      card.style.setProperty('--voice-y', `${layout.y}px`);
-      card.style.setProperty('--voice-scale', layout.scale);
-      card.style.setProperty('--voice-layer', layout.layer);
+      card.style.setProperty('--voice-order', offset);
       card.setAttribute('role', 'group');
       card.setAttribute('aria-roledescription', 'карточка');
       card.setAttribute('aria-label', `${index + 1} из ${cards.length}: ${card.dataset.voiceName || ''}`);
       if (isActive) card.setAttribute('aria-current', 'true');
       else card.removeAttribute('aria-current');
-      card.querySelector('.figma-voice-body').inert = !isActive;
+      card.querySelector('.figma-voice-body').inert = !visible;
     });
     track.dataset.activeCard = String(activeIndex + 1);
     track.dataset.visibleCards = String(visibleCount);
+    track.style.setProperty('--voice-visible-cards', visibleCount);
     return activeIndex;
   }
 
@@ -138,7 +116,7 @@
       if (!cards.length) return;
       track.dataset.voiceDeckReady = 'true';
       track.setAttribute('role', 'region');
-      track.setAttribute('aria-label', 'Колода дикторов. Переключайте карточки стрелками влево и вправо.');
+      track.setAttribute('aria-label', 'Карусель дикторов. Переключайте карточки стрелками влево и вправо.');
       track.setAttribute('aria-roledescription', 'карусель');
       track.setAttribute('tabindex', '0');
       const panel = track.closest('.figma-voices-panel');
@@ -146,7 +124,7 @@
       const totalLabel = panel?.querySelector('[data-voice-deck-total]');
       const previousButton = panel?.querySelector('[data-voice-deck-prev]');
       const nextButton = panel?.querySelector('[data-voice-deck-next]');
-      let activeIndex = Math.floor(cards.length / 2);
+      let activeIndex = 0;
       const selectCard = (index) => {
         const next = getNextCardIndex(index, 0, cards.length);
         if (next !== activeIndex) {
@@ -192,13 +170,7 @@
           suppressClick = false;
           event.preventDefault();
           event.stopPropagation();
-          return;
         }
-        const card = event.target.closest('.figma-voice-card');
-        if (!card || card.classList.contains('is-active')) return;
-        event.preventDefault();
-        event.stopPropagation();
-        selectCard(cards.indexOf(card));
       }, true);
       previousButton?.addEventListener('click', () => moveDeck(-1));
       nextButton?.addEventListener('click', () => moveDeck(1));
