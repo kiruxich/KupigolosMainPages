@@ -50,11 +50,12 @@
   appearance: none;
   background: transparent;
   opacity: 0;
-  cursor: grab;
+  pointer-events: none;
 }
-.range:active { cursor: grabbing; }
-.range::-webkit-slider-thumb { width: 20px; height: 37px; border: 0; appearance: none; }
-.range::-moz-range-thumb { width: 20px; height: 37px; border: 0; }
+.range::-webkit-slider-thumb { width: 20px; height: 37px; border: 0; appearance: none; pointer-events: auto; cursor: grab; }
+.range::-moz-range-thumb { width: 20px; height: 37px; border: 0; pointer-events: auto; cursor: grab; }
+.range:active::-webkit-slider-thumb { cursor: grabbing; }
+.range:active::-moz-range-thumb { cursor: grabbing; }
 .range:focus-visible + .fader { outline: 2px solid var(--brand-accent); outline-offset: 5px; }
 
 .track { position: relative; height: 64px; margin-bottom: 20px; }
