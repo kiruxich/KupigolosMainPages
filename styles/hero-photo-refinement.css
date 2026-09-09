@@ -9,14 +9,26 @@
   isolation: isolate;
   background: #f5ead8;
 }
-.hero-product.hero-product-cinema::before,
-.hero-product.hero-product-cinema::after { display: none; }
+.hero-product.hero-product-cinema::before { display: none; }
+.hero-product.hero-product-cinema::after {
+  position: absolute;
+  z-index: 0;
+  inset: auto 0 0;
+  display: block;
+  height: clamp(180px, 26vh, 280px);
+  background: linear-gradient(180deg, rgba(245, 243, 239, 0) 0%, rgba(245, 243, 239, .2) 26%, rgba(245, 243, 239, .68) 58%, rgba(245, 243, 239, .94) 82%, var(--page) 100%);
+  content: "";
+  pointer-events: none;
+}
 .hero-product.hero-product-cinema .hero-cinema-backdrop {
   z-index: -1;
   object-fit: cover;
   object-position: center;
+  filter: saturate(.78) contrast(.92);
+  opacity: .86;
   pointer-events: none;
 }
+#voices.talent-stage-figma { background: var(--page); }
 .hero-product.hero-product-cinema .hero-product-grid {
   position: static;
   display: block;
@@ -24,6 +36,7 @@
 }
 .hero-product.hero-product-cinema .hero-product-copy {
   position: relative;
+  z-index: 1;
   width: 43%;
   max-width: 610px;
   padding: 0;
@@ -120,6 +133,7 @@
 }
 .hero-cinema-signoff {
   position: absolute;
+  z-index: 1;
   bottom: 9.7%;
   margin: 0;
   color: #7a7467;
