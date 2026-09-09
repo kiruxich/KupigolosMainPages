@@ -20,14 +20,17 @@
     .card__link:focus-visible { outline: 3px solid rgba(245, 70, 34, .38); outline-offset: 4px; }
     .card__number { color: #f54622; font-size: .75rem; font-weight: 800; letter-spacing: .16em; }
     .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .badge { padding: 7px 9px; border-radius: 999px; color: #fff; background: #f54622; font-size: .65rem; font-weight: 800; letter-spacing: .1em; line-height: 1; }
     .card__body { margin: auto 0; }
     .card h2 { margin: 0 0 8px; font-size: 1.75rem; letter-spacing: -.04em; }
     .card__footer { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
     .card__date { color: #687096; font-size: .75rem; font-weight: 700; letter-spacing: .06em; }
-    .status-control { display: grid; gap: 5px; color: #687096; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .status-control select { min-width: 128px; padding: 9px 30px 9px 11px; border: 1px solid rgba(39, 55, 120, .16); border-radius: 10px; color: #273778; background: #f4f5f8; font: 700 .78rem/1 Manrope, Arial, sans-serif; cursor: pointer; text-transform: none; }
-    .status-control select:focus-visible { border-color: #f54622; outline: 3px solid rgba(245, 70, 34, .18); }
+    .status-control { display: grid; gap: 6px; color: #687096; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .status-control select { min-width: 132px; padding: 9px 12px; border: 1px solid transparent; border-radius: 999px; font: 800 .76rem/1 Manrope, Arial, sans-serif; cursor: pointer; text-transform: none; transition: border-color .2s ease, background-color .2s ease, color .2s ease; }
+    .status-control[data-state="in-progress"] select { color: #956400; background: #fbf3db; }
+    .status-control[data-state="completed"] select { color: #346538; background: #edf3ec; }
+    .status-control[data-state="deferred"] select { color: #687096; background: #eef0f5; }
+    .status-control select:hover { border-color: currentColor; }
+    .status-control select:focus-visible { border-color: currentColor; outline: 3px solid rgba(245, 70, 34, .18); }
     @media (max-width: 600px) { main { width: min(100% - 32px, 1200px); } .card { min-height: 200px; } }
     @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
   </style>
@@ -43,15 +46,16 @@
         <div class="card__body"><h2>Главная страница</h2><p>Текущая версия сайта КупиГолос</p></div>
         <div class="card__footer">
           <time class="card__date" datetime="2026-09-09">09.09.2026</time>
-          <label class="status-control"><span>Статус</span><select data-project-status="homepage"><option value="in-progress">В работе</option><option value="completed" selected>Завершён</option><option value="deferred">Отложен</option></select></label>
+          <label class="status-control" data-state="completed"><span>Статус</span><select data-project-status="homepage"><option value="in-progress">В работе</option><option value="completed" selected>Завершён</option><option value="deferred">Отложен</option></select></label>
         </div>
       </article>
       <article class="card">
-        <div class="card__top"><span class="card__number">02</span><span class="badge">ТЕКУЩЕЕ</span></div>
+        <a class="card__link" href="six-pages.html" aria-label="Открыть проект 6 страниц"></a>
+        <div class="card__top"><span class="card__number">02</span></div>
         <div class="card__body"><h2>6 страниц</h2><p>Следующий блок страниц в работе</p></div>
         <div class="card__footer">
           <time class="card__date" datetime="2026-09-09">09.09.2026</time>
-          <label class="status-control"><span>Статус</span><select data-project-status="six-pages"><option value="in-progress" selected>В работе</option><option value="completed">Завершён</option><option value="deferred">Отложен</option></select></label>
+          <label class="status-control" data-state="in-progress"><span>Статус</span><select data-project-status="six-pages"><option value="in-progress" selected>В работе</option><option value="completed">Завершён</option><option value="deferred">Отложен</option></select></label>
         </div>
       </article>
     </section>
@@ -66,7 +70,11 @@
         if (savedStatus && [...control.options].some((option) => option.value === savedStatus)) control.value = savedStatus;
       } catch {}
 
+      const syncStatusStyle = () => { control.closest('.status-control').dataset.state = control.value; };
+      syncStatusStyle();
+
       control.addEventListener('change', () => {
+        syncStatusStyle();
         try { localStorage.setItem(storageKey, control.value); } catch {}
       });
     });
