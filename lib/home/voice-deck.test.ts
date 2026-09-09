@@ -17,6 +17,7 @@ describe("voice deck arc", () => {
   it("shows five filled cards on desktop and three on a narrow screen", () => {
     expect(deck.getVisibleCardCount(1200, 20)).toBe(5);
     expect(deck.getVisibleCardCount(360, 20)).toBe(3);
+    expect(deck.getVisibleCardCount(900, 20)).toBe(3);
   });
 
   it("spreads readable neighbours in perspective and keeps outer cards inside the track", () => {
@@ -25,15 +26,16 @@ describe("voice deck arc", () => {
     const outer = deck.getDeckLayout(2, 5, 1200, 280);
     expect(center.rotate).toBe(0);
     expect(side.x).toBeGreaterThan(200);
-    expect(side.rotate).toBeLessThan(0);
+    expect(side.rotate).toBeGreaterThan(0);
     expect(side.scale).toBeLessThan(center.scale);
-    expect(outer.x + 140 * outer.scale).toBeLessThanOrEqual(600);
+    expect(outer.x + 140 * outer.scale * Math.cos(outer.rotate * Math.PI / 180)).toBeLessThanOrEqual(600);
     expect(deck.getDeckOffset(0, 19, 20)).toBe(1);
   });
 
   it("does not cover neighbouring card content when compact cards fit the desktop track", () => {
     const side = deck.getDeckLayout(1, 5, 1200, 230);
-    expect(side.x).toBeGreaterThanOrEqual(225);
+    const neighbourLeft = side.x - 115 * side.scale * Math.cos(side.rotate * Math.PI / 180);
+    expect(neighbourLeft).toBeGreaterThanOrEqual(115);
   });
 
   it("fills every catalogue card with a description and circular audio progress, without a waveform", () => {
