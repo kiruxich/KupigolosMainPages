@@ -5,7 +5,6 @@ describe("public asset contract", () => {
   it.each([
     "public/assets/kupigolos-logo-white.svg",
     "public/assets/hero-studio-session-v1.png",
-    "public/files/afisha-suppliers.docx",
   ])("keeps %s at its public URL", (path) => {
     expect(existsSync(path)).toBe(true);
   });
@@ -18,4 +17,3 @@ describe("public asset contract", () => {
     expect(css).not.toContain('@import "./figma-sections.css";');
   });
 });
-

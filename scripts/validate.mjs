@@ -3,13 +3,11 @@ import { existsSync, readFileSync } from "node:fs";
 const requiredFiles = [
   "app/layout.tsx",
   "app/page.tsx",
-  "app/home/page.tsx",
   "components/home/home-page.tsx",
   "components/home/home-markup.generated.ts",
   "components/home/home-runtime.tsx",
   "lib/home/runtime-controller.ts",
   "lib/home/runtime-sources.generated.ts",
-  "public/files/afisha-suppliers.docx",
 ];
 const failures = [];
 const check = (condition, message) => {
@@ -23,7 +21,6 @@ if (!failures.length) {
   const markup = readFileSync("components/home/home-markup.generated.ts", "utf8");
   const runtime = readFileSync("lib/home/runtime-sources.generated.ts", "utf8");
   const metadata = readFileSync("app/home/home-metadata.ts", "utf8");
-  const projectData = readFileSync("components/projects/project-data.ts", "utf8");
   const css = readFileSync("styles/legacy.css", "utf8");
   const sectionIds = [
     "start", "voices", "ai-services", "about", "services", "portfolio",
@@ -43,8 +40,6 @@ if (!failures.length) {
   check(runtime.includes("function renderPortfolio()"), "portfolio controller is missing");
   check(runtime.includes("function setStudioRailSection("), "studio rail controller is missing");
   check(metadata.includes("organizationJsonLd") && metadata.includes("openGraph"), "homepage metadata is incomplete");
-  check(projectData.includes("/files/afisha-suppliers.docx"), "supplier document URL changed");
-  check(projectData.includes("https://kupigolos-ozvychka-g84p.vercel.app"), "Ozvychka URL changed");
   check(css.indexOf("styles.css") < css.indexOf("refresh.css"), "legacy CSS order changed");
 }
 

@@ -1,26 +1,25 @@
+/* eslint-disable @next/next/no-page-custom-font -- route-scoped loading preserves the existing font metrics */
 import type { Metadata, Viewport } from "next";
-import { ProjectCard } from "@/components/projects/project-card";
-import { projects } from "@/components/projects/project-data";
-import "./projects.css";
+import { HomePage } from "@/components/home/home-page";
+import { HomeRuntime } from "@/components/home/home-runtime";
+import { homeMetadata, homeViewport, organizationJsonLd } from "./home/home-metadata";
 
-export const metadata: Metadata = {
-  title: "КупиГолос - проекты",
-};
+export const metadata: Metadata = homeMetadata;
+export const viewport: Viewport = homeViewport;
 
-export const viewport: Viewport = {
-  themeColor: "#f54622",
-};
-
-export default function ProjectIndexPage() {
+export default function HomeRoute() {
   return (
-    <main className="projects-index">
-      <h1>Проекты</h1>
-      <p>Рабочие страницы для показа.</p>
-      <section className="grid" aria-label="Список проектов">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </section>
-    </main>
+    <>
+      <link rel="preload" href="/assets/hero-studio-session-v1.png" as="image" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+      <HomePage />
+      <HomeRuntime />
+    </>
   );
 }

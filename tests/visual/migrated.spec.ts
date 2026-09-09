@@ -1,8 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  { href: "/", snapshot: "index" },
-  { href: "/home", snapshot: "home" },
+  { href: "/", snapshot: "home" },
 ] as const;
 
 for (const viewport of [
@@ -20,7 +19,7 @@ for (const viewport of [
         await expect(page).toHaveScreenshot(`${viewport.name}-${route.snapshot}.png`, {
           animations: "allow",
           fullPage: true,
-          maxDiffPixels: route.href === "/home" ? 20 : 0,
+          maxDiffPixels: 20,
         });
       });
     }
