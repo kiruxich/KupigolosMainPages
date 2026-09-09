@@ -29,7 +29,7 @@ describe("homepage structure", () => {
     expect(html).toContain('href="#portfolio"');
     expect(html).toContain("Прослушать примеры");
     expect(html).not.toContain('href="#calculator"');
-    expect(html).toContain("hero-neutral-preview-1.png");
+    expect(html).toContain("hero-neutral-preview-3.png");
     expect(html).toContain('class="hero-product hero-product-cinema"');
   });
 
