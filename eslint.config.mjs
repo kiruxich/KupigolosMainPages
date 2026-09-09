@@ -5,5 +5,12 @@ import nextTypeScript from "eslint-config-next/typescript";
 export default defineConfig([
   ...nextVitals,
   ...nextTypeScript,
-  globalIgnores([".next/**", ".agents/**", ".impeccable/**", "graphify-out/**", "public/**"]),
+  globalIgnores([
+    ".next/**",
+    ".agents/**",
+    ".impeccable/**",
+    "graphify-out/**",
+    "public/**",
+    "scripts/**/*.cjs",
+  ]),
 ]);

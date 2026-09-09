@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/legacy.css";
+@import "./seo.css";
 
 /* Restore browser defaults intentionally relied on by the static homepage. */
 .service-index-groups h4 {
