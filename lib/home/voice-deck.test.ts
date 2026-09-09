@@ -31,6 +31,11 @@ describe("voice deck arc", () => {
     expect(deck.getDeckOffset(0, 19, 20)).toBe(1);
   });
 
+  it("does not cover neighbouring card content when compact cards fit the desktop track", () => {
+    const side = deck.getDeckLayout(1, 5, 1200, 230);
+    expect(side.x).toBeGreaterThanOrEqual(225);
+  });
+
   it("fills every catalogue card with a description and circular audio progress, without a waveform", () => {
     const track = document.createElement("div");
     track.innerHTML = '<article class="figma-voice-card"><p class="figma-voice-role"></p><div class="figma-voice-body"><div class="figma-voice-meta"><a></a><span></span></div><div class="figma-voice-portrait"><img/><button class="voice-play"></button></div><a class="figma-voice-name"></a><a class="figma-voice-price"></a></div></article>';
@@ -39,5 +44,8 @@ describe("voice deck arc", () => {
     expect(track.querySelectorAll(".voice-progress-ring")).toHaveLength(20);
     expect(track.querySelector(".figma-voice-description")?.textContent).toBe("Актёр дубляжа и рекламы.");
     expect(track.querySelectorAll(".voice-waveform")).toHaveLength(0);
+    deck.populateVoiceDeck(track, Array.from({length:20}, (_, i) => ({name:`Диктор ${i}`,role:"Шрека",image:"/portrait.jpg",audio:`/demo-${i}.mp3`,href:"/profile",description:"Актёр дубляжа и рекламы.",price:"Цена договорная"})));
+    expect(track.querySelectorAll(".figma-voice-description")).toHaveLength(20);
+    expect(track.querySelectorAll(".voice-progress-ring")).toHaveLength(20);
   });
 });
