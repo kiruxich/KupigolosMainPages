@@ -36,7 +36,7 @@
   margin-block: 10px 12px;
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button) {
   display: inline-grid;
   min-width: 228px;
   min-height: 58px;
@@ -50,7 +50,7 @@
   border-radius: 14px;
   color: var(--header-rust);
   background: rgba(255, 255, 255, .54);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .82);
+  box-shadow: 0 5px 0 rgba(96, 50, 29, .06), 0 12px 24px rgba(96, 50, 29, .09), inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -2px 3px rgba(var(--brand-accent-rgb), .06);
   font-family: var(--body);
   font-size: .72rem;
   font-weight: 800;
@@ -61,7 +61,7 @@
   transition: color .22s ease, border-color .22s ease, background-color .22s ease, box-shadow .22s ease, transform .22s cubic-bezier(.16, 1, .3, 1);
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::before {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::before {
   width: 22px;
   height: 14px;
   background:
@@ -75,7 +75,7 @@
   transition: transform .25s cubic-bezier(.16, 1, .3, 1);
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
   display: grid;
   width: 50px;
   height: 100%;
@@ -83,8 +83,9 @@
   justify-self: end;
   border-left: 1px solid rgba(255, 255, 255, .22);
   color: #fff;
-  background: var(--header-rust);
-  content: "↗";
+  background: linear-gradient(155deg, rgba(255, 255, 255, .16), rgba(91, 24, 8, .14)), var(--header-rust);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .36), inset 0 -3px 4px rgba(104, 31, 13, .18);
+  content: var(--studio-cta-symbol, "↗");
   font-size: .96rem;
   font-weight: 500;
   letter-spacing: 0;
@@ -93,29 +94,29 @@
 
 .figma-voices-cta > span { display: none; }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible) {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible) {
   border-color: var(--header-rust);
   color: var(--brand-accent-hover);
   background: rgba(255, 255, 255, .8);
-  box-shadow: 0 12px 28px rgba(var(--brand-accent-rgb), .1), inset 0 1px 0 #fff;
+  box-shadow: 0 6px 0 rgba(96, 50, 29, .05), 0 17px 30px rgba(var(--brand-accent-rgb), .15), inset 0 1px 0 #fff;
   transform: translateY(-2px);
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::before {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::before {
   transform: scaleY(1.14);
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
   background: var(--brand-accent-hover);
   transform: translateX(-3px);
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):focus-visible {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):focus-visible {
   outline: 2px solid var(--header-rust);
   outline-offset: 3px;
 }
 
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):active {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):active {
   box-shadow: inset 0 2px 5px rgba(var(--brand-accent-rgb), .13);
   transform: translateY(0) scale(.985);
 }
@@ -138,16 +139,16 @@
     padding: 18px 15px 22px;
   }
 
-  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+  :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button) {
     width: 100%;
     min-width: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button),
-  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::before,
-  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
+  :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button),
+  :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::before,
+  :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
     transition: none;
   }
 }
@@ -433,7 +434,7 @@
 #voices .figma-voice-role,
 #voices .figma-voice-meta > span,
 #voices .figma-voice-name,
-:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button) {
   font-size: var(--type-meta);
 }
 

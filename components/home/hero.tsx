@@ -5,7 +5,7 @@ export function Hero() {
     <section className="hero-product hero-product-cinema" id="start" data-hero-variant aria-labelledby="hero-title">
       <Image className="hero-cinema-backdrop" src="/assets/studio/hero-cinema-background.webp"
         alt="Студия КупиГолос в тёплом свете: микрофоны, клавишный инструмент и гитара"
-        fill sizes="100vw" preload />
+        fill sizes="100vw" preload unoptimized />
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
           <p className="top-kicker">Ваш голос<br />Больше возможностей</p>
@@ -17,11 +17,11 @@ export function Hero() {
             Профессиональная озвучка для рекламы,<br className="hero-desktop-break" /> видео, фильмов, подкастов и любых проектов.
           </p>
           <div className="hero-actions" aria-label="Действия">
-            <a className="hero-action-button hero-action-primary" href="#contacts">
-              <span>Заказать</span><i aria-hidden="true">→</i>
+            <a className="studio-cta" href="#contacts">
+              <span>Заказать</span>
             </a>
-            <a className="hero-action-button" href="#portfolio">
-              <span>Прослушать примеры</span><i aria-hidden="true">▸</i>
+            <a className="studio-cta studio-cta--secondary" href="#portfolio">
+              <span>Прослушать примеры</span>
             </a>
           </div>
         </div>
