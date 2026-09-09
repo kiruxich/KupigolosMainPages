@@ -24,7 +24,15 @@
   background: #f5f1e9;
 }
 .hero-product.hero-product-cinema::before {
-  display: none;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  background:
+    radial-gradient(ellipse at 77% 36%, rgba(255, 252, 245, .86), transparent 43%),
+    radial-gradient(ellipse at 87% 73%, rgba(207, 157, 126, .08), transparent 38%);
+  content: "";
+  pointer-events: none;
 }
 .hero-product.hero-product-cinema::after {
   position: absolute;
@@ -43,15 +51,18 @@
   right: -2%;
   bottom: 70px;
   width: 54%;
-  mix-blend-mode: multiply;
+  isolation: isolate;
   pointer-events: none;
 }
 .hero-sound-art img {
+  z-index: 1;
   object-fit: contain;
   object-position: center;
-  mask-image: radial-gradient(ellipse, #000 58%, transparent 74%);
+  mix-blend-mode: multiply;
+  filter: saturate(.9);
+  mask-image: radial-gradient(ellipse at 52% 49%, #000 43%, rgba(0, 0, 0, .97) 55%, rgba(0, 0, 0, .55) 66%, transparent 77%);
 }
-/* Soft depth at the perimeter keeps the central waveform crisp. */
+/* Stationary gallery lighting: the object stays sharp and keeps its proportions. */
 .hero-sound-art::before,
 .hero-sound-art::after {
   position: absolute;
@@ -60,35 +71,16 @@
   pointer-events: none;
 }
 .hero-sound-art::before {
-  z-index: -1;
+  z-index: 0;
   background:
-    radial-gradient(ellipse at 62% 48%, rgba(182, 78, 51, .13), transparent 62%),
-    radial-gradient(ellipse at 35% 65%, rgba(213, 156, 99, .09), transparent 58%);
-  transform: scale(1.08);
+    radial-gradient(ellipse 31% 39% at 61% 49%, rgba(182, 78, 51, .07), transparent 100%),
+    radial-gradient(ellipse 28% 7% at 63% 82%, rgba(96, 57, 39, .06), transparent 100%);
 }
 .hero-sound-art::after {
-  z-index: 1;
-  background: rgba(245, 241, 233, .06);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  mask-image: radial-gradient(ellipse, transparent 30%, rgba(0, 0, 0, .85) 61%, transparent 76%);
-}
-@keyframes hero-sound-settle {
-  0% { transform: translateY(8px) scale(.985); }
-  55% { transform: translateY(-4px) scale(1.008); }
-  100% { transform: translateY(0) scale(1); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero-sound-art {
-    animation: hero-sound-settle 4.8s ease-in-out both;
-    transition: transform 900ms cubic-bezier(.22, 1, .36, 1);
-  }
-}
-@media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .hero-product-cinema:hover .hero-sound-art {
-    animation-fill-mode: backwards;
-    transform: translateY(-3px);
-  }
+  z-index: 2;
+  background: linear-gradient(135deg, rgba(255, 251, 239, .18), transparent 47%, rgba(109, 66, 44, .04));
+  mix-blend-mode: soft-light;
+  mask-image: radial-gradient(ellipse, #000 30%, transparent 72%);
 }
 #voices.talent-stage-figma { background: var(--page); }
 .hero-product.hero-product-cinema .hero-product-grid {
