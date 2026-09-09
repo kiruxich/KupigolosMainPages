@@ -1,4 +1,4 @@
-.section { padding: 76px 32px 80px; background: #faf9f7; color: #494963; scroll-margin-top: 120px; }
+.section { padding: 76px 32px 80px; background: var(--page); color: #494963; scroll-margin-top: 120px; }
 .inner { max-width: 1280px; margin-inline: auto; }
 .heading { text-align: center; margin-bottom: 48px; }
 .eyebrow { color: #bd4c30; font-size: 16px; font-weight: 600; letter-spacing: .04em; margin: 0 0 22px; }
@@ -6,7 +6,7 @@
 .heading h2 { font-family: var(--body); max-width: none; width: 100%; font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; letter-spacing: .055em; line-height: 1.2; text-transform: uppercase; margin: 0 0 24px; }
 .section h3, .section h4 { font-family: var(--body); }
 .heading > p:last-child { margin: 0; color: #777785; font-size: 16px; line-height: 1.65; }
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
 .audioPanel { border: 1px solid #e9e7e4; border-radius: 18px; padding: 34px 32px 20px; background: #fff; box-shadow: 0 6px 22px #35314705; }
 .audioHeader { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
 .audioHeader h3 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }

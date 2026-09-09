@@ -32,7 +32,7 @@
 .section :global(.contact-form) :global(.form-note) { margin: 0; line-height: 1.5; }
 
 .section :global(.contact-form) .submit {
-  width: 250px;
+  width: 284px;
   max-width: 100%;
   min-height: 54px;
   justify-self: start;

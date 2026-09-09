@@ -26,7 +26,7 @@ describe("homepage structure", () => {
 
     expect(html).toContain('href="#contacts"');
     expect(html).toContain("Заказать");
-    expect(html).toContain('href="#portfolio"');
+    expect(html).toContain('href="#voices"');
     expect(html).toContain("Прослушать примеры");
     expect(html).not.toContain('href="#calculator"');
     expect(html).toContain("hero-sound-sculpture.png");

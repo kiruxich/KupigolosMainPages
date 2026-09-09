@@ -25,7 +25,7 @@ export function Hero() {
               </svg>
               <span>Заказать</span>
             </a>
-            <a className="studio-cta studio-cta--secondary" href="#portfolio">
+            <a className="studio-cta studio-cta--secondary" href="#voices">
               <span>Прослушать примеры</span>
             </a>
           </div>
