@@ -7,6 +7,7 @@ export default defineConfig([
   ...nextTypeScript,
   globalIgnores([
     ".next/**",
+    ".worktrees/**",
     ".agents/**",
     ".impeccable/**",
     "graphify-out/**",

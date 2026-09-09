@@ -10,6 +10,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     include: ["**/*.test.{ts,tsx}"],
+    exclude: [".worktrees/**", "node_modules/**", ".next/**"],
     setupFiles: ["./vitest.setup.ts"],
   },
 });
