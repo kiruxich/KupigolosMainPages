@@ -11,6 +11,5 @@ export default defineConfig({
     environment: "jsdom",
     include: ["**/*.test.{ts,tsx}"],
     exclude: [".worktrees/**", "node_modules/**", ".next/**"],
-    setupFiles: ["./vitest.setup.ts"],
   },
 });
