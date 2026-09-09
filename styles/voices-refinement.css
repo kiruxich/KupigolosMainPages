@@ -1,0 +1,455 @@
+/* Voice shelf refinement: editorial heading, taller cards and shared audio CTAs. */
+
+#voices .figma-voices-panel > h2 {
+  display: grid;
+  gap: 14px;
+  margin-bottom: clamp(16px, 2vw, 28px);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(3.35rem, 5.6vw, 6rem);
+  font-weight: 600;
+  line-height: .84;
+  letter-spacing: -.035em;
+  text-transform: none;
+}
+
+#voices .figma-voices-panel > h2::before {
+  color: var(--header-rust);
+  content: "Voice talent";
+  font-family: var(--body);
+  font-size: clamp(.68rem, .78vw, .82rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+#voices .figma-voice-body {
+  min-height: 300px;
+  grid-template-rows: 24px minmax(150px, 1fr) auto auto;
+  padding: 20px 16px 24px;
+}
+
+#voices .figma-voice-portrait {
+  width: 164px;
+  height: 164px;
+  margin-block: 10px 12px;
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+  display: inline-grid;
+  min-width: 228px;
+  min-height: 58px;
+  grid-template-columns: 22px minmax(max-content, 1fr) 50px;
+  gap: 14px;
+  align-items: center;
+  justify-content: stretch;
+  padding: 0 0 0 18px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--brand-accent-rgb), .42);
+  border-radius: 14px;
+  color: var(--header-rust);
+  background: rgba(255, 255, 255, .54);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .82);
+  font-family: var(--body);
+  font-size: .72rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-align: left;
+  text-transform: uppercase;
+  transition: color .22s ease, border-color .22s ease, background-color .22s ease, box-shadow .22s ease, transform .22s cubic-bezier(.16, 1, .3, 1);
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::before {
+  width: 22px;
+  height: 14px;
+  background:
+    linear-gradient(currentColor, currentColor) 0 50% / 2px 6px no-repeat,
+    linear-gradient(currentColor, currentColor) 5px 50% / 2px 12px no-repeat,
+    linear-gradient(currentColor, currentColor) 10px 50% / 2px 9px no-repeat,
+    linear-gradient(currentColor, currentColor) 15px 50% / 2px 14px no-repeat,
+    linear-gradient(currentColor, currentColor) 20px 50% / 2px 7px no-repeat;
+  content: "";
+  opacity: .88;
+  transition: transform .25s cubic-bezier(.16, 1, .3, 1);
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
+  display: grid;
+  width: 50px;
+  height: 100%;
+  place-items: center;
+  justify-self: end;
+  border-left: 1px solid rgba(255, 255, 255, .22);
+  color: #fff;
+  background: var(--header-rust);
+  content: "↗";
+  font-size: .96rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  transition: background-color .22s ease, transform .25s cubic-bezier(.16, 1, .3, 1);
+}
+
+.figma-voices-cta > span { display: none; }
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible) {
+  border-color: var(--header-rust);
+  color: var(--brand-accent-hover);
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 12px 28px rgba(var(--brand-accent-rgb), .1), inset 0 1px 0 #fff;
+  transform: translateY(-2px);
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::before {
+  transform: scaleY(1.14);
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
+  background: var(--brand-accent-hover);
+  transform: translateX(-3px);
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):focus-visible {
+  outline: 2px solid var(--header-rust);
+  outline-offset: 3px;
+}
+
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button):active {
+  box-shadow: inset 0 2px 5px rgba(var(--brand-accent-rgb), .13);
+  transform: translateY(0) scale(.985);
+}
+
+@media (max-width: 980px) {
+  #voices .figma-voice-body { min-height: 292px; }
+}
+
+@media (max-width: 620px) {
+  #voices .figma-voices-panel > h2 {
+    gap: 11px;
+    margin-bottom: 20px;
+    font-size: clamp(3rem, 16vw, 4.5rem);
+  }
+
+  #voices .figma-voice-portrait { width: 120px; height: 120px; }
+
+  #voices .figma-voice-body {
+    min-height: 282px;
+    padding: 18px 15px 22px;
+  }
+
+  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button),
+  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::before,
+  :is(.figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
+    transition: none;
+  }
+}
+
+/* The full-width fan shows the selected voice and its nearest neighbours from the full catalogue. */
+#voices .figma-voices-panel { --voice-panel-gutter: clamp(28px, 4.8vw, 62px); }
+
+#voices .figma-voices-grid {
+  --voice-card-width: clamp(280px, 23vw, 320px);
+  position: relative;
+  display: block;
+  isolation: isolate;
+  width: calc(100% + var(--voice-panel-gutter) * 2 - 32px);
+  max-width: none;
+  height: 480px;
+  margin-inline: calc(16px - var(--voice-panel-gutter));
+  padding: 0;
+  overflow: visible;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+#voices .figma-voice-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: var(--voice-layer, 1);
+  width: var(--voice-card-width);
+  margin: 0;
+  cursor: pointer;
+  transform-origin: center center;
+  transform: translateX(calc(-50% + var(--voice-x, 0px))) translateY(var(--voice-y, 0px)) scale(var(--voice-scale, 1));
+  transition: transform .48s cubic-bezier(.22, 1, .36, 1);
+}
+
+#voices .figma-voice-body {
+  min-height: 400px;
+  grid-template-rows: 24px minmax(160px, 1fr) 58px auto auto;
+  border: 1px solid rgba(39, 55, 120, .12);
+  background: #f9fafc;
+  box-shadow: -5px 5px 14px rgba(37, 43, 69, .07);
+  transition: border-color .25s ease, background-color .25s ease, box-shadow .25s ease;
+}
+
+#voices .figma-voice-card:not(.is-active) .figma-voice-body {
+  pointer-events: none;
+}
+
+#voices .figma-voice-role {
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+
+#voices .figma-voice-card.is-active .figma-voice-role { opacity: 1; }
+
+#voices .figma-voice-card.is-active .figma-voice-body {
+  border-color: rgba(var(--brand-accent-rgb), .4);
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(37, 43, 69, .12);
+}
+
+#voices .figma-voice-card:not(.is-active):hover .figma-voice-body {
+  border-color: rgba(var(--brand-accent-rgb), .4);
+  background: #fff;
+}
+
+/* Only the selected voice carries details; adjacent portraits hint at the next choice. */
+#voices .figma-voice-meta,
+#voices .figma-voice-name,
+#voices .figma-voice-price,
+#voices .figma-voice-portrait,
+#voices .figma-voice-portrait .voice-play {
+  transition: opacity .2s ease;
+}
+
+#voices .figma-voice-card:not(.is-active) :is(.figma-voice-meta, .figma-voice-name, .figma-voice-price, .voice-play, .voice-waveform),
+#voices .figma-voice-card:not(.is-active):not([data-deck-offset="-1"]):not([data-deck-offset="1"]) .figma-voice-portrait,
+#voices .figma-voice-card:not(.is-active) .figma-voice-portrait::before {
+  opacity: 0;
+}
+
+#voices .figma-voice-body .figma-voice-name {
+  display: grid;
+  min-height: 2.4em;
+  align-items: end;
+  color: var(--ink);
+  font-size: clamp(18px, 1.4vw, 20px);
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: normal;
+  text-wrap: balance;
+  text-decoration: none;
+}
+
+#voices .figma-voice-body .figma-voice-price {
+  color: var(--muted);
+  font-size: var(--type-meta, .875rem);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price):is(:hover, :focus-visible) {
+  color: var(--header-rust);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price):focus-visible {
+  outline: 2px solid var(--header-rust);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+#voices .figma-voice-card[hidden] { display: none; }
+
+#voices .voice-card-spine {
+  position: absolute;
+  top: 90px;
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  writing-mode: vertical-rl;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+#voices .figma-voice-card[data-deck-side="left"] .voice-card-spine { left: 20px; transform: rotate(180deg); }
+#voices .figma-voice-card[data-deck-side="right"] .voice-card-spine { right: 20px; }
+#voices .figma-voice-card.is-active .voice-card-spine { opacity: 0; }
+
+#voices .voice-waveform {
+  --voice-progress: 0%;
+  width: 100%;
+  max-width: 240px;
+  align-self: center;
+  transition: opacity .2s ease;
+}
+
+#voices .voice-waveform-track {
+  position: relative;
+  height: 36px;
+  color: #cbd0de;
+}
+
+#voices .voice-waveform-track svg { display: block; width: 100%; height: 36px; fill: currentColor; }
+
+#voices .voice-waveform-played {
+  position: absolute;
+  inset: 0;
+  color: var(--header-rust);
+  clip-path: inset(0 calc(100% - var(--voice-progress)) 0 0);
+  transition: clip-path .2s linear;
+}
+
+#voices .voice-waveform-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+#voices .figma-voices-footer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: clamp(26px, 3vw, 38px);
+}
+
+#voices .figma-voices-footer .figma-voices-cta { margin-top: 0; }
+
+#voices .figma-voices-deck-controls {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 12px;
+  align-items: center;
+  color: var(--muted);
+}
+
+#voices .figma-voices-deck-status {
+  min-width: 46px;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--type-meta);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+#voices .figma-voices-deck-status span:last-child { color: var(--muted); }
+
+#voices .figma-voices-deck-hint {
+  margin: 0;
+  font-size: var(--type-meta);
+}
+
+#voices .figma-voices-deck-actions { display: flex; gap: 7px; }
+
+#voices .figma-voices-deck-actions button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(39, 55, 120, .18);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgba(255, 255, 255, .58);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease, transform .2s cubic-bezier(.16, 1, .3, 1);
+}
+
+#voices .figma-voices-deck-actions button:is(:hover, :focus-visible) {
+  border-color: var(--header-rust);
+  color: #fff;
+  background: var(--header-rust);
+  transform: translateY(-2px);
+}
+
+#voices .figma-voices-deck-actions button:active { transform: scale(.94); }
+
+#voices .figma-voices-deck-actions button:focus-visible {
+  outline: 2px solid var(--header-rust);
+  outline-offset: 3px;
+}
+
+#voices .figma-voices-grid:focus-visible {
+  outline: 2px solid var(--header-rust);
+  outline-offset: 5px;
+  border-radius: 26px;
+}
+
+@media (max-width: 620px) {
+  #voices .figma-voices-grid {
+    --voice-card-width: min(68vw, 280px);
+    height: 445px;
+  }
+
+  #voices .figma-voice-body { min-height: 370px; }
+  #voices .figma-voice-portrait { width: 140px; height: 140px; }
+  #voices .voice-card-spine { font-size: 10px; }
+  #voices .figma-voice-card[data-deck-side="left"] .voice-card-spine { left: 7px; }
+  #voices .figma-voice-card[data-deck-side="right"] .voice-card-spine { right: 7px; }
+
+  #voices .figma-voices-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #voices .figma-voices-deck-controls { width: 100%; justify-content: space-between; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #voices .figma-voice-card,
+  #voices .figma-voice-body,
+  #voices .figma-voice-role,
+  #voices .figma-voice-meta,
+  #voices .figma-voice-name,
+  #voices .figma-voice-price,
+  #voices .figma-voice-portrait,
+  #voices .figma-voice-portrait .voice-play,
+  #voices .voice-card-spine,
+  #voices .voice-waveform,
+  #voices .voice-waveform-played {
+    transition: none;
+  }
+}
+
+/* Final type authority: five readable steps across content sections.
+   The approved first screen and the compact studio rail deliberately stay outside this layer. */
+#voices .figma-voices-panel > h2 { font-size: var(--type-lg); }
+
+#voices .figma-voices-panel > h2::before,
+#voices .figma-voice-role,
+#voices .figma-voice-meta > span,
+#voices .figma-voice-name,
+:is(.figma-voices-cta, .calculator-summary .button, .contact-form .button) {
+  font-size: var(--type-meta);
+}
+
+#voices .figma-voice-price { font-size: var(--type-body); }
+
+.about-copy .lead-copy { font-size: var(--type-md); }
+
+.about-copy > p:not(.lead-copy),
+.about-copy details p,
+.service-index-heading > p:last-child,
+.voice-directory-copy > p:not(.kicker),
+.sticky-title > p:last-child,
+.voice-directory-links a,
+.site-header .site-nav,
+.site-header .header-phone { font-size: var(--type-body); }
+
+.service-copy > span,
+.voice-directory-links a span,
+.voice-directory-links a::after { font-size: var(--type-meta); }
