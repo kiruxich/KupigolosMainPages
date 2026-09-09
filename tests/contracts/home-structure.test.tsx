@@ -21,7 +21,7 @@ const sectionIds = [
 ] as const;
 
 describe("homepage structure", () => {
-  it("renders the approved hero actions with the real studio image pair", () => {
+  it("renders the approved hero actions and cinematic studio background", () => {
     const html = renderToStaticMarkup(<Hero />);
 
     expect(html).toContain('href="#contacts"');
@@ -29,8 +29,8 @@ describe("homepage structure", () => {
     expect(html).toContain('href="#portfolio"');
     expect(html).toContain("Прослушать примеры");
     expect(html).not.toContain('href="#calculator"');
-    expect(html).toContain('src="/assets/studio/hero-room.jpg"');
-    expect(html).toContain('src="/assets/studio/hero-session.jpg"');
+    expect(html).toContain("hero-cinema-background.webp");
+    expect(html).toContain('class="hero-product hero-product-cinema"');
   });
 
   it("preserves required sections in order", () => {

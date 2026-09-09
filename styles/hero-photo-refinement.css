@@ -1,208 +1,177 @@
-/* Real studio contact sheet. Imported last so this file owns only the hero photo composition. */
-.hero-product .hero-actions {
-  width: min(100%, 470px);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.hero-product-grid,
-.hero-product:nth-of-type(1) .hero-product-grid,
-.hero-product:nth-of-type(2) .hero-product-grid,
-.hero-product:nth-of-type(3) .hero-product-grid {
-  grid-template-columns: minmax(0, .92fr) minmax(500px, 1.08fr);
-  gap: clamp(46px, 5vw, 78px);
-}
-
-.hero-studio-visual,
-.hero-product:nth-of-type(1) .hero-studio-visual,
-.hero-product:nth-of-type(2) .hero-studio-visual,
-.hero-product:nth-of-type(3) .hero-studio-visual {
-  display: grid;
-  width: min(100%, 690px);
-  height: auto;
-  gap: 12px;
-  margin: 0;
-  overflow: visible;
-  border-radius: 0;
-  box-shadow: none;
-  isolation: isolate;
-}
-
-.hero-studio-visual::before,
-.hero-studio-visual::after {
-  display: none;
-}
-
-.hero-studio-collage {
+/* Approved photographic composition. Existing header and rail stay independent. */
+.hero-product.hero-product-cinema {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1.3;
-}
-
-.hero-studio-collage .hero-studio-photo,
-.hero-product:nth-of-type(1) .hero-studio-collage .hero-studio-photo,
-.hero-product:nth-of-type(2) .hero-studio-collage .hero-studio-photo,
-.hero-product:nth-of-type(3) .hero-studio-collage .hero-studio-photo {
-  position: absolute;
-  inset: auto;
   display: block;
-  opacity: 1;
+  min-height: max(790px, 100svh);
+  margin-top: -92px;
+  padding: clamp(174px, 19.3vh, 200px) 0 100px;
+  overflow: clip;
+  isolation: isolate;
+  background: #f5ead8;
+}
+.hero-product.hero-product-cinema::before,
+.hero-product.hero-product-cinema::after { display: none; }
+.hero-product.hero-product-cinema .hero-cinema-backdrop {
+  z-index: -1;
   object-fit: cover;
-  transform: none;
-  transform-origin: center;
+  object-position: center;
+  pointer-events: none;
 }
-
-.hero-studio-collage .hero-studio-photo-primary,
-.hero-product:nth-of-type(1) .hero-studio-collage .hero-studio-photo-primary {
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 91%;
-  height: auto;
-  aspect-ratio: 828 / 540;
-  border-radius: 24px;
-  filter: brightness(1.04) contrast(1.03) saturate(.82);
+.hero-product.hero-product-cinema .hero-product-grid {
+  position: static;
+  display: block;
+  min-height: 0;
 }
-
-.hero-studio-collage .hero-studio-photo-detail,
-.hero-product:nth-of-type(1) .hero-studio-collage .hero-studio-photo-detail {
-  z-index: 2;
-  top: 31%;
-  right: 1.5%;
-  width: 35%;
-  height: 58%;
-  border: 6px solid #f7f3ed;
-  border-radius: 16px;
-  box-shadow: 0 20px 45px rgba(39, 30, 25, .16);
-  filter: brightness(1) contrast(.98) saturate(.74);
-  object-position: 64% 48%;
-  transform: rotate(-.65deg);
+.hero-product.hero-product-cinema .hero-product-copy {
+  position: relative;
+  width: 43%;
+  max-width: 610px;
+  padding: 0;
 }
-
-.hero-studio-label {
-  position: absolute;
-  z-index: 3;
-  bottom: 7.5%;
-  left: 3%;
-  padding: 8px 10px;
-  border-radius: 7px;
-  color: rgba(255, 255, 255, .92);
-  background: rgba(30, 34, 39, .84);
-  font-size: .62rem;
-  font-weight: 750;
-  letter-spacing: .06em;
-  line-height: 1;
+.hero-product.hero-product-cinema .top-kicker {
+  display: block;
+  margin: 0 0 34px;
+  padding: 0;
+  border: 0;
+  color: #615b52;
+  font: 500 clamp(10px, .85vw, 13px)/1.6 var(--body);
+  letter-spacing: .4em;
   text-transform: uppercase;
 }
-
-.hero-studio-visual .hero-proof {
-  position: relative;
-  inset: auto;
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.hero-product.hero-product-cinema .top-kicker::after {
+  position: static;
+  display: block;
+  width: 86px;
+  height: 1px;
+  margin: 21px 0 0;
+  background: #a69b8c;
+  content: "";
+  transform: none;
+}
+.hero-product.hero-product-cinema .hero-product-title {
+  display: block;
+  max-width: none;
   margin: 0;
-  padding: 0 16px;
-  overflow: hidden;
+  color: #322519;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(64px, 6.45vw, 108px);
+  font-weight: 400;
+  line-height: .94;
+  letter-spacing: -.055em;
+  text-wrap: nowrap;
+}
+.hero-product.hero-product-cinema .hero-title-main,
+.hero-product.hero-product-cinema .hero-title-accent {
+  display: block;
+  max-width: none;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-wrap: nowrap;
+}
+.hero-product.hero-product-cinema .hero-title-accent { color: #bc4c19; }
+.hero-product.hero-product-cinema .hero-product-lead {
+  max-width: 510px;
+  margin-top: 30px;
+  color: #69655e;
+  font: 400 clamp(15px, 1.25vw, 20px)/1.4 var(--body);
+}
+.hero-product.hero-product-cinema .hero-actions {
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  gap: 16px;
+  margin-top: 38px;
+  padding: 0;
   border: 0;
-  border-radius: 14px;
-  background: #242a30;
+  border-radius: 0;
+  background: none;
   box-shadow: none;
-  backdrop-filter: none;
 }
-
-.hero-studio-visual .hero-proof li {
-  min-height: 64px;
+.hero-product.hero-product-cinema .hero-action-button {
+  display: flex;
+  min-height: 58px;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 29px;
+  border: 1px solid #8a7862;
+  border-radius: 999px;
+  color: #382c20;
+  background: rgba(255, 248, 229, .3);
+  box-shadow: none;
+  font: 400 clamp(12px, .95vw, 15px)/1.2 var(--body);
+  white-space: nowrap;
 }
-
+.hero-product.hero-product-cinema .hero-action-primary {
+  min-width: 195px;
+  border-color: transparent;
+  color: #fff;
+  background: linear-gradient(105deg, #b53e0d, #ca601d);
+}
+.hero-product.hero-product-cinema .hero-action-button i {
+  position: static;
+  display: block;
+  color: inherit;
+  font-size: 21px;
+  font-style: normal;
+  opacity: 1;
+  transform: none;
+}
+.hero-product.hero-product-cinema .hero-action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px #71300c20;
+}
+.hero-cinema-signoff {
+  position: absolute;
+  bottom: 9.7%;
+  margin: 0;
+  color: #7a7467;
+  font: 500 10px/1.7 var(--body);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+.hero-cinema-signoff::after {
+  position: absolute;
+  right: -122px;
+  bottom: 8px;
+  width: 86px;
+  height: 1px;
+  background: #a69b8c;
+  content: "";
+}
 @media (max-width: 1100px) {
-  .hero-product-grid,
-  .hero-product:nth-of-type(1) .hero-product-grid,
-  .hero-product:nth-of-type(2) .hero-product-grid,
-  .hero-product:nth-of-type(3) .hero-product-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(410px, .9fr);
-    gap: 32px;
+  .hero-product.hero-product-cinema {
+    min-height: 820px;
+    margin-top: -82px;
+    padding-top: 168px;
   }
-
-  .hero-product .hero-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .hero-product.hero-product-cinema .hero-product-copy { width: 51%; }
+  .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(60px, 7.3vw, 80px); }
+  .hero-product.hero-product-cinema .hero-actions { gap: 10px; }
+  .hero-product.hero-product-cinema .hero-action-button { gap: 16px; padding-inline: 22px; }
+  .hero-product.hero-product-cinema .hero-action-primary { min-width: 150px; }
 }
-
-@media (max-width: 960px) {
-  .hero-product-grid,
-  .hero-product:nth-of-type(1) .hero-product-grid,
-  .hero-product:nth-of-type(2) .hero-product-grid,
-  .hero-product:nth-of-type(3) .hero-product-grid {
-    grid-template-columns: 1fr;
-    gap: 38px;
+@media (max-width: 700px) {
+  .hero-product.hero-product-cinema {
+    min-height: 1000px;
+    padding: 130px 0 430px;
+    background: #f8efdf;
   }
-
-  .hero-studio-visual,
-  .hero-product:nth-of-type(1) .hero-studio-visual,
-  .hero-product:nth-of-type(2) .hero-studio-visual,
-  .hero-product:nth-of-type(3) .hero-studio-visual {
-    width: min(100%, 620px);
-    justify-self: start;
+  .hero-product.hero-product-cinema .hero-cinema-backdrop {
+    top: auto !important;
+    height: 560px !important;
+    object-position: 70% bottom;
+    mask-image: linear-gradient(to bottom, transparent, #000 27%);
   }
-}
-
-@media (max-width: 620px) {
-  .hero-product .hero-actions {
-    width: 100%;
-    grid-template-columns: 1fr;
-  }
-
-  .hero-studio-visual,
-  .hero-product:nth-of-type(1) .hero-studio-visual,
-  .hero-product:nth-of-type(2) .hero-studio-visual,
-  .hero-product:nth-of-type(3) .hero-studio-visual {
-    height: auto;
-    gap: 10px;
-  }
-
-  .hero-studio-collage {
-    aspect-ratio: 1 / 1.08;
-  }
-
-  .hero-studio-collage .hero-studio-photo-primary,
-  .hero-product:nth-of-type(1) .hero-studio-collage .hero-studio-photo-primary {
-    width: 100%;
-    border-radius: 18px;
-  }
-
-  .hero-studio-collage .hero-studio-photo-detail,
-  .hero-product:nth-of-type(1) .hero-studio-collage .hero-studio-photo-detail {
-    top: 39%;
-    right: 3%;
-    width: 45%;
-    height: 55%;
-    border-width: 4px;
-    border-radius: 12px;
-    transform: none;
-  }
-
-  .hero-studio-label {
-    bottom: 9%;
-    left: 3%;
-    max-width: 42%;
-    line-height: 1.3;
-  }
-
-  .hero-studio-visual .hero-proof {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 5px 14px;
-  }
-
-  .hero-studio-visual .hero-proof li {
-    min-height: 44px;
-    justify-content: flex-start;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .12);
-  }
-
-  .hero-studio-visual .hero-proof li:last-child {
-    grid-column: 1 / -1;
-    justify-content: center;
-    border-bottom: 0;
-  }
+  .hero-product.hero-product-cinema .hero-product-copy { width: 100%; max-width: 490px; }
+  .hero-product.hero-product-cinema .top-kicker { margin-bottom: 26px; font-size: 10px; }
+  .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(49px, 12.4vw, 80px); }
+  .hero-product.hero-product-cinema .hero-product-lead { max-width: 360px; margin-top: 24px; font-size: 15px; }
+  .hero-product.hero-product-cinema .hero-actions { width: 100%; margin-top: 26px; }
+  .hero-product.hero-product-cinema .hero-action-button { min-height: 52px; gap: 12px; padding-inline: 18px; font-size: 12px; }
+  .hero-product.hero-product-cinema .hero-action-primary { min-width: 0; flex: 1; }
+  .hero-desktop-break { display: none; }
+  .hero-cinema-signoff { display: none; }
 }
