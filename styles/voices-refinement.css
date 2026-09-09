@@ -40,7 +40,7 @@
   display: inline-grid;
   min-width: 228px;
   min-height: 58px;
-  grid-template-columns: 22px minmax(max-content, 1fr) 50px;
+  grid-template-columns: 22px minmax(0, 1fr) 50px;
   gap: 14px;
   align-items: center;
   justify-content: stretch;
@@ -90,6 +90,15 @@
   font-weight: 500;
   letter-spacing: 0;
   transition: background-color .22s ease, transform .25s cubic-bezier(.16, 1, .3, 1);
+  transform: translateX(0);
+  will-change: transform;
+}
+
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button) > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .figma-voices-cta > span { display: none; }
@@ -116,6 +125,10 @@
 
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::before {
   transform: scaleY(1.14);
+}
+
+:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
+  transform: translateX(-6px);
 }
 
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):focus-visible {
@@ -157,6 +170,10 @@
   :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::before,
   :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button)::after {
     transition: none;
+  }
+
+  :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
+    transform: none;
   }
 }
 
@@ -491,7 +508,7 @@
   width: 100%;
   max-width: none;
   height: auto;
-  margin: -32px auto 0;
+  margin: 18px auto 0;
   perspective: none;
   overflow: visible;
 }
@@ -503,10 +520,15 @@
   position: relative;
   width: 100%;
   left: auto;
-  transform: translateX(var(--voice-x, 0px)) translateY(var(--voice-y, 0px)) perspective(1400px) rotateY(var(--voice-rotate, 0deg)) scale(var(--voice-scale, 1));
+  transform: translateX(calc(var(--voice-x, 0px) + var(--voice-gap-shift, 0px))) translateY(var(--voice-y, 0px)) perspective(1400px) rotateY(var(--voice-rotate, 0deg)) scale(var(--voice-scale, 1));
   transition: transform .6s cubic-bezier(.22, 1, .36, 1);
   backface-visibility: visible;
 }
+
+#voices .figma-voice-card[data-deck-offset="-1"] { --voice-gap-shift: -8px; }
+#voices .figma-voice-card[data-deck-offset="1"] { --voice-gap-shift: 8px; }
+#voices .figma-voice-card[data-deck-offset="-2"] { --voice-gap-shift: -14px; }
+#voices .figma-voice-card[data-deck-offset="2"] { --voice-gap-shift: 14px; }
 
 /* All catalogue entries share one grid row, so longer copy cannot enlarge a side card. */
 #voices .figma-voice-card[hidden] { display: grid; visibility: hidden; pointer-events: none; }
