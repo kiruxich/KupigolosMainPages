@@ -21,7 +21,7 @@ const sectionIds = [
 ] as const;
 
 describe("homepage structure", () => {
-  it("renders the approved hero actions and cinematic studio background", () => {
+  it("renders the approved hero actions and retouched cinematic studio background", () => {
     const html = renderToStaticMarkup(<Hero />);
 
     expect(html).toContain('href="#contacts"');
@@ -29,7 +29,7 @@ describe("homepage structure", () => {
     expect(html).toContain('href="#portfolio"');
     expect(html).toContain("Прослушать примеры");
     expect(html).not.toContain('href="#calculator"');
-    expect(html).toContain("hero-cinema-background.webp");
+    expect(html).toContain("hero-cinema-background-v2.jpg");
     expect(html).toContain('class="hero-product hero-product-cinema"');
   });
 
