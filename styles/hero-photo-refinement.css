@@ -51,6 +51,45 @@
   object-position: center;
   mask-image: radial-gradient(ellipse, #000 58%, transparent 74%);
 }
+/* Soft depth at the perimeter keeps the central waveform crisp. */
+.hero-sound-art::before,
+.hero-sound-art::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+.hero-sound-art::before {
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 62% 48%, rgba(182, 78, 51, .13), transparent 62%),
+    radial-gradient(ellipse at 35% 65%, rgba(213, 156, 99, .09), transparent 58%);
+  transform: scale(1.08);
+}
+.hero-sound-art::after {
+  z-index: 1;
+  background: rgba(245, 241, 233, .06);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  mask-image: radial-gradient(ellipse, transparent 30%, rgba(0, 0, 0, .85) 61%, transparent 76%);
+}
+@keyframes hero-sound-settle {
+  0% { transform: translateY(8px) scale(.985); }
+  55% { transform: translateY(-4px) scale(1.008); }
+  100% { transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-sound-art {
+    animation: hero-sound-settle 4.8s ease-in-out both;
+    transition: transform 900ms cubic-bezier(.22, 1, .36, 1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .hero-product-cinema:hover .hero-sound-art {
+    animation-fill-mode: backwards;
+    transform: translateY(-3px);
+  }
+}
 #voices.talent-stage-figma { background: var(--page); }
 .hero-product.hero-product-cinema .hero-product-grid {
   position: static;
