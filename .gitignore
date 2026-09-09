@@ -6,3 +6,5 @@ playwright-report/
 test-results/
 *.tsbuildinfo
 tests/visual/current/
+.vercel
+graphify-out/cache/last_query_stamp
