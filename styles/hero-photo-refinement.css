@@ -121,7 +121,8 @@
   position: relative;
   min-width: 220px;
 }
-.hero-product-cinema .studio-cta--secondary {
+.hero-product-cinema .studio-cta--secondary,
+.hero-product-cinema .studio-cta--secondary:is(:hover, :focus-visible) {
   --studio-cta-symbol: "▸";
   background: rgba(255, 250, 239, .46);
 }

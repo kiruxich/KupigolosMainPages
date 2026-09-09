@@ -107,20 +107,15 @@
 }
 
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible) {
-  border-color: var(--header-rust);
-  color: var(--brand-accent-hover);
-  background: rgba(255, 255, 255, .8);
-  box-shadow: 0 6px 0 rgba(96, 50, 29, .05), 0 17px 30px rgba(var(--brand-accent-rgb), .15), inset 0 1px 0 #fff;
-  transform: translateY(-2px);
+  border-color: rgba(var(--brand-accent-rgb), .42);
+  color: var(--header-rust);
+  background: rgba(255, 255, 255, .54);
+  box-shadow: 0 7px 0 rgba(96, 50, 29, .1), 0 20px 32px rgba(96, 50, 29, .17), inset 0 2px 2px rgba(255, 255, 255, .98), inset 0 -3px 4px rgba(var(--brand-accent-rgb), .12);
+  transform: translateY(-3px);
 }
 
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::before {
   transform: scaleY(1.14);
-}
-
-:is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible)::after {
-  background: var(--brand-accent-hover);
-  transform: translateX(-3px);
 }
 
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):focus-visible {
