@@ -1,0 +1,43 @@
+.section { padding: 76px 32px 80px; background: #faf9f7; color: #494963; scroll-margin-top: 120px; }
+.inner { max-width: 1280px; margin-inline: auto; }
+.heading { text-align: center; margin-bottom: 48px; }
+.eyebrow { color: #bd4c30; font-size: 16px; font-weight: 600; letter-spacing: .04em; margin: 0 0 22px; }
+.eyebrow::after { content: ""; display: block; width: 32px; height: 1px; background: #bd4c30; margin: 20px auto 0; }
+.heading h2 { font-family: var(--body); max-width: none; width: 100%; font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; letter-spacing: .055em; line-height: 1.2; text-transform: uppercase; margin: 0 0 24px; }
+.section h3, .section h4 { font-family: var(--body); }
+.heading > p:last-child { margin: 0; color: #777785; font-size: 16px; line-height: 1.65; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+.audioPanel { border: 1px solid #e9e7e4; border-radius: 18px; padding: 34px 32px 20px; background: #fff; box-shadow: 0 6px 22px #35314705; }
+.audioHeader { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+.audioHeader h3 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.tabs { display: flex; padding: 3px; border-radius: 9px; background: #f1f0f0; }
+.tabs button { border: 0; border-radius: 7px; padding: 10px 12px; background: transparent; color: #656570; font: inherit; font-size: 12px; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: white; background: #bf4e32; box-shadow: 0 2px 5px #a8462520; }
+.audioRow { min-height: 98px; display: grid; grid-template-columns: 44px minmax(0,1fr) 28px; align-items: center; gap: 20px; border-bottom: 1px solid #efedeb; }
+.audioRow:last-child { border-bottom: 0; }
+.audioText h4 { margin: 0 0 7px; font-size: 15px; font-weight: 500; color: #515160; }
+.badge { display: inline-block; padding: 4px 8px; border-radius: 4px; background: #fcf2ec; color: #bd745b; font-size: 10px; line-height: 1.4; }
+.play { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #eeece9; background: #f8f7f5; color: #c45336; display: grid; place-items: center; cursor: pointer; }
+.play svg { width: 23px; height: 23px; }
+.pause { display: none; font-size: 21px; }
+.play:global(.is-playing) svg { display: none; }
+.play:global(.is-playing) .pause { display: block; }
+.play:hover { background: #faebe3; }
+.download { color: #bc654c; display: grid; place-items: center; width: 32px; height: 40px; }
+.download svg { width: 20px; height: 20px; }
+.videos { display: grid; gap: 24px; }
+.video { display: grid; grid-template-columns: 46% minmax(0,1fr); min-height: 230px; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid #eeece9; }
+.thumbnail { position: relative; display: block; min-height: 230px; overflow: hidden; border-radius: 15px; background: #171719; }
+.thumbnail img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+.videoPlay { position: absolute; inset: 0; display: grid; place-items: center; color: white; background: #00000008; transition: background .2s; }
+.videoPlay svg { width: 40px; height: 40px; filter: drop-shadow(0 2px 4px #0006); }
+.thumbnail:hover .videoPlay { background: #0002; }
+.duration { position: absolute; bottom: 10px; right: 10px; color: white; border-radius: 3px; background: #18181bbd; font-size: 10px; padding: 3px 6px; }
+.videoText { padding: 27px 22px; }
+.videoText h3 { font-size: 16px; letter-spacing: .12em; font-weight: 500; text-transform: uppercase; margin: 0 0 10px; }
+.videoText p { color: #7d7c87; font-size: 13px; line-height: 1.65; margin: 18px 0 0; }
+.footer { display: flex; justify-content: center; margin-top: 44px; }
+.section button:focus-visible, .section a:focus-visible { outline: 2px solid #bf4e32; outline-offset: 4px; }
+@media (max-width: 1100px) { .audioPanel { padding-inline: 22px; } .audioHeader { flex-wrap: wrap; } .videoText { padding: 22px 16px; } .video { min-height: 250px; } .thumbnail { min-height: 250px; } }
+@media (max-width: 800px) { .section { padding: 52px 24px; } .columns { grid-template-columns: 1fr; gap: 24px; } .heading { margin-bottom: 32px; } .video, .thumbnail { min-height: 210px; } .videoText { padding: 24px; } }
+@media (max-width: 480px) { .section { padding-inline: 16px; } .heading > p:last-child { font-size: 14px; } .audioPanel { padding: 22px 16px 8px; } .audioHeader { gap: 16px; } .tabs button { padding: 10px; } .audioRow { gap: 12px; grid-template-columns: 40px minmax(0,1fr) 26px; } .play { width: 40px; height: 40px; } .video { grid-template-columns: 42% minmax(0,1fr); } .videoText { padding: 18px 12px; } .videoText h3 { font-size: 13px; } .videoText p { font-size: 12px; margin-top: 12px; } .badge { font-size: 9px; } }
