@@ -107,11 +107,19 @@
   box-shadow: inset 0 0 0 1px rgba(41, 51, 74, .08);
 }
 .sourceLabel {
+  display: inline-flex;
   padding-left: 8px;
+  align-items: center;
+  gap: 10px;
   color: #687082;
   font-size: 18px;
   font-weight: 650;
   letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.sourceDivider {
+  color: rgba(104, 112, 130, .45);
+  font-weight: 400;
 }
 .section .action {
   min-width: 220px;
