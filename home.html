@@ -23,7 +23,9 @@
   <link rel="stylesheet" href="styles.css?v=service-index-type-2">
   <link rel="stylesheet" href="refresh.css?v=service-index-type-8">
   <link rel="stylesheet" href="voices-refinement.css?v=service-index-type-4">
+  <!-- CURRENT FIGMA VARIANT: uncomment this stylesheet and switch the carousel script below to restore it.
   <link rel="stylesheet" href="figma-sections.css?v=figma-4404-18160-2">
+  -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,7 +50,10 @@
   <script src="motion-scheduler.js?v=section-flow-2" defer></script>
   <script src="script.js?v=voice-player-5" defer></script>
   <script src="voice-waveforms.js?v=1" defer></script>
-  <script src="voices-carousel.js?v=figma-shelf-3" defer></script>
+  <script src="voices-carousel.js?v=deck-legacy-1" defer></script>
+  <!-- CURRENT FIGMA VARIANT: replace the active script above with this one.
+  <script src="voices-carousel-figma.js?v=figma-shelf-3" defer></script>
+  -->
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -458,6 +463,7 @@
 
     <section class="services-stage section-light" id="services" aria-labelledby="services-title">
       <div class="shell">
+        <!-- CURRENT FIGMA SERVICES VARIANT: uncomment this block and remove the legacy heading/editorial block below to restore it.
         <div class="figma-services-panel reveal">
           <h2 id="services-title">Услуги</h2>
           <div class="figma-services-grid">
@@ -507,7 +513,26 @@
             </div>
           </div>
 
-          <nav class="service-index reveal" hidden aria-labelledby="service-index-title">
+        </div>
+        -->
+        <div class="section-heading split-heading reveal">
+          <div><p class="kicker">Что мы умеем</p><h2 id="services-title">Наши услуги</h2></div>
+          <p>Берем на себя весь звуковой продакшн: от первой строки сценария до готового мастер-файла.</p>
+        </div>
+        <div class="service-editorial">
+          <article class="service-feature reveal">
+            <div class="service-copy"><span>Основное направление</span><h3>Озвучка видео</h3><p>Закадр, дубляж и игра в липсинг для фильмов, рекламы, игр, YouTube и презентаций. Запишем, почистим, сведем и отдадим под монтаж.</p><a href="https://kupigolos.ru/ozvuchka-video">Озвучить видео <span>↗</span></a></div>
+            <div class="service-visual service-wave" aria-hidden="true"><svg viewBox="0 0 520 240"><path d="M0 120 C55 120 55 45 110 45 S165 195 220 195 S275 70 330 70 S385 155 440 155 S495 120 520 120"/></svg></div>
+          </article>
+          <div class="service-columns">
+            <a class="service-item service-item-voice reveal" href="https://kupigolos.ru/diktory"><span class="service-number">01</span><span class="service-type">500+ голосов</span><h3>Запись дикторов</h3><p>Российские и иностранные голоса для рекламы, видео, игр и корпоративных проектов.</p><span class="service-price">от 200 ₽</span><span class="service-action">Выбрать голос ↗</span></a>
+            <a class="service-item service-item-ad reveal" href="https://kupigolos.ru/uslugi/audio-reklama"><span class="service-number">02</span><span class="service-type">под ключ</span><h3>Аудиореклама</h3><p>Идея, сценарий, запись диктора, музыка, саунд-дизайн и готовый мастер.</p><span class="service-price">от 2 500 ₽</span><span class="service-action">Заказать ролик ↗</span></a>
+            <a class="service-item service-item-ivr reveal" href="https://kupigolos.ru/uslugi/ivr"><span class="service-number">03</span><span class="service-type">телефония</span><h3>IVR и голосовые меню</h3><p>Приветствия, навигация и сообщения для контактных центров и автоответчиков.</p><span class="service-price">от 1 500 ₽</span><span class="service-action">Создать IVR ↗</span></a>
+            <a class="service-item service-item-copy reveal" href="https://kupigolos.ru/uslugi/scenarii"><span class="service-number">04</span><span class="service-type">текст</span><h3>Написание сценариев</h3><p>Тексты под заданный хронометраж, формат площадки и характер подачи.</p><span class="service-price">от 2 000 ₽</span><span class="service-action">Заказать текст ↗</span></a>
+            <a class="service-item service-item-books reveal" href="https://kupigolos.ru/uslugi/audiobooks"><span class="service-number">05</span><span class="service-type">long-form</span><h3>Аудиокниги и аудиогиды</h3><p>Длинные проекты с режиссурой, единым звучанием и контролем качества каждой главы.</p><span class="service-price">расчёт по объёму</span><span class="service-action">Записать книгу ↗</span></a>
+            <a class="service-item service-item-more reveal" href="https://kupigolos.ru/uslugi"><span class="service-number">06</span><span class="service-type">production</span><h3>Другие услуги</h3><p>Саунд-дизайн, обработка, монтаж, локализация и нестандартные звуковые задачи.</p><span class="service-price">индивидуально</span><span class="service-action">Все услуги ↗</span></a>
+          </div>
+          <nav class="service-index reveal" aria-labelledby="service-index-title">
             <div class="service-index-heading">
               <p class="kicker">Все направления</p>
               <h3 id="service-index-title">Звуковой продакшн под ключ</h3>

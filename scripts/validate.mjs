@@ -21,7 +21,7 @@ for (const [name, file] of Object.entries(paths)) {
 }
 
 if (!failures.length) {
-  const html = readFileSync(paths.html, 'utf8');
+  const html = readFileSync(paths.html, 'utf8').replace(/<!--[\s\S]*?-->/g, '');
   const css = readFileSync(paths.css, 'utf8');
   const refresh = readFileSync(paths.refresh, 'utf8');
   const voiceRefinement = readFileSync(paths.voiceRefinement, 'utf8');

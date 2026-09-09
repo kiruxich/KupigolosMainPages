@@ -511,6 +511,7 @@ const voiceSlides = [
   { name: 'Станислав Концевич', role: 'Николаса Кейджа и Тома Хэнкса', audio: 'https://storage.kupigolos.ru/audio/demo/5f68d18f728bf.mp3', image: 'https://img.kupigolos.ru/voice/5aba04eae31bb.jpg?p=v&s=989349f8f67bdef18f41c704f8c09e65', href: 'https://kupigolos.ru/diktory/koncevich-stanislav', price: 'Реклама от 3 000 ₽' },
 ];
 
+/* CURRENT FIGMA VOICE DATA: uncomment together with figma-sections.css and voices-carousel-figma.js.
 const figmaVoiceOrder = ['Алексей Колган', 'Елена Соловьёва', 'Татьяна Шитова', 'Владимир Зайцев', 'Юрий Брежнев', 'Артём Кретов'];
 const figmaLocalVoiceImages = {
   'Алексей Колган': 'assets/voices/alexey-kolgan-v2.jpg',
@@ -526,6 +527,7 @@ voiceSlides.sort((a, b) => {
   return (aIndex < 0 ? figmaVoiceOrder.length : aIndex) - (bIndex < 0 ? figmaVoiceOrder.length : bIndex);
 });
 voiceSlides.forEach((voice) => { voice.localImage = figmaLocalVoiceImages[voice.name]; });
+*/
 
 window.KupiVoiceCatalog = voiceSlides;
 
