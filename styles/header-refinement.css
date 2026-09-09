@@ -32,8 +32,11 @@
 .site-header .site-nav > :is(a, button):is(:hover, :focus-visible),
 .site-header .site-nav > button[aria-expanded="true"] {
   color: #983d23;
-  background: rgba(var(--brand-accent-rgb), .1);
+  background: transparent;
 }
+
+/* Opening a menu must not introduce a full-page tint below the glass header. */
+body:has(.header-mega.is-open)::after { opacity: 0; }
 
 .site-header .header-actions :is(.header-phone, .header-networks, .header-favorites) {
   color: #654632;

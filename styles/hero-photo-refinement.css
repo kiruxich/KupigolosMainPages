@@ -70,6 +70,22 @@
   text-wrap: nowrap;
 }
 .hero-product.hero-product-cinema .hero-title-accent { color: #bc4c19; }
+.hero-product.hero-product-cinema .hero-title-main {
+  position: relative;
+  isolation: isolate;
+  width: max-content;
+}
+.hero-product.hero-product-cinema .hero-title-main::before {
+  position: absolute;
+  z-index: -1;
+  top: .28em;
+  right: -.9em;
+  width: 4em;
+  height: 2.3em;
+  background: radial-gradient(ellipse, rgba(250, 240, 221, .9) 0%, rgba(250, 240, 221, .78) 30%, rgba(250, 240, 221, .35) 57%, transparent 74%);
+  content: "";
+  pointer-events: none;
+}
 .hero-product.hero-product-cinema .hero-product-lead {
   max-width: 510px;
   margin-top: 30px;
@@ -147,6 +163,7 @@
   .hero-product.hero-product-cinema .hero-product-copy { width: 100%; max-width: 490px; }
   .hero-product.hero-product-cinema .top-kicker { margin-bottom: 26px; font-size: 10px; }
   .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(49px, 12.4vw, 80px); }
+  .hero-product.hero-product-cinema .hero-title-main::before { display: none; }
   .hero-product.hero-product-cinema .hero-product-lead { max-width: 360px; margin-top: 24px; font-size: 15px; }
   .hero-product.hero-product-cinema .hero-actions { width: 100%; max-width: 360px; flex-direction: column; margin-top: 26px; }
   .hero-product-cinema .studio-cta { width: 100%; min-width: 0; min-height: 54px; }
