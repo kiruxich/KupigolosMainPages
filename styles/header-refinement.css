@@ -38,6 +38,12 @@
 /* Opening a menu must not introduce a full-page tint below the glass header. */
 body:has(.header-mega.is-open)::after { opacity: 0; }
 
+.header-mega-layer .header-mega {
+  top: 8px;
+  border: 1px solid rgba(143, 98, 59, .18);
+  border-radius: 18px;
+}
+
 .site-header .header-actions :is(.header-phone, .header-networks, .header-favorites) {
   color: #654632;
   border-color: rgba(125, 86, 55, .23);
