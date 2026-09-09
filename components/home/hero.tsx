@@ -3,8 +3,8 @@ import Image from "next/image";
 export function Hero() {
   return (
     <section className="hero-product hero-product-cinema" id="start" data-hero-variant aria-labelledby="hero-title">
-      <Image className="hero-cinema-backdrop" src="/assets/studio/hero-cinema-background-v3.png"
-        alt="Студия КупиГолос в тёплом свете: микрофоны, клавишный инструмент и гитара"
+      <Image className="hero-cinema-backdrop" src="/assets/studio/hero-neutral-preview-1.png"
+        alt="Светлая студия звукозаписи с микрофоном, поп-фильтром и наушниками"
         fill sizes="100vw" preload unoptimized />
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
