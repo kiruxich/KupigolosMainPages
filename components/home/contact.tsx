@@ -25,7 +25,13 @@ export function Contact() {
             <span>Коротко о задаче</span>
             <textarea name="message" rows={3} placeholder="Например: озвучить ролик на 30 секунд" required />
           </label>
-          <button className="button wide" type="submit">Отправить заявку</button>
+          <button className={`button wide studio-cta studio-cta--order ${styles.submit}`} type="submit">
+            <svg className="studio-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-6 3V7a3 3 0 0 1 3-3Z" />
+              <path d="M8 9h8M8 13h5" />
+            </svg>
+            <span>Отправить заявку</span>
+          </button>
           <p className="form-note wide">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
         </form>
       </div>

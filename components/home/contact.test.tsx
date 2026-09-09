@@ -23,4 +23,11 @@ describe("quick order form", () => {
     expect(form.querySelector('[name="name"][required]')).not.toBeNull();
     expect(form.querySelector('[name="message"][required]')).not.toBeNull();
   });
+
+  it("uses the shared compact CTA treatment for the submit button", () => {
+    const submit = document.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    expect(submit.classList.contains("studio-cta")).toBe(true);
+    expect(submit.classList.contains("studio-cta--order")).toBe(true);
+    expect(submit.querySelector(".studio-cta-icon")).not.toBeNull();
+  });
 });

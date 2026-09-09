@@ -31,6 +31,14 @@
 .section :global(.contact-form) textarea { min-height: 90px; }
 .section :global(.contact-form) :global(.form-note) { margin: 0; line-height: 1.5; }
 
+.section :global(.contact-form) .submit {
+  width: 250px;
+  max-width: 100%;
+  min-height: 54px;
+  justify-self: start;
+}
+
 @media (max-width: 600px) {
   .section :global(.contact-form) { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .section :global(.contact-form) .submit { width: 100%; }
 }
