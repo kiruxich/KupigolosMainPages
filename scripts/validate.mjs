@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const paths = {
-  html: resolve(root, 'index.html'),
+  html: resolve(root, 'home.html'),
   css: resolve(root, 'styles.css'),
   refresh: resolve(root, 'refresh.css'),
   voiceRefinement: resolve(root, 'voices-refinement.css'),
