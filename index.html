@@ -10,6 +10,7 @@
     * { box-sizing: border-box; }
     body { min-height: 100dvh; margin: 0; color: #273778; background: #f4f5f8; }
     main { width: min(1200px, calc(100% - 40px)); margin: 0 auto; padding: clamp(40px, 8vw, 112px) 0; }
+    .page-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; color: #687096; font-size: .75rem; font-weight: 800; letter-spacing: .12em; }
     h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 4.5rem); letter-spacing: -.06em; line-height: .95; }
     p { margin: 0; color: #687096; font-size: 1rem; line-height: 1.6; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); gap: 18px; margin-top: clamp(40px, 7vw, 80px); }
@@ -17,22 +18,30 @@
     .card:hover, .card:focus-visible { box-shadow: 0 24px 56px rgba(39, 55, 120, .16); outline: none; transform: translateY(-5px); }
     .card:active { transform: translateY(-1px); }
     .card__number { color: #f54622; font-size: .75rem; font-weight: 800; letter-spacing: .16em; }
+    .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .badge { padding: 7px 9px; border-radius: 999px; color: #fff; background: #f54622; font-size: .65rem; font-weight: 800; letter-spacing: .1em; line-height: 1; }
     .card h2 { margin: auto 0 8px; font-size: 1.75rem; letter-spacing: -.04em; }
     .card__open { color: #f54622; font-size: .9rem; font-weight: 800; }
+    .card--upcoming { cursor: default; }
     @media (max-width: 600px) { main { width: min(100% - 32px, 1200px); } .card { min-height: 200px; } }
     @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
   </style>
 </head>
 <body>
   <main>
+    <div class="page-meta"><time datetime="2026-09-09">09.09.2026</time></div>
     <h1>Проекты</h1>
     <p>Рабочие страницы для показа.</p>
     <section class="grid" aria-label="Список проектов">
       <a class="card" href="home.html">
-        <span class="card__number">01</span>
+        <span class="card__top"><span class="card__number">01</span></span>
         <div><h2>Главная страница</h2><p>Текущая версия сайта КупиГолос</p></div>
         <span class="card__open">Открыть →</span>
       </a>
+      <article class="card card--upcoming">
+        <div class="card__top"><span class="card__number">02</span><span class="badge">ТЕКУЩЕЕ</span></div>
+        <div><h2>6 страниц</h2><p>Следующий блок страниц в работе</p></div>
+      </article>
     </section>
   </main>
 </body>
