@@ -1,0 +1,91 @@
+html:has(.projects-index) {
+  color-scheme: light;
+  font-family: Manrope, Arial, sans-serif;
+  line-height: normal;
+  background: #f4f5f8;
+}
+
+body:has(.projects-index) {
+  min-height: 100dvh;
+  margin: 0;
+  color: #273778;
+  background: #f4f5f8;
+  font: 400 16px/normal Manrope, Arial, sans-serif;
+}
+
+.projects-index {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: clamp(40px, 8vw, 112px) 0;
+}
+
+.projects-index h1 {
+  margin: 0 0 12px;
+  font-family: Manrope, Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -.06em;
+  line-height: .95;
+}
+
+.projects-index p {
+  margin: 0;
+  color: #687096;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.projects-index .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
+  gap: 18px;
+  margin-top: clamp(40px, 7vw, 80px);
+}
+
+.projects-index .card {
+  position: relative;
+  display: flex;
+  min-height: 250px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  border: 1px solid rgba(39, 55, 120, .12);
+  border-radius: 18px;
+  color: inherit;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(39, 55, 120, .08);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.projects-index .card:has(.card__link:hover),
+.projects-index .card:has(.card__link:focus-visible) {
+  box-shadow: 0 24px 56px rgba(39, 55, 120, .16);
+  outline: none;
+  transform: translateY(-5px);
+}
+
+.projects-index .card:has(.card__link:active) { transform: translateY(-1px); }
+.projects-index .card__link { position: absolute; z-index: 1; inset: 0; border-radius: inherit; }
+.projects-index .card__link:focus-visible { outline: 3px solid rgba(245, 70, 34, .38); outline-offset: 4px; }
+.projects-index .card__number { color: #f54622; font-size: .75rem; font-weight: 800; letter-spacing: .16em; }
+.projects-index .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.projects-index .card__body { margin: auto 0; }
+.projects-index .card h2 { margin: 0 0 8px; font-family: Manrope, Arial, sans-serif; font-size: 1.75rem; font-weight: 700; letter-spacing: -.04em; line-height: normal; }
+.projects-index .card__footer { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+.projects-index .card__date { color: #687096; font-size: .75rem; font-weight: 700; letter-spacing: .06em; }
+.projects-index .status-control { display: grid; gap: 6px; color: #687096; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.projects-index .status-control select { min-width: 132px; padding: 9px 12px; border: 1px solid transparent; border-radius: 999px; font: 800 .76rem/1 Manrope, Arial, sans-serif; cursor: pointer; text-transform: none; transition: border-color .2s ease, background-color .2s ease, color .2s ease; }
+.projects-index .status-control[data-state="in-progress"] select { color: #956400; background: #fbf3db; }
+.projects-index .status-control[data-state="completed"] select { color: #346538; background: #edf3ec; }
+.projects-index .status-control[data-state="deferred"] select { color: #687096; background: #eef0f5; }
+.projects-index .status-control select:hover { border-color: currentColor; }
+.projects-index .status-control select:focus-visible { border-color: currentColor; outline: 3px solid rgba(245, 70, 34, .18); }
+
+@media (max-width: 600px) {
+  .projects-index { width: min(100% - 32px, 1200px); }
+  .projects-index .card { min-height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-index .card { transition: none; }
+}
