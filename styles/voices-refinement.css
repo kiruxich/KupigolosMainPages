@@ -94,6 +94,18 @@
 
 .figma-voices-cta > span { display: none; }
 
+.studio-cta--order::before { display: none; }
+.studio-cta-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 :is(.studio-cta, .figma-voices-cta, .calculator-summary .button, .contact-form .button):is(:hover, :focus-visible) {
   border-color: var(--header-rust);
   color: var(--brand-accent-hover);
