@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, type CSSProperties } from "react";
 import styles from "./process.module.css";
 
 const steps = [
@@ -19,17 +22,38 @@ const waveformPath = Array.from({ length: 300 }, (_, index) => {
 }).join(" ");
 
 export function Process() {
+  const [activeStep, setActiveStep] = useState(3);
+  const [positions, setPositions] = useState([0, 0, 0, 0]);
+
+  function moveFader(index: number, value: number) {
+    setActiveStep(index);
+    setPositions(previous => previous.map((position, step) => step === index ? value : position));
+  }
+
   return (
     <section id="process" className={styles.section} aria-labelledby="process-title">
       <div className="shell">
         <h2 id="process-title" className={styles.title}>Как мы работаем</h2>
         <ol className={styles.steps} role="list">
           {steps.map((step, index) => (
-            <li className={styles.step} key={step.title}>
+            <li className={styles.step} key={step.title} data-active={activeStep === index}>
               <span className={styles.number} aria-hidden="true">0{index + 1}</span>
-              <div className={styles.track} aria-hidden="true">
-                <span className={styles.fader}><i /></span>
-                <span className={styles.time}>{step.time}</span>
+              <div className={styles.track} style={{ "--fader-position": positions[index]! / 100 } as CSSProperties}>
+                <input
+                  className={styles.range}
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue="0"
+                  aria-label={`Положение ползунка: ${step.title}`}
+                  onPointerEnter={() => setActiveStep(index)}
+                  onPointerDown={() => setActiveStep(index)}
+                  onFocus={() => setActiveStep(index)}
+                  onInput={event => moveFader(index, event.currentTarget.valueAsNumber)}
+                />
+                <span className={styles.fader} aria-hidden="true"><i /></span>
+                <span className={styles.time} aria-hidden="true">{step.time}</span>
               </div>
               <div className={styles.copy}>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
