@@ -18,6 +18,7 @@ it("renders one reviews section with accessible ratings and real external destin
   expect(mapsLinks).toHaveLength(1);
   expect(mapsLinks[0]!.textContent).toContain("Оставить отзыв");
   expect(mapsLinks[0]!.getAttribute("rel")).toContain("noopener");
+  expect(section.textContent).toContain("Яндекс Карты");
   expect(host.querySelector("#process")).not.toBeNull();
   expect(host.querySelector("#guarantees")).not.toBeNull();
 });

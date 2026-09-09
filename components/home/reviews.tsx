@@ -81,6 +81,7 @@ export function Reviews() {
           {reviews.map((review) => <ReviewCard key={review.id} review={review} />)}
         </div>
         <div className={styles.footer}>
+          <span className={styles.sourceLabel}>Яндекс Карты</span>
           <a className={`studio-cta studio-cta--order ${styles.action}`} href={reviewsUrl} target="_blank" rel="noopener noreferrer">
             <svg className="studio-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-6 3V7a3 3 0 0 1 3-3Z" />
