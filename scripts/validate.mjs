@@ -4,7 +4,6 @@ const requiredFiles = [
   "app/layout.tsx",
   "app/page.tsx",
   "app/home/page.tsx",
-  "app/six-pages/page.tsx",
   "components/home/home-page.tsx",
   "components/home/home-markup.generated.ts",
   "components/home/home-runtime.tsx",

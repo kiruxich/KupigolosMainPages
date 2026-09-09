@@ -3,7 +3,6 @@ import { expect, test } from "@playwright/test";
 const routes = [
   { href: "/", snapshot: "index" },
   { href: "/home", snapshot: "home" },
-  { href: "/six-pages", snapshot: "six-pages" },
 ] as const;
 
 for (const viewport of [

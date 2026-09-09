@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("all project routes and the supplier document respond", async ({ page, request }) => {
-  for (const route of ["/", "/home", "/six-pages"]) {
+  for (const route of ["/", "/home"]) {
     const response = await page.goto(route);
     expect(response?.ok(), `${route} should respond successfully`).toBe(true);
   }
@@ -16,4 +16,3 @@ test("all project routes and the supplier document respond", async ({ page, requ
     "https://kupigolos-ozvychka-g84p.vercel.app",
   );
 });
-

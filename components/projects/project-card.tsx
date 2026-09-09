@@ -6,7 +6,6 @@ const linkLabels: Readonly<Record<string, string>> = {
   "afisha-suppliers": "Открыть файл Поставщики Афиши",
   ozvychka: "Открыть страницу Озвучка",
   homepage: "Открыть главную страницу",
-  "six-pages": "Открыть проект 6 страниц",
 };
 
 function formatDate(date: string) {

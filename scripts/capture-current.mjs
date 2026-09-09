@@ -8,7 +8,6 @@ const viewports = [
 const routes = [
   { href: "/", filename: "index.html.png" },
   { href: "/home", filename: "home.html.png" },
-  { href: "/six-pages", filename: "six-pages.html.png" },
 ];
 
 const browser = await chromium.launch({ headless: true });
