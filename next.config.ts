@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   async redirects() {
     return [
       { source: "/home.html", destination: "/home", permanent: false },
@@ -11,4 +12,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
