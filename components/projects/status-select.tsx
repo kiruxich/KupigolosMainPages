@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ChangeEvent } from "react";
 import type { ProjectStatus } from "./project-data";
 
@@ -15,17 +15,16 @@ function isProjectStatus(value: string): value is ProjectStatus {
 }
 
 export function StatusSelect({ projectId, defaultStatus }: Readonly<{ projectId: string; defaultStatus: ProjectStatus }>) {
-  const [status, setStatus] = useState<ProjectStatus>(defaultStatus);
   const storageKey = `kupigolos-project-status:${projectId}`;
-
-  useEffect(() => {
+  const [status, setStatus] = useState<ProjectStatus>(() => {
     try {
+      if (typeof window === "undefined") return defaultStatus;
       const savedStatus = localStorage.getItem(storageKey);
-      if (savedStatus && isProjectStatus(savedStatus)) setStatus(savedStatus);
+      return savedStatus && isProjectStatus(savedStatus) ? savedStatus : defaultStatus;
     } catch {
-      // Storage can be unavailable in privacy-restricted browser contexts.
+      return defaultStatus;
     }
-  }, [storageKey]);
+  });
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextStatus = event.currentTarget.value;

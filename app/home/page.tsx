@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font -- route-scoped loading preserves the dashboard font metrics */
 import { HomePage } from "@/components/home/home-page";
 import { HomeRuntime } from "@/components/home/home-runtime";
 import { homeMetadata, homeViewport, organizationJsonLd } from "./home-metadata";

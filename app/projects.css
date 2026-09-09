@@ -74,7 +74,7 @@ body:has(.projects-index) {
 .projects-index .card__footer { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
 .projects-index .card__date { color: #687096; font-size: .75rem; font-weight: 700; letter-spacing: .06em; }
 .projects-index .status-control { display: grid; gap: 6px; color: #687096; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.projects-index .status-control select { min-width: 132px; padding: 9px 12px; border: 1px solid transparent; border-radius: 999px; font: 800 .76rem/1 Manrope, Arial, sans-serif; cursor: pointer; text-transform: none; transition: border-color .2s ease, background-color .2s ease, color .2s ease; }
+.projects-index .status-control select { min-width: 132px; padding: 9px 12px; border: 1px solid transparent; border-radius: 999px; font: 800 .76rem/1 Manrope, Arial, sans-serif; cursor: pointer; letter-spacing: normal; text-transform: none; transition: border-color .2s ease, background-color .2s ease, color .2s ease; }
 .projects-index .status-control[data-state="in-progress"] select { color: #956400; background: #fbf3db; }
 .projects-index .status-control[data-state="completed"] select { color: #346538; background: #edf3ec; }
 .projects-index .status-control[data-state="deferred"] select { color: #687096; background: #eef0f5; }

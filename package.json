@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:visual": "playwright test"
+    "test:visual": "playwright test tests/visual/migrated.spec.ts",
+    "validate": "node scripts/validate.mjs"
   },
   "dependencies": {
     "html-react-parser": "^6.1.7",
