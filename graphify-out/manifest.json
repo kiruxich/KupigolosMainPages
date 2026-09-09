@@ -1632,10 +1632,10 @@
     "semantic_hash": "473867f63f83edf526bc69de3f25ef11"
   },
   "app/page.tsx": {
-    "mtime": 1788949830.2252054,
-    "seen": 1788953346.668876,
-    "ast_hash": "58a9e6a48aaac00a33436c015920d0a0",
-    "semantic_hash": "58a9e6a48aaac00a33436c015920d0a0"
+    "mtime": 1788955862.258071,
+    "seen": 1788956054.081732,
+    "ast_hash": "174af9e6136e5c14e5cd7546dd1e7e2b",
+    "semantic_hash": "174af9e6136e5c14e5cd7546dd1e7e2b"
   },
   "components/home/about.tsx": {
     "mtime": 1788948905.1264915,
@@ -1674,10 +1674,10 @@
     "semantic_hash": "d929c0fe912325b72ed746f9033314f7"
   },
   "components/home/hero.tsx": {
-    "mtime": 1788948905.1276634,
-    "seen": 1788953346.668882,
-    "ast_hash": "e28048949378851ef188f5e31eece1fe",
-    "semantic_hash": "e28048949378851ef188f5e31eece1fe"
+    "mtime": 1788955862.1821897,
+    "seen": 1788956054.081992,
+    "ast_hash": "53a21c9deaa002de23de2e55f78655d5",
+    "semantic_hash": "53a21c9deaa002de23de2e55f78655d5"
   },
   "components/home/home-markup.generated.ts": {
     "mtime": 1788948905.1280334,
@@ -1752,8 +1752,8 @@
     "semantic_hash": "774c40de572f7bbdab6f5c4d57a22dd7"
   },
   "next-env.d.ts": {
-    "mtime": 1788950138.250861,
-    "seen": 1788953346.668892,
+    "mtime": 1788956037.9366593,
+    "seen": 1788956054.082491,
     "ast_hash": "8195d2c60ce847a459ae9d308d6a5724",
     "semantic_hash": "8195d2c60ce847a459ae9d308d6a5724"
   },
@@ -1794,16 +1794,16 @@
     "semantic_hash": "ff517359095961ec12c864cac87192a9"
   },
   "tests/contracts/home-structure.test.tsx": {
-    "mtime": 1788948905.2492108,
-    "seen": 1788953346.6689,
-    "ast_hash": "ee156571aa86c60ce100cca3273465c6",
-    "semantic_hash": "ee156571aa86c60ce100cca3273465c6"
+    "mtime": 1788955571.1020048,
+    "seen": 1788956054.082834,
+    "ast_hash": "900ec81f7f454c241e49fbbc11fa3db1",
+    "semantic_hash": "900ec81f7f454c241e49fbbc11fa3db1"
   },
   "tests/contracts/public-assets.test.ts": {
-    "mtime": 1788949906.9348304,
-    "seen": 1788953346.6689012,
-    "ast_hash": "3b23119d0cebd83afa0186543461f552",
-    "semantic_hash": "3b23119d0cebd83afa0186543461f552"
+    "mtime": 1788955862.4092607,
+    "seen": 1788956054.082836,
+    "ast_hash": "79b44285edd0d5221309d1c436c5794c",
+    "semantic_hash": "79b44285edd0d5221309d1c436c5794c"
   },
   "tests/e2e/home-interactions.spec.ts": {
     "mtime": 1788948905.2502456,

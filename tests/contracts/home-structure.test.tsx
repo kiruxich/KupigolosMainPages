@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { Hero } from "../../components/home/hero";
 import { HomePage } from "../../components/home/home-page";
 
 const sectionIds = [
@@ -20,6 +21,18 @@ const sectionIds = [
 ] as const;
 
 describe("homepage structure", () => {
+  it("renders the approved hero actions with the real studio image pair", () => {
+    const html = renderToStaticMarkup(<Hero />);
+
+    expect(html).toContain('href="#contacts"');
+    expect(html).toContain("Заказать");
+    expect(html).toContain('href="#portfolio"');
+    expect(html).toContain("Прослушать примеры");
+    expect(html).not.toContain('href="#calculator"');
+    expect(html).toContain('src="/assets/studio/hero-room.jpg"');
+    expect(html).toContain('src="/assets/studio/hero-session.jpg"');
+  });
+
   it("preserves required sections in order", () => {
     const html = renderToStaticMarkup(<HomePage />);
     const positions = sectionIds.map((id) => html.indexOf(`id="${id}"`));
@@ -35,4 +48,3 @@ describe("homepage structure", () => {
     expect(html).not.toContain("services-stage services-stage-figma");
   });
 });
-

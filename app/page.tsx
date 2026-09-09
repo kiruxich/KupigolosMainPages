@@ -10,7 +10,6 @@ export const viewport: Viewport = homeViewport;
 export default function HomeRoute() {
   return (
     <>
-      <link rel="preload" href="/assets/hero-studio-session-v1.png" as="image" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
