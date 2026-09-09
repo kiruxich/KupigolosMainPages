@@ -44,6 +44,8 @@ describe("voice deck arc", () => {
     deck.populateVoiceDeck(track, Array.from({length:20}, (_, i) => ({name:`Диктор ${i}`,role:"Шрека",image:"/portrait.jpg",audio:`/demo-${i}.mp3`,href:"/profile",description:"Актёр дубляжа и рекламы.",price:"Цена договорная"})));
     expect(track.querySelectorAll(".figma-voice-description")).toHaveLength(20);
     expect(track.querySelectorAll(".voice-progress-ring")).toHaveLength(20);
+    expect(track.querySelectorAll(".figma-voice-portrait > .voice-progress-ring")).toHaveLength(20);
+    expect(track.querySelectorAll(".voice-play .voice-progress-ring")).toHaveLength(0);
     expect(track.querySelector(".figma-voice-description")?.textContent).toBe("Актёр дубляжа и рекламы.");
     expect(track.querySelectorAll(".voice-waveform")).toHaveLength(0);
     deck.populateVoiceDeck(track, Array.from({length:20}, (_, i) => ({name:`Диктор ${i}`,role:"Шрека",image:"/portrait.jpg",audio:`/demo-${i}.mp3`,href:"/profile",description:"Актёр дубляжа и рекламы.",price:"Цена договорная"})));

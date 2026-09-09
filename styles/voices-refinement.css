@@ -540,7 +540,10 @@
 #voices .figma-voice-portrait .voice-play::before,
 #voices .figma-voice-portrait .voice-play::after { display: none; }
 #voices .voice-progress-ring { position: absolute; inset: auto; left: 50%; top: 50%; width: calc(100% + 14px); height: calc(100% + 14px); max-width: none; max-height: none; transform: translate(-50%, -50%) rotate(-90deg); fill: none; pointer-events: none; }
-#voices .voice-progress-ring circle { stroke-width: 2.5; }
+#voices .voice-progress-ring { z-index: 1; opacity: 0; }
+#voices .figma-voice-portrait:has(.voice-play.is-playing) > .voice-progress-ring,
+#voices .figma-voice-portrait.has-audio-progress > .voice-progress-ring { opacity: 1; }
+#voices .voice-progress-ring circle { stroke-width: 2.5; vector-effect: non-scaling-stroke; }
 #voices .voice-progress-track { stroke: #ead5ca; }
 #voices .voice-progress-value { stroke: var(--header-rust); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--voice-progress-value, 0)); transition: stroke-dashoffset .2s linear; }
 #voices .voice-demo-time { position: absolute; top: calc(100% + 8px); right: -6px; color: var(--muted); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
