@@ -4,7 +4,7 @@
   background:
     linear-gradient(108deg, #b64e33, #bb5438 54%, #ad472f);
   box-shadow:
-    0 14px 36px rgba(81, 48, 29, .16),
+    0 10px 28px rgba(48, 43, 38, .08),
     inset 0 1px rgba(255, 248, 237, .2),
     inset 0 -1px rgba(91, 39, 27, .12);
   -webkit-backdrop-filter: blur(16px) saturate(.86);
@@ -28,9 +28,7 @@
   z-index: 0;
   inset: 0;
   display: block;
-  background:
-    radial-gradient(ellipse at 77% 36%, rgba(255, 252, 245, .86), transparent 43%),
-    radial-gradient(ellipse at 87% 73%, rgba(207, 157, 126, .08), transparent 38%);
+  background: radial-gradient(ellipse at 77% 36%, rgba(255, 252, 245, .65), transparent 43%);
   content: "";
   pointer-events: none;
 }
@@ -58,30 +56,10 @@
   z-index: 1;
   object-fit: contain;
   object-position: center;
-  mix-blend-mode: multiply;
   filter: saturate(.9);
   mask-image: radial-gradient(ellipse at 52% 49%, #000 43%, rgba(0, 0, 0, .97) 55%, rgba(0, 0, 0, .55) 66%, transparent 77%);
 }
-/* Stationary gallery lighting: the object stays sharp and keeps its proportions. */
-.hero-sound-art::before,
-.hero-sound-art::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-}
-.hero-sound-art::before {
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 31% 39% at 61% 49%, rgba(182, 78, 51, .07), transparent 100%),
-    radial-gradient(ellipse 28% 7% at 63% 82%, rgba(96, 57, 39, .06), transparent 100%);
-}
-.hero-sound-art::after {
-  z-index: 2;
-  background: linear-gradient(135deg, rgba(255, 251, 239, .18), transparent 47%, rgba(109, 66, 44, .04));
-  mix-blend-mode: soft-light;
-  mask-image: radial-gradient(ellipse, #000 30%, transparent 72%);
-}
+/* The artwork already contains its own soft shadows; avoid stacking tinted layers. */
 #voices.talent-stage-figma { background: var(--page); }
 .hero-product.hero-product-cinema .hero-product-grid {
   position: static;
