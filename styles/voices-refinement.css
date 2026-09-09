@@ -534,16 +534,32 @@
 }
 
 #voices  .figma-voice-portrait > img { display: block; width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: none; }
-#voices .figma-voice-portrait .voice-play { top: auto; left: auto; }
 #voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price) { text-align: left; font-family: var(--body); white-space: normal; }
-#voices .figma-voice-portrait .voice-play { width: 56px; min-width: 56px; height: 56px; right: 0; bottom: 0; border: 3px solid #fffdfa; box-shadow: 0 3px 7px rgba(116, 47, 24, .2); overflow: visible; }
+#voices .figma-voice-portrait .voice-play {
+  width: 56px; min-width: 56px; height: 56px;
+  top: 14.645%; left: 14.645%; right: auto; bottom: auto;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  border: 3px solid #fffdfa;
+  background: linear-gradient(145deg, #dc6845, #b53e25);
+  box-shadow: inset 0 1px 1px #ffffff80, inset 0 -2px 3px #87331c40, 0 4px 0 #e8d5c9, 0 7px 12px #74301830;
+  overflow: visible;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+#voices .figma-voice-portrait .voice-play:is(:hover, :focus-visible, .is-playing) {
+  background: linear-gradient(145deg, #dc6845, #b53e25);
+  transform: translate(-50%, -50%) scale(1.04);
+  box-shadow: inset 0 1px 1px #ffffff90, inset 0 -2px 3px #87331c40, 0 4px 0 #e8d5c9, 0 9px 16px #74301838;
+}
+#voices .figma-voice-portrait .voice-play:active { transform: translate(-50%, -50%) scale(.97); }
 #voices .figma-voice-portrait .voice-play::before,
 #voices .figma-voice-portrait .voice-play::after { display: none; }
-#voices .voice-progress-ring { position: absolute; inset: auto; left: 50%; top: 50%; width: calc(100% + 14px); height: calc(100% + 14px); max-width: none; max-height: none; transform: translate(-50%, -50%) rotate(-90deg); fill: none; pointer-events: none; }
+#voices .voice-progress-ring { position: absolute; inset: auto; left: 50%; top: 50%; width: calc(100% + 14px); height: calc(100% + 14px); max-width: none; max-height: none; transform: translate(-50%, -50%) rotate(-135deg); fill: none; pointer-events: none; }
 #voices .voice-progress-ring { z-index: 1; opacity: 0; }
 #voices .figma-voice-portrait:has(.voice-play.is-playing) > .voice-progress-ring,
 #voices .figma-voice-portrait.has-audio-progress > .voice-progress-ring { opacity: 1; }
-#voices .voice-progress-ring circle { stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+/* Keep dashes in the same coordinate system as pathLength to avoid repeated arcs. */
+#voices .voice-progress-ring circle { stroke-width: .75; vector-effect: none; }
 #voices .voice-progress-track { stroke: #ead5ca; }
 #voices .voice-progress-value { stroke: var(--header-rust); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--voice-progress-value, 0)); transition: stroke-dashoffset .2s linear; }
 #voices .voice-demo-time { position: absolute; top: calc(100% + 8px); right: -6px; color: var(--muted); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
