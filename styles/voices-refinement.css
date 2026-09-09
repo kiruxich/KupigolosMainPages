@@ -483,28 +483,41 @@
 #voices .voice-arc-intro { margin: 0 0 4px; color: var(--ink); font-size: clamp(18px, 1.8vw, 26px); }
 
 #voices .figma-voices-grid {
-  --voice-card-width: clamp(240px, calc(100% / 4.55), 330px);
+  --voice-card-width: clamp(230px, calc(100% / 4.8), 310px);
+  display: grid;
+  grid-template-columns: var(--voice-card-width);
+  justify-content: center;
+  align-items: stretch;
   width: 100%;
   max-width: none;
-  height: 560px;
+  height: auto;
   margin: -32px auto 0;
   perspective: none;
   overflow: visible;
 }
 
 #voices .figma-voice-card {
-  display: block;
-  transform: translateX(calc(-50% + var(--voice-x, 0px))) translateY(var(--voice-y, 0px)) perspective(1400px) rotateY(var(--voice-rotate, 0deg)) scale(var(--voice-scale, 1));
+  display: grid;
+  grid-area: 1 / 1;
+  grid-template-rows: 1fr;
+  position: relative;
+  width: 100%;
+  left: auto;
+  transform: translateX(var(--voice-x, 0px)) translateY(var(--voice-y, 0px)) perspective(1400px) rotateY(var(--voice-rotate, 0deg)) scale(var(--voice-scale, 1));
   transition: transform .6s cubic-bezier(.22, 1, .36, 1);
   backface-visibility: visible;
 }
+
+/* All catalogue entries share one grid row, so longer copy cannot enlarge a side card. */
+#voices .figma-voice-card[hidden] { display: grid; visibility: hidden; pointer-events: none; }
+#voices .figma-voice-card[hidden] .figma-voice-body { visibility: hidden; }
 
 #voices .figma-voice-body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 480px;
-  padding: 20px 20px 16px;
+  min-height: 460px;
+  padding: 16px 18px 14px;
   border-radius: 19px;
   background: #fcfcfd;
   box-shadow: 0 16px 24px -10px rgba(36, 49, 80, .25), inset 0 1px 0 #fff;
@@ -518,18 +531,18 @@
   box-shadow: 0 24px 38px -20px rgba(36, 49, 80, .32), inset 0 1px 0 #fff;
 }
 
-#voices .figma-voice-card:not(.is-active) .figma-voice-body { padding-inline: 20px; }
+#voices .figma-voice-card:not(.is-active) .figma-voice-body { padding-inline: 18px; }
 
-#voices .figma-voice-role { align-self: stretch; margin: 0 0 16px; min-height: 36px; font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--ink); text-align: center; }
+#voices .figma-voice-role { align-self: stretch; margin: 0 0 12px; min-height: 36px; font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--ink); text-align: center; }
 #voices .figma-voice-meta, #voices .voice-card-spine { display: none; }
 #voices .figma-voice-card :is(.figma-voice-role, .figma-voice-name, .figma-voice-price, .figma-voice-portrait, .voice-play) { opacity: 1 !important; }
 #voices .figma-voice-portrait::before { display: none; }
 
 #voices .figma-voice-portrait {
-  width: min(100%, 210px);
+  width: min(100%, 175px);
   height: auto;
   aspect-ratio: 1;
-  margin: 0 auto 28px;
+  margin: 0 auto 26px;
   flex: 0 0 auto;
 }
 
@@ -574,17 +587,16 @@
 #voices .figma-voices-deck-actions button { width: 50px; height: 50px; font-size: 28px; }
 #voices .figma-voices-deck-controls { display: flex; gap: 20px; }
 
-@media (min-width: 1500px) { #voices .figma-voices-grid { height: 560px; } }
 @media (max-width: 900px) {
   #voices .figma-voice-body { padding: 18px; }
-  #voices .figma-voices-grid { --voice-card-width: 265px; height: 535px; margin-top: 20px; }
+  #voices .figma-voices-grid { --voice-card-width: 250px; margin-top: 20px; }
 }
 @media (max-width: 699px) {
   #voices .figma-voices-panel { padding: 22px 16px; border-radius: 26px; }
   #voices .figma-voices-panel > h2 { font-size: 32px; }
-  #voices .figma-voices-grid { --voice-card-width: min(78vw, 285px); height: 510px; width: calc(100% + 24px); margin-inline: -12px; }
-  #voices .figma-voice-body { min-height: 480px; }
-  #voices .figma-voice-portrait { width: 180px; height: 180px; }
+  #voices .figma-voices-grid { --voice-card-width: min(78vw, 270px); width: calc(100% + 24px); margin-inline: -12px; }
+  #voices .figma-voice-body { min-height: 460px; }
+  #voices .figma-voice-portrait { width: 170px; height: 170px; }
   #voices .figma-voice-role { font-size: 12px; }
   #voices .figma-voice-body .figma-voice-name { font-size: 20px; }
   #voices .figma-voice-description { font-size: 14px; }
