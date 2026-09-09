@@ -1,3 +1,16 @@
+/* The warm translucent header bridges the brand rust with the studio's oak tones. */
+.site-header-inner {
+  border: 1px solid rgba(255, 238, 215, .24);
+  background:
+    linear-gradient(108deg, rgba(158, 66, 43, .94), rgba(184, 76, 38, .88) 54%, rgba(145, 62, 45, .92));
+  box-shadow:
+    0 14px 36px rgba(81, 48, 29, .16),
+    inset 0 1px rgba(255, 248, 237, .2),
+    inset 0 -1px rgba(91, 39, 27, .12);
+  -webkit-backdrop-filter: blur(16px) saturate(.86);
+  backdrop-filter: blur(16px) saturate(.86);
+}
+
 /* Approved photographic composition. Existing header and rail stay independent. */
 .hero-product.hero-product-cinema {
   position: relative;
@@ -9,7 +22,15 @@
   isolation: isolate;
   background: #f5ead8;
 }
-.hero-product.hero-product-cinema::before { display: none; }
+.hero-product.hero-product-cinema::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0 auto 0 0;
+  display: block;
+  width: min(64%, 980px);
+  background: linear-gradient(90deg, rgba(248, 241, 229, .76) 0%, rgba(248, 241, 229, .56) 48%, rgba(248, 241, 229, 0) 100%);
+  content: "";
+}
 .hero-product.hero-product-cinema::after {
   position: absolute;
   z-index: 0;
@@ -24,7 +45,7 @@
   z-index: -1;
   object-fit: cover;
   object-position: center;
-  transform: translateX(clamp(50px, 7vw, 128px));
+  transform: none;
   mask-image: linear-gradient(90deg, transparent, #000 13%);
   filter: none;
   opacity: 1;
