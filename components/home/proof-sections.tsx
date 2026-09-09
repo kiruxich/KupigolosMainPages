@@ -1,10 +1,14 @@
 import parse, { Element } from "html-react-parser";
 import { homeMarkup } from "./home-markup.generated";
 import { Process } from "./process";
+import { Reviews } from "./reviews";
 
 export function ProofSections() {
   return <>{parse(homeMarkup.proofSections, {
     replace(node) {
+      if (node instanceof Element && node.name === "section" && node.attribs.id === "reviews") {
+        return <Reviews />;
+      }
       if (
         node instanceof Element && node.name === "svg" &&
         node.parent instanceof Element &&
