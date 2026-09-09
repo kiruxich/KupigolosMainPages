@@ -3,9 +3,10 @@ import Image from "next/image";
 export function Hero() {
   return (
     <section className="hero-product hero-product-cinema" id="start" data-hero-variant aria-labelledby="hero-title">
-      <Image className="hero-cinema-backdrop" src="/assets/studio/hero-neutral-preview-2.png"
-        alt="Светлая студия звукозаписи с микрофоном, поп-фильтром и наушниками"
-        fill sizes="100vw" preload unoptimized />
+      <div className="hero-sound-art" aria-hidden="true">
+        <Image src="/assets/studio/hero-sound-sculpture.png" alt=""
+          fill sizes="(max-width: 700px) 100vw, 54vw" preload />
+      </div>
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
           <p className="top-kicker">Ваш голос<br />Больше возможностей</p>

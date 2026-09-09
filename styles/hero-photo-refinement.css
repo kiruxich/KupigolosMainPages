@@ -1,8 +1,8 @@
-/* The warm translucent header bridges the brand rust with the studio's oak tones. */
+/* The header and sound sculpture share the approved terracotta palette. */
 .site-header-inner {
   border: 1px solid rgba(255, 238, 215, .24);
   background:
-    linear-gradient(108deg, rgba(158, 66, 43, .94), rgba(184, 76, 38, .88) 54%, rgba(145, 62, 45, .92));
+    linear-gradient(108deg, #b64e33, #bb5438 54%, #ad472f);
   box-shadow:
     0 14px 36px rgba(81, 48, 29, .16),
     inset 0 1px rgba(255, 248, 237, .2),
@@ -11,7 +11,7 @@
   backdrop-filter: blur(16px) saturate(.86);
 }
 
-/* Approved photographic composition. Existing header and rail stay independent. */
+/* Cream editorial hero with a separate decorative sound sculpture. */
 .hero-product.hero-product-cinema {
   position: relative;
   display: block;
@@ -20,16 +20,11 @@
   padding: clamp(174px, 19.3vh, 200px) 0 100px;
   overflow: clip;
   isolation: isolate;
-  background: #f5ead8;
+  --header-rust: #b64e33;
+  background: #f5f1e9;
 }
 .hero-product.hero-product-cinema::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0 auto 0 0;
-  display: block;
-  width: min(64%, 980px);
-  background: linear-gradient(90deg, rgba(248, 241, 229, .76) 0%, rgba(248, 241, 229, .56) 48%, rgba(248, 241, 229, 0) 100%);
-  content: "";
+  display: none;
 }
 .hero-product.hero-product-cinema::after {
   position: absolute;
@@ -41,15 +36,20 @@
   content: "";
   pointer-events: none;
 }
-.hero-product.hero-product-cinema .hero-cinema-backdrop {
-  z-index: -1;
-  object-fit: cover;
-  object-position: center;
-  transform: none;
-  mask-image: linear-gradient(90deg, transparent, #000 13%);
-  filter: none;
-  opacity: 1;
+.hero-sound-art {
+  position: absolute;
+  z-index: 0;
+  top: 130px;
+  right: -2%;
+  bottom: 70px;
+  width: 54%;
+  mix-blend-mode: multiply;
   pointer-events: none;
+}
+.hero-sound-art img {
+  object-fit: contain;
+  object-position: center;
+  mask-image: radial-gradient(ellipse, #000 58%, transparent 74%);
 }
 #voices.talent-stage-figma { background: var(--page); }
 .hero-product.hero-product-cinema .hero-product-grid {
@@ -105,7 +105,7 @@
   letter-spacing: inherit;
   text-wrap: nowrap;
 }
-.hero-product.hero-product-cinema .hero-title-accent { color: #bc4c19; }
+.hero-product.hero-product-cinema .hero-title-accent { color: var(--header-rust); }
 .hero-product.hero-product-cinema .hero-title-main {
   position: relative;
   isolation: isolate;
@@ -148,10 +148,10 @@
   box-shadow: inset 0 1px 1px #ffffffa6, inset 0 -2px 3px #67411e0d;
 }
 .hero-cinema-signoff {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  bottom: 9.7%;
-  margin: 0;
+  width: max-content;
+  margin: 30px 0 0;
   color: #7a7467;
   font: 500 10px/1.7 var(--body);
   letter-spacing: .4em;
@@ -173,6 +173,7 @@
     padding-top: 168px;
   }
   .hero-product.hero-product-cinema .hero-product-copy { width: 51%; }
+  .hero-sound-art { width: 48%; right: -3%; }
   .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(60px, 7.3vw, 80px); }
   .hero-product.hero-product-cinema .hero-actions { gap: 10px; }
   .hero-product-cinema .studio-cta { min-width: 190px; grid-template-columns: 22px minmax(max-content, 1fr) 46px; gap: 10px; }
@@ -180,17 +181,20 @@
 }
 @media (max-width: 700px) {
   .hero-product.hero-product-cinema {
-    min-height: 1000px;
-    padding: 130px 0 430px;
-    background: #f8efdf;
+    min-height: 0;
+    padding: 130px 0 32px;
+    background: #f5f1e9;
   }
-  .hero-product.hero-product-cinema .hero-cinema-backdrop {
-    top: auto !important;
-    height: 560px !important;
-    object-position: 70% bottom;
-    transform: none;
-    mask-image: linear-gradient(to bottom, transparent, #000 27%);
+  .hero-sound-art {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 6 / 5;
+    margin-top: 12px;
   }
+  .hero-product.hero-product-cinema { display: flex; flex-direction: column; }
+  .hero-product.hero-product-cinema .hero-product-grid { order: -1; }
   .hero-product.hero-product-cinema .hero-product-copy { width: 100%; max-width: 490px; }
   .hero-product.hero-product-cinema .top-kicker { margin-bottom: 26px; font-size: 10px; }
   .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(49px, 12.4vw, 80px); }

@@ -21,7 +21,7 @@ const sectionIds = [
 ] as const;
 
 describe("homepage structure", () => {
-  it("renders the approved hero actions and neutral studio background", () => {
+  it("renders the approved hero actions and sound sculpture", () => {
     const html = renderToStaticMarkup(<Hero />);
 
     expect(html).toContain('href="#contacts"');
@@ -29,7 +29,7 @@ describe("homepage structure", () => {
     expect(html).toContain('href="#portfolio"');
     expect(html).toContain("Прослушать примеры");
     expect(html).not.toContain('href="#calculator"');
-    expect(html).toContain("hero-neutral-preview-2.png");
+    expect(html).toContain("hero-sound-sculpture.png");
     expect(html).toContain('class="hero-product hero-product-cinema"');
   });
 
