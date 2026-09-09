@@ -512,11 +512,20 @@ const voiceSlides = [
 ];
 
 const figmaVoiceOrder = ['Алексей Колган', 'Елена Соловьёва', 'Татьяна Шитова', 'Владимир Зайцев', 'Юрий Брежнев', 'Артём Кретов'];
+const figmaLocalVoiceImages = {
+  'Алексей Колган': 'assets/voices/alexey-kolgan-v2.jpg',
+  'Елена Соловьёва': 'assets/ai-voices/darya-enhanced-v3.jpg',
+  'Татьяна Шитова': 'assets/ai-voices/darya-enhanced-v2.jpg',
+  'Владимир Зайцев': 'assets/ai-voices/vladimir-enhanced-v3.jpg',
+  'Юрий Брежнев': 'assets/ai-voices/roman-enhanced-v2.jpg',
+  'Артём Кретов': 'assets/ai-voices/stanislav-enhanced-v3.jpg'
+};
 voiceSlides.sort((a, b) => {
   const aIndex = figmaVoiceOrder.indexOf(a.name);
   const bIndex = figmaVoiceOrder.indexOf(b.name);
   return (aIndex < 0 ? figmaVoiceOrder.length : aIndex) - (bIndex < 0 ? figmaVoiceOrder.length : bIndex);
 });
+voiceSlides.forEach((voice) => { voice.localImage = figmaLocalVoiceImages[voice.name]; });
 
 window.KupiVoiceCatalog = voiceSlides;
 

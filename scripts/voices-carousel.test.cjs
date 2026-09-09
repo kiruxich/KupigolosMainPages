@@ -31,6 +31,16 @@ test('responsive shelf exposes six desktop cards and compact tablet and mobile s
   }
 });
 
+test('file pages use a local portrait instead of waiting on a remote image request', () => {
+  const voice = {
+    image: 'https://img.kupigolos.ru/voice/example.jpg',
+    localImage: 'assets/voices/example.jpg'
+  };
+
+  assert.equal(deck.getVoiceImageSource(voice, 'file:'), 'assets/voices/example.jpg');
+  assert.equal(deck.getVoiceImageSource(voice, 'http:'), 'https://img.kupigolos.ru/voice/example.jpg');
+});
+
 test('mounts once and handles arrows and swipes while keeping every visible card interactive', () => {
   const listeners = {};
   const windowListeners = {};

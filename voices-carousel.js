@@ -27,6 +27,10 @@
     return Math.min(length, count);
   }
 
+  function getVoiceImageSource(voice, protocol = '') {
+    return protocol === 'file:' && voice.localImage ? voice.localImage : voice.image;
+  }
+
   function getDeckLayout(offset, length, trackWidth, cardWidth) {
     const gap = 14;
     return { x: offset * (cardWidth + gap), y: 0, scale: 1, layer: length - offset };
@@ -51,7 +55,7 @@
       image.addEventListener('error', () => {
         image.src = 'assets/voices/alexey-kolgan-v2.jpg';
       }, { once: true });
-      image.src = voice.image;
+      image.src = getVoiceImageSource(voice, globalScope?.location?.protocol);
       image.alt = voice.name;
       audioLinks.forEach((element) => {
         if (element.matches('a')) {
@@ -181,5 +185,5 @@
     });
   }
 
-  return { getNextCardIndex, getDeckOffset, getVisibleCardCount, getDeckLayout, mountVoiceDecks, populateVoiceDeck, syncActiveCard };
+  return { getNextCardIndex, getDeckOffset, getVisibleCardCount, getVoiceImageSource, getDeckLayout, mountVoiceDecks, populateVoiceDeck, syncActiveCard };
 });
