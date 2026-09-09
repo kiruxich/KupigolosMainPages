@@ -1685,7 +1685,7 @@ body.overlay-open { overflow: hidden; }
   color: #fff;
   background:
     linear-gradient(180deg, rgba(var(--accent-rgb), .9), var(--brand-accent-deep)),
-    url("assets/hero-studio.jpg") 70% center / cover;
+    url("/assets/hero-studio.jpg") 70% center / cover;
   box-shadow: 0 14px 28px rgba(107, 45, 34, .16);
   transition: transform .22s ease;
 }
