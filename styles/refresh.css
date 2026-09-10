@@ -4978,20 +4978,75 @@ main > section:not(.hero-product) .section-heading h2,
 
 .header-mega-feature strong { font-size: var(--type-body); }
 
-/* Services: a denser catalogue rhythm without compressing the copy. */
+/* Services: card area follows the last-quarter demand hierarchy in Metrica. */
+.services-stage .service-feature-voice {
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(238, 241, 248, .72));
+}
+
+.services-stage .service-feature-voice .service-copy h3 { max-width: 9ch; }
+.services-stage .service-feature-voice .service-visual {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), .16), transparent 38%),
+    linear-gradient(145deg, #eef1f8, #e5e9f3);
+}
+
+.services-stage .service-columns {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  align-items: stretch;
+}
+
+.services-stage .service-span-7 { grid-column: span 7; }
+.services-stage .service-span-5 { grid-column: span 5; }
+.services-stage .service-span-4 { grid-column: span 4; }
+
 .services-stage .service-item {
   min-height: 205px;
   padding-block: clamp(18px, 2vw, 24px);
 }
 
+.services-stage .service-priority-high { min-height: 282px; }
+.services-stage .service-priority-medium { min-height: 244px; }
+.services-stage .service-priority-compact { min-height: 205px; }
+
 .services-stage .service-item h3 { margin-top: 14px; }
+.services-stage .service-priority-high h3 {
+  max-width: 12ch;
+  font-size: clamp(2.25rem, 3.15vw, 3.45rem);
+}
+.services-stage .service-priority-medium h3 { font-size: clamp(2rem, 2.55vw, 2.8rem); }
+.services-stage .service-priority-compact h3 {
+  margin-top: 8px;
+  font-size: clamp(1.55rem, 2vw, 2.15rem);
+}
+.services-stage .service-priority-compact p { max-width: 34ch; }
+
+.services-stage .service-item-games,
+.services-stage .service-item-ivr { background: #eef1f8; }
+.services-stage .service-item-ad,
+.services-stage .service-item-copy { background: #fff3ee; }
+
+@media (max-width: 980px) {
+  .services-stage .service-span-7,
+  .services-stage .service-span-5 { grid-column: span 6; }
+  .services-stage .service-priority-high,
+  .services-stage .service-priority-medium { min-height: 260px; }
+}
 
 @media (max-width: 820px) {
-  .services-stage .service-item { min-height: 260px; }
+  .services-stage .service-feature-voice { grid-template-columns: 1fr; }
+  .services-stage .service-columns { grid-template-columns: 1fr; }
+  .services-stage .service-item { grid-column: 1; min-height: 240px; }
+  .services-stage .service-priority-compact { min-height: 210px; }
 }
 
 @media (max-width: 560px) {
-  .services-stage .service-item { min-height: 200px; }
+  .services-stage .service-item,
+  .services-stage .service-priority-high,
+  .services-stage .service-priority-medium,
+  .services-stage .service-priority-compact { min-height: 200px; }
 }
 
 /* Voice categories: one stable layout layer, isolated from the legacy talent cards. */
