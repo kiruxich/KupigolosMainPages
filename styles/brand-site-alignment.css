@@ -1,0 +1,445 @@
+/*
+ * Live-site alignment
+ * Source of truth: https://kupigolos.ru/diktory/zajcev-vladimir
+ * Roboto, #3b4173 type, #c1492e brand accent and #f95f3a actions.
+ */
+
+:root {
+  --display: var(--font-roboto), Roboto, Arial, sans-serif;
+  --body: var(--font-roboto), Roboto, Arial, sans-serif;
+  --ink: #3b4173;
+  --muted: #71779b;
+  --line: rgba(59, 65, 115, .16);
+  --brand-accent: #c1492e;
+  --brand-accent-rgb: 193, 73, 46;
+  --brand-accent-hover: #df3e1a;
+  --brand-accent-deep: #a43a24;
+  --header-rust: #c1492e;
+  --site-action: #f95f3a;
+  --site-action-border: #f95319;
+  --site-action-hover: #df3e1a;
+  --site-button-radius: 6px;
+}
+
+html[data-theme="brand"] :is(
+  body,
+  button,
+  input,
+  textarea,
+  select,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  li,
+  label,
+  legend,
+  summary,
+  figcaption,
+  span,
+  strong,
+  small,
+  time
+) {
+  font-family: var(--body) !important;
+}
+
+body {
+  color: var(--ink);
+}
+
+#about { --studio-ink: var(--ink); }
+
+.hero-product.hero-product-cinema .top-kicker,
+.hero-product.hero-product-cinema .hero-product-title,
+.hero-product.hero-product-cinema .hero-title-main,
+.hero-product.hero-product-cinema .hero-product-lead,
+#portfolio,
+#reviews,
+#guarantees,
+.header-action-popover,
+.header-utility-menu,
+.header-phone-popover > a,
+.header-utility-menu a,
+.callback-drawer .callback-copy h2,
+.order-modal .callback-copy h2,
+.callback-drawer .callback-phone,
+.order-modal .callback-phone,
+.callback-drawer .callback-form input:not([type="checkbox"]),
+.order-modal .callback-form input:not([type="checkbox"]),
+.order-modal .callback-form textarea {
+  color: var(--ink);
+}
+
+.hero-product.hero-product-cinema .hero-title-accent,
+.hero-product.hero-product-cinema .top-kicker::after {
+  color: var(--ink);
+}
+
+.hero-product.hero-product-cinema .top-kicker::after {
+  background: rgba(59, 65, 115, .42);
+}
+
+/* Buttons from the public site: solid coral, compact type and a restrained radius. */
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+) {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 1px solid var(--site-action-border);
+  border-radius: var(--site-button-radius);
+  color: #fff;
+  background: var(--site-action);
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color .18s ease, border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+)::before,
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+)::after {
+  display: none;
+}
+
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+):is(:hover, :focus-visible) {
+  border-color: var(--site-action-hover);
+  color: #fff;
+  background: var(--site-action-hover);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+:is(
+  .studio-cta,
+  .figma-voices-cta,
+  .button,
+  .portfolio-more,
+  .mobile-menu-order,
+  .mobile-menu-contact button,
+  .callback-drawer .callback-form > button,
+  .order-modal .callback-form > button,
+  .header-phone-popover > button
+):active {
+  transform: translateY(1px);
+}
+
+.studio-cta-icon {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.studio-cta--secondary,
+.hero-product-cinema .studio-cta--secondary,
+.hero-product-cinema .studio-cta--secondary:is(:hover, :focus-visible) {
+  color: var(--site-action-border);
+  border-color: var(--site-action-border);
+  background: #fff;
+}
+
+.studio-cta--secondary:is(:hover, :focus-visible),
+.hero-product-cinema .studio-cta--secondary:is(:hover, :focus-visible) {
+  color: #fff;
+  background: var(--site-action-hover);
+}
+
+.hero-product-cinema .studio-cta,
+#voices .figma-voices-cta,
+.calculator-summary .button,
+.contact-form .button {
+  border-radius: var(--site-button-radius);
+}
+
+#voices .figma-voices-footer .figma-voices-cta {
+  min-height: 48px;
+  grid-template-columns: none;
+  font-size: 15px;
+}
+
+/* Tabs, players and compact controls use the same live-site palette. */
+#portfolio [role="tab"],
+.portfolio-tab {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(59, 65, 115, .18);
+  border-radius: 5px;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: none;
+}
+
+#portfolio [role="tab"][aria-selected="true"],
+.portfolio-tab:is(.is-active, [aria-selected="true"]) {
+  border-color: var(--site-action-border);
+  color: #fff;
+  background: var(--site-action);
+}
+
+:is(.voice-play, .portfolio-listen, #portfolio button[aria-label^="Слушать"], #voices .figma-voices-deck-actions button) {
+  border-color: rgba(249, 83, 25, .44);
+  color: var(--site-action-border);
+  background: #fff;
+  box-shadow: none;
+}
+
+:is(.voice-play, .portfolio-listen, #portfolio button[aria-label^="Слушать"], #voices .figma-voices-deck-actions button):is(:hover, :focus-visible, .is-playing) {
+  border-color: var(--site-action-border);
+  color: #fff;
+  background: var(--site-action);
+}
+
+#reviews button {
+  color: var(--ink);
+  text-decoration-color: rgba(59, 65, 115, .4);
+}
+
+#reviews button:is(:hover, :focus-visible) {
+  color: var(--site-action-hover);
+}
+
+/* The reference header is a full-width light bar with blue navigation. */
+#main-content { padding-top: 78px; }
+
+.site-header,
+.site-header.on-light,
+.site-header.is-scrolled,
+.site-header.on-light.is-scrolled {
+  top: 0;
+  height: 78px;
+  min-height: 78px;
+  padding: 0;
+  border-bottom: 1px solid rgba(59, 65, 115, .12);
+  color: var(--ink);
+  background: rgba(255, 255, 255, .98);
+  box-shadow: 0 5px 16px rgba(59, 65, 115, .06);
+}
+
+.site-header .site-header-inner,
+.site-header.is-scrolled .site-header-inner {
+  width: min(1480px, calc(100% - 48px));
+  height: 78px;
+  min-height: 78px;
+  margin: 0 auto;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.site-header .brand > img {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(34%) saturate(1631%) hue-rotate(331deg) brightness(88%) contrast(92%);
+}
+
+.site-header .site-nav,
+.site-header .site-nav > button > span {
+  color: var(--ink);
+}
+
+.site-header .site-nav > a,
+.site-header .site-nav > button,
+.site-header .site-nav > .header-ai-trigger {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--ink);
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.site-header .site-nav > .header-ai-trigger {
+  color: var(--ink);
+  border: 0;
+  box-shadow: none;
+}
+
+.site-header .site-nav > :is(a, button):is(:hover, :focus-visible),
+.site-header .site-nav > button[aria-expanded="true"] {
+  color: var(--site-action-hover);
+  background: rgba(249, 95, 58, .08);
+}
+
+.site-header .site-nav > :is(a, button):focus-visible,
+.site-header .header-actions :is(a, button):focus-visible,
+.site-header .brand:focus-visible {
+  outline: 2px solid var(--site-action-border);
+  outline-offset: 2px;
+}
+
+.site-header .header-phone,
+.site-header.on-light .header-phone,
+.site-header .header-networks,
+.site-header .header-favorites,
+.site-header .nav-toggle {
+  color: var(--ink);
+  border: 0;
+  background: transparent;
+}
+
+.site-header .header-phone:is(:hover, :focus-visible),
+.site-header .header-networks:is(:hover, :focus-visible),
+.site-header .header-favorites:is(:hover, :focus-visible),
+.site-header :is(.header-phone, .header-networks)[aria-expanded="true"],
+.site-header .nav-toggle:is(:hover, :focus-visible) {
+  color: var(--site-action-hover);
+  background: rgba(249, 95, 58, .08);
+}
+
+.nav-toggle-icon i { background: currentColor; }
+
+.header-mega-layer { top: 78px; }
+
+.header-mega {
+  border-color: rgba(59, 65, 115, .12);
+  border-radius: 0 0 8px 8px;
+  background: #fff;
+  box-shadow: 0 20px 48px rgba(59, 65, 115, .12);
+}
+
+.header-mega-grid p,
+.header-mega-group-link,
+.header-mega-grid > div > a {
+  color: var(--ink) !important;
+}
+
+.header-mega-grid > div > a:is(:hover, :focus-visible) {
+  color: var(--site-action-hover) !important;
+}
+
+.header-mega-feature {
+  color: #fff;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.header-mega-feature:is(:hover, :focus-visible) {
+  background: #303663;
+}
+
+.header-action-popover,
+.header-utility-menu {
+  border-color: rgba(59, 65, 115, .12);
+  border-radius: 8px;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(59, 65, 115, .14);
+}
+
+.header-networks-popover a {
+  color: var(--site-action-border);
+  border-color: rgba(249, 83, 25, .32);
+}
+
+.header-networks-popover a:is(:hover, :focus-visible) {
+  color: #fff;
+  background: var(--site-action);
+}
+
+@media (min-width: 1101px) {
+  .site-header,
+  .site-header.on-light,
+  .site-header.is-scrolled,
+  .site-header.on-light.is-scrolled {
+    padding-left: var(--rail-width);
+  }
+
+  .header-mega-layer {
+    left: calc((100vw + var(--rail-width)) / 2);
+    width: min(1480px, calc(100vw - var(--rail-width) - 48px));
+  }
+}
+
+@media (max-width: 900px) {
+  #main-content { padding-top: 64px; }
+
+  .site-header,
+  .site-header.on-light,
+  .site-header.is-scrolled,
+  .site-header.on-light.is-scrolled,
+  .site-header .site-header-inner,
+  .site-header.is-scrolled .site-header-inner {
+    height: 64px;
+    min-height: 64px;
+  }
+
+  .site-header .site-header-inner,
+  .site-header.is-scrolled .site-header-inner {
+    width: 100%;
+    padding: 0 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(button, .button, .studio-cta, .figma-voices-cta) { transition: none; }
+}
