@@ -139,9 +139,10 @@
 }
 .source strong {
   margin-left: 3px;
-  color: var(--ink, #29334a);
+  color: #b73e24;
+  font-size: .84em;
   font-variant-numeric: tabular-nums;
-  font-weight: 800;
+  font-weight: 650;
 }
 .section .action {
   min-width: 220px;
