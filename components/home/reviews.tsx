@@ -63,7 +63,7 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
           onClick={() => setExpanded(!expanded)}
         >
           <span>{expanded ? "Свернуть" : "Читать полностью"}</span>
-          <span className={styles.chevron} aria-hidden="true">⌄</span>
+          <span className={styles.chevron} aria-hidden="true">↓</span>
         </button>
       )}
     </article>
