@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import styles from "./clients.module.css";
 
 const clients = [
@@ -17,6 +20,68 @@ const clients = [
 ] as const;
 
 export function Clients() {
+  const filmStageRef = useRef<HTMLDivElement>(null);
+  const filmTrackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const stage = filmStageRef.current;
+    const track = filmTrackRef.current;
+
+    if (!stage || !track || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return;
+    }
+
+    const animation = track.getAnimations()[0];
+
+    if (!animation) {
+      return;
+    }
+
+    let frameId = 0;
+
+    const glideTo = (targetRate: number, duration: number) => {
+      cancelAnimationFrame(frameId);
+
+      if (targetRate > 0 && animation.playState === "paused") {
+        animation.updatePlaybackRate(.01);
+        animation.play();
+      }
+
+      const startRate = animation.playbackRate;
+      const startedAt = performance.now();
+
+      const updateRate = (now: number) => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = progress * progress * (3 - 2 * progress);
+        const nextRate = startRate + (targetRate - startRate) * eased;
+
+        animation.updatePlaybackRate(Math.max(nextRate, .001));
+
+        if (progress < 1) {
+          frameId = requestAnimationFrame(updateRate);
+        } else if (targetRate === 0) {
+          animation.pause();
+        } else {
+          animation.updatePlaybackRate(targetRate);
+        }
+      };
+
+      frameId = requestAnimationFrame(updateRate);
+    };
+
+    const slowDown = () => glideTo(0, 720);
+    const speedUp = () => glideTo(1, 880);
+
+    stage.addEventListener("pointerenter", slowDown);
+    stage.addEventListener("pointerleave", speedUp);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      stage.removeEventListener("pointerenter", slowDown);
+      stage.removeEventListener("pointerleave", speedUp);
+    };
+  }, []);
+
   return (
     <section className={styles.section} id="clients" aria-labelledby="clients-title">
       <div className={`shell ${styles.layout}`}>
@@ -26,13 +91,13 @@ export function Clients() {
           <p>От рекламного ролика до большой локализации.</p>
         </header>
 
-        <div className={styles.filmStage}>
+        <div className={styles.filmStage} ref={filmStageRef}>
           <div
             className={styles.film}
             role="region"
             aria-label="Компании, которые работали с КупиГолос"
           >
-            <div className={styles.filmTrack}>
+            <div className={styles.filmTrack} ref={filmTrackRef}>
               {[0, 1].map((copyIndex) => (
                 <div
                   className={styles.filmGroup}
