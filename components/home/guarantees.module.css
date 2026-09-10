@@ -94,7 +94,7 @@
 }
 
 .calloutTerms { top: calc(6.44% - 1.35rem); left: 1%; }
-.calloutPrivacy { top: calc(55.93% - 1.35rem); left: 1%; }
+.calloutPrivacy { top: calc(55.93% - 1.35rem); left: -4%; }
 .calloutRights { top: calc(85.76% - 1.35rem); left: 1%; }
 
 .documents {
@@ -303,8 +303,8 @@
   .nda { left: 40%; }
   .rights { left: 66%; }
   .calloutTerms,
-  .calloutPrivacy,
   .calloutRights { left: 0; }
+  .calloutPrivacy { left: -3%; }
 }
 
 @media (max-width: 900px) {
