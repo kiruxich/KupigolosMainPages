@@ -1,7 +1,8 @@
 import { Application, Assets, Container, Graphics, Matrix, Sprite, type Texture } from "pixi.js";
 import { gsap } from "gsap";
 import { makeSkin, type Vec } from "./skin-mesh";
-import { BIND, END, START, makeTimeline, skeleton, type Chain } from "./studio-motion";
+import { createInkTransfer } from "./ink-transfer";
+import { BIND, END, START, characterVisibility, makeTimeline, skeleton, type Chain } from "./studio-motion";
 
 type Region = { file: string; x: number; y: number; width: number; height: number };
 type Atlas = Record<string, Region>;
@@ -72,6 +73,17 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
 
   function character(view: "side" | "rear") {
     const group = new Container(); world.addChild(group);
+    const dissolveMask = new Graphics(); world.addChild(dissolveMask);
+    const tiles: { x: number; y: number; threshold: number }[] = [];
+    const left = view === "rear" ? 400 : 940, right = view === "rear" ? 770 : 1260;
+    // Fragment the actual drawing into small flecks as the ink leaves/returns.
+    for (let y = TOP; y < 910; y += 8) {
+      for (let x = left; x < right; x += 12) {
+        const noise = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+        tiles.push({ x, y, threshold: noise - Math.floor(noise) });
+      }
+    }
+    let masked = false;
     const prefix = view === "rear" ? "seated-" : "";
     const bind = BIND[view];
     const backLeg = skin(`${prefix}back-leg`, group, bind.backLeg);
@@ -100,9 +112,20 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     const backHand = sprite(`${prefix}back-hand`, group);
     return {
       update(state: ReturnType<typeof skeleton>) {
-        group.alpha = view === "rear" ? pose.rear : 1 - pose.rear;
-        group.visible = group.alpha > .001;
+        const amount = characterVisibility(pose.transfer, view === "rear");
+        const active = view === "rear" ? pose.rear : 1 - pose.rear;
+        group.visible = active > .5 && amount > .001;
+        if (masked) { dissolveMask.clear(); group.mask = null; masked = false; }
         if (!group.visible) return;
+        group.alpha = .65 + .35 * amount;
+        if (amount < .999) {
+          for (const tile of tiles) {
+            if (tile.threshold < amount) dissolveMask.rect(tile.x, tile.y, 12, 8);
+          }
+          dissolveMask.fill(0xffffff);
+          group.mask = dissolveMask;
+          masked = true;
+        }
         const root = between(bind.hip, bind.neck, state.hip, state.neck);
         const hips = rigid(bind.hip, state.hip);
         torso?.setFromMatrix(root); pelvis?.setFromMatrix(hips);
@@ -131,6 +154,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     };
   }
   const side = character("side"), rear = character("rear");
+  const transfer = createInkTransfer(world);
   const chair = sprite("chair", world);
   sprite("plant", world);
   sprite("mic", world);
@@ -145,9 +169,14 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     if (disposed) return;
     const state = skeleton(pose);
     side.update(state); rear.update(state);
+    transfer.update(pose.transfer);
+    const bodyAmount = characterVisibility(pose.transfer, pose.rear > .5);
     if (chair) chair.x = pose.chairX;
     phones?.setFromMatrix(rigid({ x: 1327, y: 522 }, { x: pose.phonesX, y: pose.phonesY }, radians(pose.phonesAngle)));
-    if (phones) phones.visible = pose.wearing < .5;
+    if (phones) {
+      phones.visible = pose.wearing < .5;
+      phones.alpha = characterVisibility(pose.transfer, true);
+    }
     shadows.clear();
     for (let ring = 4; ring >= 0; ring--) {
       shadows.ellipse(330, 858, 295 + ring * 4, 7 + ring * 2).fill({ color: ink, alpha: .014 });
@@ -156,9 +185,9 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
       const frontLift = Math.max(0, 824 - pose.frontFootY);
       const backLift = Math.max(0, 817 - pose.backFootY);
       shadows.ellipse(pose.frontFootX + 26, 865, 50 + ring * 3 - frontLift * .15, 3 + ring)
-        .fill({ color: ink, alpha: .025 / (1 + frontLift / 24) });
+        .fill({ color: ink, alpha: .025 * bodyAmount / (1 + frontLift / 24) });
       shadows.ellipse(pose.backFootX + 28, 852 - pose.seated * 12, 43 + ring * 3 - backLift * .15, 3 + ring)
-        .fill({ color: ink, alpha: .02 / (1 + backLift / 24) });
+        .fill({ color: ink, alpha: .02 * bodyAmount / (1 + backLift / 24) });
     }
     playhead.clear();
     const scan = 244 + (pose.time * 26) % 212;
@@ -169,6 +198,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
       recordingLight.circle(1282, 285, 3).fill({ color: rust, alpha: .5 + .5 * Math.sin(pose.time * 5) ** 2 });
     }
     cable.clear();
+    cable.alpha = bodyAmount;
     const sway = complete ? 0 : Math.sin(pose.time * 3.3) * (pose.wearing ? 4 : 2);
     if (pose.wearing >= .5) {
       const bodyMatrix = between(BIND.side.hip, BIND.side.neck, state.hip, state.neck);
@@ -236,6 +266,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     document.removeEventListener("visibilitychange", pageVisibility);
     motion.removeEventListener("change", preference);
     gsap.set(cta, { clearProps: "transform" });
+    transfer.destroy();
     for (const item of skins) item.destroy();
     app.destroy(true, { children: true });
     delete scene.dataset.renderer;

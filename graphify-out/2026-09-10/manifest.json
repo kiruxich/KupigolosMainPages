@@ -1644,10 +1644,10 @@
     "semantic_hash": "97973ca48bf6143d492246cca55b6f47"
   },
   "components/home/ai-services.tsx": {
-    "mtime": 1788948905.1266825,
-    "seen": 1788953346.668878,
-    "ast_hash": "f7531023fa9e1b37a87e903dd742eb77",
-    "semantic_hash": "f7531023fa9e1b37a87e903dd742eb77"
+    "mtime": 1789048954.3062983,
+    "seen": 1789049028.5087948,
+    "ast_hash": "cc1de324239cdfcbc4404b6a68fe2fa0",
+    "semantic_hash": "cc1de324239cdfcbc4404b6a68fe2fa0"
   },
   "components/home/calculator.tsx": {
     "mtime": 1788972806.002208,
@@ -2346,10 +2346,10 @@
     "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
   },
   "components/home/studio/pixi-studio.ts": {
-    "mtime": 1789048370.7355862,
-    "seen": 1789048414.14414,
-    "ast_hash": "a1e46e5e95360a46b6a536ba60037b34",
-    "semantic_hash": "a1e46e5e95360a46b6a536ba60037b34"
+    "mtime": 1789049008.9235513,
+    "seen": 1789049028.51137,
+    "ast_hash": "1446c83cfffa2c653b61d0f02122b626",
+    "semantic_hash": "1446c83cfffa2c653b61d0f02122b626"
   },
   "components/home/studio/reference-environment.ts": {
     "mtime": 1789048400.8696072,

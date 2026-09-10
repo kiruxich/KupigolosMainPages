@@ -6,7 +6,7 @@ export type ScenePose = {
   frontFootX: number; frontFootY: number; backFootX: number; backFootY: number;
   frontToe: number; backToe: number;
   frontHandX: number; frontHandY: number; backHandX: number; backHandY: number;
-  frontEar: number; backEar: number;
+  transfer: number;
   wearing: number; pointing: number; speaking: number;
   phonesX: number; phonesY: number; phonesAngle: number; chairX: number; time: number;
 };
@@ -31,13 +31,13 @@ export const BIND = {
 export const START: ScenePose = {
   x: 632, y: 684, lean: 0, seated: 1, rear: 1, headTilt: 0,
   frontFootX: 442, frontFootY: 807, backFootX: 548, backFootY: 802, frontToe: 0, backToe: 0,
-  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, frontEar: 0, backEar: 0, wearing: 0, pointing: 0, speaking: 0,
+  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, transfer: 0, wearing: 0, pointing: 0, speaking: 0,
   phonesX: 1327, phonesY: 522, phonesAngle: 0, chairX: 0, time: 0,
 };
 export const END: ScenePose = {
   ...START, x: 1060, y: 550, lean: 0, seated: 0, rear: 0,
   frontFootX: 1024, frontFootY: 824, backFootX: 1094, backFootY: 817,
-  frontHandX: 1189, frontHandY: 295, backHandX: 1040, backHandY: 539, wearing: 1, pointing: 1, chairX: 0, time: 11.1,
+  frontHandX: 1189, frontHandY: 295, backHandX: 1040, backHandY: 539, wearing: 1, pointing: 1, transfer: 1, chairX: 0, time: 6.9,
 };
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 const distance = (a: Vec, b: Vec) => Math.hypot(b.x - a.x, b.y - a.y);
@@ -58,12 +58,6 @@ export function skeleton(pose: ScenePose) {
     return p(pose.x + x * Math.cos(angle) - y * Math.sin(angle), pose.y + x * Math.sin(angle) + y * Math.cos(angle));
   };
   const hip = p(pose.x, pose.y), neck = body(BIND.side.neck, BIND.rear.neck);
-  const headAngle = (pose.lean + pose.headTilt) * Math.PI / 180;
-  const earWrist = (far: boolean) => {
-    const x = (far ? 1080 : 1060) - BIND.side.neck.x;
-    const y = (far ? 327 : 344) - BIND.side.neck.y;
-    return p(neck.x + x * Math.cos(headAngle) - y * Math.sin(headAngle), neck.y + x * Math.sin(headAngle) + y * Math.cos(headAngle));
-  };
   const chains = {} as Record<"frontArm" | "backArm" | "frontLeg" | "backLeg", Chain>;
   for (const key of ["frontArm", "backArm", "frontLeg", "backLeg"] as const) {
     const side = key.startsWith("front") ? "front" : "back";
@@ -71,12 +65,6 @@ export function skeleton(pose: ScenePose) {
     const standing = BIND.side[key]; const seated = BIND.rear[key];
     const start = body(standing[0], seated[0]);
     const end = arm ? p(pose[`${side}HandX`], pose[`${side}HandY`]) : p(pose[`${side}FootX`], pose[`${side}FootY`]);
-    if (arm) {
-      // In the source drawing, frontArm is the far arm and backArm is nearest.
-      const contact = earWrist(side === "front");
-      end.x = mix(end.x, contact.x, pose[`${side}Ear`]);
-      end.y = mix(end.y, contact.y, pose[`${side}Ear`]);
-    }
     const upper = mix(distance(standing[0], standing[1]), distance(seated[0], seated[1]), pose.seated);
     const lower = mix(distance(standing[1], standing[2]), distance(seated[1], seated[2]), pose.seated);
     const bend = arm ? (pose.seated > .5 ? -1 : 1) : (pose.seated > .5 || side === "back" ? 1 : -1);
@@ -85,74 +73,41 @@ export function skeleton(pose: ScenePose) {
   return { ...chains, hip, neck, spine: [hip, p((hip.x + neck.x) / 2, (hip.y + neck.y) / 2), neck] as Chain };
 }
 
+/** Visibility windows leave the actual pose change entirely inside the dust. */
+export function characterVisibility(transfer: number, rear: boolean) {
+  const amount = rear ? 1 - Math.min(1, transfer / .32) : Math.max(0, (transfer - .63) / .37);
+  return amount * amount * (3 - 2 * amount);
+}
+
 export function makeTimeline(pose: ScenePose, cta: HTMLAnchorElement, draw: () => void, complete: () => void) {
   const timeline = gsap.timeline({ paused: true, defaults: { ease: "sine.inOut" }, onUpdate: draw, onComplete: complete });
-  timeline.to(pose, { time: 11.1, duration: 11.1, ease: "none" }, 0);
+  timeline.to(pose, { time: END.time, duration: END.time, ease: "none" }, 0);
   timeline.to(pose, { frontHandY: 565, backHandY: 570, duration: .14, repeat: 5, yoyo: true }, 0);
-  timeline.to(pose, { chairX: 24, x: 657, duration: .45 }, .65);
+
+  // No intermediate body poses: dissolve at the desk, then form at the mic.
+  timeline.to(pose, { transfer: 1, duration: .95, ease: "none" }, .9);
+  timeline.set(pose, {
+    x: END.x, y: END.y, seated: 0, rear: 0, lean: 0, headTilt: 0,
+    frontFootX: END.frontFootX, frontFootY: END.frontFootY,
+    backFootX: END.backFootX, backFootY: END.backFootY,
+    frontHandX: 1123, frontHandY: 557, backHandX: 1040, backHandY: 539,
+    wearing: 1,
+  }, 1.34);
+
+  // The assembled figure is already wearing headphones. Keep gestures small.
+  timeline.to(pose, { speaking: 1, duration: .12 }, 1.9);
+  timeline.to(pose, { lean: 2, headTilt: 4, frontHandX: 1166, frontHandY: 505, duration: .55 }, 2.05);
+  timeline.to(pose, { lean: 1, headTilt: 2, frontHandX: 1170, frontHandY: 480, duration: .55 }, 2.65);
+  timeline.to(pose, { lean: 2, headTilt: 5, frontHandX: 1162, frontHandY: 505, duration: .55 }, 3.25);
   timeline.to(pose, {
-    x: 710, y: 623, seated: .55, lean: -8,
-    frontHandX: 634, frontHandY: 628, backHandX: 646, backHandY: 632,
-    frontFootX: 668, frontFootY: 824, backFootX: 604, backFootY: 817, duration: .45,
-  }, 1.0);
-  timeline.to(pose, {
-    x: 752, y: 550, seated: 0, lean: 2,
-    frontHandX: 787, frontHandY: 555, backHandX: 724, backHandY: 550,
-    frontFootX: 738, frontFootY: 824, backFootX: 704, backFootY: 817, duration: .4,
-  }, 1.45);
-  timeline.to(pose, { rear: 0, duration: .12 }, 1.52);
-  timeline.to(pose, { chairX: 0, duration: .45 }, 1.8);
-  const steps = [
-    { at: 1.9, x: 814, foot: "front", from: 738, to: 866 },
-    { at: 2.36, x: 897, foot: "back", from: 704, to: 949 },
-    { at: 2.82, x: 980, foot: "front", from: 866, to: 1024 },
-    { at: 3.28, x: 1060, foot: "back", from: 949, to: 1094 },
-  ] as const;
-  for (const step of steps) {
-    timeline.to(pose, { x: step.x, duration: .46, ease: "none" }, step.at);
-    timeline.to(pose, { y: 546, lean: 3, duration: .23 }, step.at);
-    timeline.to(pose, { y: 550, lean: 2, duration: .23 }, step.at + .23);
-    timeline.to(pose, { [`${step.foot}FootX`]: (step.from + step.to) / 2, [`${step.foot}FootY`]: 802, [`${step.foot}Toe`]: -5, duration: .23 }, step.at);
-    timeline.to(pose, { [`${step.foot}FootX`]: step.to, [`${step.foot}FootY`]: step.foot === "front" ? 824 : 817, [`${step.foot}Toe`]: 0, duration: .23 }, step.at + .23);
-    timeline.to(pose, {
-      frontHandX: step.x + (step.foot === "front" ? 6 : 65), frontHandY: 552,
-      backHandX: step.x + (step.foot === "front" ? 15 : -35), backHandY: 550,
-      duration: .46,
-    }, step.at);
-  }
-  timeline.to(pose, {
-    x: 1165, lean: 10, frontFootX: 1154, backFootX: 1100,
-    frontHandX: 1302, frontHandY: 527, backHandX: 1176, backHandY: 550,
-    duration: .42,
-  }, 3.85);
-  timeline.to(pose, {
-    phonesX: 1233, phonesY: 422, phonesAngle: -8,
-    frontHandX: 1260, frontHandY: 433, backHandX: 1206, backHandY: 434, duration: .36,
-  }, 4.27);
-  timeline.to(pose, {
-    x: 1095, lean: 2, frontFootX: 1060, backFootX: 1118,
-    phonesX: 1075, phonesY: 309, phonesAngle: -10,
-    frontHandX: 1080, frontHandY: 327, backHandX: 1060, backHandY: 344,
-    frontEar: 1, backEar: 1,
-    duration: .48,
-  }, 4.63);
-  timeline.set(pose, { wearing: 1, headTilt: 10 }, 5.11);
-  timeline.to(pose, { x: 1060, frontFootX: 1024, backFootX: 1094, lean: 3, duration: .35 }, 5.11);
-  timeline.to(pose, { speaking: 1, duration: .12 }, 5.35);
-  timeline.to(pose, { frontEar: 0, frontHandX: 1168, frontHandY: 476, duration: .5 }, 5.4);
-  timeline.to(pose, { lean: 6, headTilt: 12, frontHandX: 1172, frontHandY: 507, duration: .6 }, 5.95);
-  timeline.to(pose, { lean: 2, headTilt: 9, backEar: 0, frontHandX: 1148, frontHandY: 453, backHandX: 1167, backHandY: 503, duration: .55 }, 6.6);
-  timeline.to(pose, { lean: 4, frontHandY: 488, backHandY: 471, headTilt: 11, duration: .42 }, 7.2);
-  timeline.to(pose, { frontHandY: 514, backHandY: 484, lean: 1, duration: .38 }, 7.7);
-  timeline.to(pose, {
-    speaking: 0, lean: 0, headTilt: 9,
-    frontHandX: 1123, frontHandY: 557, backHandX: 1040, backHandY: 555,
-    duration: .5,
-  }, 8.25);
+    speaking: 0, lean: 0, headTilt: 0,
+    frontHandX: 1123, frontHandY: 557, backHandX: 1040, backHandY: 539,
+    duration: .45,
+  }, 4.05);
   timeline.to(pose, {
     frontHandX: END.frontHandX, frontHandY: END.frontHandY,
-    backHandY: END.backHandY, headTilt: 0, pointing: 1, duration: .9, ease: "power2.inOut",
-  }, 9.35);
-  timeline.to(cta, { scale: 1.035, duration: .3, yoyo: true, repeat: 1 }, 10.4);
+    pointing: 1, duration: .85, ease: "power2.inOut",
+  }, 5.0);
+  timeline.to(cta, { scale: 1.035, duration: .3, yoyo: true, repeat: 1 }, 6.05);
   return timeline;
 }
