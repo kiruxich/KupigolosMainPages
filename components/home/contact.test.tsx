@@ -5,14 +5,13 @@ import { Contact } from "./contact";
 describe("quick order form", () => {
   beforeEach(() => { document.body.innerHTML = renderToStaticMarkup(<Contact />); });
 
-  it("includes an optional, labelled Telegram address in the submitted form data", () => {
+  it("accepts one clear contact value instead of separate channel fields", () => {
     const form = document.querySelector("form")!;
-    const telegram = form.elements.namedItem("telegram") as HTMLInputElement | null;
-    expect(telegram).not.toBeNull();
-    expect(telegram?.labels?.[0]?.textContent).toContain("Telegram");
-    expect(telegram?.required).toBe(false);
-    telegram!.value = "@voice_project";
-    expect(new FormData(form).get("telegram")).toBe("@voice_project");
+    const contact = form.elements.namedItem("contact") as HTMLInputElement | null;
+    expect(contact).not.toBeNull();
+    expect(contact?.labels?.[0]?.textContent).toContain("Как с вами связаться");
+    expect(contact?.placeholder).toContain("@telegram");
+    expect(contact?.required).toBe(true);
   });
 
   it("keeps the section heading with the form and preserves the existing submission destination", () => {
