@@ -1860,10 +1860,10 @@
     "semantic_hash": "5d5276b4e9cbb6cd29fd6f53234ebe44"
   },
   "components/home/clients.tsx": {
-    "mtime": 1789030519.9500914,
-    "seen": 1789030555.7487261,
-    "ast_hash": "9fe38476161eb168459a9ee02d463908",
-    "semantic_hash": "9fe38476161eb168459a9ee02d463908"
+    "mtime": 1789030452.0598934,
+    "seen": 1789030481.875029,
+    "ast_hash": "a10b28b2ed739d0b04a28c9b6f057efa",
+    "semantic_hash": "a10b28b2ed739d0b04a28c9b6f057efa"
   },
   "components/home/contact.test.tsx": {
     "mtime": 1788972898.9543417,

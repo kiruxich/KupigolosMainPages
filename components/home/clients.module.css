@@ -1,0 +1,231 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(92px, 10vw, 154px) 0 clamp(100px, 11vw, 168px);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 88% 22%, rgba(var(--accent-rgb), .075), transparent 26rem),
+    radial-gradient(circle at 9% 76%, rgba(255, 255, 255, .78), transparent 30rem),
+    var(--paper);
+}
+
+.section::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(42vw, 640px);
+  height: 3px;
+  background: var(--accent);
+  content: "";
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+}
+
+.heading {
+  max-width: 780px;
+  margin-bottom: clamp(48px, 6vw, 84px);
+}
+
+.heading h2 {
+  margin: 0;
+  font: 650 clamp(3.8rem, 6.6vw, 7.6rem)/.88 var(--display);
+  letter-spacing: -.07em;
+  text-wrap: balance;
+}
+
+.heading p {
+  max-width: 54ch;
+  margin: clamp(24px, 3vw, 36px) 0 0;
+  color: var(--muted);
+  font-size: var(--type-body, 1rem);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.tracks {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+
+.tracks::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 2px;
+  opacity: .48;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 22px, transparent 22px 34px);
+  content: "";
+}
+
+.rail {
+  display: grid;
+  width: calc(100% + 220px);
+  min-height: clamp(118px, 9vw, 150px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-left: -110px;
+  overflow: hidden;
+  border: 1px solid rgba(38, 50, 71, .1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+  transform: translateZ(0);
+}
+
+.brand {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  padding: 24px clamp(28px, 4vw, 64px);
+  border-left: 1px solid rgba(38, 50, 71, .09);
+  transition: background-color .3s ease;
+}
+
+.brand:first-child {
+  border-left: 0;
+}
+
+.brand::after {
+  position: absolute;
+  right: 22%;
+  bottom: 0;
+  left: 22%;
+  height: 3px;
+  background: var(--accent);
+  content: "";
+  opacity: 0;
+  transform: scaleX(.35);
+  transition: opacity .3s ease, transform .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+.brand img {
+  width: min(100%, 164px);
+  height: clamp(42px, 4.5vw, 66px);
+  object-fit: contain;
+  filter: grayscale(1) saturate(0) contrast(.9);
+  mix-blend-mode: multiply;
+  opacity: .56;
+  transform: scale(.92);
+  transition: filter .35s ease, opacity .35s ease, transform .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+.brand:is(:hover, :focus-within) {
+  background: rgba(255, 255, 255, .84);
+}
+
+.brand:is(:hover, :focus-within)::after {
+  opacity: .78;
+  transform: scaleX(1);
+}
+
+.brand:is(:hover, :focus-within) img {
+  filter: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+@supports (animation-timeline: view()) {
+  .rail {
+    animation: clients-rail-forward 1s linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 100%;
+    will-change: transform;
+  }
+
+  .railReverse {
+    animation-name: clients-rail-reverse;
+  }
+}
+
+@keyframes clients-rail-forward {
+  from { transform: translate3d(-4%, 0, 0); }
+  to { transform: translate3d(4%, 0, 0); }
+}
+
+@keyframes clients-rail-reverse {
+  from { transform: translate3d(4%, 0, 0); }
+  to { transform: translate3d(-4%, 0, 0); }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 76px 0 88px;
+  }
+
+  .heading {
+    margin-bottom: 38px;
+  }
+
+  .heading h2 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  .heading p {
+    max-width: 36ch;
+  }
+
+  .tracks {
+    width: 100vw;
+    grid-auto-columns: minmax(230px, 76vw);
+    grid-auto-flow: column;
+    gap: 12px;
+    margin-left: calc(50% - 50vw);
+    overflow-x: auto;
+    padding: 0 22px 12px;
+    scroll-padding-inline: 22px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .tracks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tracks::before {
+    display: none;
+  }
+
+  .rail,
+  .railReverse {
+    display: contents;
+    animation: none;
+  }
+
+  .brand,
+  .brand:first-child {
+    min-height: 148px;
+    padding: 26px 34px;
+    border: 1px solid rgba(38, 50, 71, .1);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .68);
+    scroll-snap-align: center;
+  }
+
+  .brand img {
+    width: min(100%, 150px);
+    height: 56px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail,
+  .railReverse {
+    animation: none;
+    transform: none;
+  }
+
+  .brand,
+  .brand::after,
+  .brand img {
+    transition-duration: .01ms;
+  }
+}

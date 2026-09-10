@@ -1,5 +1,6 @@
 import parse, { Element } from "html-react-parser";
 import { homeMarkup } from "./home-markup.generated";
+import { Clients } from "./clients";
 import { Process } from "./process";
 import { Reviews } from "./reviews";
 
@@ -8,6 +9,9 @@ export function ProofSections() {
     replace(node) {
       if (node instanceof Element && node.name === "section" && node.attribs.id === "reviews") {
         return <Reviews />;
+      }
+      if (node instanceof Element && node.name === "section" && node.attribs.id === "clients") {
+        return <Clients />;
       }
       if (
         node instanceof Element && node.name === "svg" &&
