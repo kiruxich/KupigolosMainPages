@@ -1,26 +1,26 @@
-# AI Signal Desk Design
+# Compact AI Track List Design
 
 ## Goal
 
-Replace the equal-weight AI service card grid with one interactive, task-led workspace. The section should express the product as a connected audio-production system and make the strongest destinations easiest to understand.
+Replace the equal-weight AI service card grid and oversized interactive console with a compact list of direct destinations. The section should feel native to the light Kupigolos homepage and require no exploration before a user can act.
 
 ## Evidence and hierarchy
 
-Yandex Metrica for 11 August to 10 September 2026 shows the Fish Audio family as the dominant interest, followed by video dubbing, then text-to-speech and the general voice generator. Music and song generation have substantially less traffic. The interface therefore starts in Voice mode, gives Video the second-strongest position, keeps Text as a direct quick path, and combines Music and Song in one mode.
+Yandex Metrica for 11 August to 10 September 2026 shows the Fish Audio family as the dominant interest, followed by video dubbing, then text-to-speech and the general voice generator. Music and song generation have substantially less traffic. The interface therefore gives Voice a taller highlighted first row, keeps Video second, and presents Text and Music as lighter direct rows.
 
-Fish Audio remains visible as a high-interest model destination, but carries a `Скоро` status because the live page is not yet a usable generator. Music and song destinations remain separate links inside one mode. The current route URLs and the all-services hub are preserved.
+Fish Audio remains visible inside the Voice row as a high-interest model destination, but carries a `скоро` status because the live page is not yet a usable generator. Music and song destinations remain separate links inside one row. The current route URLs and the all-services hub are preserved.
 
 ## Interaction model
 
-The section has four task tabs: `Голос`, `Видео`, `Текст`, and `Музыка`. Selecting a tab updates one central signal stage rather than revealing another card. The stage changes its headline, description, input/output labels, waveform profile, production tracks, primary action, and secondary route.
+All four directions are visible at once: `Голос`, `Видео`, `Текст`, and `Музыка`. Each title and trailing arrow leads directly to its primary destination. Voice also contains the site's existing `studio-cta` button, plus quiet links to Fish Audio and the combined AI voice-over scenario. No tabs, state, or client-side JavaScript are required.
 
-The tab interface follows the ARIA tab pattern and works with pointer and keyboard activation. Decorative signal graphics are hidden from assistive technology. Visible focus states are required. Motion is subtle and disabled when reduced motion is requested.
+Decorative audio graphics are hidden from assistive technology. Every link has a visible focus state, and the hierarchy remains readable without the graphics.
 
 ## Visual system
 
-The section stays within the existing Kupigolos palette: pale paper, navy ink, and rust accent. Its main object is a wide dark mixing surface with thin signal lines, meters, a waveform, and an output control. A narrow light task selector sits beside it. This creates an asymmetric studio composition instead of another bento grid.
+The section stays within the existing Kupigolos palette: pale paper, navy ink, and rust accent. One light track-list surface uses hairline dividers, restrained icon blocks, a voice waveform, a video timeline, and text-line cues. It deliberately avoids the previous dark application-like surface.
 
-The heading is a single vertical text group. Corners, shadows, and glass effects reuse the restraint of the surrounding homepage. The component is responsive: on smaller screens the task selector becomes a compact two-column control, then the signal flow stacks vertically.
+The heading is a compact vertical text group paired with a plain all-services link. The component is responsive: secondary graphics disappear before copy or actions, and rows stack only where required. The primary action reuses the existing `studio-cta studio-cta--order` component so it matches buttons elsewhere on the page.
 
 ## Content and routes
 
