@@ -65,8 +65,8 @@ export function Guarantees() {
           <svg className={styles.guides} viewBox="0 0 900 590" preserveAspectRatio="none" aria-hidden="true">
             <path d="M10 38H214l40 42" />
             <circle cx="254" cy="80" r="5" />
-            <path d="M10 330H348l58-62" />
-            <circle cx="406" cy="268" r="5" />
+            <path d="M10 330H438l92-82" />
+            <circle cx="530" cy="248" r="5" />
             <path d="M10 506H716l42-31" />
             <circle cx="758" cy="475" r="5" />
           </svg>
