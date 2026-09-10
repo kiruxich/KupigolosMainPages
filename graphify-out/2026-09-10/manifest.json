@@ -1716,10 +1716,10 @@
     "semantic_hash": "eb965490272b7abdc9a63e4338600e64"
   },
   "components/home/services.tsx": {
-    "mtime": 1788948905.1292305,
-    "seen": 1788953346.668888,
-    "ast_hash": "c8dc6995d8364f548fff8042c8a79c66",
-    "semantic_hash": "c8dc6995d8364f548fff8042c8a79c66"
+    "mtime": 1789034267.0406423,
+    "seen": 1789034405.9665751,
+    "ast_hash": "953be45857971f2ac4f69ce428eecaf4",
+    "semantic_hash": "953be45857971f2ac4f69ce428eecaf4"
   },
   "components/home/voices.tsx": {
     "mtime": 1788967886.9508295,
@@ -1860,10 +1860,10 @@
     "semantic_hash": "5d5276b4e9cbb6cd29fd6f53234ebe44"
   },
   "components/home/clients.tsx": {
-    "mtime": 1789031989.6139028,
-    "seen": 1789032048.133814,
-    "ast_hash": "31e43838cfe54966a175d737189145bc",
-    "semantic_hash": "31e43838cfe54966a175d737189145bc"
+    "mtime": 1789032929.23343,
+    "seen": 1789034405.965591,
+    "ast_hash": "5e6535edbc460745af2d83b9189a50d4",
+    "semantic_hash": "5e6535edbc460745af2d83b9189a50d4"
   },
   "components/home/contact.test.tsx": {
     "mtime": 1788972898.9543417,
@@ -1908,10 +1908,10 @@
     "semantic_hash": "b9f15b04d6e72ca85ab775bcafac62d2"
   },
   "components/home/reviews.tsx": {
-    "mtime": 1789031736.5677197,
-    "seen": 1789032048.1345742,
-    "ast_hash": "1ccef3c12565d2e8a16fc9e9c63618f1",
-    "semantic_hash": "1ccef3c12565d2e8a16fc9e9c63618f1"
+    "mtime": 1789032362.9782286,
+    "seen": 1789034405.9665742,
+    "ast_hash": "1c4ee70c724267e6cde86905d7128c98",
+    "semantic_hash": "1c4ee70c724267e6cde86905d7128c98"
   },
   "scripts/check-voice-card-sizing.cjs": {
     "mtime": 1788970704.7441578,
@@ -1920,9 +1920,9 @@
     "semantic_hash": "7d5f235a9af1a2c5ef9c9b1ed41460e2"
   },
   "components/home/guarantees.tsx": {
-    "mtime": 1789031278.5750964,
-    "seen": 1789032048.133962,
-    "ast_hash": "3adc90601c1cc3f822688acf26ad31ce",
-    "semantic_hash": "3adc90601c1cc3f822688acf26ad31ce"
+    "mtime": 1789034114.1085083,
+    "seen": 1789034405.965784,
+    "ast_hash": "809c6ddda4d1ca86ec4c646447652815",
+    "semantic_hash": "809c6ddda4d1ca86ec4c646447652815"
   }
 }

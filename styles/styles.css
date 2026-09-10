@@ -237,8 +237,8 @@ body.menu-open { overflow: hidden; }
 .reviews-stage .review,
 .reviews-stage .ratings,
 .reviews-stage .ratings div { border-color: var(--line); }
-.contact-stage { background: #edf0f6; }
-.contact-media { opacity: .12; background: linear-gradient(90deg, #edf0f6 0 43%, rgba(237, 240, 246, .45) 78%), url("/assets/hero-script.jpg") center / cover; }
+.contact-stage { background: var(--page); }
+.contact-media { opacity: .12; background: linear-gradient(90deg, var(--page) 0 43%, rgba(247, 243, 237, .45) 78%), url("/assets/hero-script.jpg") center / cover; }
 .contact-copy > p:last-child { color: var(--muted); }
 .contact-form { border-color: rgba(39, 55, 120, .14); background: rgba(255, 255, 255, .78); }
 .contact-form label span,
