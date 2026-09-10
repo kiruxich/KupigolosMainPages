@@ -2346,10 +2346,10 @@
     "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
   },
   "components/home/studio/pixi-studio.ts": {
-    "mtime": 1789049008.9235513,
-    "seen": 1789049028.51137,
-    "ast_hash": "1446c83cfffa2c653b61d0f02122b626",
-    "semantic_hash": "1446c83cfffa2c653b61d0f02122b626"
+    "mtime": 1789049381.790469,
+    "seen": 1789049403.352671,
+    "ast_hash": "53d7819c8538992d7c0d118a1a037674",
+    "semantic_hash": "53d7819c8538992d7c0d118a1a037674"
   },
   "components/home/studio/reference-environment.ts": {
     "mtime": 1789048400.8696072,
@@ -2376,10 +2376,10 @@
     "semantic_hash": "d6b0a0e1e9bff7384d8b7297aa236718"
   },
   "components/home/studio/studio-motion.ts": {
-    "mtime": 1789048575.3531857,
-    "seen": 1789048651.5616288,
-    "ast_hash": "9d4f56461ffe4a7d7a759683c1f22646",
-    "semantic_hash": "9d4f56461ffe4a7d7a759683c1f22646"
+    "mtime": 1789049273.962976,
+    "seen": 1789049403.3531132,
+    "ast_hash": "629c03dd8f0ab96a651aaf3f990a8ede",
+    "semantic_hash": "629c03dd8f0ab96a651aaf3f990a8ede"
   },
   "public/assets/studio/textures/manifest.json": {
     "mtime": 1789048414.1488047,
@@ -2392,5 +2392,11 @@
     "seen": 1789048414.145657,
     "ast_hash": "763c954671e4e9491c15ec92c3fe4b70",
     "semantic_hash": "763c954671e4e9491c15ec92c3fe4b70"
+  },
+  "components/home/studio/ink-transfer.ts": {
+    "mtime": 1789049289.986094,
+    "seen": 1789049403.3525918,
+    "ast_hash": "b99e70b3b979f3da490b72c2e42bc610",
+    "semantic_hash": "b99e70b3b979f3da490b72c2e42bc610"
   }
 }

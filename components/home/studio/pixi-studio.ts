@@ -2,6 +2,7 @@ import { Application, Assets, Container, Graphics, Matrix, Sprite, type Texture 
 import { gsap } from "gsap";
 import { makeSkin, type Vec } from "./skin-mesh";
 import { createInkTransfer } from "./ink-transfer";
+import { createSandDissolveMask } from "./sand-dissolve";
 import { BIND, END, START, characterVisibility, makeTimeline, skeleton, type Chain } from "./studio-motion";
 
 type Region = { file: string; x: number; y: number; width: number; height: number };
@@ -73,16 +74,8 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
 
   function character(view: "side" | "rear") {
     const group = new Container(); world.addChild(group);
-    const dissolveMask = new Graphics(); world.addChild(dissolveMask);
-    const tiles: { x: number; y: number; threshold: number }[] = [];
     const left = view === "rear" ? 400 : 940, right = view === "rear" ? 770 : 1260;
-    // Fragment the actual drawing into small flecks as the ink leaves/returns.
-    for (let y = TOP; y < 910; y += 8) {
-      for (let x = left; x < right; x += 12) {
-        const noise = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-        tiles.push({ x, y, threshold: noise - Math.floor(noise) });
-      }
-    }
+    const dissolve = createSandDissolveMask(world, { x: left, y: TOP, width: right - left, height: HEIGHT });
     let masked = false;
     const prefix = view === "rear" ? "seated-" : "";
     const bind = BIND[view];
@@ -115,16 +108,13 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         const amount = characterVisibility(pose.transfer, view === "rear");
         const active = view === "rear" ? pose.rear : 1 - pose.rear;
         group.visible = active > .5 && amount > .001;
-        if (masked) { dissolveMask.clear(); group.mask = null; masked = false; }
+        if (!group.visible || amount >= .999) {
+          if (masked) { group.mask = null; masked = false; }
+        }
         if (!group.visible) return;
-        group.alpha = .65 + .35 * amount;
         if (amount < .999) {
-          for (const tile of tiles) {
-            if (tile.threshold < amount) dissolveMask.rect(tile.x, tile.y, 12, 8);
-          }
-          dissolveMask.fill(0xffffff);
-          group.mask = dissolveMask;
-          masked = true;
+          dissolve.update(amount);
+          if (!masked) { group.mask = dissolve.mask; masked = true; }
         }
         const root = between(bind.hip, bind.neck, state.hip, state.neck);
         const hips = rigid(bind.hip, state.hip);
@@ -150,6 +140,10 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         mouth.clear();
         const syllable = pose.speaking * (.45 + .55 * Math.sin(pose.time * 29) ** 2);
         if (syllable > .05) mouth.ellipse(1088, 311, 2.1, 2.8 * syllable).fill({ color: ink, alpha: .9 });
+      },
+      destroy() {
+        group.mask = null;
+        dissolve.destroy();
       },
     };
   }
@@ -266,6 +260,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     document.removeEventListener("visibilitychange", pageVisibility);
     motion.removeEventListener("change", preference);
     gsap.set(cta, { clearProps: "transform" });
+    side.destroy(); rear.destroy();
     transfer.destroy();
     for (const item of skins) item.destroy();
     app.destroy(true, { children: true });

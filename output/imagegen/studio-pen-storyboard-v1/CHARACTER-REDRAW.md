@@ -18,9 +18,11 @@ The desk mask includes authored background seeds and an empty-space cutout benea
 
 ## Motion
 
-The GSAP timeline plays once: type, dissolve into ink grains, reassemble at the mic already wearing headphones, record with small mouth/head/arm gestures, lower the arm, pause, point at the CTA, then hold. The transfer lasts 0.95 seconds; the whole sequence lasts 6.9 seconds. The CTA pulses once after the final gesture.
+The GSAP timeline plays once: type, crumble into fine sand, flow along the floor, reassemble at the mic already wearing headphones, record with small mouth/head/arm gestures, lower the arm, pause, point at the CTA, then hold. The transfer lasts 0.95 seconds; the whole sequence lasts 6.9 seconds. The CTA pulses once after the final gesture.
 
-Standing up, walking and putting headphones on have no intermediate body poses. A granular mask dissolves the seated illustration; 352 deterministic ink grains flow to the standing silhouette. The skeleton switches directly to the stable destination pose while both illustrations are hidden. The standing drawing then assembles through the matching reveal window. Character shadows and the headphone cable follow the same visibility. Furniture stays still. The particle helper uses one Graphics object, follows the existing scene clock and clears at both endpoints.
+Standing up, walking and putting headphones on have no intermediate body poses. A fine alpha-noise mask erodes the seated illustration from the head downward, without rectangular tiles or a whole-body fade. 6200 small, soft grains fall into a low stream, flow toward the mic and settle into the standing silhouette from the feet upward. Their departure and arrival times follow the mask's mean erosion edge. The skeleton switches directly to the stable destination pose while both illustrations are hidden. Character shadows and the headphone cable follow the same visibility. Furniture stays still.
+
+The sand uses one textured mesh with preallocated vertices, UVs and indices and a small shared grain atlas, without line streaks or a display object per grain. Each character's dissolve mask uses one reusable canvas texture with at most 80000 pixels; its sprite never renders as visible artwork. Helpers follow the existing scene clock, stop updating at the endpoints and release their textures and geometry on cleanup.
 
 Recording uses a small far-arm gesture with the near arm relaxed, without reaching back to the ears. Finger drawings switch at the shared cuff without overlapping translucent hands.
 
@@ -31,7 +33,8 @@ The monitor playhead, recording light, headphone cable and contact shadows follo
 - `components/home/about.tsx` — semantic section and deferred renderer lifetime.
 - `components/home/studio/pixi-studio.ts` — canvas, scene layers, characters and lifecycle.
 - `components/home/studio/studio-motion.ts` — poses, skeleton and GSAP sequence.
-- `components/home/studio/ink-transfer.ts` — deterministic ink-grain transfer on the shared clock.
+- `components/home/studio/ink-transfer.ts` — fine sand fall, floor flow and reassembly on the shared clock.
+- `components/home/studio/sand-dissolve.ts` — fine-grain alpha erosion and bottom-up reveal.
 - `components/home/studio/skin-mesh.ts` — continuous garment deformation.
 - `components/home/studio/reference-*.ts` — source-space illustration masks.
 - `scripts/prepare-studio-textures.py` — offline texture authoring; not needed at runtime.
@@ -40,7 +43,7 @@ The older Rough.js/SVG scene files remain in repository history/source, but are 
 
 ## Review scope
 
-The latest ink-transfer revision has not been visually reviewed: automatic approval review rejected browser navigation under the project's explicit-checks rule. No tests, lint, type checks or build were run for this revision. The observations below describe the earlier movement implementation, which the transfer now replaces.
+The sand refinement has not been visually reviewed. Automatic approval review rejected browser navigation during the preceding transfer revision under the project's explicit-checks rule; no new visual-check authorization has been given. No browser checks, tests, lint, type checks or build were run for this refinement. The observations below describe the earlier movement implementation, which the transfer now replaces.
 
 The user explicitly requested Computer Use review. The scene was viewed in the user's Chrome window, including the seated pose, rise, walk, headphone movement, recording gestures and final pointing pose. That review found and drove the garment underpaint, wrist alignment, reduced knee lift, loading-pose and anchor-offset corrections. The compact composition, shared CTA and all three stage labels fit together in the observed desktop viewport. No unit tests, lint, type checks or production build were run.
 
