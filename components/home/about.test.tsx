@@ -3,15 +3,15 @@ import { describe, expect, it } from "vitest";
 import { About } from "./about";
 
 describe("About", () => {
-  it("renders a readable studio summary with concrete proof", () => {
+  it("keeps the illustrated studio story and contact action accessible without JavaScript", () => {
     const html = renderToStaticMarkup(<About />);
 
     expect(html).toContain('id="about"');
     expect(html).toContain('aria-labelledby="about-title"');
-    expect(html).toContain("15 000+");
-    expect(html).toContain("60");
-    expect(html).toContain("с 2013");
-    expect(html).toContain("hero-room.jpg");
-    expect(html).toContain("Как устроена студия");
+    expect(html).toContain("От первой идеи до готового трека.");
+    expect(html).toContain("Придумываем. Записываем. Сводим.");
+    expect(html).toContain('href="#contacts"');
+    expect(html).toContain("Обсудить проект");
+    expect(html).toContain("затем указывает на кнопку");
   });
 });
