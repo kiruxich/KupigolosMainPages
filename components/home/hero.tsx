@@ -25,12 +25,11 @@ export function Hero() {
               </svg>
               <span>Заказать</span>
             </a>
-            <a className="studio-cta studio-cta--secondary" href="#voices">
-              <span>Прослушать примеры</span>
+            <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/diktory">
+              <span>Выбрать голос</span>
             </a>
           </div>
         </div>
-        <p className="hero-cinema-signoff" aria-hidden="true">Звучим<br />громче идей</p>
       </div>
     </section>
   );
