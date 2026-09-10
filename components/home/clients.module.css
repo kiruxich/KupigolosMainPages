@@ -4,9 +4,9 @@
   padding: clamp(108px, 11vw, 176px) 0 clamp(118px, 12vw, 190px);
   color: var(--ink);
   background:
-    radial-gradient(circle at 8% 72%, rgba(255, 255, 255, .92), transparent 31rem),
-    radial-gradient(circle at 88% 28%, rgba(var(--accent-rgb), .06), transparent 32rem),
-    var(--paper);
+    radial-gradient(circle at 8% 72%, rgba(255, 255, 255, .58), transparent 31rem),
+    radial-gradient(circle at 88% 28%, rgba(var(--accent-rgb), .045), transparent 32rem),
+    var(--page);
 }
 
 .layout {
