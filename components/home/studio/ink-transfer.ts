@@ -53,9 +53,10 @@ export function createInkTransfer(parent: Container) {
   const indices = new Uint32Array(count * 6);
   let seed = 72943, destroyed = false;
   const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  const fallbackRegion = regions[regions.length - 1]!;
   const grains = Array.from({ length: count }, (_, index) => {
     let choice = random();
-    const region = regions.find(([weight]) => (choice -= weight) <= 0) ?? regions[regions.length - 1];
+    const region = regions.find(([weight]) => (choice -= weight) <= 0) ?? fallbackRegion;
     const radius = Math.sqrt(random()), turn = random() * Math.PI * 2;
     const source = ellipsePoint(region[1], radius, turn);
     const target = ellipsePoint(region[2], radius, turn + .18);
@@ -86,8 +87,7 @@ export function createInkTransfer(parent: Container) {
       if (destroyed) return;
       sand.visible = Number.isFinite(progress) && progress > 0 && progress < 1;
       if (!sand.visible) return;
-      for (let index = 0; index < grains.length; index++) {
-        const grain = grains[index];
+      for (const [index, grain] of grains.entries()) {
         const floorY = 853 + grain.lane;
         const entryX = 650 + (grain.source.x - 620) * .3;
         const exitX = 1070 + (grain.target.x - 1060) * .55;

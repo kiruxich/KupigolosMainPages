@@ -45,12 +45,15 @@ function performanceFigure(texture: Texture, bounds: Region, listening = false) 
       const jaw = listening ? 0 : (1 + Math.sin(time * 17.3 + Math.sin(time * 7) * .25)) * 1.5 * activity;
       for (let vertex = 0; vertex < columns * rows; vertex++) {
         const offset = vertex * 2, weight = vertex * 3;
-        const x = source[offset], y = source[offset + 1];
+        const x = source[offset]!, y = source[offset + 1]!;
+        const headWeight = weights[weight]!;
+        const bodyWeight = weights[weight + 1]!;
+        const jawWeight = weights[weight + 2]!;
         const dx = x - (listening ? 1088 : 1095), dy = y - (listening ? 352 : 360);
         // The head and the hand resting on its earcup share the same small turn.
-        vertices[offset] = x + (dx * cosine - dy * sine - dx) * weights[weight];
-        vertices[offset + 1] = y + (dx * sine + dy * cosine - dy) * weights[weight]
-          + breath * weights[weight + 1] - jaw * weights[weight + 2];
+        vertices[offset] = x + (dx * cosine - dy * sine - dx) * headWeight;
+        vertices[offset + 1] = y + (dx * sine + dy * cosine - dy) * headWeight
+          + breath * bodyWeight - jaw * jawWeight;
       }
     },
     destroy() { mesh.removeFromParent(); mesh.destroy(); geometry.destroy(true); },
@@ -60,11 +63,18 @@ function performanceFigure(texture: Texture, bounds: Region, listening = false) 
 /** Authored recording/listening poses keep the headphone contact intact. */
 export function createRecordingPerformance(parent: Container, rig: Container,
   atlas: Record<string, Region>, textures: Map<string, Texture>) {
+  const recordingBounds = atlas["recording-figure"];
+  const listeningBounds = atlas["listening-figure"];
+  const recordingTexture = textures.get("recording-figure");
+  const listeningTexture = textures.get("listening-figure");
+  if (!recordingBounds || !listeningBounds || !recordingTexture || !listeningTexture) {
+    throw new Error("Studio recording artwork is missing from the atlas");
+  }
   const recording = new Container(); parent.addChild(recording);
   const listenerGroup = new Container(); parent.addChild(listenerGroup);
-  const figure = performanceFigure(textures.get("recording-figure")!, atlas["recording-figure"]);
+  const figure = performanceFigure(recordingTexture, recordingBounds);
   recording.addChild(figure.mesh);
-  const listener = performanceFigure(textures.get("listening-figure")!, atlas["listening-figure"], true);
+  const listener = performanceFigure(listeningTexture, listeningBounds, true);
   listenerGroup.addChild(listener.mesh);
   const bounds = { x: 940, y: 230, width: 320, height: 680 };
   const outgoing = createSandDissolveMask(parent, bounds);
