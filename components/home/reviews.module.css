@@ -121,6 +121,12 @@
   color: rgba(104, 112, 130, .45);
   font-weight: 400;
 }
+.source strong {
+  margin-left: 3px;
+  color: var(--ink, #29334a);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
 .section .action {
   min-width: 220px;
   min-height: 50px;
@@ -142,7 +148,7 @@
   .grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .card { padding: 20px; }
   .footer { align-items: stretch; flex-direction: column; padding: 16px; }
-  .sourceLabel { padding-left: 0; }
+  .sourceLabel { flex-wrap: wrap; padding-left: 0; white-space: normal; }
   .section .action { min-width: 0; width: 100%; }
   .stars { font-size: 19px; letter-spacing: 0; }
 }

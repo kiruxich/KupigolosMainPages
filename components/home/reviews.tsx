@@ -82,11 +82,11 @@ export function Reviews() {
         </div>
         <div className={styles.footer}>
           <span className={styles.sourceLabel}>
-            <span>Яндекс Карты</span>
+            <span className={styles.source}>Яндекс Карты <strong>4.7</strong></span>
             <span className={styles.sourceDivider} aria-hidden="true">·</span>
-            <span>Google</span>
+            <span className={styles.source}>Google <strong>4.9</strong></span>
             <span className={styles.sourceDivider} aria-hidden="true">·</span>
-            <span>Zoon</span>
+            <span className={styles.source}>Zoon <strong>4.5</strong></span>
           </span>
           <a className={`studio-cta studio-cta--order ${styles.action}`} href={reviewsUrl} target="_blank" rel="noopener noreferrer">
             <svg className="studio-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
