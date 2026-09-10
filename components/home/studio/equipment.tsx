@@ -51,7 +51,7 @@ function AudioScreen() {
           {Array.from({ length: 82 }, (_, i) => {
             const h = (Math.abs(Math.sin(i * 2.1 + track)) * Math.abs(Math.cos(i * .19)) * 16 + 1) * (track === 2 ? .35 : 1);
             const baseline = y + i * .035;
-            return <path key={i} d={`M${293 + i * 2} ${baseline - h}v${2 * h}`} />;
+            return <path key={i} d={`M${293 + i * 2} ${(baseline - h).toFixed(3)}v${(2 * h).toFixed(3)}`} />;
           })}
         </g>
       ))}
@@ -65,7 +65,7 @@ export function Desk({ id }: { id: string }) {
   return (
     <g strokeLinecap="round" strokeLinejoin="round">
       <g opacity=".38" stroke={INK} strokeWidth=".6">
-        {Array.from({ length: 24 }, (_, i) => <path key={i} d={`M${38 + i * 24} ${867 + Math.sin(i * 5) * 7}l33-5`} />)}
+        {Array.from({ length: 24 }, (_, i) => <path key={i} d={`M${38 + i * 24} ${(867 + Math.sin(i * 5) * 7).toFixed(3)}l33-5`} />)}
       </g>
       <Pen d="M74 604 94 606 57 864 37 862Z" seed={40} shade gap={2.2} />
       <Pen d="M600 606 621 606 647 851 628 852Z" seed={41} shade gap={2.2} />

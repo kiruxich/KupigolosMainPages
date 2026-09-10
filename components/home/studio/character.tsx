@@ -87,7 +87,7 @@ function Head({ id }: { id: string }) {
         {Array.from({ length: 32 }, (_, i) => {
           const x = -39 + (i % 8) * 10 + Math.sin(i * 3) * 3;
           const y = -52 + Math.floor(i / 8) * 12;
-          return <path key={i} d={`M${x} ${y}q-8-8-2-12t11 1q3 7-4 10m-2-13q8-3 9 5`} />;
+          return <path key={i} d={`M${x.toFixed(3)} ${y}q-8-8-2-12t11 1q3 7-4 10m-2-13q8-3 9 5`} />;
         })}
         <path d="M-36-42q7-15 18-17M-6-60q12 6 10 17M21-53q11 9 1 22M-33-9q9-10 10-24" strokeWidth="1.6" />
       </g>

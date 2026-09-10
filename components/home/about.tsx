@@ -49,7 +49,7 @@ export function About() {
         <div className={styles.scene} ref={sceneRef} data-state="waiting">
           <header className={styles.heading}>
             <p className={styles.eyebrow}>Студия КупиГолос</p>
-            <h2 id="about-title">От первой идеи<br /><span>до готового трека.</span></h2>
+            <h2 id="about-title">От первой идеи <span>до готового трека.</span></h2>
           </header>
           <div className={styles.aside}>
             <p>Придумываем. Записываем. Сводим.</p>
@@ -61,7 +61,7 @@ export function About() {
           <svg
             ref={svgRef}
             className={styles.artwork}
-            viewBox="0 0 1536 1024"
+            viewBox="0 260 1536 635"
             fill="none"
             aria-hidden="true"
             focusable="false"

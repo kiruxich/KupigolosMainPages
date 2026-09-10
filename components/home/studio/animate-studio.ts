@@ -149,10 +149,10 @@ export function animateStudio(svg: SVGSVGElement, scene: HTMLDivElement, cta: HT
 
   draw(pose);
   const observer = new IntersectionObserver(([entry]) => {
-    visible = Boolean(entry?.isIntersecting && entry.intersectionRatio >= .45);
+    visible = Boolean(entry?.isIntersecting && entry.intersectionRatio >= .2);
     if (visible) resume();
     else timeline.pause();
-  }, { threshold: [0, .45], rootMargin: "-90px 0px -20px 0px" });
+  }, { threshold: [0, .2], rootMargin: "-90px 0px -20px 0px" });
   observer.observe(scene);
   document.addEventListener("visibilitychange", visibilityChange);
   motion.addEventListener("change", motionChange);

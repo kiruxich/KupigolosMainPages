@@ -30,6 +30,7 @@ export function Pen({ d, seed, shade = false, fill = PAPER, weight = 1.15, gap =
     hachureGap: gap,
     hachureAngle: -34,
     disableMultiStroke: true,
+    fixedDecimalPlaceDigits: 3,
   });
   return (
     <g>
