@@ -25,7 +25,7 @@ export function Hero() {
               </svg>
               <span>Заказать</span>
             </a>
-            <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/diktory">
+            <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/order/voice/163">
               <span>Выбрать голос</span>
             </a>
           </div>
