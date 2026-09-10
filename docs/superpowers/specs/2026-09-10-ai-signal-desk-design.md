@@ -1,26 +1,26 @@
-# Compact AI Track List Design
+# Compact AI Directory Design
 
 ## Goal
 
-Replace the equal-weight AI service card grid and oversized interactive console with a compact list of direct destinations. The section should feel native to the light Kupigolos homepage and require no exploration before a user can act.
+Replace the equal-weight AI service card grid and oversized interactive console with a compact two-column directory. The section should feel native to the light Kupigolos homepage and require no exploration before a user can act.
 
 ## Evidence and hierarchy
 
-Yandex Metrica for 11 August to 10 September 2026 shows the Fish Audio family as the dominant interest, followed by video dubbing, then text-to-speech and the general voice generator. Music and song generation have substantially less traffic. The interface therefore gives Voice a taller highlighted first row, keeps Video second, and presents Text and Music as lighter direct rows.
+Yandex Metrica for 11 August to 10 September 2026 shows the Fish Audio family as the dominant interest, followed by video dubbing, then text-to-speech and the general voice generator. Music and song generation have substantially less traffic. The directory therefore highlights Voice, keeps Video second, and presents Text and Music as lighter direct rows.
 
 Fish Audio remains visible inside the Voice row as a high-interest model destination, but carries a `скоро` status because the live page is not yet a usable generator. Music and song destinations remain separate links inside one row. The current route URLs and the all-services hub are preserved.
 
 ## Interaction model
 
-All four directions are visible at once: `Голос`, `Видео`, `Текст`, and `Музыка`. Each title and trailing arrow leads directly to its primary destination. Voice also contains the site's existing `studio-cta` button, plus quiet links to Fish Audio and the combined AI voice-over scenario. No tabs, state, or client-side JavaScript are required.
+All four directions are visible at once in the right column: `Голос`, `Видео`, `Текст`, and `Музыка`. Each full row leads directly to its primary destination. The left column contains the section explanation, the site's existing `studio-cta` button, Fish Audio, and quiet links to combined AI voice-over and music without vocals. No tabs, state, or client-side JavaScript are required.
 
 Decorative audio graphics are hidden from assistive technology. Every link has a visible focus state, and the hierarchy remains readable without the graphics.
 
 ## Visual system
 
-The section stays within the existing Kupigolos palette: pale paper, navy ink, and rust accent. One light track-list surface uses hairline dividers, restrained icon blocks, a voice waveform, a video timeline, and text-line cues. It deliberately avoids the previous dark application-like surface.
+The section stays within the existing Kupigolos palette: pale paper, navy ink, and rust accent. One light two-column surface uses a single central divider, hairline row separators, and restrained circular service icons. It deliberately avoids the previous dark application-like surface and decorative timeline controls.
 
-The heading is a compact vertical text group paired with a plain all-services link. The component is responsive: secondary graphics disappear before copy or actions, and rows stack only where required. The primary action reuses the existing `studio-cta studio-cta--order` component so it matches buttons elsewhere on the page.
+The heading and primary action occupy the left column while the all-services link anchors the top-right corner. The component is responsive: columns stack on small screens without hiding any destinations. The primary action reuses the existing `studio-cta studio-cta--order` component so it matches buttons elsewhere on the page.
 
 ## Content and routes
 

@@ -1,10 +1,10 @@
-# Compact AI Track List Implementation Plan
+# Compact AI Directory Implementation Plan
 
 > **For Codex:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task by task.
 
-**Goal:** Replace the homepage AI card grid and oversized console with a compact data-informed track list.
+**Goal:** Replace the homepage AI card grid and oversized console with the approved compact two-column directory.
 
-**Architecture:** Keep `AiServices` as a static Server Component with four semantic service rows. Use a CSS Module for the section and the existing global `studio-cta` component for the primary voice action. Preserve every AI destination route without adding client-side state.
+**Architecture:** Keep `AiServices` as a static Server Component with an editorial intro column and four semantic service rows in a directory column. Use a CSS Module for the section and the existing global `studio-cta` component for the primary voice action. Preserve every AI destination route without adding client-side state.
 
 **Tech Stack:** Next.js 16 App Router, React 19, TypeScript, global CSS.
 
@@ -18,8 +18,8 @@
 - Modify: `components/home/ai-services.tsx`
 
 1. Replace the interactive console with a static Server Component.
-2. Define four metric-informed rows and their preserved routes.
-3. Render direct links, compact secondary destinations, and the existing site CTA.
+2. Define the metric-informed two-column hierarchy and preserved routes.
+3. Render four full-row links, compact secondary destinations, and the existing site CTA.
 4. Keep `id="ai-services"` and the existing hub destination.
 
 ### Task 2: Create the visual system
@@ -29,8 +29,8 @@
 - Modify: `styles/refresh.css`
 
 1. Remove the obsolete signal-desk styles.
-2. Add a section-scoped light track-list layout and typography.
-3. Style the highlighted Voice row, compact audio cues, direct links, and existing site button.
+2. Add a section-scoped light two-column layout and typography.
+3. Style the highlighted Voice row, circular icons, direct links, and existing site button.
 4. Add tablet, mobile, and focus-visible behavior.
 
 ### Task 3: Document and commit
