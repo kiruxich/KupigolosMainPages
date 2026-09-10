@@ -4980,16 +4980,21 @@ main > section:not(.hero-product) .section-heading h2,
 
 /* Services: card area follows the last-quarter demand hierarchy in Metrica. */
 .services-stage .service-feature-voice {
+  position: relative;
+  isolation: isolate;
   grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
-  background: linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(238, 241, 248, .72));
+  background:
+    linear-gradient(90deg, rgba(250, 249, 246, .98) 0 43%, rgba(250, 249, 246, .88) 56%, rgba(250, 249, 246, .16) 100%),
+    url("/assets/services/voice-recording-bg-v1.png") 72% center / cover no-repeat;
 }
 
+.services-stage .service-feature-voice .service-copy { position: relative; z-index: 2; }
 .services-stage .service-feature-voice .service-copy h3 { max-width: 9ch; }
 .services-stage .service-feature-voice .service-visual {
-  background:
-    radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), .16), transparent 38%),
-    linear-gradient(145deg, #eef1f8, #e5e9f3);
+  background: transparent;
 }
+.services-stage .service-feature-voice .service-wave::before,
+.services-stage .service-feature-voice .service-wave svg { opacity: 0; }
 
 .services-stage .service-columns {
   display: grid;
@@ -5023,6 +5028,14 @@ main > section:not(.hero-product) .section-heading h2,
 }
 .services-stage .service-priority-compact p { max-width: 34ch; }
 
+.services-stage .service-item-video {
+  background:
+    linear-gradient(90deg, rgba(250, 249, 246, .98) 0 43%, rgba(250, 249, 246, .9) 57%, rgba(250, 249, 246, .42) 100%),
+    url("/assets/services/video-voiceover-bg-v1.png") 72% center / cover no-repeat;
+}
+.services-stage .service-item-video::before { opacity: .22; }
+.services-stage .service-item-video > * { position: relative; z-index: 1; }
+
 .services-stage .service-item-games,
 .services-stage .service-item-ivr { background: #eef1f8; }
 .services-stage .service-item-ad,
@@ -5036,7 +5049,17 @@ main > section:not(.hero-product) .section-heading h2,
 }
 
 @media (max-width: 820px) {
-  .services-stage .service-feature-voice { grid-template-columns: 1fr; }
+  .services-stage .service-feature-voice {
+    grid-template-columns: 1fr;
+    background:
+      linear-gradient(180deg, rgba(250, 249, 246, .98) 0 62%, rgba(250, 249, 246, .68) 100%),
+      url("/assets/services/voice-recording-bg-v1.png") 72% center / cover no-repeat;
+  }
+  .services-stage .service-item-video {
+    background:
+      linear-gradient(180deg, rgba(250, 249, 246, .98) 0 70%, rgba(250, 249, 246, .72) 100%),
+      url("/assets/services/video-voiceover-bg-v1.png") 72% center / cover no-repeat;
+  }
   .services-stage .service-columns { grid-template-columns: 1fr; }
   .services-stage .service-item { grid-column: 1; min-height: 240px; }
   .services-stage .service-priority-compact { min-height: 210px; }
