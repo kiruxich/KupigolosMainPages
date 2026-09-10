@@ -63,12 +63,18 @@ export function Guarantees() {
 
         <div className={`${styles.scene} reveal`} aria-label="Документы, которые закрепляют наши гарантии">
           <svg className={styles.guides} viewBox="0 0 900 590" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M10 38H214l40 42" />
-            <circle cx="254" cy="80" r="5" />
-            <path d="M-35 330H438L520 268" />
-            <circle cx="520" cy="268" r="5" />
-            <path d="M10 506H716l42-31" />
-            <circle cx="758" cy="475" r="5" />
+            <g className={styles.guideTerms}>
+              <path d="M10 38H214l40 42" />
+              <circle cx="254" cy="80" r="5" />
+            </g>
+            <g className={styles.guidePrivacy}>
+              <path d="M-35 330H438L520 268" />
+              <circle cx="520" cy="268" r="5" />
+            </g>
+            <g className={styles.guideRights}>
+              <path d="M10 506H716l42-31" />
+              <circle cx="758" cy="475" r="5" />
+            </g>
           </svg>
 
           <div className={`${styles.callout} ${styles.calloutTerms}`} aria-hidden="true">
@@ -86,6 +92,8 @@ export function Guarantees() {
               <article
                 className={`${styles.document} ${styles[document.kind]}`}
                 key={document.kind}
+                tabIndex={0}
+                aria-label={`Подробнее: ${document.title}`}
               >
                 <div className={styles.documentMeta}>
                   <span>г. Москва</span>
