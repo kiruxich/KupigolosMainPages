@@ -7,7 +7,7 @@ export type ScenePose = {
   frontToe: number; backToe: number;
   frontHandX: number; frontHandY: number; backHandX: number; backHandY: number;
   transfer: number;
-  wearing: number; pointing: number; speaking: number;
+  wearing: number; pointing: number; speaking: number; reading: number;
   phonesX: number; phonesY: number; phonesAngle: number; chairX: number; time: number;
 };
 export type Chain = [Vec, Vec, Vec];
@@ -31,7 +31,7 @@ export const BIND = {
 export const START: ScenePose = {
   x: 632, y: 684, lean: 0, seated: 1, rear: 1, headTilt: 0,
   frontFootX: 442, frontFootY: 807, backFootX: 548, backFootY: 802, frontToe: 0, backToe: 0,
-  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, transfer: 0, wearing: 0, pointing: 0, speaking: 0,
+  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, transfer: 0, wearing: 0, pointing: 0, speaking: 0, reading: 0,
   phonesX: 1327, phonesY: 522, phonesAngle: 0, chairX: 0, time: 0,
 };
 export const END: ScenePose = {
@@ -91,11 +91,10 @@ export function makeTimeline(pose: ScenePose, cta: HTMLAnchorElement, draw: () =
     frontFootX: END.frontFootX, frontFootY: END.frontFootY,
     backFootX: END.backFootX, backFootY: END.backFootY,
     frontHandX: 1115, frontHandY: 512, backHandX: 1040, backHandY: 539,
-    wearing: 1,
+    wearing: 1, reading: 1,
   }, 1.34);
 
-  // Hands remain at rest while reading; only the head makes a small nod.
-  // The far wrist stays within the sleeve's reach, without stretching its mesh.
+  // Recording uses the intact authored pose, with the hand on its earcup.
   timeline.to(pose, { speaking: 1, duration: .12 }, 1.9);
   timeline.to(pose, { headTilt: 1, duration: .55 }, 2.05);
   timeline.to(pose, { headTilt: 2, duration: .55 }, 2.65);
@@ -105,6 +104,7 @@ export function makeTimeline(pose: ScenePose, cta: HTMLAnchorElement, draw: () =
     frontHandX: 1115, frontHandY: 512, backHandX: 1040, backHandY: 539,
     duration: .45,
   }, 4.05);
+  timeline.to(pose, { reading: 0, duration: .24, ease: "sine.inOut" }, 4.15);
   timeline.to(pose, {
     frontHandX: END.frontHandX, frontHandY: END.frontHandY,
     pointing: 1, duration: .85, ease: "power2.inOut",

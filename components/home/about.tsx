@@ -61,10 +61,12 @@ export function About() {
               width={1536} height={680} alt="" unoptimized />
             <Image className={`${styles.poster} ${styles.finalPoster}`} src="/assets/studio/textures/poster.webp"
               width={1536} height={680} alt="" unoptimized />
+            <span className={styles.recordingStatus}><i />Запись</span>
           </div>
           <p className="sr-only">
-            Нарисованный штрихами музыкант работает за компьютером, встаёт,
-            подходит к микрофону, надевает наушники и записывает трек.
+            Нарисованный штрихами музыкант работает за компьютером,
+            рассыпается песком и собирается у микрофона в наушниках.
+            Он держит наушник и озвучивает текст с открытой ладонью.
             Закончив запись, он опускает руки, затем указывает на кнопку
             «Узнать студию» и остаётся в этой позе.
           </p>

@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { makeSkin, type Vec } from "./skin-mesh";
 import { createInkTransfer } from "./ink-transfer";
 import { createSandDissolveMask } from "./sand-dissolve";
+import { createRecordingPerformance } from "./recording-performance";
 import { BIND, END, START, characterVisibility, makeTimeline, skeleton, type Chain } from "./studio-motion";
 
 type Region = { file: string; x: number; y: number; width: number; height: number };
@@ -77,17 +78,18 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     const left = view === "rear" ? 400 : 940, right = view === "rear" ? 770 : 1260;
     const dissolve = createSandDissolveMask(world, { x: left, y: TOP, width: right - left, height: HEIGHT });
     let masked = false;
+    const rig = new Container(); group.addChild(rig);
     const prefix = view === "rear" ? "seated-" : "";
     const bind = BIND[view];
-    const backLeg = skin(`${prefix}back-leg`, group, bind.backLeg);
-    const backShoe = sprite(`${prefix}back-shoe`, group);
-    const frontLeg = skin(`${prefix}front-leg`, group, bind.frontLeg);
-    const frontShoe = sprite(`${prefix}front-shoe`, group);
-    const pelvis = sprite(`${prefix}pelvis`, group);
-    const frontArm = skin(`${prefix}front-arm`, group, bind.frontArm);
-    const relaxed = sprite(view === "rear" ? "seated-front-hand" : "relaxed-hand", group);
-    const pointer = view === "side" ? sprite("front-hand", group) : undefined;
-    const torso = sprite(`${prefix}torso`, group);
+    const backLeg = skin(`${prefix}back-leg`, rig, bind.backLeg);
+    const backShoe = sprite(`${prefix}back-shoe`, rig);
+    const frontLeg = skin(`${prefix}front-leg`, rig, bind.frontLeg);
+    const frontShoe = sprite(`${prefix}front-shoe`, rig);
+    const pelvis = sprite(`${prefix}pelvis`, rig);
+    const frontArm = skin(`${prefix}front-arm`, rig, bind.frontArm);
+    const relaxed = sprite(view === "rear" ? "seated-front-hand" : "relaxed-hand", rig);
+    const pointer = view === "side" ? sprite("front-hand", rig) : undefined;
+    const torso = sprite(`${prefix}torso`, rig);
     if (view === "side" && torso) {
       // Restore the sweater's edge where the reference sleeve used to cover it.
       const sideSeam = new Graphics().moveTo(993.8, 374.5)
@@ -97,10 +99,11 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         .stroke({ color: ink, width: 1.35, alpha: .7 });
       torso.addChild(sideSeam);
     }
-    const bareHead = sprite(view === "rear" ? "seated-head" : "walking-head", group);
-    const recordingHead = view === "side" ? sprite("head", group) : undefined;
-    const backArm = skin(`${prefix}back-arm`, group, bind.backArm);
-    const backHand = sprite(`${prefix}back-hand`, group);
+    const bareHead = sprite(view === "rear" ? "seated-head" : "walking-head", rig);
+    const recordingHead = view === "side" ? sprite("head", rig) : undefined;
+    const backArm = skin(`${prefix}back-arm`, rig, bind.backArm);
+    const backHand = sprite(`${prefix}back-hand`, rig);
+    const performance = view === "side" ? createRecordingPerformance(group, rig, atlas, textures) : undefined;
     return {
       update(state: ReturnType<typeof skeleton>) {
         const amount = characterVisibility(pose.transfer, view === "rear");
@@ -114,6 +117,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
           dissolve.update(amount);
           if (!masked) { group.mask = dissolve.mask; masked = true; }
         }
+        performance?.update(pose.time, pose.speaking, pose.reading, pose.pointing);
         const root = between(bind.hip, bind.neck, state.hip, state.neck);
         const hips = rigid(bind.hip, state.hip);
         torso?.setFromMatrix(root); pelvis?.setFromMatrix(hips);
@@ -138,6 +142,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
       },
       destroy() {
         group.mask = null;
+        performance?.destroy();
         dissolve.destroy();
       },
     };
@@ -156,6 +161,8 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
 
   function draw() {
     if (disposed) return;
+    const recording = pose.speaking > .15;
+    if ((scene.dataset.recording === "true") !== recording) scene.dataset.recording = String(recording);
     const state = skeleton(pose);
     side.update(state); rear.update(state);
     transfer.update(pose.transfer);
@@ -260,5 +267,6 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     for (const item of skins) item.destroy();
     app.destroy(true, { children: true });
     delete scene.dataset.renderer;
+    delete scene.dataset.recording;
   };
 }

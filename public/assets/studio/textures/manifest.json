@@ -201,5 +201,19 @@
     "y": 230,
     "width": 1536,
     "height": 680
+  },
+  "recording-figure": {
+    "file": "recording-figure.webp",
+    "x": 987,
+    "y": 245,
+    "width": 225,
+    "height": 625
+  },
+  "resting-figure": {
+    "file": "resting-figure.webp",
+    "x": 993,
+    "y": 244,
+    "width": 182,
+    "height": 626
   }
 }

@@ -54,21 +54,23 @@ export function createSandDissolveMask(parent: Container, bounds: Bounds) {
   mask.renderable = false;
   parent.addChild(mask);
 
-  let previous = -1;
+  let previous = -1, previousInverted = false;
   let destroyed = false;
   return {
     mask,
-    update(amount: number) {
+    update(amount: number, inverted = false) {
       if (destroyed) return;
       const value = Number.isFinite(amount) ? Math.max(0, Math.min(1, amount)) : 0;
-      if (value === previous) return;
+      if (value === previous && inverted === previousInverted) return;
       previous = value;
+      previousInverted = inverted;
       const endpointAlpha = value === 0 ? 0 : value === 1 ? 255 : -1;
       for (let index = 0; index < thresholds.length; index++) {
         // A narrow alpha fringe softens each subpixel grain while the body
         // behind the erosion band remains fully opaque.
-        pixels.data[index * 4 + 3] = endpointAlpha >= 0 ? endpointAlpha
+        const alpha = endpointAlpha >= 0 ? endpointAlpha
           : Math.round(Math.max(0, Math.min(1, (value - thresholds[index]) / .009 + .5)) * 255);
+        pixels.data[index * 4 + 3] = inverted ? 255 - alpha : alpha;
       }
       context.putImageData(pixels, 0, 0);
       source.update();

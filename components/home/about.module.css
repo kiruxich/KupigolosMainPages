@@ -97,6 +97,24 @@
 .scene[data-state="still"] .finalPoster { display: block; }
 .scene[data-renderer="pixi"] .poster { visibility: hidden; }
 
+.recordingStatus {
+  position: absolute;
+  left: 79%;
+  top: 3.5%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--studio-rust);
+  font: 700 clamp(8px, .9cqw, 11px)/1 var(--body);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+
+.recordingStatus i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.scene[data-recording="true"] .recordingStatus { opacity: 1; }
+
 .steps {
   grid-column: 1 / -1;
   display: flex;

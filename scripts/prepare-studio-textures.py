@@ -307,6 +307,12 @@ def main() -> None:
         ("relaxed-hand", "frame-06c-recording-finish.png", "relaxedHandClip"),
     ):
         author.texture(name, source, [heads[key]])
+    recording = read_parts("reference-recording.ts")
+    for name, source, figure, holes in (
+        ("recording-figure", "frame-06-recording.png", "recordingFigure", "recordingPaperHoles"),
+        ("resting-figure", "frame-06c-recording-finish.png", "restingFigure", "restingPaperHoles"),
+    ):
+        author.texture(name, source, [recording[figure]], paper_holes=recording[holes])
     environment = read_environment()
     for name, layer in environment.items():
         author.texture(name, layer["source"], [layer["d"]], layer["removePaper"],
