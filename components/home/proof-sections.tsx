@@ -1,6 +1,7 @@
 import parse, { Element } from "html-react-parser";
 import { homeMarkup } from "./home-markup.generated";
 import { Clients } from "./clients";
+import { Guarantees } from "./guarantees";
 import { Process } from "./process";
 import { Reviews } from "./reviews";
 
@@ -12,6 +13,9 @@ export function ProofSections() {
       }
       if (node instanceof Element && node.name === "section" && node.attribs.id === "clients") {
         return <Clients />;
+      }
+      if (node instanceof Element && node.name === "section" && node.attribs.id === "guarantees") {
+        return <Guarantees />;
       }
       if (
         node instanceof Element && node.name === "svg" &&
