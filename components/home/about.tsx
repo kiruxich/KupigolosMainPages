@@ -61,13 +61,15 @@ export function About() {
               width={1536} height={680} alt="" unoptimized />
             <Image className={`${styles.poster} ${styles.finalPoster}`} src="/assets/studio/textures/poster.webp"
               width={1536} height={680} alt="" unoptimized />
-            <span className={styles.recordingStatus}><i />Запись</span>
+            <span className={styles.recordingStatus} style={{ opacity: "var(--studio-recording-status, 0)" }}><i />Запись</span>
+            <span className={styles.recordingStatus} style={{ opacity: "var(--studio-listening-status, 0)", color: "var(--studio-ink)" }}>Прослушивание</span>
           </div>
           <p className="sr-only">
             Нарисованный штрихами музыкант работает за компьютером,
             рассыпается песком и собирается у микрофона в наушниках.
             Он держит наушник и озвучивает текст с открытой ладонью.
-            Закончив запись, он опускает руки, затем указывает на кнопку
+            Закончив запись, он слушает результат в наушниках и кивает в такт,
+            затем указывает на кнопку
             «Узнать студию» и остаётся в этой позе.
           </p>
           <ol className={styles.steps} aria-label="От идеи до готового трека">

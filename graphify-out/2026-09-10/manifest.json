@@ -1644,10 +1644,10 @@
     "semantic_hash": "1872adde8bba1b87283e3cf0c7042d07"
   },
   "components/home/ai-services.tsx": {
-    "mtime": 1789050734.8952196,
-    "seen": 1789050787.337673,
-    "ast_hash": "a29e2b9d188d684625e26f94267fb21f",
-    "semantic_hash": "a29e2b9d188d684625e26f94267fb21f"
+    "mtime": 1789051109.6534429,
+    "seen": 1789051130.073948,
+    "ast_hash": "d1b0c75edf0b9a97dae09bcc773d2218",
+    "semantic_hash": "d1b0c75edf0b9a97dae09bcc773d2218"
   },
   "components/home/calculator.tsx": {
     "mtime": 1788972806.002208,
@@ -2346,10 +2346,10 @@
     "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
   },
   "components/home/studio/pixi-studio.ts": {
-    "mtime": 1789050716.1740572,
-    "seen": 1789050787.339411,
-    "ast_hash": "47f32830de40cdb3c76253e532614f15",
-    "semantic_hash": "47f32830de40cdb3c76253e532614f15"
+    "mtime": 1789051072.8901083,
+    "seen": 1789051130.075819,
+    "ast_hash": "89463a5216b8eda8c71f2431a757972f",
+    "semantic_hash": "89463a5216b8eda8c71f2431a757972f"
   },
   "components/home/studio/reference-environment.ts": {
     "mtime": 1789048400.8696072,
@@ -2376,16 +2376,16 @@
     "semantic_hash": "d6b0a0e1e9bff7384d8b7297aa236718"
   },
   "components/home/studio/studio-motion.ts": {
-    "mtime": 1789050606.3487482,
-    "seen": 1789050787.339786,
-    "ast_hash": "9d2ba8ed620835a4ed62754137e2edf3",
-    "semantic_hash": "9d2ba8ed620835a4ed62754137e2edf3"
+    "mtime": 1789051072.6681519,
+    "seen": 1789051130.0762482,
+    "ast_hash": "12c63fa6e8bf927ef2aef7afa9eb4361",
+    "semantic_hash": "12c63fa6e8bf927ef2aef7afa9eb4361"
   },
   "public/assets/studio/textures/manifest.json": {
-    "mtime": 1789050670.8458037,
-    "seen": 1789050787.340586,
-    "ast_hash": "048d79bf8761252bccc37fa401bb03fa",
-    "semantic_hash": "048d79bf8761252bccc37fa401bb03fa"
+    "mtime": 1789051081.8941553,
+    "seen": 1789051130.077306,
+    "ast_hash": "5692b27998ab90290967110a6028e6b2",
+    "semantic_hash": "5692b27998ab90290967110a6028e6b2"
   },
   "scripts/prepare-studio-textures.py": {
     "mtime": 1789050609.1328478,
@@ -2406,15 +2406,15 @@
     "semantic_hash": "0189d54200c15d231e9772d486288c01"
   },
   "components/home/studio/recording-performance.ts": {
-    "mtime": 1789050566.6543872,
-    "seen": 1789050787.3394141,
-    "ast_hash": "c4baa6953dae49332e2d469e4f8bab25",
-    "semantic_hash": "c4baa6953dae49332e2d469e4f8bab25"
+    "mtime": 1789051072.772401,
+    "seen": 1789051130.0758212,
+    "ast_hash": "4b2daebbff99528a6514d24d7046143c",
+    "semantic_hash": "4b2daebbff99528a6514d24d7046143c"
   },
   "components/home/studio/reference-recording.ts": {
-    "mtime": 1789050669.3591182,
-    "seen": 1789050787.3395998,
-    "ast_hash": "b43884212892d82616861007ff631b69",
-    "semantic_hash": "b43884212892d82616861007ff631b69"
+    "mtime": 1789051080.9573064,
+    "seen": 1789051130.076006,
+    "ast_hash": "99fe1a6ec5542a7e192ddbf7d347b1dd",
+    "semantic_hash": "99fe1a6ec5542a7e192ddbf7d347b1dd"
   }
 }

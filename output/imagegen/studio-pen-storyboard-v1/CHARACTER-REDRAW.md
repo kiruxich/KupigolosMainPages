@@ -8,7 +8,7 @@ The live section uses a transparent PixiJS canvas inside the normal page grid. T
 
 The standing body comes from `frame-07-cta.png`; the seated rear view and loose headphones from `frame-01-desk.png`; the bare profile from `frame-03-walk.png`; the relaxed hand from `frame-06c-recording-finish.png`.
 
-Recording and the lowered-arm pause now use intact character silhouettes from `frame-06-recording.png` and `frame-06c-recording-finish.png`. These preserve the original shoulders, elbows, hands and headphone contact. Their source coordinates share the same floor line as the pointing figure. The exporter removes the surrounding paper and authored gaps between the legs while retaining the source RGB detail.
+Recording and listening back use intact character silhouettes from `frame-06-recording.png` and `frame-05-headphones-on.png`. These preserve the original shoulders, elbows, hands and headphone contact. The listening figure has a closed mouth and both hands at the headphones. Their source coordinates share the same floor line as the pointing figure. The exporter removes the surrounding paper and authored gaps between the legs and beside the neck while retaining the source RGB detail. The old lowered-arm `resting-figure` remains as an authored asset but is no longer loaded by the live animation.
 
 The recording mask's far-palm contour includes the lower palm edge, cuff corner and fingertip outlines from the source. This local correction restores the few clipped pixels without expanding the rest of the silhouette or introducing a paper border.
 
@@ -22,17 +22,19 @@ The desk mask includes authored background seeds and an empty-space cutout benea
 
 ## Motion
 
-The GSAP timeline has four character states: working at the computer, recording, resting with lowered arms, and pointing at the CTA. The initial sand transfer lasts 0.95 seconds. Recording changes into the resting drawing over 0.9 seconds (4.35–5.25), followed by a 0.9-second still pause. The final pose reveal and gesture take 1.35 seconds (6.15–7.5). The CTA pulses once afterwards and the sequence holds its final pose at 8.5 seconds.
+The GSAP timeline has four character states: working at the computer, recording, listening back, and pointing at the CTA. The initial sand transfer lasts 0.95 seconds. Recording changes into the listening drawing over 0.9 seconds (4.35–5.25), followed by a 1.4-second listening hold. The final pose reveal and gesture take 1.35 seconds (6.65–8.0). The CTA pulses once at 8.2 seconds and the sequence holds its final pose at 9 seconds.
 
 Standing up, walking and putting headphones on have no intermediate body poses. A fine alpha-noise mask erodes the seated illustration from the head downward, without rectangular tiles or a whole-body fade. 6200 small, soft grains fall into a low stream, flow toward the mic and settle into the standing silhouette from the feet upward. Their departure and arrival times follow the mask's mean erosion edge. The skeleton switches directly to the stable destination pose while both illustrations are hidden. Character shadows and the headphone cable follow the same visibility. Furniture stays still.
 
 The sand uses one textured mesh with preallocated vertices, UVs and indices and a small shared grain atlas, without line streaks or a display object per grain. Each character's dissolve mask uses one reusable canvas texture with at most 80000 pixels; its sprite never renders as visible artwork. Helpers follow the existing scene clock, stop updating at the endpoints and release their textures and geometry on cleanup.
 
-Recording has its own illustrated pose with the mouth already open. A fine mesh moves the existing lip/jaw ink by at most 3 source pixels and adds a tiny shared turn to the head and the hand touching its earcup. Breathing is less than one source pixel. No synthetic mouth shape is drawn over the face. An HTML “Запись” label, the recording light and monitor make the activity explicit.
+Recording has its own illustrated pose with the mouth already open. A fine mesh moves the existing lip/jaw ink by at most 3 source pixels and adds a tiny shared turn to the head and the hand touching its earcup. Breathing is less than one source pixel. No synthetic mouth shape is drawn over the face. The HTML “Запись” label retains its small leading indicator dot. The separate floating dot above the microphone has been removed.
 
-The lowered pointing-arm rig is no longer displayed during recording or the pause. Instead, complete authored recording/resting drawings switch through complementary grain masks, avoiding a translucent double image. The original rig is prepared in a raised pose while hidden, then finishes the movement and holds the original final pose. The final reveal has its own `cue` timeline value; it no longer squeezes the visible change into a narrow interval of the arm's easing curve. Both masks use the same thresholds, with the outgoing alpha inverted, so they replace pixels instead of ghosting arms.
+During listening, the intact drawing makes gentle beat nods around the neck, keeping the hands and headphones together. The closed mouth has no jaw deformation. The label changes to “Прослушивание” and the monitor playhead switches to an ink-coloured playback scan.
 
-The monitor playhead, recording light, headphone cable and contact shadows follow the same clock. Rendering pauses outside the visible section or in a hidden tab. After the final pose it stops entirely. Reduced-motion uses the final still pose immediately. Canvas size follows the section width and does not set the text layout.
+The lowered pointing-arm rig is no longer displayed during recording or listening. Instead, complete authored recording/listening drawings switch through complementary grain masks, avoiding a translucent double image. The original rig is prepared in a raised pose while hidden, then finishes the movement and holds the original final pose. The final reveal has its own `cue` timeline value; it no longer squeezes the visible change into a narrow interval of the arm's easing curve. Both masks use the same thresholds, with the outgoing alpha inverted, so they replace pixels instead of ghosting arms.
+
+The monitor playhead, status label, headphone cable and contact shadows follow the same clock. Rendering pauses outside the visible section or in a hidden tab. After the final pose it stops entirely. Reduced-motion uses the final still pose immediately. Canvas size follows the section width and does not set the text layout.
 
 ## Files
 
@@ -41,7 +43,7 @@ The monitor playhead, recording light, headphone cable and contact shadows follo
 - `components/home/studio/studio-motion.ts` — poses, skeleton and GSAP sequence.
 - `components/home/studio/ink-transfer.ts` — fine sand fall, floor flow and reassembly on the shared clock.
 - `components/home/studio/sand-dissolve.ts` — fine-grain alpha erosion and bottom-up reveal.
-- `components/home/studio/recording-performance.ts` — intact recording/resting poses, subtle face motion and complementary pose transitions.
+- `components/home/studio/recording-performance.ts` — intact recording/listening poses, subtle face motion, beat nods and complementary pose transitions.
 - `components/home/studio/skin-mesh.ts` — continuous garment deformation.
 - `components/home/studio/reference-*.ts` — source-space illustration masks.
 - `scripts/prepare-studio-textures.py` — offline texture authoring; not needed at runtime.
@@ -50,7 +52,7 @@ The older Rough.js/SVG scene files remain in repository history/source, but are 
 
 ## Review scope
 
-The sand refinement and subsequent authored recording-pose revision have not been visually reviewed. The source illustrations were read for authoring their masks; generated textures and browser output were not reviewed. Automatic approval review rejected browser navigation during the preceding transfer revision under the project's explicit-checks rule; no new visual-check authorization has been given. No browser checks, tests, lint, type checks or build were run for these revisions. The observations below describe the earlier movement implementation, which the transfer now replaces.
+The sand refinement, authored recording-pose revision, slower transitions and listening revision have not been visually reviewed. The source illustrations were read for authoring their masks; generated textures and browser output were not reviewed. Automatic approval review rejected browser navigation during the preceding transfer revision under the project's explicit-checks rule; no new visual-check authorization has been given. No browser checks, tests, lint, type checks or build were run for these revisions. The observations below describe the earlier movement implementation, which the transfer now replaces.
 
 The user explicitly requested Computer Use review. The scene was viewed in the user's Chrome window, including the seated pose, rise, walk, headphone movement, recording gestures and final pointing pose. That review found and drove the garment underpaint, wrist alignment, reduced knee lift, loading-pose and anchor-offset corrections. The compact composition, shared CTA and all three stage labels fit together in the observed desktop viewport. No unit tests, lint, type checks or production build were run.
 

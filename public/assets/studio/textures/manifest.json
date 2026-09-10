@@ -215,5 +215,12 @@
     "y": 244,
     "width": 182,
     "height": 626
+  },
+  "listening-figure": {
+    "file": "listening-figure.webp",
+    "x": 993,
+    "y": 241,
+    "width": 182,
+    "height": 629
   }
 }

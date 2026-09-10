@@ -310,6 +310,7 @@ def main() -> None:
     recording = read_parts("reference-recording.ts")
     for name, source, figure, holes in (
         ("recording-figure", "frame-06-recording.png", "recordingFigure", "recordingPaperHoles"),
+        ("listening-figure", "frame-05-headphones-on.png", "listeningFigure", "listeningPaperHoles"),
         ("resting-figure", "frame-06c-recording-finish.png", "restingFigure", "restingPaperHoles"),
     ):
         author.texture(name, source, [recording[figure]], paper_holes=recording[holes])

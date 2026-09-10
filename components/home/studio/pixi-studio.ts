@@ -33,7 +33,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
   if (!response.ok) throw new Error("Studio artwork could not load");
   const atlas = await response.json() as Atlas;
   const textures = new Map<string, Texture>();
-  await Promise.all(Object.entries(atlas).filter(([name]) => !name.endsWith("poster")).map(async ([name, region]) => {
+  await Promise.all(Object.entries(atlas).filter(([name]) => !name.endsWith("poster") && name !== "resting-figure").map(async ([name, region]) => {
     const url = region.file.startsWith("/") ? region.file : `/assets/studio/textures/${region.file}`;
     textures.set(name, await Assets.load<Texture>(url));
   }));
@@ -117,7 +117,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
           dissolve.update(amount);
           if (!masked) { group.mask = dissolve.mask; masked = true; }
         }
-        performance?.update(pose.time, pose.speaking, pose.reading, pose.cue);
+        performance?.update(pose.time, pose.speaking, pose.reading, pose.cue, pose.listening);
         const root = between(bind.hip, bind.neck, state.hip, state.neck);
         const hips = rigid(bind.hip, state.hip);
         torso?.setFromMatrix(root); pelvis?.setFromMatrix(hips);
@@ -154,15 +154,20 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
   sprite("mic", world);
   const phones = sprite("headphones", world);
   const cable = new Graphics();
-  const recordingLight = new Graphics();
-  world.addChild(cable, recordingLight);
+  world.addChild(cable);
   let disposed = false, complete = false, visible = false;
   let renderWidth = 1;
+  let statusPhase = "";
 
   function draw() {
     if (disposed) return;
-    const recording = pose.speaking > .15;
-    if ((scene.dataset.recording === "true") !== recording) scene.dataset.recording = String(recording);
+    const phase = pose.speaking > .15 ? "recording" : pose.listening > .15 && pose.cue < .8 ? "listening" : "idle";
+    if (phase !== statusPhase) {
+      statusPhase = phase;
+      scene.dataset.recording = String(phase === "recording");
+      scene.style.setProperty("--studio-recording-status", phase === "recording" ? "1" : "0");
+      scene.style.setProperty("--studio-listening-status", phase === "listening" ? "1" : "0");
+    }
     const state = skeleton(pose);
     side.update(state); rear.update(state);
     transfer.update(pose.transfer);
@@ -186,13 +191,11 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         .fill({ color: ink, alpha: .02 * bodyAmount / (1 + backLift / 24) });
     }
     playhead.clear();
-    const scan = 244 + (pose.time * 26) % 212;
-    playhead.moveTo(scan, 405).lineTo(scan, 524).stroke({ color: rust, width: 1.6, alpha: .62 });
-    playhead.circle(scan, 405, 2.5).fill({ color: rust, alpha: .72 });
-    recordingLight.clear();
-    if (pose.speaking > .01) {
-      recordingLight.circle(1282, 285, 3).fill({ color: rust, alpha: .5 + .5 * Math.sin(pose.time * 5) ** 2 });
-    }
+    const playback = pose.listening > .15;
+    const scan = 244 + (playback ? Math.max(0, pose.time - 4.35) * 68 : pose.time * 26) % 212;
+    const playheadColor = playback ? ink : rust;
+    playhead.moveTo(scan, 405).lineTo(scan, 524).stroke({ color: playheadColor, width: 1.6, alpha: .62 });
+    playhead.circle(scan, 405, 2.5).fill({ color: playheadColor, alpha: .72 });
     cable.clear();
     cable.alpha = bodyAmount;
     const sway = complete ? 0 : Math.sin(pose.time * 3.3) * (pose.wearing ? 4 : 2);
@@ -268,5 +271,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     app.destroy(true, { children: true });
     delete scene.dataset.renderer;
     delete scene.dataset.recording;
+    scene.style.removeProperty("--studio-recording-status");
+    scene.style.removeProperty("--studio-listening-status");
   };
 }
