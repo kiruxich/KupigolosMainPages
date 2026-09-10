@@ -1,7 +1,7 @@
 .section {
   position: relative;
   overflow: hidden;
-  padding: clamp(108px, 11vw, 176px) 0 clamp(118px, 12vw, 190px);
+  padding: clamp(76px, 8vw, 124px) 0 clamp(88px, 9vw, 138px);
   color: var(--ink);
   background:
     radial-gradient(circle at 8% 72%, rgba(255, 255, 255, .58), transparent 31rem),
@@ -36,7 +36,7 @@
 .heading h2 {
   max-width: 7ch;
   margin: 0;
-  font: 600 clamp(3.6rem, 5.8vw, 6.8rem)/.9 var(--display);
+  font: 600 clamp(3.8rem, 4.6vw, 5.25rem)/.94 var(--display);
   letter-spacing: -.065em;
   text-wrap: balance;
 }
@@ -253,7 +253,7 @@
 
 @media (max-width: 980px) {
   .section {
-    padding: 96px 0 112px;
+    padding: 82px 0 98px;
   }
 
   .layout {
@@ -262,7 +262,7 @@
   }
 
   .heading h2 {
-    font-size: clamp(3.25rem, 7vw, 5rem);
+    font-size: clamp(3.25rem, 6.2vw, 4.75rem);
   }
 
   .filmStage {

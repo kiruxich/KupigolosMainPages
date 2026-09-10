@@ -9,7 +9,7 @@
 .heading { margin-bottom: 22px; }
 .section .title {
   margin: 0;
-  font: 750 clamp(30px, 3vw, 42px)/1.15 var(--body, Manrope, Arial, sans-serif);
+  font: 750 clamp(40px, 3.2vw, 52px)/1.08 var(--body, Manrope, Arial, sans-serif);
   letter-spacing: -.04em;
   color: inherit;
 }
@@ -150,7 +150,7 @@
   grid-template-columns: 19px minmax(max-content, 1fr) 44px;
   gap: 10px;
   padding-left: 14px;
-  font-size: .68rem;
+  font-size: .875rem;
 }
 .section .action::after { width: 44px; }
 .section .action :global(.studio-cta-icon) { width: 19px; height: 19px; }

@@ -1,9 +1,9 @@
 .section { padding: 76px 32px 80px; background: var(--page); color: #494963; scroll-margin-top: 120px; }
 .inner { max-width: 1280px; margin-inline: auto; }
-.heading { text-align: center; margin-bottom: 48px; }
+.heading { text-align: left; margin-bottom: 48px; }
 .eyebrow { color: #bd4c30; font-size: 16px; font-weight: 600; letter-spacing: .04em; margin: 0 0 22px; }
-.eyebrow::after { content: ""; display: block; width: 32px; height: 1px; background: #bd4c30; margin: 20px auto 0; }
-.heading h2 { font-family: var(--body); max-width: none; width: 100%; font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; letter-spacing: .055em; line-height: 1.2; text-transform: uppercase; margin: 0 0 24px; }
+.eyebrow::after { content: ""; display: block; width: 32px; height: 1px; background: #bd4c30; margin: 20px 0 0; }
+.heading h2 { font-family: var(--body); max-width: none; width: 100%; font-size: clamp(44px, 3.3vw, 54px); font-weight: 720; letter-spacing: -.045em; line-height: 1.05; text-transform: none; margin: 0 0 24px; }
 .section h3, .section h4 { font-family: var(--body); }
 .heading > p:last-child { margin: 0; color: #777785; font-size: 16px; line-height: 1.65; }
 .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
@@ -15,8 +15,8 @@
 .tabs button[aria-selected="true"] { color: white; background: #bf4e32; box-shadow: 0 2px 5px #a8462520; }
 .audioRow { min-height: 98px; display: grid; grid-template-columns: 44px minmax(0,1fr) 28px; align-items: center; gap: 20px; border-bottom: 1px solid #efedeb; }
 .audioRow:last-child { border-bottom: 0; }
-.audioText h4 { margin: 0 0 7px; font-size: 15px; font-weight: 500; color: #515160; }
-.badge { display: inline-block; padding: 4px 8px; border-radius: 4px; background: #fcf2ec; color: #bd745b; font-size: 10px; line-height: 1.4; }
+.audioText h4 { margin: 0 0 7px; font-size: 16px; font-weight: 500; color: #515160; }
+.badge { display: inline-block; padding: 4px 8px; border-radius: 4px; background: #fcf2ec; color: #bd745b; font-size: 12px; line-height: 1.4; }
 .play { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #eeece9; background: #f8f7f5; color: #c45336; display: grid; place-items: center; cursor: pointer; }
 .play svg { width: 23px; height: 23px; }
 .pause { display: none; font-size: 21px; }
@@ -32,12 +32,12 @@
 .videoPlay { position: absolute; inset: 0; display: grid; place-items: center; color: white; background: #00000008; transition: background .2s; }
 .videoPlay svg { width: 40px; height: 40px; filter: drop-shadow(0 2px 4px #0006); }
 .thumbnail:hover .videoPlay { background: #0002; }
-.duration { position: absolute; bottom: 10px; right: 10px; color: white; border-radius: 3px; background: #18181bbd; font-size: 10px; padding: 3px 6px; }
+.duration { position: absolute; bottom: 10px; right: 10px; color: white; border-radius: 3px; background: #18181bbd; font-size: 12px; padding: 3px 6px; }
 .videoText { padding: 27px 22px; }
 .videoText h3 { font-size: 16px; letter-spacing: .12em; font-weight: 500; text-transform: uppercase; margin: 0 0 10px; }
-.videoText p { color: #7d7c87; font-size: 13px; line-height: 1.65; margin: 18px 0 0; }
+.videoText p { color: #7d7c87; font-size: 14px; line-height: 1.65; margin: 18px 0 0; }
 .footer { display: flex; justify-content: center; margin-top: 44px; }
 .section button:focus-visible, .section a:focus-visible { outline: 2px solid #bf4e32; outline-offset: 4px; }
 @media (max-width: 1100px) { .audioPanel { padding-inline: 22px; } .audioHeader { flex-wrap: wrap; } .videoText { padding: 22px 16px; } .video { min-height: 250px; } .thumbnail { min-height: 250px; } }
 @media (max-width: 800px) { .section { padding: 52px 24px; } .columns { grid-template-columns: 1fr; gap: 24px; } .heading { margin-bottom: 32px; } .video, .thumbnail { min-height: 210px; } .videoText { padding: 24px; } }
-@media (max-width: 480px) { .section { padding-inline: 16px; } .heading > p:last-child { font-size: 14px; } .audioPanel { padding: 22px 16px 8px; } .audioHeader { gap: 16px; } .tabs button { padding: 10px; } .audioRow { gap: 12px; grid-template-columns: 40px minmax(0,1fr) 26px; } .play { width: 40px; height: 40px; } .video { grid-template-columns: 42% minmax(0,1fr); } .videoText { padding: 18px 12px; } .videoText h3 { font-size: 13px; } .videoText p { font-size: 12px; margin-top: 12px; } .badge { font-size: 9px; } }
+@media (max-width: 480px) { .section { padding-inline: 16px; } .heading h2 { font-size: clamp(36px, 11vw, 46px); } .heading > p:last-child { font-size: 14px; } .audioPanel { padding: 22px 16px 8px; } .audioHeader { gap: 16px; } .tabs button { padding: 10px; } .audioRow { gap: 12px; grid-template-columns: 40px minmax(0,1fr) 26px; } .play { width: 40px; height: 40px; } .video { grid-template-columns: 42% minmax(0,1fr); } .videoText { padding: 18px 12px; } .videoText h3 { font-size: 13px; } .videoText p { font-size: 12px; margin-top: 12px; } .badge { font-size: 11px; } }

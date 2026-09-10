@@ -22,7 +22,7 @@
 .kicker {
   margin: 0 0 clamp(30px, 4vw, 50px);
   color: rgba(39, 55, 120, .42);
-  font-size: .62rem;
+  font-size: .75rem;
   font-weight: 800;
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
   max-width: 8ch;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(2.7rem, 4vw, 4.6rem);
+  font-size: clamp(3rem, 4vw, 4.5rem);
   line-height: .9;
   letter-spacing: -.045em;
   text-align: left;
@@ -67,8 +67,8 @@
 }
 
 .fish > span:last-child { display: grid; gap: 6px; }
-.fish strong { font-size: .72rem; }
-.fish small { max-width: 29ch; color: var(--muted); font-size: .58rem; line-height: 1.45; }
+.fish strong { font-size: .875rem; }
+.fish small { max-width: 29ch; color: var(--muted); font-size: .75rem; line-height: 1.45; }
 
 .fishWave {
   display: flex;
@@ -100,7 +100,7 @@
   align-self: center;
   padding: 8px 2px;
   color: var(--accent);
-  font-size: .72rem;
+  font-size: .875rem;
   font-weight: 800;
   text-decoration: underline;
   text-decoration-color: rgba(var(--accent-rgb), .26);
@@ -165,7 +165,7 @@
 
 .serviceCopy { display: grid; min-width: 0; gap: 7px; }
 .serviceCopy strong { font-size: clamp(1.25rem, 1.7vw, 1.65rem); line-height: 1; letter-spacing: -.025em; }
-.serviceCopy small { color: var(--muted); font-size: .68rem; line-height: 1.35; }
+.serviceCopy small { color: var(--muted); font-size: .8125rem; line-height: 1.35; }
 
 .arrow {
   display: grid;
@@ -219,7 +219,7 @@
   .icon { width: 46px; height: 46px; }
   .icon svg { width: 27px; height: 27px; }
   .serviceCopy strong { font-size: 1.28rem; }
-  .serviceCopy small { max-width: 25ch; font-size: .62rem; }
+  .serviceCopy small { max-width: 25ch; font-size: .75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

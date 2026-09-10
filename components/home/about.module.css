@@ -39,7 +39,7 @@
   max-width: none;
   margin: 0;
   color: var(--studio-ink);
-  font: 760 clamp(34px, min(5.5cqw, calc((100svh - 236px) * .098)), 86px)/1.05 var(--display);
+  font: 760 clamp(46px, 4.2cqw, 60px)/1.05 var(--display);
   letter-spacing: -.058em;
 }
 
@@ -105,7 +105,7 @@
   align-items: center;
   gap: 6px;
   color: var(--studio-rust);
-  font: 700 clamp(8px, .9cqw, 11px)/1 var(--body);
+  font: 700 12px/1 var(--body);
   letter-spacing: .14em;
   text-transform: uppercase;
   opacity: 0;
@@ -123,7 +123,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font: 500 11px/1.4 var(--body);
+  font: 500 12px/1.4 var(--body);
   letter-spacing: .16em;
   text-transform: uppercase;
 }
@@ -155,7 +155,7 @@
   .aside { padding-left: 0; }
   .aside > p { margin: 0 0 14px; font-size: 13px; letter-spacing: -.025em; }
   .aside .cta { display: grid; width: min(100%, 268px); min-height: 50px; margin-left: auto; }
-  .steps { gap: 9px; font-size: 8px; letter-spacing: .08em; }
+  .steps { gap: 9px; font-size: 10px; letter-spacing: .08em; }
   .steps li { gap: 9px; }
 }
 

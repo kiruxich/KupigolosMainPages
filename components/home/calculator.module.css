@@ -65,7 +65,7 @@
   margin: 0;
   color: #fff9f2;
   font-family: var(--body);
-  font-size: clamp(2.6rem, 4.6vw, 5rem);
+  font-size: clamp(3rem, 4.1vw, 4.5rem);
   font-weight: 590;
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -103,7 +103,7 @@
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 249, 242, 0.16);
   color: rgba(255, 249, 242, 0.76);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 650;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -134,13 +134,13 @@
   grid-template-columns: 28px minmax(0, 1fr);
   align-items: center;
   color: rgba(255, 249, 242, 0.84);
-  font-size: 0.76rem;
+  font-size: 0.8125rem;
   font-weight: 550;
 }
 
 .estimateCard li span {
   color: rgba(255, 249, 242, 0.42);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -184,7 +184,7 @@
 .actionGroup p {
   margin: 0;
   color: rgba(255, 249, 242, 0.58);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 550;
   letter-spacing: 0.06em;
   text-align: center;

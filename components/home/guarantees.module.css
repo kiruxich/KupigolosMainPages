@@ -1,7 +1,7 @@
 .section {
   position: relative;
   overflow: hidden;
-  padding: clamp(88px, 9vw, 142px) 0 clamp(108px, 11vw, 172px);
+  padding: clamp(72px, 7vw, 108px) 0 clamp(82px, 8vw, 124px);
   scroll-margin-top: 110px;
   color: var(--ink);
   background:
@@ -39,7 +39,7 @@
 .intro h2 {
   max-width: 10.5ch;
   margin: clamp(25px, 3vw, 42px) 0 0;
-  font: 650 clamp(3.25rem, 3.8vw, 4.2rem)/.96 var(--display);
+  font: 650 clamp(3.25rem, 3.6vw, 4rem)/.96 var(--display);
   letter-spacing: -.065em;
   text-wrap: balance;
 }

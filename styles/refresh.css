@@ -4337,10 +4337,10 @@ body:has(.header-mega.is-open)::after { opacity: 1; }
 
 /* Five-step type scale for every content section. The first hero keeps its approved scale. */
 :root {
-  --type-xl: clamp(3.5rem, 4vw, 4rem);      /* 56-64px: editorial statements */
-  --type-lg: clamp(2.5rem, 3.1vw, 3rem);    /* 40-48px: section headings */
-  --type-md: clamp(2rem, 2.5vw, 2.375rem);  /* 32-38px: card headings */
-  --type-body: clamp(.9375rem, .98vw, 1rem);/* 15-16px: readable copy */
+  --type-xl: clamp(3.5rem, 4.2vw, 4.5rem);  /* 56-72px: editorial statements */
+  --type-lg: clamp(2.75rem, 3.1vw, 3.5rem); /* 44-56px: section headings */
+  --type-md: clamp(1.875rem, 2.35vw, 2.375rem); /* 30-38px: card headings */
+  --type-body: clamp(.9375rem, .98vw, 1.0625rem); /* 15-17px: readable copy */
   --type-meta: clamp(.75rem, .82vw, .875rem); /* 12-14px: labels and actions */
 }
 
