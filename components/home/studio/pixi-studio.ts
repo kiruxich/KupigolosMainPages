@@ -99,8 +99,6 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
     }
     const bareHead = sprite(view === "rear" ? "seated-head" : "walking-head", group);
     const recordingHead = view === "side" ? sprite("head", group) : undefined;
-    const mouth = new Graphics();
-    recordingHead?.addChild(mouth);
     const backArm = skin(`${prefix}back-arm`, group, bind.backArm);
     const backHand = sprite(`${prefix}back-hand`, group);
     return {
@@ -137,9 +135,6 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         if (bareHead) bareHead.visible = view === "rear" || pose.wearing < .5;
         recordingHead?.setFromMatrix(rigid(bind.neck, state.neck, tilt));
         if (recordingHead) recordingHead.visible = pose.wearing >= .5;
-        mouth.clear();
-        const syllable = pose.speaking * (.45 + .55 * Math.sin(pose.time * 29) ** 2);
-        if (syllable > .05) mouth.ellipse(1088, 311, 2.1, 2.8 * syllable).fill({ color: ink, alpha: .9 });
       },
       destroy() {
         group.mask = null;

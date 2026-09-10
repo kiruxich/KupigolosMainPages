@@ -90,18 +90,19 @@ export function makeTimeline(pose: ScenePose, cta: HTMLAnchorElement, draw: () =
     x: END.x, y: END.y, seated: 0, rear: 0, lean: 0, headTilt: 0,
     frontFootX: END.frontFootX, frontFootY: END.frontFootY,
     backFootX: END.backFootX, backFootY: END.backFootY,
-    frontHandX: 1123, frontHandY: 557, backHandX: 1040, backHandY: 539,
+    frontHandX: 1115, frontHandY: 512, backHandX: 1040, backHandY: 539,
     wearing: 1,
   }, 1.34);
 
-  // The assembled figure is already wearing headphones. Keep gestures small.
+  // Hands remain at rest while reading; only the head makes a small nod.
+  // The far wrist stays within the sleeve's reach, without stretching its mesh.
   timeline.to(pose, { speaking: 1, duration: .12 }, 1.9);
-  timeline.to(pose, { lean: 2, headTilt: 4, frontHandX: 1166, frontHandY: 505, duration: .55 }, 2.05);
-  timeline.to(pose, { lean: 1, headTilt: 2, frontHandX: 1170, frontHandY: 480, duration: .55 }, 2.65);
-  timeline.to(pose, { lean: 2, headTilt: 5, frontHandX: 1162, frontHandY: 505, duration: .55 }, 3.25);
+  timeline.to(pose, { headTilt: 1, duration: .55 }, 2.05);
+  timeline.to(pose, { headTilt: 2, duration: .55 }, 2.65);
+  timeline.to(pose, { headTilt: 1, duration: .55 }, 3.25);
   timeline.to(pose, {
     speaking: 0, lean: 0, headTilt: 0,
-    frontHandX: 1123, frontHandY: 557, backHandX: 1040, backHandY: 539,
+    frontHandX: 1115, frontHandY: 512, backHandX: 1040, backHandY: 539,
     duration: .45,
   }, 4.05);
   timeline.to(pose, {

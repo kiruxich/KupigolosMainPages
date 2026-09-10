@@ -18,13 +18,13 @@ The desk mask includes authored background seeds and an empty-space cutout benea
 
 ## Motion
 
-The GSAP timeline plays once: type, crumble into fine sand, flow along the floor, reassemble at the mic already wearing headphones, record with small mouth/head/arm gestures, lower the arm, pause, point at the CTA, then hold. The transfer lasts 0.95 seconds; the whole sequence lasts 6.9 seconds. The CTA pulses once after the final gesture.
+The GSAP timeline plays once: type, crumble into fine sand, flow along the floor, reassemble at the mic already wearing headphones, record with subtle head nods and relaxed arms, settle, pause, point at the CTA, then hold. The transfer lasts 0.95 seconds; the whole sequence lasts 6.9 seconds. The CTA pulses once after the final gesture.
 
 Standing up, walking and putting headphones on have no intermediate body poses. A fine alpha-noise mask erodes the seated illustration from the head downward, without rectangular tiles or a whole-body fade. 6200 small, soft grains fall into a low stream, flow toward the mic and settle into the standing silhouette from the feet upward. Their departure and arrival times follow the mask's mean erosion edge. The skeleton switches directly to the stable destination pose while both illustrations are hidden. Character shadows and the headphone cable follow the same visibility. Furniture stays still.
 
 The sand uses one textured mesh with preallocated vertices, UVs and indices and a small shared grain atlas, without line streaks or a display object per grain. Each character's dissolve mask uses one reusable canvas texture with at most 80000 pixels; its sprite never renders as visible artwork. Helpers follow the existing scene clock, stop updating at the endpoints and release their textures and geometry on cleanup.
 
-Recording uses a small far-arm gesture with the near arm relaxed, without reaching back to the ears. Finger drawings switch at the shared cuff without overlapping translucent hands.
+Recording keeps both arms relaxed and the torso still. The far wrist rests at (1115, 512), within the roughly 134-pixel reach of its two bones; the former (1123, 557) target overstretched the sleeve. The near wrist stays in its original bind pose. Head nods are limited to 1–2 degrees. The original illustrated mouth is preserved without a synthetic pulsing ellipse over the lips. The recording indicator and monitor keep moving. Finger drawings switch at the shared cuff only for the final pointing gesture, without overlapping translucent hands.
 
 The monitor playhead, recording light, headphone cable and contact shadows follow the same clock. Rendering pauses outside the visible section or in a hidden tab. After the final pose it stops entirely. Reduced-motion uses the final still pose immediately. Canvas size follows the section width and does not set the text layout.
 
@@ -43,7 +43,7 @@ The older Rough.js/SVG scene files remain in repository history/source, but are 
 
 ## Review scope
 
-The sand refinement has not been visually reviewed. Automatic approval review rejected browser navigation during the preceding transfer revision under the project's explicit-checks rule; no new visual-check authorization has been given. No browser checks, tests, lint, type checks or build were run for this refinement. The observations below describe the earlier movement implementation, which the transfer now replaces.
+The sand refinement and subsequent recording-pose correction have not been visually reviewed. Automatic approval review rejected browser navigation during the preceding transfer revision under the project's explicit-checks rule; no new visual-check authorization has been given. No browser checks, tests, lint, type checks or build were run for these revisions. The observations below describe the earlier movement implementation, which the transfer now replaces.
 
 The user explicitly requested Computer Use review. The scene was viewed in the user's Chrome window, including the seated pose, rise, walk, headphone movement, recording gestures and final pointing pose. That review found and drove the garment underpaint, wrist alignment, reduced knee lift, loading-pose and anchor-offset corrections. The compact composition, shared CTA and all three stage labels fit together in the observed desktop viewport. No unit tests, lint, type checks or production build were run.
 

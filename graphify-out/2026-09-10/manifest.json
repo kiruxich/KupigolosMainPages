@@ -2346,10 +2346,10 @@
     "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
   },
   "components/home/studio/pixi-studio.ts": {
-    "mtime": 1789049381.790469,
-    "seen": 1789049403.352671,
-    "ast_hash": "53d7819c8538992d7c0d118a1a037674",
-    "semantic_hash": "53d7819c8538992d7c0d118a1a037674"
+    "mtime": 1789049729.02145,
+    "seen": 1789049776.169914,
+    "ast_hash": "30c805e90f77c113ffc41fd0ede0030f",
+    "semantic_hash": "30c805e90f77c113ffc41fd0ede0030f"
   },
   "components/home/studio/reference-environment.ts": {
     "mtime": 1789048400.8696072,
@@ -2394,9 +2394,15 @@
     "semantic_hash": "763c954671e4e9491c15ec92c3fe4b70"
   },
   "components/home/studio/ink-transfer.ts": {
-    "mtime": 1789049289.986094,
-    "seen": 1789049403.3525918,
-    "ast_hash": "b99e70b3b979f3da490b72c2e42bc610",
-    "semantic_hash": "b99e70b3b979f3da490b72c2e42bc610"
+    "mtime": 1789049729.2173884,
+    "seen": 1789049776.169848,
+    "ast_hash": "65857ab43de6183a543e4c05e38794d7",
+    "semantic_hash": "65857ab43de6183a543e4c05e38794d7"
+  },
+  "components/home/studio/sand-dissolve.ts": {
+    "mtime": 1789049655.4471002,
+    "seen": 1789049776.170225,
+    "ast_hash": "ad129bd0887d535fb40123a62e6a58e6",
+    "semantic_hash": "ad129bd0887d535fb40123a62e6a58e6"
   }
 }
