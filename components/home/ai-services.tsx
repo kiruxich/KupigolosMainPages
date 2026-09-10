@@ -53,9 +53,9 @@ const SERVICES: Array<{
   featured?: boolean;
 }> = [
   {
-    name: "Голос",
-    description: "Создать речь и выбрать модель",
-    href: "https://kupigolos.ru/ai/voice/ai-voice-generator",
+    name: "ИИ-озвучка",
+    description: "Текст, видео, диалоги и голосовые боты",
+    href: "https://kupigolos.ru/ai/voice/ai-voice-over",
     icon: "voice",
     featured: true,
   },
@@ -107,7 +107,6 @@ export function AiServices() {
             </a>
 
             <nav className={styles.auxLinks} aria-label="Дополнительные ИИ-сервисы">
-              <a href="https://kupigolos.ru/ai/voice/ai-voice-over">ИИ-озвучка</a>
               <a href="https://kupigolos.ru/ai/music/ai-music-generator">Музыка без вокала</a>
             </nav>
           </div>
