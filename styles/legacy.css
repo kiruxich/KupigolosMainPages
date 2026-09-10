@@ -2,3 +2,9 @@
 @import "./refresh.css";
 @import "./voices-refinement.css";
 @import "./hero-photo-refinement.css";
+
+/* Keep the page canvas continuous after the standalone hero scene. */
+body,
+#main-content > section:not(#start) {
+  background: var(--page);
+}
