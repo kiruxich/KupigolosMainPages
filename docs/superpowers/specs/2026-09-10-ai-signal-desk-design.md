@@ -12,7 +12,7 @@ Fish Audio remains visible inside the Voice row as a high-interest model destina
 
 ## Interaction model
 
-Four distinct directions are visible at once in the right column: `ИИ-озвучка`, `Видео`, `Текст`, and `Музыка`. Each full row leads directly to its destination. The left column contains the section explanation, the site's existing `studio-cta` button for the voice generator, Fish Audio, and a quiet link to music without vocals. No tabs, duplicated destinations, state, or client-side JavaScript are required.
+Four distinct directions are visible at once in the right column: `Видео`, `Текст`, `ИИ-озвучка`, and `Музыка`. Each full row leads directly to its destination, and Video is highlighted as the strongest currently available route in the measured traffic. The left column contains the section explanation, the site's existing `studio-cta` button for the voice generator, Fish Audio, and a quiet link to music without vocals. No tabs, duplicated destinations, state, or client-side JavaScript are required.
 
 Decorative audio graphics are hidden from assistive technology. Every link has a visible focus state, and the hierarchy remains readable without the graphics.
 

@@ -53,23 +53,23 @@ const SERVICES: Array<{
   featured?: boolean;
 }> = [
   {
-    name: "ИИ-озвучка",
-    description: "Текст, видео, диалоги и голосовые боты",
-    href: "https://kupigolos.ru/ai/voice/ai-voice-over",
-    icon: "voice",
-    featured: true,
-  },
-  {
     name: "Видео",
     description: "Добавить речь и локализацию",
     href: "https://kupigolos.ru/ai/dubbing-video",
     icon: "video",
+    featured: true,
   },
   {
     name: "Текст",
     description: "Превратить материал в аудио",
     href: "https://kupigolos.ru/ai/voice/text-to-speech",
     icon: "text",
+  },
+  {
+    name: "ИИ-озвучка",
+    description: "Текст, видео, диалоги и голосовые боты",
+    href: "https://kupigolos.ru/ai/voice/ai-voice-over",
+    icon: "voice",
   },
   {
     name: "Музыка",
