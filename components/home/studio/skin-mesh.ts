@@ -13,6 +13,7 @@ type Affine = {
 
 type Chain = [Vec, Vec, Vec];
 type Bounds = { x: number; y: number; width: number; height: number };
+type Stretch = { angle: number; a: number; b: number; c: number; d: number };
 
 const EPSILON = 0.0001;
 const JOINT_BLEND = 28;
@@ -21,6 +22,23 @@ const ROOT_BLEND = 22;
 function smoothstep(from: number, to: number, value: number) {
   const t = Math.max(0, Math.min(1, (value - from) / (to - from)));
   return t * t * (3 - 2 * t);
+}
+
+/** Separate rotation from stretch so blending never averages opposing rotations. */
+function decompose(transform: Affine): Stretch {
+  const angle = Math.atan2(transform.b - transform.c, transform.a + transform.d);
+  const cosine = Math.cos(angle), sine = Math.sin(angle);
+  return {
+    angle,
+    a: cosine * transform.a + sine * transform.b,
+    b: -sine * transform.a + cosine * transform.b,
+    c: cosine * transform.c + sine * transform.d,
+    d: -sine * transform.c + cosine * transform.d,
+  };
+}
+
+function angleDifference(from: number, to: number) {
+  return Math.atan2(Math.sin(to - from), Math.cos(to - from));
 }
 
 /** Maps a bind bone onto its posed bone while preserving the cloth's width. */
@@ -135,6 +153,13 @@ export function makeSkin(texture: Texture, bounds: Bounds, bind: Chain): {
 
       const upper = boneTransform(rest[0], rest[1], chain[0], chain[1]);
       const lower = boneTransform(rest[1], rest[2], chain[1], chain[2]);
+      const upperStretch = decompose(upper), lowerStretch = decompose(lower);
+      const jointTurn = angleDifference(upperStretch.angle, lowerStretch.angle);
+      const rootStretch = root ? decompose(root) : undefined;
+      const rootX = root ? root.a * rest[0].x + root.c * rest[0].y + root.tx : 0;
+      const rootY = root ? root.b * rest[0].x + root.d * rest[0].y + root.ty : 0;
+      const shoulderX = rest[0].x - rest[1].x;
+      const shoulderY = rest[0].y - rest[1].y;
 
       for (let vertex = 0; vertex < count; vertex++) {
         const offset = vertex * 2;
@@ -142,19 +167,42 @@ export function makeSkin(texture: Texture, bounds: Bounds, bind: Chain): {
         const y = source[offset + 1]!;
         const lowerWeight = lowerWeights[vertex]!;
         const upperWeight = 1 - lowerWeight;
-        let nextX = (upper.a * x + upper.c * y + upper.tx) * upperWeight
-          + (lower.a * x + lower.c * y + lower.tx) * lowerWeight;
-        let nextY = (upper.b * x + upper.d * y + upper.ty) * upperWeight
-          + (lower.b * x + lower.d * y + lower.ty) * lowerWeight;
+        let angle = upperStretch.angle + jointTurn * lowerWeight;
+        let a = upperStretch.a * upperWeight + lowerStretch.a * lowerWeight;
+        let b = upperStretch.b * upperWeight + lowerStretch.b * lowerWeight;
+        let c = upperStretch.c * upperWeight + lowerStretch.c * lowerWeight;
+        let d = upperStretch.d * upperWeight + lowerStretch.d * lowerWeight;
+        let cosine = Math.cos(angle), sine = Math.sin(angle);
+        let pivotX = chain[1].x, pivotY = chain[1].y;
+        let localX = x - rest[1].x, localY = y - rest[1].y;
 
-        if (root) {
-          const rootWeight = rootWeights[vertex]!;
-          nextX += (root.a * x + root.c * y + root.tx - nextX) * rootWeight;
-          nextY += (root.b * x + root.d * y + root.ty - nextY) * rootWeight;
+        // Both bones share the elbow/knee. Blending their rotations around that
+        // pivot preserves the sleeve's width instead of pinching it with LBS.
+        const rootWeight = rootStretch ? rootWeights[vertex]! : 0;
+        if (rootStretch && rootWeight > 0) {
+          // Rebase the same deformation at the shoulder before attaching it to
+          // the torso. Interpolating positions here would pinch the shoulder a
+          // second time whenever the arm turns away from its reference pose.
+          const stretchX = a * shoulderX + c * shoulderY;
+          const stretchY = b * shoulderX + d * shoulderY;
+          pivotX += cosine * stretchX - sine * stretchY;
+          pivotY += sine * stretchX + cosine * stretchY;
+          pivotX += (rootX - pivotX) * rootWeight;
+          pivotY += (rootY - pivotY) * rootWeight;
+          localX = x - rest[0].x;
+          localY = y - rest[0].y;
+          angle += angleDifference(angle, rootStretch.angle) * rootWeight;
+          a += (rootStretch.a - a) * rootWeight;
+          b += (rootStretch.b - b) * rootWeight;
+          c += (rootStretch.c - c) * rootWeight;
+          d += (rootStretch.d - d) * rootWeight;
+          cosine = Math.cos(angle); sine = Math.sin(angle);
         }
 
-        vertices[offset] = nextX;
-        vertices[offset + 1] = nextY;
+        const stretchX = a * localX + c * localY;
+        const stretchY = b * localX + d * localY;
+        vertices[offset] = pivotX + cosine * stretchX - sine * stretchY;
+        vertices[offset + 1] = pivotY + sine * stretchX + cosine * stretchY;
       }
     },
     destroy() {

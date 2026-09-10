@@ -113,9 +113,10 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
         const handAnchor = view === "rear" ? bind.frontArm[2] : { x: 1053, y: 563 };
         const frontAngle = forearmAngle(state.frontArm);
         relaxed?.setFromMatrix(rigid(handAnchor, state.frontArm[2], frontAngle - (view === "rear" ? forearmAngle(bind.frontArm) : radians(74))));
-        if (relaxed) relaxed.alpha = 1 - Math.max(0, Math.min(1, (pose.pointing - .35) / .2));
+        // Swap finger drawings at a shared cuff instead of ghosting two hands.
+        if (relaxed) relaxed.visible = pose.pointing < .55;
         pointer?.setFromMatrix(rigid(bind.frontArm[2], state.frontArm[2], frontAngle - forearmAngle(bind.frontArm)));
-        if (pointer) pointer.alpha = Math.max(0, Math.min(1, (pose.pointing - .35) / .2));
+        if (pointer) pointer.visible = pose.pointing >= .55;
         backHand?.setFromMatrix(rigid(bind.backArm[2], state.backArm[2], forearmAngle(state.backArm) - forearmAngle(bind.backArm)));
         const tilt = radians(pose.lean + pose.headTilt);
         const bareAnchor = view === "rear" ? { x: 670, y: 436 } : { x: 982, y: 351 };

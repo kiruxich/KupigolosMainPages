@@ -3,10 +3,19 @@ export const environmentLayers: Record<string, {
   source: string;
   d: string;
   removePaper?: boolean;
+  /** Source-space points inside enclosed areas of background paper. */
+  paperSeeds?: [number, number][];
+  /** Empty spaces with no ink to preserve, including the paper's darker grain. */
+  paperHoles?: string;
 }> = {
   desk: {
     source: "frame-07-cta.png",
     removePaper: true,
+    // This space is enclosed by the tabletop, cases, chair and floor cable in
+    // the source. It cannot be reached by a flood starting at the crop edges.
+    paperSeeds: [[400, 720], [292, 642], [140, 655], [229, 658]],
+    paperHoles: `M282 674 C301 677 320 660 330 646
+      L489 646 L489 831 L328 831 L324 743 L282 741 Z`,
     d: `M20 594 L49 586 L50 568 L65 558 L77 558
       L75 512 L82 504 L79 491 L80 476 L67 466 L76 462
       L90 467 L92 447 L68 445 L55 441 L62 429 L80 422

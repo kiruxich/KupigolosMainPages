@@ -1644,10 +1644,10 @@
     "semantic_hash": "97973ca48bf6143d492246cca55b6f47"
   },
   "components/home/ai-services.tsx": {
-    "mtime": 1788948905.1266825,
-    "seen": 1788953346.668878,
-    "ast_hash": "f7531023fa9e1b37a87e903dd742eb77",
-    "semantic_hash": "f7531023fa9e1b37a87e903dd742eb77"
+    "mtime": 1789048954.3062983,
+    "seen": 1789049028.5087948,
+    "ast_hash": "cc1de324239cdfcbc4404b6a68fe2fa0",
+    "semantic_hash": "cc1de324239cdfcbc4404b6a68fe2fa0"
   },
   "components/home/calculator.tsx": {
     "mtime": 1788972806.002208,
@@ -1656,10 +1656,10 @@
     "semantic_hash": "6243c137abc12c4007122ddd558ebe78"
   },
   "components/home/contact.tsx": {
-    "mtime": 1788972935.9584553,
-    "seen": 1789030481.875032,
-    "ast_hash": "e4a019a652e5de3bdb1424182c0f327b",
-    "semantic_hash": "e4a019a652e5de3bdb1424182c0f327b"
+    "mtime": 1789048638.4281428,
+    "seen": 1789048651.55994,
+    "ast_hash": "7cf583947ca8117d8539148e8bbc2a42",
+    "semantic_hash": "7cf583947ca8117d8539148e8bbc2a42"
   },
   "components/home/figma-alternatives.tsx": {
     "mtime": 1788948905.1274476,
@@ -1674,10 +1674,10 @@
     "semantic_hash": "d929c0fe912325b72ed746f9033314f7"
   },
   "components/home/hero.tsx": {
-    "mtime": 1789036909.0628843,
-    "seen": 1789044847.4227562,
-    "ast_hash": "4b56298cc8e935ea2fa84a843b1aff3b",
-    "semantic_hash": "4b56298cc8e935ea2fa84a843b1aff3b"
+    "mtime": 1789048398.038242,
+    "seen": 1789048414.142277,
+    "ast_hash": "49225e6991fe47d34bd3e75378092193",
+    "semantic_hash": "49225e6991fe47d34bd3e75378092193"
   },
   "components/home/home-markup.generated.ts": {
     "mtime": 1788968538.2423851,
@@ -1866,10 +1866,10 @@
     "semantic_hash": "5e6535edbc460745af2d83b9189a50d4"
   },
   "components/home/contact.test.tsx": {
-    "mtime": 1788972898.9543417,
-    "seen": 1789030481.87503,
-    "ast_hash": "9b23b95b6a40f892b97803c06da25626",
-    "semantic_hash": "9b23b95b6a40f892b97803c06da25626"
+    "mtime": 1789048638.6731284,
+    "seen": 1789048651.559937,
+    "ast_hash": "2b69d111a00377eef787481b79ca9b4a",
+    "semantic_hash": "2b69d111a00377eef787481b79ca9b4a"
   },
   "components/home/portfolio-data.ts": {
     "mtime": 1788968341.7695463,
@@ -2346,16 +2346,16 @@
     "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
   },
   "components/home/studio/pixi-studio.ts": {
-    "mtime": 1789047980.5740266,
-    "seen": 1789047985.6110148,
-    "ast_hash": "4a6f337af2b03849d599bffdd9cd559b",
-    "semantic_hash": "4a6f337af2b03849d599bffdd9cd559b"
+    "mtime": 1789049008.9235513,
+    "seen": 1789049028.51137,
+    "ast_hash": "1446c83cfffa2c653b61d0f02122b626",
+    "semantic_hash": "1446c83cfffa2c653b61d0f02122b626"
   },
   "components/home/studio/reference-environment.ts": {
-    "mtime": 1789046127.6226077,
-    "seen": 1789047985.611017,
-    "ast_hash": "fab33801e2747cbe4538a4a8052e4af6",
-    "semantic_hash": "fab33801e2747cbe4538a4a8052e4af6"
+    "mtime": 1789048400.8696072,
+    "seen": 1789048414.1441422,
+    "ast_hash": "a8c7b27eac7b4ef4dce2b56738773135",
+    "semantic_hash": "a8c7b27eac7b4ef4dce2b56738773135"
   },
   "components/home/studio/reference-seated.ts": {
     "mtime": 1789046217.5000048,
@@ -2370,27 +2370,27 @@
     "semantic_hash": "b1e30cfded8eaf7f0f7177991370e902"
   },
   "components/home/studio/skin-mesh.ts": {
-    "mtime": 1789045277.5509264,
-    "seen": 1789047985.611119,
-    "ast_hash": "29b7aac120cabee757ab070eeea670e8",
-    "semantic_hash": "29b7aac120cabee757ab070eeea670e8"
+    "mtime": 1789048369.0111597,
+    "seen": 1789048414.1445508,
+    "ast_hash": "d6b0a0e1e9bff7384d8b7297aa236718",
+    "semantic_hash": "d6b0a0e1e9bff7384d8b7297aa236718"
   },
   "components/home/studio/studio-motion.ts": {
-    "mtime": 1789047682.4801598,
-    "seen": 1789047985.6111202,
-    "ast_hash": "1be06743f22c3f8fe4c47e3887f3c248",
-    "semantic_hash": "1be06743f22c3f8fe4c47e3887f3c248"
+    "mtime": 1789048575.3531857,
+    "seen": 1789048651.5616288,
+    "ast_hash": "9d4f56461ffe4a7d7a759683c1f22646",
+    "semantic_hash": "9d4f56461ffe4a7d7a759683c1f22646"
   },
   "public/assets/studio/textures/manifest.json": {
-    "mtime": 1789047816.3125396,
-    "seen": 1789047985.611541,
+    "mtime": 1789048414.1488047,
+    "seen": 1789048651.5622342,
     "ast_hash": "fb7a6d34d2ab765f7eb0a3b13f23b709",
     "semantic_hash": "fb7a6d34d2ab765f7eb0a3b13f23b709"
   },
   "scripts/prepare-studio-textures.py": {
-    "mtime": 1789047802.1507556,
-    "seen": 1789047985.611667,
-    "ast_hash": "e95b64313b8d4924edb3ad3ad1d032c4",
-    "semantic_hash": "e95b64313b8d4924edb3ad3ad1d032c4"
+    "mtime": 1789048401.0729666,
+    "seen": 1789048414.145657,
+    "ast_hash": "763c954671e4e9491c15ec92c3fe4b70",
+    "semantic_hash": "763c954671e4e9491c15ec92c3fe4b70"
   }
 }

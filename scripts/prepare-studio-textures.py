@@ -44,10 +44,14 @@ def read_environment() -> dict[str, dict]:
     for name, body in re.findall(r"\b(\w+):\s*\{([^}]+)\}", text):
         source = re.search(r"\bsource:\s*[\"']([^\"']+)[\"']", body)
         path = re.search(r"\bd:\s*`([^`]+)`", body)
+        seeds = re.search(r"\bpaperSeeds:\s*(\[[^\n]+\])", body)
+        holes = re.search(r"\bpaperHoles:\s*`([^`]+)`", body)
         if source and path and name != "floor":
             layers[name] = {
                 "source": source.group(1), "d": path.group(1),
                 "removePaper": bool(re.search(r"\bremovePaper:\s*true", body)),
+                "paperSeeds": json.loads(seeds.group(1)) if seeds else [],
+                "paperHoles": holes.group(1) if holes else "",
             }
     return layers
 
@@ -100,11 +104,12 @@ def polygons(path: str) -> list[list[tuple[float, float]]]:
     return output
 
 
-def exterior_paper_alpha(source: Image.Image) -> Image.Image:
-    """Remove only near-white paper connected to the outside of the crop.
+def exterior_paper_alpha(source: Image.Image, background_seeds: list[tuple[int, int]]) -> Image.Image:
+    """Remove paper connected to the crop edge or an authored background seed.
 
-    The flood cannot cross a drawn outline, so enclosed white surfaces stay
-    opaque. Character textures never pass through this operation.
+    Authored seeds reach background enclosed by furniture and cables without
+    removing white surfaces inside the equipment. Character textures never
+    pass through this operation.
     """
     width, height = source.size
     colour = source.convert("RGB").tobytes()
@@ -127,6 +132,12 @@ def exterior_paper_alpha(source: Image.Image) -> Image.Image:
     for y in range(height):
         seed(y * width)
         seed(y * width + width - 1)
+    for x, y in background_seeds:
+        # A small neighbourhood also seeds the surrounding paper when the
+        # exact point happens to land on one darker grain in the source.
+        for sy in range(max(0, y - 2), min(height, y + 3)):
+            for sx in range(max(0, x - 2), min(width, x + 3)):
+                seed(sy * width + sx)
     while queue:
         index = queue.popleft()
         x, y = index % width, index // width
@@ -202,7 +213,8 @@ class Author:
         hidden = ImageChops.invert(path_mask(visible_paths, bounds))
         return Image.composite(donor, rgba, hidden)
 
-    def texture(self, name: str, source: str, paths: list[str], remove_paper: bool = False) -> None:
+    def texture(self, name: str, source: str, paths: list[str], remove_paper: bool = False,
+                paper_seeds: list | None = None, paper_holes: str = "") -> None:
         visible_paths = paths
         if name == "torso":
             paths = [*paths, self.underpaint["torsoHidden"]]
@@ -225,7 +237,10 @@ class Author:
         elif name == "torso":
             rgba = self.extend_torso(rgba, bounds, visible_paths)
         if remove_paper:
-            mask = ImageChops.multiply(mask, exterior_paper_alpha(rgba))
+            seeds = [(int(px - x), int(py - y)) for px, py in (paper_seeds or [])]
+            mask = ImageChops.multiply(mask, exterior_paper_alpha(rgba, seeds))
+        if paper_holes:
+            mask = ImageChops.subtract(mask, path_mask([paper_holes], bounds))
         rgba.putalpha(ImageChops.multiply(mask, rgba.getchannel("A")))
         rgba.save(OUTPUT / f"{name}.webp", format="WEBP", lossless=True, exact=True, method=6)
         self.manifest[name] = {"file": f"{name}.webp", "x": x, "y": y, "width": width, "height": height}
@@ -294,7 +309,8 @@ def main() -> None:
         author.texture(name, source, [heads[key]])
     environment = read_environment()
     for name, layer in environment.items():
-        author.texture(name, layer["source"], [layer["d"]], layer["removePaper"])
+        author.texture(name, layer["source"], [layer["d"]], layer["removePaper"],
+                       layer["paperSeeds"], layer["paperHoles"])
     author.poster(environment, final_parts, seated_parts, heads["seatedHeadClip"])
     (OUTPUT / "manifest.json").write_text(json.dumps(author.manifest, ensure_ascii=False, indent=2) + "\n")
 
