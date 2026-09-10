@@ -1,5 +1,12 @@
 import { homeRuntimeSources } from "./runtime-sources.generated";
 
+function refineVoicePriceLabels(root: Document): void {
+  root.querySelectorAll<HTMLElement>("#voices .figma-voice-price").forEach((price) => {
+    const label = price.textContent?.trim();
+    if (label) price.textContent = label.replace(/^(?:Реклама|Цена)\s+(?=от\s)/u, "");
+  });
+}
+
 export function mountHomeRuntime(
   root: Document,
   sources: readonly string[] = homeRuntimeSources,
@@ -61,6 +68,8 @@ export function mountHomeRuntime(
     eventPrototype.addEventListener = originalAdd;
     Object.assign(win, originals);
   }
+
+  refineVoicePriceLabels(root);
 
   return () => {
     disposers.reverse().forEach((dispose) => dispose());
