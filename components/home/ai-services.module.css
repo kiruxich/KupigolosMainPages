@@ -55,9 +55,10 @@
 
 .fish {
   display: grid;
-  max-width: 390px;
-  grid-template-columns: 54px 1fr;
-  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
   align-items: center;
   margin-top: auto;
   padding-top: 28px;
@@ -71,35 +72,18 @@
 
 .fishWave {
   display: flex;
-  height: 42px;
-  gap: 3px;
+  height: 52px;
+  gap: 4px;
   align-items: center;
   justify-content: center;
   color: var(--accent);
 }
 
-.fishWave i { width: 2px; height: 22%; border-radius: 2px; background: currentColor; }
+.fishWave i { width: 2.5px; height: 22%; border-radius: 3px; background: currentColor; }
 .fishWave i:nth-child(2) { height: 64%; }
 .fishWave i:nth-child(3) { height: 100%; }
 .fishWave i:nth-child(4) { height: 72%; }
 .fishWave i:nth-child(5) { height: 36%; }
-
-.auxLinks {
-  display: flex;
-  gap: 8px 18px;
-  flex-wrap: wrap;
-  margin: 18px 0 0 70px;
-}
-
-.auxLinks a {
-  color: var(--muted);
-  font-size: .54rem;
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-color: rgba(39, 55, 120, .16);
-  text-underline-offset: 3px;
-  transition: color .22s ease;
-}
 
 .directory {
   display: grid;
@@ -197,12 +181,10 @@
 .service:is(:hover, :focus-visible) .arrow svg,
 .allServices:is(:hover, :focus-visible) svg { transform: translateX(4px); }
 .fish:is(:hover, :focus-visible),
-.auxLinks a:is(:hover, :focus-visible),
 .allServices:is(:hover, :focus-visible) { color: var(--brand-accent-hover); }
 
 .service:focus-visible,
 .fish:focus-visible,
-.auxLinks a:focus-visible,
 .allServices:focus-visible {
   outline: 2px solid rgba(var(--accent-rgb), .62);
   outline-offset: 3px;
@@ -230,8 +212,7 @@
   .intro { padding-inline: 20px; }
   .intro h2 { font-size: clamp(2.45rem, 12vw, 3.45rem); }
   .cta { max-width: none; }
-  .fish { grid-template-columns: 44px 1fr; }
-  .auxLinks { margin-left: 60px; }
+  .fish { grid-template-columns: 52px 1fr; }
   .directory { padding-inline: 12px; }
   .service { min-height: 88px; grid-template-columns: 50px minmax(0, 1fr) 36px; gap: 13px; padding-inline: 8px 3px; }
   .featured { min-height: 96px; border-radius: 16px; }
@@ -244,6 +225,5 @@
 @media (prefers-reduced-motion: reduce) {
   .service,
   .allServices svg,
-  .arrow svg,
-  .auxLinks a { transition: none; }
+  .arrow svg { transition: none; }
 }

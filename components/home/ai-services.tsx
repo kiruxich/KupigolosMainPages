@@ -105,10 +105,6 @@ export function AiServices() {
                 <small>Новые возможности озвучки уже в разработке.</small>
               </span>
             </a>
-
-            <nav className={styles.auxLinks} aria-label="Дополнительные ИИ-сервисы">
-              <a href="https://kupigolos.ru/ai/music/ai-music-generator">Музыка без вокала</a>
-            </nav>
           </div>
 
           <div className={styles.directory}>
