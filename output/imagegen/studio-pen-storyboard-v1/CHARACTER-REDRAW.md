@@ -10,6 +10,8 @@ The standing body comes from `frame-07-cta.png`; the seated rear view and loose 
 
 Recording and the lowered-arm pause now use intact character silhouettes from `frame-06-recording.png` and `frame-06c-recording-finish.png`. These preserve the original shoulders, elbows, hands and headphone contact. Their source coordinates share the same floor line as the pointing figure. The exporter removes the surrounding paper and authored gaps between the legs while retaining the source RGB detail.
 
+The recording mask's far-palm contour includes the lower palm edge, cuff corner and fingertip outlines from the source. This local correction restores the few clipped pixels without expanding the rest of the silhouette or introducing a paper border.
+
 A sleeve is one texture and one mesh spanning shoulder, elbow and wrist. A trouser leg similarly spans hip, knee and ankle. Smooth skin weights blend bone rotations separately from stretch around the shared joint; proximal weights attach the cloth to the body with the same rotation-aware interpolation. This preserves sleeve width during large elbow turns instead of collapsing it by averaging opposing transforms. The renderer moves mesh vertices, rather than separating rigid upper/lower garment pieces. Different head and hand drawings handle changes of view and the final pointing gesture.
 
 The transparent `initial-poster.webp` shows the seated pose during loading; `poster.webp` shows the final pose for reduced motion or unavailable WebGL. Neither contains text or a button, and neither participates in animation playback.
@@ -20,7 +22,7 @@ The desk mask includes authored background seeds and an empty-space cutout benea
 
 ## Motion
 
-The GSAP timeline plays once: type, crumble into fine sand, flow along the floor, reassemble at the mic already wearing headphones, perform with a hand on the earcup and an open-palm gesture, settle into the lowered-arm drawing, pause, point at the CTA, then hold. The transfer lasts 0.95 seconds; the whole sequence lasts 6.9 seconds. The CTA pulses once after the final gesture.
+The GSAP timeline has four character states: working at the computer, recording, resting with lowered arms, and pointing at the CTA. The initial sand transfer lasts 0.95 seconds. Recording changes into the resting drawing over 0.9 seconds (4.35–5.25), followed by a 0.9-second still pause. The final pose reveal and gesture take 1.35 seconds (6.15–7.5). The CTA pulses once afterwards and the sequence holds its final pose at 8.5 seconds.
 
 Standing up, walking and putting headphones on have no intermediate body poses. A fine alpha-noise mask erodes the seated illustration from the head downward, without rectangular tiles or a whole-body fade. 6200 small, soft grains fall into a low stream, flow toward the mic and settle into the standing silhouette from the feet upward. Their departure and arrival times follow the mask's mean erosion edge. The skeleton switches directly to the stable destination pose while both illustrations are hidden. Character shadows and the headphone cable follow the same visibility. Furniture stays still.
 
@@ -28,7 +30,7 @@ The sand uses one textured mesh with preallocated vertices, UVs and indices and 
 
 Recording has its own illustrated pose with the mouth already open. A fine mesh moves the existing lip/jaw ink by at most 3 source pixels and adds a tiny shared turn to the head and the hand touching its earcup. Breathing is less than one source pixel. No synthetic mouth shape is drawn over the face. An HTML “Запись” label, the recording light and monitor make the activity explicit.
 
-The lowered pointing-arm rig is no longer displayed during recording or the pause. Instead, complete authored recording/resting drawings switch through short complementary grain masks, avoiding a translucent double image. The original rig is revealed only once its pointing gesture is substantially raised; it finishes the movement and holds the original final pose. Both masks use the same thresholds, with the outgoing alpha inverted, so they replace pixels instead of ghosting arms.
+The lowered pointing-arm rig is no longer displayed during recording or the pause. Instead, complete authored recording/resting drawings switch through complementary grain masks, avoiding a translucent double image. The original rig is prepared in a raised pose while hidden, then finishes the movement and holds the original final pose. The final reveal has its own `cue` timeline value; it no longer squeezes the visible change into a narrow interval of the arm's easing curve. Both masks use the same thresholds, with the outgoing alpha inverted, so they replace pixels instead of ghosting arms.
 
 The monitor playhead, recording light, headphone cable and contact shadows follow the same clock. Rendering pauses outside the visible section or in a hidden tab. After the final pose it stops entirely. Reduced-motion uses the final still pose immediately. Canvas size follows the section width and does not set the text layout.
 

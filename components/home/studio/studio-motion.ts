@@ -7,7 +7,7 @@ export type ScenePose = {
   frontToe: number; backToe: number;
   frontHandX: number; frontHandY: number; backHandX: number; backHandY: number;
   transfer: number;
-  wearing: number; pointing: number; speaking: number; reading: number;
+  wearing: number; pointing: number; speaking: number; reading: number; cue: number;
   phonesX: number; phonesY: number; phonesAngle: number; chairX: number; time: number;
 };
 export type Chain = [Vec, Vec, Vec];
@@ -31,13 +31,13 @@ export const BIND = {
 export const START: ScenePose = {
   x: 632, y: 684, lean: 0, seated: 1, rear: 1, headTilt: 0,
   frontFootX: 442, frontFootY: 807, backFootX: 548, backFootY: 802, frontToe: 0, backToe: 0,
-  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, transfer: 0, wearing: 0, pointing: 0, speaking: 0, reading: 0,
+  frontHandX: 464, frontHandY: 568, backHandX: 484, backHandY: 574, transfer: 0, wearing: 0, pointing: 0, speaking: 0, reading: 0, cue: 0,
   phonesX: 1327, phonesY: 522, phonesAngle: 0, chairX: 0, time: 0,
 };
 export const END: ScenePose = {
   ...START, x: 1060, y: 550, lean: 0, seated: 0, rear: 0,
   frontFootX: 1024, frontFootY: 824, backFootX: 1094, backFootY: 817,
-  frontHandX: 1189, frontHandY: 295, backHandX: 1040, backHandY: 539, wearing: 1, pointing: 1, transfer: 1, chairX: 0, time: 6.9,
+  frontHandX: 1189, frontHandY: 295, backHandX: 1040, backHandY: 539, wearing: 1, pointing: 1, cue: 1, transfer: 1, chairX: 0, time: 8.5,
 };
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 const distance = (a: Vec, b: Vec) => Math.hypot(b.x - a.x, b.y - a.y);
@@ -104,11 +104,18 @@ export function makeTimeline(pose: ScenePose, cta: HTMLAnchorElement, draw: () =
     frontHandX: 1115, frontHandY: 512, backHandX: 1040, backHandY: 539,
     duration: .45,
   }, 4.05);
-  timeline.to(pose, { reading: 0, duration: .24, ease: "sine.inOut" }, 4.15);
+  timeline.to(pose, { reading: 0, duration: .9, ease: "sine.inOut" }, 4.35);
+  // Hold the intact lowered-arm drawing for .9 seconds. Prepare the rig while
+  // it is hidden, then give the pose reveal its own full-length animation.
+  timeline.set(pose, {
+    frontHandX: 1115 + (END.frontHandX - 1115) * .55,
+    frontHandY: 512 + (END.frontHandY - 512) * .55,
+    pointing: .55,
+  }, 6.15);
   timeline.to(pose, {
     frontHandX: END.frontHandX, frontHandY: END.frontHandY,
-    pointing: 1, duration: .85, ease: "power2.inOut",
-  }, 5.0);
-  timeline.to(cta, { scale: 1.035, duration: .3, yoyo: true, repeat: 1 }, 6.05);
+    pointing: 1, cue: 1, duration: 1.35, ease: "sine.inOut",
+  }, 6.15);
+  timeline.to(cta, { scale: 1.035, duration: .3, yoyo: true, repeat: 1 }, 7.7);
   return timeline;
 }

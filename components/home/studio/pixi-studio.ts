@@ -117,7 +117,7 @@ export async function mountStudio(host: HTMLDivElement, scene: HTMLDivElement, c
           dissolve.update(amount);
           if (!masked) { group.mask = dissolve.mask; masked = true; }
         }
-        performance?.update(pose.time, pose.speaking, pose.reading, pose.pointing);
+        performance?.update(pose.time, pose.speaking, pose.reading, pose.cue);
         const root = between(bind.hip, bind.neck, state.hip, state.neck);
         const hips = rigid(bind.hip, state.hip);
         torso?.setFromMatrix(root); pelvis?.setFromMatrix(hips);

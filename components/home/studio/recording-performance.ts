@@ -82,12 +82,12 @@ export function createRecordingPerformance(parent: Container, rig: Container,
     }
   }
   return {
-    update(time: number, speaking: number, reading: number, pointing: number) {
+    update(time: number, speaking: number, reading: number, cue: number) {
       recording.mask = null; resting.mask = null; rig.mask = null;
       recording.visible = false; resting.visible = false; rig.visible = false;
       figure.update(time, speaking);
       if (reading > 0) swap(recording, resting, 1 - reading);
-      else swap(resting, rig, smooth(.55, .9, pointing));
+      else swap(resting, rig, cue);
     },
     destroy() {
       recording.mask = null; resting.mask = null; rig.mask = null;
