@@ -1,25 +1,20 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
-import { Character, Headphones } from "./studio/character";
-import { Chair, Desk, Ground, Microphone } from "./studio/equipment";
-import { INK, PenDefs } from "./studio/pen";
-import { SEATED, transforms } from "./studio/studio-rig";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import styles from "./about.module.css";
-
-const initial = transforms(SEATED);
 
 export function About() {
   const sceneRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
-  const id = `studio-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   useEffect(() => {
     const scene = sceneRef.current;
-    const svg = svgRef.current;
+    const canvas = canvasRef.current;
     const cta = ctaRef.current;
-    if (!scene || !svg || !cta) return;
+    if (!scene || !canvas || !cta) return;
+    const controller = new AbortController();
     let disposed = false;
     let cleanup: (() => void) | undefined;
     let requested = false;
@@ -28,16 +23,20 @@ export function About() {
       if (requested || !entries.some(entry => entry.isIntersecting)) return;
       requested = true;
       observer.disconnect();
-      void import("./studio/animate-studio").then(({ animateStudio }) => {
-        if (!disposed) cleanup = animateStudio(svg, scene, cta);
-      }).catch(() => {
-        // The server-rendered SVG and native link remain usable if loading fails.
+      void import("./studio/pixi-studio").then(async ({ mountStudio }) => {
+        if (disposed) return;
+        const dispose = await mountStudio(canvas, scene, cta, controller.signal);
+        if (disposed) dispose(); else cleanup = dispose;
+      }).catch((error: unknown) => {
+        // Keep the illustrated still and native link available without WebGL.
         if (!disposed) scene.dataset.state = "still";
+        if (!disposed && process.env.NODE_ENV === "development") console.warn("Studio animation unavailable", error);
       });
     }, { rootMargin: "500px 0px" });
     observer.observe(scene);
     return () => {
       disposed = true;
+      controller.abort();
       observer.disconnect();
       cleanup?.();
     };
@@ -53,33 +52,21 @@ export function About() {
           </header>
           <div className={styles.aside}>
             <p>Придумываем. Записываем. Сводим.</p>
-            <a className={styles.cta} href="#contacts" ref={ctaRef}>
-              Обсудить проект
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7" /></svg>
+            <a className={`studio-cta ${styles.cta}`} href="#contacts" ref={ctaRef}>
+              <span>Узнать студию</span>
             </a>
           </div>
-          <svg
-            ref={svgRef}
-            className={styles.artwork}
-            viewBox="0 260 1536 635"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <PenDefs id={id} />
-            <Ground />
-            <Desk id={id} />
-            <Character id={id} />
-            <Chair id={id} />
-            <Microphone id={id} />
-            <path data-headphone-cable d="M1287 564C1310 684 1260 817 1190 849Q1240 863 1290 848" stroke={INK} strokeWidth="1.2" />
-            <g data-part="loosePhones" transform={initial.loosePhones}><Headphones id={id} /></g>
-          </svg>
+          <div className={styles.artwork} ref={canvasRef} aria-hidden="true">
+            <Image className={`${styles.poster} ${styles.initialPoster}`} src="/assets/studio/textures/initial-poster.webp"
+              width={1536} height={680} alt="" unoptimized />
+            <Image className={`${styles.poster} ${styles.finalPoster}`} src="/assets/studio/textures/poster.webp"
+              width={1536} height={680} alt="" unoptimized />
+          </div>
           <p className="sr-only">
             Нарисованный штрихами музыкант работает за компьютером, встаёт,
             подходит к микрофону, надевает наушники и записывает трек.
             Закончив запись, он опускает руки, затем указывает на кнопку
-            «Обсудить проект» и остаётся в этой позе.
+            «Узнать студию» и остаётся в этой позе.
           </p>
           <ol className={styles.steps} aria-label="От идеи до готового трека">
             <li><span>01 / Идея</span></li>

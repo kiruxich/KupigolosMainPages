@@ -1,21 +1,36 @@
-# Character redraw
+# Studio illustration and animation
 
-Reference sources: `frame-01-desk.png`, `frame-06c-recording-finish.png`, `frame-07-cta.png`.
+The live section uses a transparent PixiJS canvas inside the normal page grid. The heading, description, CTA and three stage labels remain HTML. The button keeps its existing text and link and uses the site's shared `studio-cta` style. Headings and stage labels align with the shared page shell, and the transparent section reveals the same page background as its neighbours. Illustration width follows the available viewport height; the section accounts for the page's existing 90px scroll padding when navigating under the fixed menu.
 
-The character is drawn in SVG. The reference files are not embedded into the live section.
+## Artwork
 
-## Reference details transferred
+`prepare-studio-textures.py` authors transparent, lossless WebP layers from the approved illustrations, retaining their original RGB detail. Source-space masks isolate the furniture, equipment, plants, character views, shoes, hands and headphones. The manifest keeps the original 1536 × 1024 coordinates and the crop bounds of every texture.
 
-- Dark curly hair with separate ink shadows, curved strands and narrow highlights. A rear hair layer covers more of the face in the seated view.
-- A smaller profile with a defined brow, eyelid, nose, lips, jaw and ear; the face is not covered with diagonal stripes.
-- A loose light sweatshirt with shoulder seams, layered folds, ribbed collar, cuffs and waistband.
-- Darker straight jeans with directional short strokes, seams, creases, pockets and rolled hems.
-- Low canvas sneakers with eyelets, laces, toe caps, heel patches and rubber soles.
-- Separate relaxed and pointing hands with smaller fingers and joint details.
-- Detailed headphones with headband, cushions and earcup highlights.
+The standing body comes from `frame-07-cta.png`; the seated rear view and loose headphones from `frame-01-desk.png`; the bare profile from `frame-03-walk.png`; the relaxed hand from `frame-06c-recording-finish.png`.
 
-The character has its own tonal fills and seeded short-stroke texture in `character-ink.tsx`. Rough.js supplies the slightly irregular outer contours. Equipment keeps its existing rendering.
+A sleeve is one texture and one mesh spanning shoulder, elbow and wrist. A trouser leg similarly spans hip, knee and ankle. Smooth skin weights blend the bones through each joint; proximal weights attach the cloth to the body. The renderer moves mesh vertices, rather than separating rigid upper/lower garment pieces. Different head and hand drawings handle changes of view and the final pointing gesture.
 
-The rig uses a higher standing hip, shorter effective legs, revised shoulder anchors and a reference-specific final elbow. Limb artwork scales to the distance between joints so the wrists and ankles stay connected to their targets. The final pose brings the far arm up toward the button and leaves the near hand beside the hip. The headphone cable origin follows the revised earcup position.
+The transparent `initial-poster.webp` shows the seated pose during loading; `poster.webp` shows the final pose for reduced motion or unavailable WebGL. Neither contains text or a button, and neither participates in animation playback.
 
-No tests, type checks, lint, builds, browser checks or rendered comparison were run for this redraw. Exact visual fidelity remains unverified.
+Underpaint restores the jeans hidden by the source hand and the sweater side hidden by its sleeve. The jeans use exposed fabric from `frame-06b-recording-gesture.png`; the sweater uses clean fabric from the standing reference. This prevents a duplicate hand and an empty wedge appearing when the arm moves. Hands follow their forearm angles, and a tighter relaxed-hand mask excludes adjacent denim.
+
+## Motion
+
+The GSAP timeline plays once: type, move the chair back, rise, take four steps, lift headphones, record with changing mouth shapes and gestures, lower both arms, pause, point at the CTA, then hold. The CTA pulses once after the final gesture.
+
+The monitor playhead, recording light, headphone cable and contact shadows follow the same clock. Rendering pauses outside the visible section or in a hidden tab. After the final pose it stops entirely. Reduced-motion uses the final still pose immediately. Canvas size follows the section width and does not set the text layout.
+
+## Files
+
+- `components/home/about.tsx` — semantic section and deferred renderer lifetime.
+- `components/home/studio/pixi-studio.ts` — canvas, scene layers, characters and lifecycle.
+- `components/home/studio/studio-motion.ts` — poses, skeleton and GSAP sequence.
+- `components/home/studio/skin-mesh.ts` — continuous garment deformation.
+- `components/home/studio/reference-*.ts` — source-space illustration masks.
+- `scripts/prepare-studio-textures.py` — offline texture authoring; not needed at runtime.
+
+The older Rough.js/SVG scene files remain in repository history/source, but are no longer imported by the section. No runtime tracing, image generation or frame-sequence playback is used.
+
+## Review scope
+
+The user explicitly requested Computer Use review. The scene was viewed in the user's Chrome window, including the seated pose, rise, walk, headphone movement, recording gestures and final pointing pose. That review found and drove the garment underpaint, wrist alignment, reduced knee lift, loading-pose and anchor-offset corrections. The compact composition, shared CTA and all three stage labels fit together in the observed desktop viewport. No unit tests, lint, type checks or production build were run.

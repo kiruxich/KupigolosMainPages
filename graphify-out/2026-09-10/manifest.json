@@ -1638,10 +1638,10 @@
     "semantic_hash": "3f32f80db23e1c960ae1d07a7e593858"
   },
   "components/home/about.tsx": {
-    "mtime": 1788973521.7350347,
-    "seen": 1789030481.874974,
-    "ast_hash": "3b976814b4dfe98ac04e9578cd1ec277",
-    "semantic_hash": "3b976814b4dfe98ac04e9578cd1ec277"
+    "mtime": 1789047590.568514,
+    "seen": 1789047985.609788,
+    "ast_hash": "97973ca48bf6143d492246cca55b6f47",
+    "semantic_hash": "97973ca48bf6143d492246cca55b6f47"
   },
   "components/home/ai-services.tsx": {
     "mtime": 1788948905.1266825,
@@ -1674,10 +1674,10 @@
     "semantic_hash": "d929c0fe912325b72ed746f9033314f7"
   },
   "components/home/hero.tsx": {
-    "mtime": 1788972265.2275145,
-    "seen": 1789030481.8751209,
-    "ast_hash": "dc66a072ad90d87a2133b7b41fb641cf",
-    "semantic_hash": "dc66a072ad90d87a2133b7b41fb641cf"
+    "mtime": 1789036909.0628843,
+    "seen": 1789044847.4227562,
+    "ast_hash": "4b56298cc8e935ea2fa84a843b1aff3b",
+    "semantic_hash": "4b56298cc8e935ea2fa84a843b1aff3b"
   },
   "components/home/home-markup.generated.ts": {
     "mtime": 1788968538.2423851,
@@ -1764,10 +1764,10 @@
     "semantic_hash": "a9ff2ea810633eee7469870c05785274"
   },
   "package.json": {
-    "mtime": 1788960338.2559607,
-    "seen": 1788960405.090049,
-    "ast_hash": "01ee6d8c7ee1a3223b6e9dac37675dde",
-    "semantic_hash": "01ee6d8c7ee1a3223b6e9dac37675dde"
+    "mtime": 1789045204.6246195,
+    "seen": 1789047985.611466,
+    "ast_hash": "1d13d1580f7d367b008b07c14c6a5ac2",
+    "semantic_hash": "1d13d1580f7d367b008b07c14c6a5ac2"
   },
   "playwright.config.ts": {
     "mtime": 1788949041.0542555,
@@ -1842,10 +1842,10 @@
     "semantic_hash": "3d122633a43450e4bf79885648b9ede1"
   },
   "components/home/about.test.tsx": {
-    "mtime": 1788973521.922339,
-    "seen": 1789030481.8749719,
-    "ast_hash": "754471e6c36b651b89fc3958a5eb8c2d",
-    "semantic_hash": "754471e6c36b651b89fc3958a5eb8c2d"
+    "mtime": 1789039523.7871048,
+    "seen": 1789044847.421974,
+    "ast_hash": "ef2f043c932d71cd1786d65ac2503d32",
+    "semantic_hash": "ef2f043c932d71cd1786d65ac2503d32"
   },
   "components/home/calculator.test.tsx": {
     "mtime": 1788972539.6430745,
@@ -1890,10 +1890,10 @@
     "semantic_hash": "61c483dac99352adf959d077834534c7"
   },
   "components/home/process.tsx": {
-    "mtime": 1788971384.846107,
-    "seen": 1789030481.875214,
-    "ast_hash": "1ad0f411d29bb1962f99545389165151",
-    "semantic_hash": "1ad0f411d29bb1962f99545389165151"
+    "mtime": 1789036391.970767,
+    "seen": 1789044847.423456,
+    "ast_hash": "27378995f7657d573adc03faded9fcf0",
+    "semantic_hash": "27378995f7657d573adc03faded9fcf0"
   },
   "components/home/proof-sections.test.tsx": {
     "mtime": 1788968491.5427501,
@@ -1920,9 +1920,477 @@
     "semantic_hash": "7d5f235a9af1a2c5ef9c9b1ed41460e2"
   },
   "components/home/guarantees.tsx": {
-    "mtime": 1789034114.1085083,
-    "seen": 1789034405.965784,
-    "ast_hash": "809c6ddda4d1ca86ec4c646447652815",
-    "semantic_hash": "809c6ddda4d1ca86ec4c646447652815"
+    "mtime": 1789037370.6868649,
+    "seen": 1789044847.422663,
+    "ast_hash": "3309d56960d6d3b1151ef9c23c767a30",
+    "semantic_hash": "3309d56960d6d3b1151ef9c23c767a30"
+  },
+  ".superpowers/sdd/2026-09-08-live-header-three-heroes/task-1-report.md": {
+    "mtime": 1788866800.0275471,
+    "seen": 1789036772.603075,
+    "ast_hash": "1aa14bc529c304a2057b33cd7f25986b",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1789028427.8212335,
+    "seen": 1789036772.6030772,
+    "ast_hash": "3fde78154f513bf8a8c42db57a392a61",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1788949033.2083967,
+    "seen": 1789036772.6030788,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1788952871.537448,
+    "seen": 1789036772.603102,
+    "ast_hash": "a53b4cc0862cab5830d9545d6141a7de",
+    "semantic_hash": ""
+  },
+  "docs/hero-background-quality.md": {
+    "mtime": 1788962112.9217935,
+    "seen": 1789036772.603103,
+    "ast_hash": "c467c0ae7c10022444139bb1c66b3c65",
+    "semantic_hash": ""
+  },
+  "docs/voice-arc.md": {
+    "mtime": 1788968967.043198,
+    "seen": 1789036772.603267,
+    "ast_hash": "eb6d1b1bac8825c5718201c133f5a920",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/FRAME-07.md": {
+    "mtime": 1789033704.1368318,
+    "seen": 1789036772.6032681,
+    "ast_hash": "b2856042244d200637f6ce5a39122f86",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/README.md": {
+    "mtime": 1789033583.2875893,
+    "seen": 1789036772.603269,
+    "ast_hash": "18cabca90e94acd5b53d835c01bfa40f",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/RECORDING-FRAMES.md": {
+    "mtime": 1789036474.0283802,
+    "seen": 1789036772.603271,
+    "ast_hash": "3570814a3e112abe4ea9a5392bd05237",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/children-studio.source.md": {
+    "mtime": 1788968763.0561008,
+    "seen": 1789036772.603272,
+    "ast_hash": "284b596cc3bcd8b19bfe6446642832a9",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/background.png": {
+    "mtime": 1789032764.2673519,
+    "seen": 1789036772.603905,
+    "ast_hash": "5ab518600a3c4ff8931341a510319aca",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-01-desk.png": {
+    "mtime": 1789032829.0473762,
+    "seen": 1789036772.6039062,
+    "ast_hash": "31372c9a8d7d4cbe30346c62f2c15c42",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-02-rise.png": {
+    "mtime": 1789032905.3180633,
+    "seen": 1789036772.603907,
+    "ast_hash": "ade9d4a3612a88c55b4dc9a4dca795a4",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-03-walk.png": {
+    "mtime": 1789032981.2445128,
+    "seen": 1789036772.603909,
+    "ast_hash": "3c2ebd5cdbc955b22e56031cf0b486a2",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-04-headphones-reach.png": {
+    "mtime": 1789033274.269957,
+    "seen": 1789036772.60391,
+    "ast_hash": "8780b3f87d8fb94638bbc5540b77e5a8",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-05-headphones-on.png": {
+    "mtime": 1789033476.4912546,
+    "seen": 1789036772.603911,
+    "ast_hash": "48c6a8a503e86d31cfd0542359302317",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-06-recording.png": {
+    "mtime": 1789033555.3271604,
+    "seen": 1789036772.6039119,
+    "ast_hash": "8f03f7cc916a1dd3a0fce52fe4ee37f3",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-06a-recording-lean.png": {
+    "mtime": 1789034347.1783829,
+    "seen": 1789036772.603913,
+    "ast_hash": "c883e9c9a5b8f96291b2cd5dfbc9b858",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-06b-recording-gesture.png": {
+    "mtime": 1789034433.7539554,
+    "seen": 1789036772.603914,
+    "ast_hash": "971eaec2f7ce2236e0521439af3e0b8e",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-06c-recording-finish.png": {
+    "mtime": 1789036396.4712462,
+    "seen": 1789036772.603914,
+    "ast_hash": "1bc5584dfcd532dd87e74aca399d895c",
+    "semantic_hash": ""
+  },
+  "output/imagegen/studio-pen-storyboard-v1/frame-07-cta.png": {
+    "mtime": 1789033703.9935849,
+    "seen": 1789036772.603916,
+    "ast_hash": "a6295cde360f8d2dfbb99a95bc601e5e",
+    "semantic_hash": ""
+  },
+  "public/assets/ai-voices/darya-enhanced-v2.jpg": {
+    "mtime": 1788948905.1607606,
+    "seen": 1789036772.603921,
+    "ast_hash": "7f16eb8cd32c1dfbd45ad7a4601d5a08",
+    "semantic_hash": ""
+  },
+  "public/assets/ai-voices/darya-enhanced-v3.jpg": {
+    "mtime": 1788948905.1620426,
+    "seen": 1789036772.603922,
+    "ast_hash": "bb790cea7a87f5832be7ce5e36376dca",
+    "semantic_hash": ""
+  },
+  "public/assets/ai-voices/roman-enhanced-v2.jpg": {
+    "mtime": 1788948905.165354,
+    "seen": 1789036772.6039228,
+    "ast_hash": "cb47e9438409808bc7474f959d87cc4d",
+    "semantic_hash": ""
+  },
+  "public/assets/ai-voices/stanislav-enhanced-v3.jpg": {
+    "mtime": 1788948905.167841,
+    "seen": 1789036772.603924,
+    "ast_hash": "1de0ed858dd748d0f68896d7add0dce1",
+    "semantic_hash": ""
+  },
+  "public/assets/ai-voices/vladimir-enhanced-v3.jpg": {
+    "mtime": 1788948905.1710222,
+    "seen": 1789036772.603925,
+    "ast_hash": "f9f3ccf254816f57f8c5dd71e49f2c6d",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-console.jpg": {
+    "mtime": 1788948905.172986,
+    "seen": 1789036772.603926,
+    "ast_hash": "887dfef9dcaeebc7c243d233c8d9b33c",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-options/01-directors-desk.png": {
+    "mtime": 1788948905.1783047,
+    "seen": 1789036772.6039271,
+    "ast_hash": "42f937883f26fbbea97097eb8b476030",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-options/02-through-glass.png": {
+    "mtime": 1788948905.1841981,
+    "seen": 1789036772.60393,
+    "ast_hash": "8bf79594205d60fefebfc87edbcb4952",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-options/03-human-voice.png": {
+    "mtime": 1788948905.1886346,
+    "seen": 1789036772.603931,
+    "ast_hash": "44ab69688e08b2178fd2f77eda2ab1a7",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-options/04-recording-archive.png": {
+    "mtime": 1788948905.1979098,
+    "seen": 1789036772.603932,
+    "ast_hash": "90bfd7c4ad389797bbc0a31a2d3ccf4d",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-options/05-night-control-room.png": {
+    "mtime": 1788948905.2024157,
+    "seen": 1789036772.6039329,
+    "ast_hash": "2a3dfec2ccd4ace72412d3aba0019c51",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-script.jpg": {
+    "mtime": 1788948905.2034001,
+    "seen": 1789036772.603934,
+    "ast_hash": "bd33ccf0acd2ec158da360a2f74db66a",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-studio-product.png": {
+    "mtime": 1788948905.2118802,
+    "seen": 1789036772.603935,
+    "ast_hash": "7d30e3cc170b8421cb9f53efa4fa24ea",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-studio-session-v1.png": {
+    "mtime": 1788948905.2169938,
+    "seen": 1789036772.603936,
+    "ast_hash": "b216aec9fbf8907783abe5fc99f262cc",
+    "semantic_hash": ""
+  },
+  "public/assets/hero-studio.jpg": {
+    "mtime": 1788948905.2188292,
+    "seen": 1789036772.603937,
+    "ast_hash": "9812ab3e51a2f27a356aa3a22fceb7da",
+    "semantic_hash": ""
+  },
+  "public/assets/kupigolos-logo-white.svg": {
+    "mtime": 1788948905.2201192,
+    "seen": 1789036772.603938,
+    "ast_hash": "ec67d83bacfd7b141b7f09b5aa58018d",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-cinema-background-v2.jpg": {
+    "mtime": 1788966701.188769,
+    "seen": 1789036772.603939,
+    "ast_hash": "073c9aed5918c75e92fe47c9af5f793a",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-cinema-background-v3.png": {
+    "mtime": 1788967367.5041218,
+    "seen": 1789036772.60394,
+    "ast_hash": "f9ecd41c3c0f7b1807c3ba9534c91f43",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-cinema-background.webp": {
+    "mtime": 1788962112.7881935,
+    "seen": 1789036772.6039412,
+    "ast_hash": "49e216dcc39b0e770ec98788bf81936b",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-mockup-1.png": {
+    "mtime": 1788971440.1194906,
+    "seen": 1789036772.603942,
+    "ast_hash": "7f3e576597de123b49e43e644298a053",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-mockup-2.png": {
+    "mtime": 1788971440.137448,
+    "seen": 1789036772.6039429,
+    "ast_hash": "82f8280a706e3b541ff71d7bf776592e",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-mockup-3.png": {
+    "mtime": 1788971440.170521,
+    "seen": 1789036772.6039429,
+    "ast_hash": "6a38598e442b32a4b58f03d960e374cb",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-option-1.png": {
+    "mtime": 1788971097.0000668,
+    "seen": 1789036772.6039438,
+    "ast_hash": "b67867513c16e873053d818c6645c903",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-option-2.png": {
+    "mtime": 1788971097.021119,
+    "seen": 1789036772.603945,
+    "ast_hash": "e8a430ee1c50c4cc5ff9e93689366d2b",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-header-option-3.png": {
+    "mtime": 1788971096.9777305,
+    "seen": 1789036772.603946,
+    "ast_hash": "182ab0bda90983b0eea8367f309f9967",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-neutral-preview-1.png": {
+    "mtime": 1788968356.1390963,
+    "seen": 1789036772.603947,
+    "ast_hash": "3040199ee995baf9a454249052ab449b",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-neutral-preview-2.png": {
+    "mtime": 1788968356.2744274,
+    "seen": 1789036772.603948,
+    "ast_hash": "ec69f79bb7fcda69d37bdaa920668763",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-neutral-preview-3-focus.png": {
+    "mtime": 1788970006.0776043,
+    "seen": 1789036772.603949,
+    "ast_hash": "ca7a268b926d6b0adca39cb93a0bab2d",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-neutral-preview-3-soft-focus.png": {
+    "mtime": 1788970243.453708,
+    "seen": 1789036772.60395,
+    "ast_hash": "3bc668a9d65ea222856b63e592eb41df",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-neutral-preview-3.png": {
+    "mtime": 1788968356.4134223,
+    "seen": 1789036772.6039512,
+    "ast_hash": "c8709baf14a5495f4a3b9c6678dc9826",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-room.jpg": {
+    "mtime": 1788955731.3742063,
+    "seen": 1789036772.6039522,
+    "ast_hash": "b288f1c59d05396c8837791d166688e5",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-session.jpg": {
+    "mtime": 1788955731.3982205,
+    "seen": 1789036772.6039522,
+    "ast_hash": "efb47f9204191886e1e86b85ad7d34ca",
+    "semantic_hash": ""
+  },
+  "public/assets/studio/hero-sound-sculpture.png": {
+    "mtime": 1788972264.9830258,
+    "seen": 1789036772.603953,
+    "ast_hash": "178b61aa52746d6b13fefe9a3e5446a7",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/children-studio.webp": {
+    "mtime": 1788968637.6590564,
+    "seen": 1789036772.6039538,
+    "ast_hash": "dc1b658f30f344fa1b820fdb11d660f3",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/female-hq.png": {
+    "mtime": 1788948905.2259083,
+    "seen": 1789036772.603955,
+    "ast_hash": "29f5228d78718df415d845dc8d3c83e1",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/foreign-hq.png": {
+    "mtime": 1788948905.2315526,
+    "seen": 1789036772.603956,
+    "ast_hash": "c940cac2a5f60bfbd4b7046b76fafcba",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/male-hq.png": {
+    "mtime": 1788948905.2351341,
+    "seen": 1789036772.603957,
+    "ast_hash": "fd1a205842910abb3fbd5e885f4966b3",
+    "semantic_hash": ""
+  },
+  "public/assets/voice-categories/parody-hq.png": {
+    "mtime": 1788948905.2414439,
+    "seen": 1789036772.6039581,
+    "ast_hash": "905d5ac8c50c584add5c59929e0a554b",
+    "semantic_hash": ""
+  },
+  "public/assets/voices/alexey-kolgan-v2.jpg": {
+    "mtime": 1788948905.2434998,
+    "seen": 1789036772.603959,
+    "ast_hash": "1ea5480610d2fa35020a57d2f984a17e",
+    "semantic_hash": ""
+  },
+  "tests/visual/baselines/desktop-home.png": {
+    "mtime": 1788948905.258321,
+    "seen": 1789036772.60396,
+    "ast_hash": "96cf248b5c3ae2b7d3c0b3efa6d85faa",
+    "semantic_hash": ""
+  },
+  "tests/visual/baselines/mobile-home.png": {
+    "mtime": 1788948905.264898,
+    "seen": 1789036772.603961,
+    "ast_hash": "82fa372a66ec7ac53935dca1ab226336",
+    "semantic_hash": ""
+  },
+  "components/home/studio/animate-studio.ts": {
+    "mtime": 1789045893.3064487,
+    "seen": 1789047985.6109078,
+    "ast_hash": "14d80251be0b9d47890fb62c773e5d8d",
+    "semantic_hash": "14d80251be0b9d47890fb62c773e5d8d"
+  },
+  "components/home/studio/character-ink.tsx": {
+    "mtime": 1789045893.2215369,
+    "seen": 1789047985.610909,
+    "ast_hash": "9f38f15fd3fdb423269a84e487ae0d38",
+    "semantic_hash": "9f38f15fd3fdb423269a84e487ae0d38"
+  },
+  "components/home/studio/character.tsx": {
+    "mtime": 1789045893.249774,
+    "seen": 1789047985.610911,
+    "ast_hash": "48dcb7b38c4035840f7d0927312c8a9b",
+    "semantic_hash": "48dcb7b38c4035840f7d0927312c8a9b"
+  },
+  "components/home/studio/equipment.tsx": {
+    "mtime": 1789039559.9772525,
+    "seen": 1789044847.423946,
+    "ast_hash": "1404421e9e1b99ce774a84468005844c",
+    "semantic_hash": "1404421e9e1b99ce774a84468005844c"
+  },
+  "components/home/studio/pen.tsx": {
+    "mtime": 1789039559.877923,
+    "seen": 1789044847.423948,
+    "ast_hash": "5f63de75121bd0eeebf5c38313559718",
+    "semantic_hash": "5f63de75121bd0eeebf5c38313559718"
+  },
+  "components/home/studio/reference-heads.ts": {
+    "mtime": 1789043980.1732574,
+    "seen": 1789044847.4239528,
+    "ast_hash": "cf1c90889b00a578e4c23dbb91503d80",
+    "semantic_hash": "cf1c90889b00a578e4c23dbb91503d80"
+  },
+  "components/home/studio/reference-parts.ts": {
+    "mtime": 1789043766.3100212,
+    "seen": 1789044847.423955,
+    "ast_hash": "9d95aca9042c68f2bc7d3c56e98652b1",
+    "semantic_hash": "9d95aca9042c68f2bc7d3c56e98652b1"
+  },
+  "components/home/studio/studio-rig.ts": {
+    "mtime": 1789045893.2788248,
+    "seen": 1789047985.611121,
+    "ast_hash": "211c0562387abeb0afbe6c4d67189e69",
+    "semantic_hash": "211c0562387abeb0afbe6c4d67189e69"
+  },
+  "components/home/studio/pixi-studio.ts": {
+    "mtime": 1789047980.5740266,
+    "seen": 1789047985.6110148,
+    "ast_hash": "4a6f337af2b03849d599bffdd9cd559b",
+    "semantic_hash": "4a6f337af2b03849d599bffdd9cd559b"
+  },
+  "components/home/studio/reference-environment.ts": {
+    "mtime": 1789046127.6226077,
+    "seen": 1789047985.611017,
+    "ast_hash": "fab33801e2747cbe4538a4a8052e4af6",
+    "semantic_hash": "fab33801e2747cbe4538a4a8052e4af6"
+  },
+  "components/home/studio/reference-seated.ts": {
+    "mtime": 1789046217.5000048,
+    "seen": 1789047985.6111171,
+    "ast_hash": "53611a56e926cbc22f66f4c4ee2da817",
+    "semantic_hash": "53611a56e926cbc22f66f4c4ee2da817"
+  },
+  "components/home/studio/reference-underpaint.ts": {
+    "mtime": 1789047802.0006154,
+    "seen": 1789047985.611118,
+    "ast_hash": "b1e30cfded8eaf7f0f7177991370e902",
+    "semantic_hash": "b1e30cfded8eaf7f0f7177991370e902"
+  },
+  "components/home/studio/skin-mesh.ts": {
+    "mtime": 1789045277.5509264,
+    "seen": 1789047985.611119,
+    "ast_hash": "29b7aac120cabee757ab070eeea670e8",
+    "semantic_hash": "29b7aac120cabee757ab070eeea670e8"
+  },
+  "components/home/studio/studio-motion.ts": {
+    "mtime": 1789047682.4801598,
+    "seen": 1789047985.6111202,
+    "ast_hash": "1be06743f22c3f8fe4c47e3887f3c248",
+    "semantic_hash": "1be06743f22c3f8fe4c47e3887f3c248"
+  },
+  "public/assets/studio/textures/manifest.json": {
+    "mtime": 1789047816.3125396,
+    "seen": 1789047985.611541,
+    "ast_hash": "fb7a6d34d2ab765f7eb0a3b13f23b709",
+    "semantic_hash": "fb7a6d34d2ab765f7eb0a3b13f23b709"
+  },
+  "scripts/prepare-studio-textures.py": {
+    "mtime": 1789047802.1507556,
+    "seen": 1789047985.611667,
+    "ast_hash": "e95b64313b8d4924edb3ad3ad1d032c4",
+    "semantic_hash": "e95b64313b8d4924edb3ad3ad1d032c4"
   }
 }
