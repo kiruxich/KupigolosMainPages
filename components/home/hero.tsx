@@ -9,23 +9,17 @@ export function Hero() {
       </div>
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
+          <p className="top-kicker">ПРОФЕССИОНАЛЬНАЯ</p>
           <h1 className="hero-product-title" id="hero-title">
-            <span className="hero-title-main">Студия<br />озвучивания</span>
-            <span className="hero-title-accent">в Москве</span>
+            <span className="hero-title-main">СТУДИЯ<br />ОЗВУЧИВАНИЯ</span>
+            <span className="hero-title-accent">В МОСКВЕ</span>
           </h1>
           <p className="hero-product-lead">
-            Подготовим профессиональную озвучку диктором.<br className="hero-desktop-break" /> На любом языке мира за один день.<br className="hero-desktop-break" /> С помощью звукового оборудования мировых брендов.
+            Подготовим профессиональную озвучку диктором<br className="hero-desktop-break" /> На любом языке мира за один день<br className="hero-desktop-break" /> С помощью звукового оборудования мировых брендов
           </p>
           <div className="hero-actions" aria-label="Действия">
-            <a className="studio-cta studio-cta--order" href="#contacts">
-              <svg className="studio-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-6 3V7a3 3 0 0 1 3-3Z" />
-                <path d="M8 9h8M8 13h5" />
-              </svg>
-              <span>Заказать</span>
-            </a>
-            <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/order/voice/163">
-              <span>Выбрать голос</span>
+            <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/diktory">
+              <span>ВЫБРАТЬ ДИКТОРА</span>
             </a>
           </div>
           <div className="hero-production-flow" aria-label="Этапы работы">
