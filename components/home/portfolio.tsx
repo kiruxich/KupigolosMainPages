@@ -5,12 +5,12 @@ import { audioWorks, videoWorks } from "./portfolio-data";
 import styles from "./portfolio.module.css";
 
 const tabs = [
-  { id: "video", label: "Видео реклама" },
-  { id: "movies", label: "Фильмы/сериалы/мультики" },
-  { id: "audio", label: "Аудиоролики" },
-  { id: "books", label: "Аудиокниги" },
-  { id: "guides", label: "Аудиогиды" },
-  { id: "youtube", label: "Ютуб ролики" },
+  { id: "video", label: "Видео реклама", icon: "clapper" },
+  { id: "movies", label: "Фильмы/сериалы/мультики", icon: "screen" },
+  { id: "audio", label: "Аудиоролики", icon: "wave" },
+  { id: "books", label: "Аудиокниги", icon: "book" },
+  { id: "guides", label: "Аудиогиды", icon: "headphones" },
+  { id: "youtube", label: "Ютуб ролики", icon: "video" },
 ] as const;
 
 type PortfolioCategory = (typeof tabs)[number]["id"];
@@ -73,6 +73,31 @@ function PlayIcon() {
   );
 }
 
+function VideoPlayIcon() {
+  return (
+    <svg viewBox="0 0 32 34" aria-hidden="true">
+      <path d="M2 1.8 30 17 2 32.2Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function TabIcon({ name }: { name: (typeof tabs)[number]["icon"] }) {
+  if (name === "clapper") return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7h14v9H3zM3 7l2-4h12l-2 4M7 3 5 7m6-4L9 7m6-4-2 4" /></svg>;
+  if (name === "screen") return <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="2" /><path d="m8 7 5 3-5 3z" /></svg>;
+  if (name === "wave") return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 10h2l1.5-4 2.2 8L10 3l2.2 14 2.3-10L16 10h2" /></svg>;
+  if (name === "book") return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5h4.5A2.5 2.5 0 0 1 10 7v9a2.5 2.5 0 0 0-2.5-2.5H3zM17 4.5h-4.5A2.5 2.5 0 0 0 10 7v9a2.5 2.5 0 0 1 2.5-2.5H17z" /></svg>;
+  if (name === "headphones") return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 0 1 13 0M3.5 10v4a2 2 0 0 0 2 2h1v-6h-3Zm13 0v4a2 2 0 0 1-2 2h-1v-6h3Z" /></svg>;
+  return <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="16" height="10" rx="3" /><path d="m8.5 8 4 2-4 2z" /></svg>;
+}
+
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d={direction === "left" ? "M20 12H5m6-6-6 6 6 6" : "M4 12h15m-6-6 6 6-6 6"} />
+    </svg>
+  );
+}
+
 function Waveform() {
   return (
     <svg className={styles.waveform} viewBox="0 0 420 38" preserveAspectRatio="none" aria-hidden="true">
@@ -87,7 +112,7 @@ function VideoCard({ work, poster = false }: { work: (typeof videoWorks)[number]
       <a className={styles.media} href={work.href} target="_blank" rel="noopener noreferrer" aria-label={`Смотреть ${work.title}`}>
         <img src={work.image} alt="" loading="lazy" />
         <span className={styles.tag}>{work.category}</span>
-        <span className={styles.mediaPlay}><PlayIcon /></span>
+        <span className={styles.mediaPlay}><VideoPlayIcon /></span>
       </a>
       <div className={styles.cardBody}>
         <h3>{work.title}</h3>
@@ -162,7 +187,8 @@ export function Portfolio() {
               aria-controls="portfolio-panel"
               onClick={() => selectCategory(tab.id)}
             >
-              {tab.label}
+              <TabIcon name={tab.icon} />
+              <span>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -212,8 +238,8 @@ export function Portfolio() {
         </div>
 
         <div className={styles.controls} aria-label="Переключение категорий">
-          <button type="button" onClick={() => move(-1)} disabled={activeIndex === 0} aria-label="Предыдущая категория">←</button>
-          <button type="button" onClick={() => move(1)} disabled={activeIndex === tabs.length - 1} aria-label="Следующая категория">→</button>
+          <button type="button" onClick={() => move(-1)} disabled={activeIndex === 0} aria-label="Предыдущая категория"><ArrowIcon direction="left" /></button>
+          <button type="button" onClick={() => move(1)} disabled={activeIndex === tabs.length - 1} aria-label="Следующая категория"><ArrowIcon direction="right" /></button>
         </div>
       </div>
     </section>

@@ -35,6 +35,10 @@
 
 .tabs button {
   min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 8px 18px;
   border: 1px solid #c1492e;
   border-radius: 999px;
@@ -46,6 +50,22 @@
   line-height: 1.2;
   cursor: pointer;
   transition: color .18s ease, background .18s ease;
+}
+
+.tabs button svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tabs button svg path[d*="z"] {
+  fill: currentColor;
+  stroke: none;
 }
 
 .tabs button[aria-selected="true"] {
@@ -123,22 +143,22 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 62px;
-  height: 62px;
+  width: 75px;
+  height: 75px;
   display: grid;
   place-items: center;
-  border: 1px solid #ffffffd6;
+  border: 1px solid #fff;
   border-radius: 50%;
-  background: #ffffffc9;
-  color: #c1492e;
-  box-shadow: 0 8px 24px #1715261a;
+  background: #ffffff42;
+  color: #fff;
+  box-shadow: none;
   transform: translate(-50%, -50%);
 }
 
 .mediaPlay svg {
-  width: 26px;
-  height: 26px;
-  margin-left: 3px;
+  width: 30px;
+  height: 33px;
+  margin-left: 4px;
 }
 
 .cardBody {
@@ -326,9 +346,17 @@
   border-radius: 50%;
   background: #fff;
   color: #c1492e;
-  font: inherit;
-  font-size: 20px;
   cursor: pointer;
+}
+
+.controls button svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .controls button:disabled {
@@ -411,8 +439,8 @@
   }
 
   .mediaPlay {
-    width: 52px;
-    height: 52px;
+    width: 64px;
+    height: 64px;
   }
 
   .audioCard {
