@@ -801,9 +801,10 @@ body {
   display: grid;
   width: min(100%, 620px);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin: 30px 0 0;
-  padding: 0;
+  gap: 0;
+  margin: 34px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid rgba(59, 65, 115, .16);
   list-style: none;
 }
 
@@ -811,45 +812,50 @@ body {
   position: relative;
   display: grid;
   min-width: 0;
-  grid-template-columns: 22px minmax(0, 1fr);
-  gap: 9px;
-  align-items: center;
+  min-height: 56px;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 0 22px;
+}
+
+.hero-production-steps li:first-child {
+  padding-left: 0;
+}
+
+.hero-production-steps li:last-child {
+  padding-right: 0;
+}
+
+.hero-production-steps li + li {
+  border-left: 1px solid rgba(59, 65, 115, .13);
 }
 
 .hero-production-steps svg {
-  width: 22px;
-  height: 22px;
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border: 1px solid rgba(193, 73, 46, .32);
+  border-radius: 50%;
+  background: rgba(193, 73, 46, .045);
   fill: none;
   stroke: var(--header-rust);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.55;
+  stroke-width: 1.45;
 }
 
 .hero-production-steps span {
-  color: var(--muted);
-  font-size: clamp(11px, .77vw, 13px);
+  max-width: 17ch;
+  padding-top: 1px;
+  color: var(--ink);
+  font-size: clamp(11px, .75vw, 13px);
   font-weight: 500;
-  line-height: 1.28;
+  line-height: 1.34;
 }
 
 .hero-production-steps i {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  right: -18px;
-  display: grid;
-  width: 18px;
-  height: 18px;
-  place-items: center;
-  border: 1px solid rgba(193, 73, 46, .32);
-  border-radius: 50%;
-  color: var(--header-rust);
-  background: #f5f1e9;
-  font-size: 12px;
-  font-style: normal;
-  line-height: 1;
-  transform: translateY(-50%);
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -858,12 +864,18 @@ body {
     grid-template-columns: 1fr;
     gap: 0;
     margin-top: 24px;
+    padding-top: 0;
+    border-top: 0;
   }
 
   .hero-production-steps li {
-    min-height: 42px;
-    padding: 8px 0;
+    min-height: 54px;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(59, 65, 115, .14);
+  }
+
+  .hero-production-steps li + li {
+    border-left: 0;
   }
 
   .hero-production-steps li:last-child { border-bottom: 0; }
