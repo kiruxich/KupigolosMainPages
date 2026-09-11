@@ -710,6 +710,31 @@ body {
   .site-header.on-light,
   .site-header.is-scrolled,
   .site-header.on-light.is-scrolled { padding-left: 0; }
+
+  .site-header .site-header-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .site-header .site-nav {
+    align-self: stretch;
+    justify-self: auto;
+  }
+
+  .site-header .header-actions { gap: 15px; }
+
+  .site-header .nav-toggle {
+    width: 40px;
+    height: 20px;
+    min-height: 20px;
+    margin-left: 15px;
+  }
+
+  .site-header .nav-toggle-icon,
+  .site-header .nav-toggle-icon i { width: 40px; }
+
+  .site-header .header-ai-trigger > i { width: 16px; }
 }
 
 @media (max-width: 1280px) {
