@@ -668,6 +668,22 @@ body {
 @media (min-width: 701px) {
   .hero-product.hero-product-cinema {
     min-height: max(910px, calc(100svh + 120px));
+    display: grid;
+    align-items: center;
+    padding-block: 120px;
+  }
+
+  .hero-product.hero-product-cinema .hero-product-grid {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .hero-sound-art {
+    top: 50%;
+    bottom: auto;
+    height: min(72svh, 760px);
+    transform: translateY(-50%);
   }
 }
 
