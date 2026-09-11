@@ -1274,7 +1274,7 @@ body {
 
 @media (min-width: 701px) {
   .hero-production-flow {
-    transform: translateY(-48px);
+    transform: translateY(-32px);
   }
 }
 
