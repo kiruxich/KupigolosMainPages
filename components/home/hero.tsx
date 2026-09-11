@@ -21,6 +21,13 @@ export function Hero() {
             <a className="studio-cta studio-cta--secondary" href="https://kupigolos.ru/diktory">
               <span>ВЫБРАТЬ ДИКТОРА</span>
             </a>
+            <a className="studio-cta studio-cta--order" href="#contacts">
+              <svg className="studio-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-6 3V7a3 3 0 0 1 3-3Z" />
+                <path d="M8 9h8M8 13h5" />
+              </svg>
+              <span>Заказать</span>
+            </a>
           </div>
           <div className="hero-production-flow" aria-label="Этапы работы">
             <svg className="hero-production-wave" viewBox="0 0 620 120" preserveAspectRatio="none" aria-hidden="true">
