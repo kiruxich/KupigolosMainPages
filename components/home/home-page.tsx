@@ -2,12 +2,16 @@ import { About } from "./about";
 import { AiServices } from "./ai-services";
 import { Calculator } from "./calculator";
 import { Contact } from "./contact";
+import { Clients } from "./clients";
+import { Guarantees } from "./guarantees";
 import { Header } from "./header";
 import { Hero } from "./hero";
 import { homeMarkup } from "./home-markup.generated";
 import { Portfolio } from "./portfolio";
-import { ProofSections, VoiceCategories } from "./proof-sections";
+import { Process } from "./process";
+import { Advantages, VoiceCategories } from "./proof-sections";
 import { RenderHomeMarkup } from "./render-home-markup";
+import { Reviews } from "./reviews";
 import { Services } from "./services";
 import { StudioDirections } from "./studio-directions";
 import { StudioFaq } from "./studio-faq";
@@ -20,17 +24,21 @@ export function HomePage() {
       <Header />
       <main id="main-content">
         <Hero />
-        <StudioIntro />
         <Voices />
+        <StudioIntro />
+        <Services />
+        <AiServices />
+        <Portfolio />
+        <Calculator />
+        <Process />
         <VoiceCategories />
         <StudioDirections />
         <StudioFaq />
-        <AiServices />
+        <Advantages />
+        <Guarantees />
         <About />
-        <Services />
-        <Portfolio />
-        <Calculator />
-        <ProofSections />
+        <Reviews />
+        <Clients />
         <Contact />
       </main>
       <RenderHomeMarkup markup={homeMarkup.footer} />

@@ -6,7 +6,9 @@ import { Process } from "./process";
 import { Reviews } from "./reviews";
 
 const advantagesStart = homeMarkup.proofSections.indexOf('<section class="advantages-stage');
+const guaranteesStart = homeMarkup.proofSections.indexOf('<section class="guarantees-stage');
 const voiceCategoriesMarkup = homeMarkup.proofSections.slice(0, advantagesStart);
+const advantagesMarkup = homeMarkup.proofSections.slice(advantagesStart, guaranteesStart);
 
 function replaceChildrenArtwork(node: unknown) {
   if (
@@ -27,6 +29,10 @@ function replaceChildrenArtwork(node: unknown) {
 
 export function VoiceCategories() {
   return <>{parse(voiceCategoriesMarkup, { replace: replaceChildrenArtwork })}</>;
+}
+
+export function Advantages() {
+  return <>{parse(advantagesMarkup)}</>;
 }
 
 export function ProofSections() {
