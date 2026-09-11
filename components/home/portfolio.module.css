@@ -212,37 +212,47 @@
 .audioGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
+  gap: 20px 36px;
 }
 
 .audioCard {
-  position: relative;
-  min-height: 138px;
+  min-width: 0;
+  min-height: 143px;
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  align-items: start;
+  grid-template-columns: 75px minmax(0, 1fr);
+  grid-template-rows: auto 1fr 34px;
   column-gap: 18px;
-  padding: 24px 26px 46px;
+  padding: 16px;
+  border-radius: 18px;
 }
 
-.audioPlay {
-  position: relative;
+:global(#portfolio) .audioCard button.audioPlay {
   z-index: 1;
-  width: 56px;
-  height: 56px;
+  grid-column: 1;
+  grid-row: 2 / 4;
+  align-self: center;
+  width: 75px;
+  height: 75px;
   display: grid;
   place-items: center;
-  border: 1px solid #c1492e;
+  border: 1px solid #3b4173;
   border-radius: 50%;
   background: transparent;
-  color: #c1492e;
+  color: #3b4173;
   cursor: pointer;
 }
 
+:global(#portfolio) .audioCard button.audioPlay:is(:hover, :focus-visible),
+:global(#portfolio) .audioCard button.audioPlay:global(.is-playing) {
+  border-color: #3b4173;
+  background: #3b4173;
+  color: #fff;
+}
+
 .audioPlay svg {
-  width: 23px;
-  height: 23px;
-  margin-left: 3px;
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
 }
 
 .pause {
@@ -259,34 +269,41 @@
 }
 
 .audioCopy {
-  position: relative;
-  z-index: 1;
-  padding-top: 2px;
+  display: contents;
 }
 
 .audioCopy h3 {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin: 0;
   font-size: 18px;
+  line-height: 1.2;
 }
 
 .audioCopy p {
-  margin-top: 7px;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  margin: 7px 0 0;
+  color: #686b87;
+  font-size: 12px;
+  line-height: 1.3;
 }
 
 .waveform {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  grid-column: 2;
+  grid-row: 3;
+  align-self: end;
   width: 100%;
-  height: 38px;
-  color: #c1492e;
-  opacity: .68;
+  height: 34px;
+  color: #3b4173;
+  opacity: .62;
 }
 
-.waveform path {
-  fill: none;
+.waveform line {
   stroke: currentColor;
-  stroke-width: 1.3;
+  stroke-width: 2;
+  stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
@@ -468,12 +485,13 @@
   }
 
   .audioCard {
-    grid-template-columns: 48px minmax(0, 1fr);
-    padding: 20px 18px 44px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    min-height: 132px;
+    padding: 14px;
   }
 
-  .audioPlay {
-    width: 48px;
-    height: 48px;
+  :global(#portfolio) .audioCard button.audioPlay {
+    width: 58px;
+    height: 58px;
   }
 }

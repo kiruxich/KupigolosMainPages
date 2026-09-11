@@ -99,9 +99,12 @@ function ArrowIcon({ direction }: { direction: "left" | "right" }) {
 }
 
 function Waveform() {
+  const bars = [8, 18, 12, 26, 16, 30, 10, 22, 14, 28, 18, 34, 12, 24, 16, 29, 20, 32, 14, 26, 10, 22, 18, 30, 12, 26, 16, 34, 20, 28, 14, 24, 18, 31, 12, 27, 16, 22, 10, 18, 14, 26, 12, 20, 8, 16, 10, 22, 8, 14, 6, 12];
   return (
-    <svg className={styles.waveform} viewBox="0 0 420 38" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 19h10l5-4 6 8 7-13 8 18 7-22 8 27 8-18 7 9 8-12 8 20 8-25 8 18 8-10 8 7 8-16 8 28 8-20 8 11 8-5 8 9 8-24 8 30 8-18 8 7 8-12 8 21 8-17 8 8 8-4 8 10 8-22 8 27 8-17 8 9 8-5 8 11 8-18 8 23 8-13 8 5 8-7 8 12 8-9 8 4h13" />
+    <svg className={styles.waveform} viewBox="0 0 520 34" preserveAspectRatio="none" aria-hidden="true">
+      {bars.map((height, index) => (
+        <line key={`${index}-${height}`} x1={index * 10 + 2} y1={17 - height / 2} x2={index * 10 + 2} y2={17 + height / 2} />
+      ))}
     </svg>
   );
 }
