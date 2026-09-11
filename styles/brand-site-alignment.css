@@ -281,14 +281,14 @@ body {
 
 #voices .figma-voice-body .figma-voice-price {
   order: 4;
-  width: calc(100% - 12px);
-  max-width: calc(100% - 12px);
+  width: 100%;
+  max-width: 100%;
   align-self: center;
   min-height: 0;
   justify-content: space-between;
   gap: 8px;
   margin-top: 8px;
-  padding: 0 2px;
+  padding: 0 19px;
   border-top: 0;
   color: var(--muted);
   font-size: clamp(11px, .78vw, 13px);
