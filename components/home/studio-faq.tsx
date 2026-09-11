@@ -19,18 +19,20 @@ const questions = [
   },
   {
     question: "Как узнать стоимость?",
-    answer: "Стоимость зависит от хронометража, числа голосов, формата использования, языков, сроков и объема постобработки. Пришлите материалы или описание задачи — мы подготовим расчет.",
+    answer: "Стоимость зависит от хронометража, числа голосов, формата использования, языков, сроков и объема постобработки. Пришлите материалы или описание задачи. Мы подготовим расчет.",
   },
 ] as const;
 
 export function StudioFaq() {
   return (
     <section id="studio-faq" className={styles.section} aria-labelledby="studio-faq-title">
-      <div className="shell">
-        <p className={styles.kicker}>FAQ</p>
-        <h2 id="studio-faq-title" className={styles.title}>
-          Частые вопросы о студии озвучки
-        </h2>
+      <div className={`shell ${styles.layout}`}>
+        <header className={styles.heading}>
+          <p className={styles.kicker}>FAQ</p>
+          <h2 id="studio-faq-title" className={styles.title}>
+            Частые вопросы о студии озвучки
+          </h2>
+        </header>
         <div className={styles.list}>
           {questions.map(({ question, answer }) => (
             <details className={styles.item} key={question}>
