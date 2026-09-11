@@ -2,6 +2,7 @@ import parse, { Element } from "html-react-parser";
 import { homeMarkup } from "./home-markup.generated";
 import { Clients } from "./clients";
 import { Guarantees } from "./guarantees";
+import { Process } from "./process";
 import { Reviews } from "./reviews";
 
 const advantagesStart = homeMarkup.proofSections.indexOf('<section class="advantages-stage');
@@ -43,10 +44,12 @@ export function ProofSections() {
       const childrenArtwork = replaceChildrenArtwork(node);
       if (childrenArtwork) return childrenArtwork;
       if (
-        node instanceof Element && node.name === "section" &&
-        (node.attribs.id === "voice-categories" || node.attribs.id === "process")
+        node instanceof Element && node.name === "section" && node.attribs.id === "voice-categories"
       ) {
         return <></>;
+      }
+      if (node instanceof Element && node.name === "section" && node.attribs.id === "process") {
+        return <Process />;
       }
     },
   })}</>;

@@ -6,7 +6,6 @@ import { Header } from "./header";
 import { Hero } from "./hero";
 import { homeMarkup } from "./home-markup.generated";
 import { Portfolio } from "./portfolio";
-import { Process } from "./process";
 import { ProofSections, VoiceCategories } from "./proof-sections";
 import { RenderHomeMarkup } from "./render-home-markup";
 import { Services } from "./services";
@@ -22,7 +21,6 @@ export function HomePage() {
       <main id="main-content">
         <Hero />
         <StudioIntro />
-        <Process />
         <Voices />
         <VoiceCategories />
         <StudioDirections />

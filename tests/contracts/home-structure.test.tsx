@@ -5,7 +5,6 @@ import { HomePage } from "../../components/home/home-page";
 
 const sectionIds = [
   "start",
-  "process",
   "voices",
   "voice-categories",
   "studio-directions",
@@ -17,6 +16,7 @@ const sectionIds = [
   "calculator",
   "advantages",
   "guarantees",
+  "process",
   "reviews",
   "clients",
   "contacts",

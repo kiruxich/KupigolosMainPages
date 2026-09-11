@@ -83,9 +83,6 @@ const aiGroups: readonly AiGroup[] = [
 
 const fullUrl = (path: string) => `${site}${path}`;
 
-const startRailLink = '<a href="#start" data-rail-target="start" aria-label="Старт"><i></i><span>Старт</span></a>';
-const processRailLink = '<a href="#process" data-rail-target="process" aria-label="Процесс"><i></i><span>Процесс</span></a>';
-
 const serviceGroups: readonly PreprodGroup[] = [
   {
     title: "Озвучка видео",
@@ -268,11 +265,7 @@ function getPreprodHeaderMarkup() {
     homeMarkup.chrome,
   );
 
-  const withPageOrderRail = withPreprodLinks
-    .replace(processRailLink, "")
-    .replace(startRailLink, `${startRailLink}${processRailLink}`);
-
-  return withPageOrderRail
+  return withPreprodLinks
     .replace(
       /(<button class="header-phone"[^>]*>)[\s\S]*?(<\/button>)/,
       `$1${preprodPhoneIcon}$2`,

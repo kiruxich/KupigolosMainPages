@@ -18,4 +18,15 @@ it("renders the production process from the approved layout", () => {
     "Монтаж и сдача",
   ]);
   expect(steps.every((step) => step.querySelector("p")?.textContent?.trim())).toBe(true);
+  expect([...host.querySelectorAll('#process input[type="range"]')]).toHaveLength(4);
+  expect(
+    [...host.querySelectorAll<HTMLInputElement>('#process input[type="range"]')].map(
+      (input) => input.getAttribute("aria-label"),
+    ),
+  ).toEqual([
+    "Положение ползунка: Бриф и материалы",
+    "Положение ползунка: Подбор команды",
+    "Положение ползунка: Запись и контроль",
+    "Положение ползунка: Монтаж и сдача",
+  ]);
 });
