@@ -9,6 +9,7 @@ import { Portfolio } from "./portfolio";
 import { ProofSections } from "./proof-sections";
 import { RenderHomeMarkup } from "./render-home-markup";
 import { Services } from "./services";
+import { StudioIntro } from "./studio-intro";
 import { Voices } from "./voices";
 
 export function HomePage() {
@@ -17,6 +18,7 @@ export function HomePage() {
       <Header />
       <main id="main-content">
         <Hero />
+        <StudioIntro />
         <Voices />
         <AiServices />
         <About />
@@ -30,4 +32,3 @@ export function HomePage() {
     </>
   );
 }
-
