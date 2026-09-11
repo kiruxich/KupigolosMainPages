@@ -1272,6 +1272,12 @@ body {
   line-height: 1.38;
 }
 
+@media (min-width: 701px) {
+  .hero-production-flow {
+    transform: translateY(-48px);
+  }
+}
+
 @media (max-width: 700px) {
   .hero-production-flow {
     width: min(100%, 360px);
