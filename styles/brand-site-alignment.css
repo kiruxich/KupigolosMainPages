@@ -1017,6 +1017,20 @@ body {
   .site-header .header-ai-trigger > i { width: 16px; }
 }
 
+/* Keep the preproduction proportions on ultrawide and zoomed-out desktops. */
+@media (min-width: 1920px) {
+  .site-header .site-header-inner,
+  .site-header.is-scrolled .site-header-inner,
+  .header-mega-layer {
+    width: min(74vw, 2536px);
+    max-width: 2536px;
+  }
+
+  .hero-sound-art {
+    height: min(72svh, clamp(760px, 38vw, 1320px));
+  }
+}
+
 @media (max-width: 1280px) {
   .site-header .site-header-inner,
   .site-header.is-scrolled .site-header-inner {
