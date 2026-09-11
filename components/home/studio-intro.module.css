@@ -15,9 +15,9 @@
 .kicker {
   margin: 0 0 22px;
   color: var(--site-action-border);
-  font-size: clamp(.72rem, .75vw, .82rem);
+  font-size: clamp(.92rem, .95vw, 1.05rem);
   font-weight: 700;
-  letter-spacing: .13em;
+  letter-spacing: .1em;
 }
 
 .kicker::after {
