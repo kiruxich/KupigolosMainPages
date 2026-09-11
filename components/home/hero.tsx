@@ -31,17 +31,15 @@ export function Hero() {
           </div>
           <ul className="hero-production-steps" aria-label="Этапы работы">
             <li>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.5 14.5A7 7 0 1 1 15.5 14.5c-1.1.8-1.7 1.8-1.7 3.1h-3.6c0-1.3-.6-2.3-1.7-3.1Z" /></svg>
+              <strong>Сценарий</strong>
               <span>Разработаем цепляющий текст, сценарий ролика</span>
-              <i aria-hidden="true">→</i>
             </li>
             <li>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8" /></svg>
+              <strong>Запись</strong>
               <span>Подберем и запишем дикторов на любом языке</span>
-              <i aria-hidden="true">→</i>
             </li>
             <li>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4v16M12 4v16M19 4v16M2 8h6M9 16h6M16 10h6" /><circle cx="5" cy="8" r="2" /><circle cx="12" cy="16" r="2" /><circle cx="19" cy="10" r="2" /></svg>
+              <strong>Монтаж</strong>
               <span>Качественно смонтируем запись в готовый ролик</span>
             </li>
           </ul>
