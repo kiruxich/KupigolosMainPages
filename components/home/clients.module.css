@@ -51,11 +51,13 @@
 }
 
 .filmStage {
+  --film-overlap: clamp(72px, 7vw, 112px);
   position: relative;
   z-index: 1;
-  width: calc(100% + 15vw);
+  width: calc(100% + var(--film-overlap) + clamp(0px, calc(50vw - 640px), 150px));
   min-width: 0;
-  margin-left: clamp(-112px, -7vw, -72px);
+  margin-left: calc(0px - var(--film-overlap));
+  overflow: hidden;
   perspective: 1500px;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 100%);
@@ -266,8 +268,9 @@
   }
 
   .filmStage {
-    width: calc(100% + 22vw);
-    margin-left: -58px;
+    --film-overlap: 58px;
+    width: calc(100% + var(--film-overlap));
+    margin-left: calc(0px - var(--film-overlap));
   }
 }
 
@@ -299,8 +302,8 @@
   }
 
   .filmStage {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: 100%;
+    margin-left: 0;
     perspective: none;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);

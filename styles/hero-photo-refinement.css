@@ -46,9 +46,9 @@
   position: absolute;
   z-index: 0;
   top: 130px;
-  right: -2%;
+  right: max(32px, calc(50vw - 783px));
   bottom: 70px;
-  width: 54%;
+  width: min(54vw, 900px);
   isolation: isolate;
   pointer-events: none;
 }
@@ -163,7 +163,10 @@
     padding-top: 168px;
   }
   .hero-product.hero-product-cinema .hero-product-copy { width: 51%; }
-  .hero-sound-art { width: 48%; right: -3%; }
+  .hero-sound-art {
+    right: 32px;
+    width: min(48vw, 620px);
+  }
   .hero-product.hero-product-cinema .hero-product-title { font-size: clamp(60px, 7.3vw, 80px); }
   .hero-product.hero-product-cinema .hero-actions { gap: 10px; }
   .hero-product-cinema .studio-cta { min-width: 190px; grid-template-columns: 22px minmax(max-content, 1fr) 46px; gap: 10px; }
@@ -178,10 +181,15 @@
   .hero-sound-art {
     position: relative;
     inset: auto;
-    width: 100%;
+    width: min(var(--shell), 560px);
     height: auto;
-    aspect-ratio: 6 / 5;
-    margin-top: 12px;
+    aspect-ratio: 4 / 3;
+    margin: 18px auto 0;
+    overflow: hidden;
+  }
+  .hero-sound-art img {
+    object-fit: cover;
+    object-position: center;
   }
   .hero-product.hero-product-cinema { display: flex; flex-direction: column; }
   .hero-product.hero-product-cinema .hero-product-grid { order: -1; }
