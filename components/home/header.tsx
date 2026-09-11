@@ -3,7 +3,10 @@ import { RenderHomeMarkup } from "./render-home-markup";
 
 const site = "https://kupigolos.ru";
 
-const preprodLinkReplacements = [
+type HeaderLink = readonly [label: string, path: string];
+type AiGroup = { title: string; links: readonly HeaderLink[] };
+
+const preprodLinkReplacements: readonly (readonly [from: string, to: string])[] = [
   [`${site}/audioroliki`, `${site}/reklamnyie-audioroliki`],
   [`${site}/golosovye-privetstviya`, `${site}/zapis-avtootvetchik-ivr`],
   [`${site}/diktory/federalnye`, `${site}/diktory/izvestnye_golosa`],
@@ -13,7 +16,7 @@ const preprodLinkReplacements = [
   [`${site}/ceny`, `${site}/price`],
 ] as const;
 
-const aiGroups = [
+const aiGroups: readonly AiGroup[] = [
   {
     title: "Голос и озвучка",
     links: [
@@ -70,7 +73,7 @@ const aiGroups = [
       ["Yandex SpeechKit", "/ai/models/yandex-speechkit"],
     ],
   },
-] as const;
+];
 
 const fullUrl = (path: string) => `${site}${path}`;
 
@@ -94,7 +97,7 @@ const preprodAiMobileLinks = aiGroups
   .join("");
 
 function getPreprodHeaderMarkup() {
-  const withPreprodLinks = preprodLinkReplacements.reduce(
+  const withPreprodLinks = preprodLinkReplacements.reduce<string>(
     (markup, [from, to]) => markup.replaceAll(from, to),
     homeMarkup.chrome,
   );
