@@ -1022,12 +1022,14 @@ body {
   .site-header .site-header-inner,
   .site-header.is-scrolled .site-header-inner,
   .header-mega-layer {
-    width: min(74vw, 2536px);
-    max-width: 2536px;
+    width: 74vw;
+    max-width: none;
   }
 
   .hero-sound-art {
-    height: min(72svh, clamp(760px, 38vw, 1320px));
+    right: -3%;
+    width: 60%;
+    height: min(78svh, 48vw);
   }
 }
 
