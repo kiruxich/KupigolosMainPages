@@ -53,7 +53,7 @@ export function About() {
           <div className={styles.aside}>
             <p>Придумываем. Записываем. Сводим.</p>
             <a className={`studio-cta ${styles.cta}`} href="#contacts" ref={ctaRef}>
-              <span>Узнать студию</span>
+              <span>Обсудить проект</span>
             </a>
           </div>
           <div className={styles.artwork} ref={canvasRef} aria-hidden="true">
@@ -70,7 +70,7 @@ export function About() {
             Он держит наушник и озвучивает текст с открытой ладонью.
             Закончив запись, он слушает результат в наушниках и кивает в такт,
             затем указывает на кнопку
-            «Узнать студию» и остаётся в этой позе.
+            «Обсудить проект» и остаётся в этой позе.
           </p>
           <ol className={styles.steps} aria-label="От идеи до готового трека">
             <li><span>01 / Идея</span></li>

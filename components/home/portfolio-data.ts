@@ -132,4 +132,4 @@ export const videoWorks = [
     "duration": "00:30",
     "description": "Атмосферная реклама с голосом Александра Головчанского."
   }
-];
+] as const;

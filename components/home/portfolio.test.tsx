@@ -14,21 +14,19 @@ beforeEach(() => {
 });
 afterEach(() => { act(() => root.unmount()); host.remove(); });
 
-it("keeps video examples visible while switching audio categories", () => {
-  expect(host.querySelectorAll('[data-audio-src]')).toHaveLength(4);
+it("switches between video and audio categories", () => {
+  expect(host.querySelectorAll('[data-audio-src]')).toHaveLength(0);
   expect(host.querySelectorAll('a[aria-label^="Смотреть"]')).toHaveLength(2);
-  const tab = [...host.querySelectorAll('button')].find(el => el.textContent === "Автоответчики")!;
+  const tab = [...host.querySelectorAll('button')].find(el => el.textContent === "Аудиоролики")!;
   act(() => tab.click());
-  expect(host.textContent).toContain("РКФ");
-  expect(host.textContent).not.toContain("Olympea Blossom");
-  expect(host.querySelectorAll('a[aria-label^="Смотреть"]')).toHaveLength(2);
+  expect(host.textContent).toContain("Olympea Blossom");
+  expect(host.querySelectorAll('[data-audio-src]')).toHaveLength(6);
+  expect(host.querySelectorAll('a[aria-label^="Смотреть"]')).toHaveLength(0);
 });
 
-it("reveals remaining work using the shared CTA", () => {
-  const more = host.querySelector<HTMLButtonElement>('button.studio-cta');
-  expect(more).not.toBeNull();
-  act(() => more!.click());
-  expect(host.querySelectorAll('[data-audio-src]')).toHaveLength(6);
-  expect(host.querySelectorAll('a[aria-label^="Смотреть"]')).toHaveLength(6);
-  expect(host.querySelector('button.studio-cta')).toBeNull();
+it("moves to the next category using the portfolio controls", () => {
+  const next = host.querySelector<HTMLButtonElement>('button[aria-label="Следующая категория"]')!;
+  act(() => next.click());
+  expect(host.querySelector('[role="tab"][aria-selected="true"]')?.textContent).toBe("Фильмы/сериалы/мультики");
+  expect(host.querySelectorAll('a[aria-label^="Смотреть"]')).toHaveLength(3);
 });

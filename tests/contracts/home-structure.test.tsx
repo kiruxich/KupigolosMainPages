@@ -28,8 +28,8 @@ describe("homepage structure", () => {
 
     expect(html).toContain('href="#contacts"');
     expect(html).toContain("Заказать");
-    expect(html).toContain('href="#voices"');
-    expect(html).toContain("Прослушать примеры");
+    expect(html).toContain('href="https://kupigolos.ru/diktory"');
+    expect(html).toContain("ВЫБРАТЬ ДИКТОРА");
     expect(html).not.toContain('href="#calculator"');
     expect(html).toContain("hero-sound-sculpture.png");
     expect(html).toContain('class="hero-product hero-product-cinema"');

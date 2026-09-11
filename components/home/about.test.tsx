@@ -13,6 +13,7 @@ describe("About", () => {
     expect(section?.textContent).toContain("Придумываем. Записываем. Сводим.");
     expect(section?.querySelector('a[href="#contacts"]')?.textContent).toContain("Обсудить проект");
     expect(section?.textContent).toContain("затем указывает на кнопку");
-    expect(section?.querySelector("video, iframe, img, image, canvas")).toBeNull();
+    expect(section?.querySelectorAll('img[alt=""]')).toHaveLength(2);
+    expect(section?.querySelector("video, iframe, canvas")).toBeNull();
   });
 });
