@@ -637,6 +637,28 @@ body {
   box-shadow: 2px 4px 75px rgba(230, 230, 230, .33);
 }
 
+.header-mega-grid-ai-preprod {
+  min-height: 318px;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(196px, 220px);
+}
+
+.header-mega-grid-ai-preprod > .header-mega-feature {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+}
+
+.header-mega-grid-info .header-mega-group-link {
+  display: grid;
+  gap: 6px;
+}
+
+.header-mega-grid-info .header-mega-group-link small {
+  color: rgba(59, 65, 115, .68);
+  font-size: .78em;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
 .header-action-popover,
 .header-utility-menu {
   border: 0;
