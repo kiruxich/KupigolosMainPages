@@ -258,6 +258,10 @@ const preprodNetworksPopover = `<nav class="header-action-popover header-network
   </a>
 </nav>`;
 
+const preprodPhoneIcon = `<svg class="header-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 .86.49c.12 1.2.33 2.38.7 3.5a1 1 0 0 1-.25 1.04l-2.2 2.2Z"/></svg>`;
+const preprodMessengerIcon = `<svg class="header-action-icon header-action-icon-messenger" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.145 2 11.258c0 2.912 1.453 5.51 3.726 7.207V22l3.405-1.868c.908.25 1.87.384 2.869.384 5.523 0 10-4.145 10-9.258C22 6.145 17.523 2 12 2Zm.994 12.468-2.548-2.719-4.973 2.719 5.47-5.807 2.61 2.72 4.91-2.72-5.469 5.807Z" clip-rule="evenodd"/></svg>`;
+const preprodFavoriteIcon = `<svg class="header-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.1 3.6 13.2C-.7 9.1 1.5 2.5 7 2.5c2.1 0 4 1 5 2.6 1-1.6 2.9-2.6 5-2.6 5.5 0 7.7 6.6 3.4 10.7L12 21.1Z"/></svg>`;
+
 function getPreprodHeaderMarkup() {
   const withPreprodLinks = preprodLinkReplacements.reduce<string>(
     (markup, [from, to]) => markup.replaceAll(from, to),
@@ -269,6 +273,18 @@ function getPreprodHeaderMarkup() {
     .replace(startRailLink, `${startRailLink}${processRailLink}`);
 
   return withPageOrderRail
+    .replace(
+      /(<button class="header-phone"[^>]*>)[\s\S]*?(<\/button>)/,
+      `$1${preprodPhoneIcon}$2`,
+    )
+    .replace(
+      /(<button class="header-networks"[^>]*>)[\s\S]*?(<\/button>)/,
+      `$1${preprodMessengerIcon}$2`,
+    )
+    .replace(
+      /(<a class="header-favorites"[^>]*>)[\s\S]*?(<\/a>)/,
+      `$1${preprodFavoriteIcon}$2`,
+    )
     .replace(/<section class="header-mega" id="header-panel-services"[\s\S]*?<\/section>/, servicesPanel)
     .replace(/<section class="header-mega" id="header-panel-voices"[\s\S]*?<\/section>/, voicesPanel)
     .replace(/<section class="header-mega" id="header-panel-ai"[\s\S]*?<\/section>/, aiPanel)

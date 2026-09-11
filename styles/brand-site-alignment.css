@@ -987,6 +987,73 @@ body {
   opacity: 1;
 }
 
+/* Preproduction header actions: filled glyphs and compact callback card. */
+.site-header .header-actions .header-action-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.site-header .header-actions .header-action-icon-messenger {
+  width: 19px;
+  height: 19px;
+}
+
+.header-phone-popover {
+  top: calc(100% + 13px);
+  right: auto;
+  left: 50%;
+  display: grid;
+  width: 282px;
+  min-height: 112px;
+  align-content: center;
+  gap: 8px;
+  padding: 24px 38px 22px;
+  border: 0;
+  border-radius: 20px;
+  background: #f6f6f6;
+  box-shadow: none;
+  transform: translate(-50%, -7px);
+}
+
+.header-phone-popover.is-open {
+  transform: translate(-50%, 0);
+}
+
+.site-header .header-phone-popover > a {
+  color: var(--header-rust);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+
+.site-header .header-phone-popover > button,
+.site-header .header-phone-popover > button:is(:hover, :focus-visible) {
+  display: block;
+  width: max-content;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--header-rust);
+  background: transparent;
+  box-shadow: none;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transform: none;
+}
+
+.site-header .header-phone-popover > button:is(:hover, :focus-visible) {
+  color: var(--site-action-hover);
+}
+
 @media (min-width: 701px) {
   .hero-product.hero-product-cinema {
     --hero-content-offset: clamp(88px, 10vh, 120px);
