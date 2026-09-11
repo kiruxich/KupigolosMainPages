@@ -1,0 +1,86 @@
+.section {
+  padding: clamp(76px, 7.5vw, 116px) 0 clamp(92px, 9vw, 138px);
+  color: var(--ink);
+  background: #f2f2f1;
+}
+
+.kicker {
+  margin: 0 0 10px;
+  color: var(--site-action-border, var(--accent));
+  font-size: clamp(.78rem, .9vw, .92rem);
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.section .title {
+  max-width: 1050px;
+  margin: 0;
+  color: var(--ink);
+  font: 700 clamp(2.4rem, 4.4vw, 4.15rem)/1.04 var(--body);
+  letter-spacing: -.045em;
+}
+
+.list { margin-top: clamp(34px, 4vw, 52px); }
+.item { border-bottom: 1px solid var(--line); }
+.item:first-child { border-top: 1px solid var(--line); }
+
+.item summary {
+  position: relative;
+  padding: clamp(22px, 2.2vw, 30px) 52px clamp(22px, 2.2vw, 30px) 24px;
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.45vw, 1.34rem);
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.item summary::-webkit-details-marker { display: none; }
+
+.item summary::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 10px solid currentColor;
+  content: "";
+  transform: translateY(-50%);
+  transform-origin: 35% 50%;
+  transition: transform .2s ease;
+}
+
+.item summary::after {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  color: var(--site-action-border, var(--accent));
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1;
+  content: "+";
+  transform: translateY(-54%);
+}
+
+.item[open] summary::before { transform: translateY(-50%) rotate(90deg); }
+.item[open] summary::after { content: "−"; }
+
+.item p {
+  max-width: 900px;
+  margin: -7px 0 0;
+  padding: 0 52px clamp(24px, 2.5vw, 34px) 24px;
+  color: var(--muted);
+  font-size: clamp(.96rem, 1.12vw, 1.08rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+@media (max-width: 620px) {
+  .section { padding: 60px 0 76px; }
+  .section .title { font-size: clamp(2.1rem, 10.5vw, 3rem); }
+  .item summary { padding-right: 36px; }
+  .item p { padding-right: 12px; }
+}

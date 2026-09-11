@@ -83,6 +83,9 @@ const aiGroups: readonly AiGroup[] = [
 
 const fullUrl = (path: string) => `${site}${path}`;
 
+const startRailLink = '<a href="#start" data-rail-target="start" aria-label="Старт"><i></i><span>Старт</span></a>';
+const processRailLink = '<a href="#process" data-rail-target="process" aria-label="Процесс"><i></i><span>Процесс</span></a>';
+
 const serviceGroups: readonly PreprodGroup[] = [
   {
     title: "Озвучка видео",
@@ -261,7 +264,11 @@ function getPreprodHeaderMarkup() {
     homeMarkup.chrome,
   );
 
-  return withPreprodLinks
+  const withPageOrderRail = withPreprodLinks
+    .replace(processRailLink, "")
+    .replace(startRailLink, `${startRailLink}${processRailLink}`);
+
+  return withPageOrderRail
     .replace(/<section class="header-mega" id="header-panel-services"[\s\S]*?<\/section>/, servicesPanel)
     .replace(/<section class="header-mega" id="header-panel-voices"[\s\S]*?<\/section>/, voicesPanel)
     .replace(/<section class="header-mega" id="header-panel-ai"[\s\S]*?<\/section>/, aiPanel)

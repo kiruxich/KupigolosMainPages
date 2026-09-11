@@ -1,0 +1,65 @@
+.section {
+  padding: clamp(76px, 7.5vw, 116px) 0 clamp(82px, 8.5vw, 128px);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.kicker {
+  margin: 0 0 10px;
+  color: var(--site-action-border, var(--accent));
+  font-size: clamp(.78rem, .9vw, .92rem);
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.section .title {
+  margin: 0;
+  color: var(--ink);
+  font: 700 clamp(2.5rem, 4.4vw, 4.2rem)/1.04 var(--body);
+  letter-spacing: -.045em;
+}
+
+.intro {
+  max-width: 1160px;
+  margin: clamp(22px, 2.5vw, 32px) 0 0;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(28px, 3vw, 38px);
+}
+
+.links a {
+  display: inline-flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: transparent;
+  font-size: clamp(.98rem, 1.2vw, 1.12rem);
+  line-height: 1.15;
+  text-decoration: none;
+  transition: color .18s ease, border-color .18s ease, background-color .18s ease;
+}
+
+.links a:is(:hover, :focus-visible) {
+  border-color: var(--site-action-border, var(--accent));
+  color: #fff;
+  background: var(--site-action, var(--accent));
+}
+
+@media (max-width: 620px) {
+  .section { padding: 60px 0 72px; }
+  .section .title { font-size: clamp(2.15rem, 11vw, 3rem); }
+  .links { gap: 10px; }
+  .links a { min-height: 50px; padding-inline: 14px; }
+}

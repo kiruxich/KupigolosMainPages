@@ -1,13 +1,13 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
-import { ProofSections } from "./proof-sections";
+import { VoiceCategories } from "./proof-sections";
 
 it("replaces the children placeholder with the approved photo and preserves the category link", () => {
   vi.stubGlobal("React", React);
   try {
     const host = document.createElement("div");
-    host.innerHTML = renderToStaticMarkup(<ProofSections />);
+    host.innerHTML = renderToStaticMarkup(<VoiceCategories />);
     const card = host.querySelector(".talent-card-children")!;
     expect(card.getAttribute("href")).toBe("https://kupigolos.ru/diktory/detskie_golosa");
     expect(card.querySelector("svg")).toBeNull();

@@ -6,9 +6,12 @@ import { Header } from "./header";
 import { Hero } from "./hero";
 import { homeMarkup } from "./home-markup.generated";
 import { Portfolio } from "./portfolio";
-import { ProofSections } from "./proof-sections";
+import { Process } from "./process";
+import { ProofSections, VoiceCategories } from "./proof-sections";
 import { RenderHomeMarkup } from "./render-home-markup";
 import { Services } from "./services";
+import { StudioDirections } from "./studio-directions";
+import { StudioFaq } from "./studio-faq";
 import { StudioIntro } from "./studio-intro";
 import { Voices } from "./voices";
 
@@ -19,7 +22,11 @@ export function HomePage() {
       <main id="main-content">
         <Hero />
         <StudioIntro />
+        <Process />
         <Voices />
+        <VoiceCategories />
+        <StudioDirections />
+        <StudioFaq />
         <AiServices />
         <About />
         <Services />
