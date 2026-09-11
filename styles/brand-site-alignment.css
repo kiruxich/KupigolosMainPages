@@ -980,7 +980,7 @@ body {
   .hero-product.hero-product-cinema .hero-sound-art {
     top: 50%;
     bottom: auto;
-    height: 42svh;
+    height: min(72svh, 760px);
     transform: translateY(calc(-50% + var(--hero-content-offset)));
   }
 }
@@ -1015,16 +1015,6 @@ body {
   .site-header .nav-toggle-icon i { width: 40px; }
 
   .site-header .header-ai-trigger > i { width: 16px; }
-}
-
-/* Keep the preproduction proportions on ultrawide and zoomed-out desktops. */
-@media (min-width: 1920px) {
-  .site-header .site-header-inner,
-  .site-header.is-scrolled .site-header-inner,
-  .header-mega-layer {
-    width: 74vw;
-    max-width: none;
-  }
 }
 
 @media (max-width: 1280px) {
