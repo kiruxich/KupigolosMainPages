@@ -16,7 +16,7 @@ export function StudioIntro() {
         </p>
         <details className={styles.details}>
           <summary>
-            <span className={styles.more}>Читать дальше</span>
+            <span className={styles.more}>Подробнее</span>
             <span className={styles.less}>Свернуть</span>
           </summary>
           <p>
