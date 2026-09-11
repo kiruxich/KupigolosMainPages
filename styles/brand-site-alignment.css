@@ -281,24 +281,23 @@ body {
 
 #voices .figma-voice-body .figma-voice-price {
   order: 4;
+  display: block;
   width: 100%;
   max-width: 100%;
   align-self: center;
   min-height: 0;
-  justify-content: space-between;
-  gap: 8px;
   margin-top: 8px;
-  padding: 0 19px;
+  padding: 0;
   border-top: 0;
   color: var(--muted);
   font-size: clamp(11px, .78vw, 13px);
   font-weight: 500;
   letter-spacing: 0;
+  text-align: center;
 }
 
 #voices .figma-voice-price::after {
-  color: var(--muted);
-  font-size: 16px;
+  content: none;
 }
 
 /* Tabs, players and compact controls use the same live-site palette. */

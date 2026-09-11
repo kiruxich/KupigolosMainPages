@@ -6,8 +6,8 @@ export function Voices() {
     .replace(/<\/section>\s*$/, "")
     .replace('</h2>', '</h2><p class="voice-arc-intro">Знакомые голоса. Новые истории.</p>')
     .replace(
-      /(<a class="figma-voice-price" href="([^"]+)">[^<]*<\/a>)/g,
-      '<a class="figma-voice-contact" href="$2">Связаться <span aria-hidden="true">→</span></a>$1',
+      /<a class="figma-voice-price" href="([^"]+)">([^<]*)<\/a>/g,
+      '<a class="figma-voice-contact" href="$1">Связаться <span aria-hidden="true">→</span></a><span class="figma-voice-price">$2</span>',
     )
     .replace(/<div class="figma-voices-footer">[\s\S]*$/, `
       <div class="figma-voices-footer">
