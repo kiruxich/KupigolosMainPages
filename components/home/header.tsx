@@ -91,6 +91,41 @@ const infoPanel = `<section class="header-mega" id="header-panel-info" data-head
   </div>
 </section>`;
 
+const voicesPanel = `<section class="header-mega header-mega-voices-preprod" id="header-panel-voices" data-header-panel="voices" aria-hidden="true" aria-label="Дикторы">
+  <div class="preprod-voices-menu">
+    <div class="preprod-voices-content">
+      <nav class="preprod-voices-links" aria-label="Разделы дикторов">
+        <a class="preprod-voices-title" href="${site}/diktory/inostrannye_golosa">Иностранные дикторы</a>
+        <div class="preprod-voices-row preprod-voices-row-russian">
+          <a class="preprod-voices-title" href="${site}/diktory/russkie">Русские дикторы</a>
+          <div class="preprod-voices-submenu">
+            <a href="${site}/diktory/izvestnye_golosa">Федеральные</a>
+            <a href="${site}/diktory/reginalnye_golosa">Региональные</a>
+          </div>
+        </div>
+        <a class="preprod-voices-title" href="${site}/diktory/dubbing">Актеры озвучки</a>
+        <a class="preprod-voices-title" href="${site}/diktory/napryamuiu">Контакты дикторов</a>
+        <a class="preprod-voices-title" href="${site}/diktory/ai">ИИ голоса</a>
+      </nav>
+      <div class="preprod-voices-footer">
+        <div class="preprod-voices-callback">
+          <a href="tel:88002004551">8 800 200-45-51</a>
+          <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
+        </div>
+        <nav class="preprod-voices-networks" aria-label="Мессенджеры">
+          <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener">MAX</a>
+        </nav>
+      </div>
+    </div>
+    <aside class="preprod-voices-promo">
+      <p>Озвучьте свой проект с помощью нейросети</p>
+      <a href="${site}/ai" target="_blank" rel="noopener">Сгенерировать озвучку</a>
+      <img src="${site}/img/teacher/mic.png" alt="" aria-hidden="true">
+    </aside>
+  </div>
+</section>`;
+
 const preprodAiMobileLinks = aiGroups
   .flatMap(({ links }) => links)
   .map(([label, path]) => `<a href="${fullUrl(path)}">${label}</a>`)
@@ -103,6 +138,7 @@ function getPreprodHeaderMarkup() {
   );
 
   return withPreprodLinks
+    .replace(/<section class="header-mega" id="header-panel-voices"[\s\S]*?<\/section>/, voicesPanel)
     .replace(/<section class="header-mega" id="header-panel-ai"[\s\S]*?<\/section>/, aiPanel)
     .replace(/<section class="header-mega" id="header-panel-info"[\s\S]*?<\/section>/, infoPanel)
     .replace(

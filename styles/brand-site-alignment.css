@@ -690,6 +690,201 @@ body {
   line-height: 1.35;
 }
 
+/* Desktop voices menu ported from the preproduction header. */
+@media (min-width: 901px) {
+  .header-mega-voices-preprod {
+    padding: 30px 40px 40px;
+  }
+
+  .preprod-voices-menu {
+    display: grid;
+    grid-template-columns: 660px 260px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .preprod-voices-content {
+    display: flex;
+    min-height: 326px;
+    flex-direction: column;
+  }
+
+  .preprod-voices-links {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .preprod-voices-links::after {
+    position: absolute;
+    top: 12px;
+    right: 290px;
+    width: 1px;
+    height: 210px;
+    background: #ead2cc;
+    content: "";
+  }
+
+  .preprod-voices-title,
+  .preprod-voices-row {
+    display: flex;
+    width: 614px;
+    height: 47px;
+    align-items: center;
+  }
+
+  .preprod-voices-title {
+    position: relative;
+    max-width: 60%;
+    padding-left: 25px;
+    color: #3b4173 !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    line-height: 23px;
+    text-decoration: none !important;
+  }
+
+  .preprod-voices-title::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #c1492e;
+    content: "";
+    transform: translateY(-50%);
+  }
+
+  .preprod-voices-title:is(:hover, :focus-visible) {
+    color: #3b4173 !important;
+    text-decoration: underline !important;
+  }
+
+  .preprod-voices-submenu {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    gap: 15px;
+    padding-left: 80px;
+  }
+
+  .preprod-voices-submenu a {
+    width: 100%;
+    max-width: 310px;
+    color: #3b4173;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration-color: transparent;
+  }
+
+  .preprod-voices-submenu a:is(:hover, :focus-visible) {
+    color: #3b4173;
+    text-decoration-color: #3b4173;
+  }
+
+  .preprod-voices-footer {
+    display: grid;
+    grid-template-columns: 310px 180px;
+    gap: 20px;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .preprod-voices-callback,
+  .preprod-voices-networks {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ead2cc;
+  }
+
+  .preprod-voices-callback {
+    gap: 16px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .preprod-voices-callback a {
+    color: #3b4173;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .preprod-voices-callback button {
+    min-height: 0;
+    padding: 0;
+    color: #c1492e;
+    font: 500 13px/1.35 Roboto, sans-serif;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .preprod-voices-networks {
+    justify-content: center;
+    gap: 20px;
+    padding: 12px 15px;
+    border-radius: 17px;
+  }
+
+  .preprod-voices-networks a {
+    color: #c1492e;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .preprod-voices-promo {
+    position: relative;
+    display: flex;
+    min-height: 320px;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden;
+    padding: 30px;
+    border-radius: 55px;
+    background: #c1492e;
+  }
+
+  .preprod-voices-promo p {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .preprod-voices-promo > a {
+    z-index: 1;
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #fff;
+    border-radius: 15px;
+  }
+
+  .preprod-voices-promo > a:is(:hover, :focus-visible) {
+    color: #c1492e;
+    background: #fff;
+    text-decoration: none;
+  }
+
+  .preprod-voices-promo img {
+    width: auto;
+    height: 134px;
+    margin: auto auto -30px;
+    object-fit: contain;
+  }
+}
+
 .header-action-popover,
 .header-utility-menu {
   border: 0;
