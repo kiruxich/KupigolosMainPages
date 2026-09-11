@@ -665,6 +665,12 @@ body {
   border-radius: 15px;
 }
 
+@media (min-width: 701px) {
+  .hero-product.hero-product-cinema {
+    min-height: max(910px, calc(100svh + 120px));
+  }
+}
+
 @media (min-width: 1101px) {
   .site-header,
   .site-header.on-light,
