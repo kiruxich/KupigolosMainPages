@@ -270,7 +270,12 @@ body {
   transform: translateY(1px);
 }
 
+#voices .figma-voice-description { order: 2; }
+
+#voices .figma-voice-contact { order: 3; }
+
 #voices .figma-voice-body .figma-voice-price {
+  order: 4;
   min-height: 0;
   justify-content: space-between;
   gap: 8px;
