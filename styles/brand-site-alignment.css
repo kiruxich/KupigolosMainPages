@@ -540,8 +540,8 @@ body {
 
 .site-header .site-header-inner,
 .site-header.is-scrolled .site-header-inner {
-  width: min(1268px, calc(100% - 24px));
-  max-width: 1268px;
+  width: var(--shell);
+  max-width: none;
   height: 70px;
   min-height: 70px;
   padding: 0 25px;
@@ -1106,12 +1106,19 @@ body {
   .site-header,
   .site-header.on-light,
   .site-header.is-scrolled,
-  .site-header.on-light.is-scrolled { padding-left: 0; }
+  .site-header.on-light.is-scrolled { padding-left: var(--rail-width); }
 
-  .site-header .site-header-inner {
+  .site-header .site-header-inner,
+  .site-header.is-scrolled .site-header-inner {
     display: flex;
+    width: min(1480px, calc(100% - 64px));
     justify-content: space-between;
     gap: 0;
+  }
+
+  .header-mega-layer {
+    left: calc((100vw + var(--rail-width)) / 2);
+    width: min(1480px, calc(100vw - var(--rail-width) - 64px));
   }
 
   .site-header .site-nav {
@@ -1166,7 +1173,7 @@ body {
 
   .site-header .site-header-inner,
   .site-header.is-scrolled .site-header-inner {
-    width: min(100% - 24px, 1268px);
+    width: var(--shell);
     height: 70px;
     min-height: 70px;
     padding-inline: 15px;
