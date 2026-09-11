@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import styles from "./process.module.css";
 
 const steps = [
@@ -37,17 +37,79 @@ const waveformPath = Array.from({ length: 300 }, (_, index) => {
   return `M${x},${(64 - height).toFixed(2)}l1.25,${height.toFixed(2)}-1.25,${height.toFixed(2)}-1.25,-${height.toFixed(2)}Z`;
 }).join(" ");
 
-export function Process() {
-  const [activeStep, setActiveStep] = useState(3);
-  const [positions, setPositions] = useState([0, 0, 0, 0]);
+const playbackDuration = 9600;
 
-  function moveFader(index: number, value: number) {
-    setActiveStep(index);
-    setPositions(previous => previous.map((position, step) => step === index ? value : position));
-  }
+export function Process() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const playheadRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const playhead = playheadRef.current;
+
+    if (!section || !playhead || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    let frameId = 0;
+    let playheadAnimation: Animation | undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting || section.dataset.playing === "true") {
+        return;
+      }
+
+      section.dataset.playing = "true";
+      observer.disconnect();
+
+      frameId = requestAnimationFrame(() => {
+        const destination = section.querySelector<HTMLElement>("[data-timeline-ghost='3']");
+
+        if (!destination) {
+          return;
+        }
+
+        const originRect = playhead.getBoundingClientRect();
+        const destinationRect = destination.getBoundingClientRect();
+        const distanceX = destinationRect.left - originRect.left;
+        const distanceY = destinationRect.top - originRect.top;
+
+        playheadAnimation = playhead.animate([
+          { transform: "translate3d(0, 0, 0) scale(1)", offset: 0 },
+          { transform: `translate3d(${distanceX * .32}px, ${distanceY * .32}px, 0) scale(1)`, offset: .32 },
+          { transform: `translate3d(${distanceX / 3}px, ${distanceY / 3}px, 0) scale(.9)`, offset: .333 },
+          { transform: `translate3d(${distanceX * .35}px, ${distanceY * .35}px, 0) scale(1.03)`, offset: .35 },
+          { transform: `translate3d(${distanceX * .653}px, ${distanceY * .653}px, 0) scale(1)`, offset: .653 },
+          { transform: `translate3d(${distanceX * 2 / 3}px, ${distanceY * 2 / 3}px, 0) scale(.9)`, offset: .666 },
+          { transform: `translate3d(${distanceX * .683}px, ${distanceY * .683}px, 0) scale(1.03)`, offset: .683 },
+          { transform: `translate3d(${distanceX * .98}px, ${distanceY * .98}px, 0) scale(1)`, offset: .98 },
+          { transform: `translate3d(${distanceX}px, ${distanceY}px, 0) scale(.93)`, offset: .992 },
+          { transform: `translate3d(${distanceX}px, ${distanceY}px, 0) scale(1)`, offset: 1 },
+        ], {
+          duration: playbackDuration,
+          easing: "linear",
+          fill: "forwards",
+        });
+      });
+    }, { threshold: .34, rootMargin: "0px 0px -8%" });
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frameId);
+      playheadAnimation?.cancel();
+    };
+  }, []);
 
   return (
-    <section id="process" className={styles.section} aria-labelledby="process-title">
+    <section
+      id="process"
+      className={styles.section}
+      aria-labelledby="process-title"
+      ref={sectionRef}
+      style={{ "--playback-duration": `${playbackDuration}ms` } as CSSProperties}
+    >
       <div className="shell">
         <p className={styles.kicker}>От задачи до готового файла</p>
         <h2 id="process-title" className={styles.title}>
@@ -60,23 +122,18 @@ export function Process() {
         </p>
         <ol className={styles.steps} role="list">
           {steps.map((step, index) => (
-            <li className={styles.step} key={step.title} data-active={activeStep === index}>
+            <li
+              className={styles.step}
+              key={step.title}
+              style={{ "--hit-delay": `${index * playbackDuration / 3}ms` } as CSSProperties}
+            >
               <span className={styles.number} aria-hidden="true">0{index + 1}</span>
-              <div className={styles.track} style={{ "--fader-position": positions[index]! / 100 } as CSSProperties}>
-                <input
-                  className={styles.range}
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="1"
-                  defaultValue="0"
-                  aria-label={`Положение ползунка: ${step.title}`}
-                  onPointerEnter={() => setActiveStep(index)}
-                  onPointerDown={() => setActiveStep(index)}
-                  onFocus={() => setActiveStep(index)}
-                  onInput={event => moveFader(index, event.currentTarget.valueAsNumber)}
-                />
-                <span className={styles.fader} aria-hidden="true"><i /></span>
+              <div className={styles.track} aria-hidden="true">
+                {index === 0 ? (
+                  <span className={`${styles.fader} ${styles.playhead}`} ref={playheadRef}><i /></span>
+                ) : (
+                  <span className={`${styles.fader} ${styles.ghost}`} data-timeline-ghost={index}><i /></span>
+                )}
                 <span className={styles.time} aria-hidden="true">{step.time}</span>
               </div>
               <div className={styles.copy}>
@@ -86,9 +143,14 @@ export function Process() {
             </li>
           ))}
         </ol>
-        <svg className={styles.waveform} viewBox="0 0 1200 128" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d={waveformPath} fill="currentColor" />
-        </svg>
+        <div className={styles.waveform} aria-hidden="true">
+          <svg className={styles.waveformGhost} viewBox="0 0 1200 128" preserveAspectRatio="none" focusable="false">
+            <path d={waveformPath} fill="currentColor" />
+          </svg>
+          <svg className={styles.waveformLive} viewBox="0 0 1200 128" preserveAspectRatio="none" focusable="false">
+            <path d={waveformPath} fill="currentColor" />
+          </svg>
+        </div>
         <div className={styles.caption} aria-hidden="true">
           <span>Профессиональная<br />озвучка</span>
           <i />
