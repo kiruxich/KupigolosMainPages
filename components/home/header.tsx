@@ -164,15 +164,24 @@ const renderPreprodFooter = () => `<div class="preprod-header-footer">
     <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
   </div>
   <nav class="preprod-header-networks" aria-label="Мессенджеры">
-    <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener">Telegram</a>
-    <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener">MAX</a>
+    <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener" aria-label="Telegram">
+      <img class="preprod-header-network-hover" src="${site}/img/telegram_red_hover.svg" alt="">
+      <img class="preprod-header-network-icon" src="${site}/img/telegram_red.svg" alt="">
+    </a>
+    <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener" aria-label="MAX">
+      <img class="preprod-header-network-hover" src="${site}/img/max_red_hover.svg" alt="">
+      <img class="preprod-header-network-icon" src="${site}/img/max_red.svg" alt="">
+    </a>
   </nav>
 </div>`;
 
 const renderPreprodPromo = () => `<aside class="preprod-header-promo">
   <p>Озвучьте свой проект с помощью нейросети</p>
-  <a href="${site}/ai" target="_blank" rel="noopener">Сгенерировать озвучку</a>
-  <img src="${site}/img/teacher/mic.png" alt="" aria-hidden="true">
+  <a href="https://ai.kupigolos.ru/" target="_blank" rel="noopener">Сгенерировать озвучку</a>
+  <div class="preprod-header-promo-mic" aria-hidden="true">
+    <img src="${site}/img/teacher/mic.png" alt="">
+  </div>
+  <img class="preprod-header-promo-art" src="${site}/img/logo_info.svg" alt="" aria-hidden="true">
 </aside>`;
 
 function resolveHeaderUrl(path: string) {
