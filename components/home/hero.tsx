@@ -9,13 +9,13 @@ export function Hero() {
       </div>
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
-          <p className="top-kicker">Ваш голос<br />Больше возможностей</p>
+          <p className="top-kicker">Профессиональная</p>
           <h1 className="hero-product-title" id="hero-title">
             <span className="hero-title-main">Студия<br />озвучивания</span>
             <span className="hero-title-accent">в Москве</span>
           </h1>
           <p className="hero-product-lead">
-            Профессиональная озвучка для рекламы,<br className="hero-desktop-break" /> видео, фильмов, подкастов и любых проектов.
+            Подготовим профессиональную озвучку диктором.<br className="hero-desktop-break" /> На любом языке мира за один день.<br className="hero-desktop-break" /> С помощью звукового оборудования мировых брендов.
           </p>
           <div className="hero-actions" aria-label="Действия">
             <a className="studio-cta studio-cta--order" href="#contacts">
