@@ -3,36 +3,42 @@ export const audioWorks = {
     {
       "title": "Olympea Blossom",
       "category": "Информационный ролик",
+      "description": "Информационный ролик",
       "src": "https://storage.kupigolos.ru/audio/portfolio/611b7c84ad30c.mp3",
       "download": "https://kupigolos.ru/download/audio/1340"
     },
     {
       "title": "Fix Price",
       "category": "Информационный ролик",
+      "description": "Аудиоролик для Fix Price на латышском языке",
       "src": "https://storage.kupigolos.ru/audio/portfolio/5a09b147211e5.mp3",
       "download": "https://kupigolos.ru/download/audio/79"
     },
     {
       "title": "Роял кредит банк",
       "category": "Информационный ролик",
+      "description": "Аудио ролик про кредиты для бизнеса",
       "src": "https://storage.kupigolos.ru/audio/portfolio/5abe3ba3a95d3.mp3",
       "download": "https://kupigolos.ru/download/audio/113"
     },
     {
       "title": "Убери границы",
       "category": "Игровой ролик",
+      "description": "Мотивирующий ролик с известным голосом",
       "src": "https://storage.kupigolos.ru/audio/portfolio/5abe33d1f15ff.mp3",
       "download": "https://kupigolos.ru/download/audio/109"
     },
     {
       "title": "СтройЛидер",
       "category": "Информационный ролик",
+      "description": "Информационный ролик",
       "src": "https://storage.kupigolos.ru/audio/portfolio/64b82a0af405e.wav",
       "download": "https://kupigolos.ru/download/audio/1744"
     },
     {
       "title": "Имиджстрой",
       "category": "Игровой ролик",
+      "description": "Игровой ролик",
       "src": "https://storage.kupigolos.ru/audio/portfolio/5a09a9fada950.mp3",
       "download": "https://kupigolos.ru/download/audio/45"
     }
@@ -80,11 +86,11 @@ export const audioWorks = {
 export const videoWorks = [
   {
     "title": "NOVO BI",
-    "category": "Реклама · закадровый",
+    "category": "Реклама, закадровый",
     "image": "https://img.kupigolos.ru/video/64b6e5a5ed654.jpg?p=vi&s=91afa85294f67357ad2b66e6d60eb15e",
     "href": "https://rutube.ru/play/embed/34fefd23988d956eab05d066e3f15cfb",
     "duration": "02:28",
-    "description": "Озвучка и сведение ролика на английском."
+    "description": "Озвучка и сведение ролика на английском"
   },
   {
     "title": "HELL Energy",
