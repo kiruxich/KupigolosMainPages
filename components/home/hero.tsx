@@ -9,7 +9,6 @@ export function Hero() {
       </div>
       <div className="shell hero-product-grid">
         <div className="hero-product-copy">
-          <p className="top-kicker">Профессиональная</p>
           <h1 className="hero-product-title" id="hero-title">
             <span className="hero-title-main">Студия<br />озвучивания</span>
             <span className="hero-title-accent">в Москве</span>
