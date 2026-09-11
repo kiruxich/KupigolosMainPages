@@ -667,54 +667,32 @@ body {
   box-shadow: 2px 4px 75px rgba(230, 230, 230, .33);
 }
 
-.header-mega-grid-ai-preprod {
-  min-height: 318px;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(196px, 220px);
-}
-
-.header-mega-grid-ai-preprod > .header-mega-feature {
-  grid-column: 4;
-  grid-row: 1 / span 2;
-}
-
-.header-mega-grid-info .header-mega-group-link {
-  display: grid;
-  gap: 6px;
-}
-
-.header-mega-grid-info .header-mega-group-link small {
-  color: rgba(59, 65, 115, .68);
-  font-size: .78em;
-  font-weight: 400;
-  line-height: 1.35;
-}
-
-/* Desktop voices menu ported from the preproduction header. */
+/* Desktop dropdowns ported from the preproduction header. */
 @media (min-width: 901px) {
-  .header-mega-voices-preprod {
+  .header-mega-preprod {
     padding: 30px 40px 40px;
   }
 
-  .preprod-voices-menu {
+  .preprod-header-menu {
     display: grid;
     grid-template-columns: 660px 260px;
     justify-content: space-between;
     align-items: flex-start;
   }
 
-  .preprod-voices-content {
+  .preprod-header-content {
     display: flex;
     min-height: 326px;
     flex-direction: column;
   }
 
-  .preprod-voices-links {
+  .preprod-header-links {
     position: relative;
     display: flex;
     flex-direction: column;
   }
 
-  .preprod-voices-links::after {
+  .preprod-header-links::after {
     position: absolute;
     top: 12px;
     right: 290px;
@@ -724,15 +702,15 @@ body {
     content: "";
   }
 
-  .preprod-voices-title,
-  .preprod-voices-row {
+  .preprod-header-title,
+  .preprod-header-row {
     display: flex;
     width: 614px;
     height: 47px;
     align-items: center;
   }
 
-  .preprod-voices-title {
+  .preprod-header-title {
     position: relative;
     max-width: 60%;
     padding-left: 25px;
@@ -741,9 +719,14 @@ body {
     font-weight: 500 !important;
     line-height: 23px;
     text-decoration: none !important;
+    cursor: default;
+    opacity: .5;
+    transition: opacity .2s ease-in-out;
   }
 
-  .preprod-voices-title::before {
+  a.preprod-header-title { cursor: pointer; }
+
+  .preprod-header-title::before {
     position: absolute;
     top: 50%;
     left: 0;
@@ -755,12 +738,33 @@ body {
     transform: translateY(-50%);
   }
 
-  .preprod-voices-title:is(:hover, :focus-visible) {
+  .preprod-header-row:is(:hover, :focus-within) .preprod-header-title,
+  .preprod-header-row.is-active .preprod-header-title {
+    opacity: 1;
+  }
+
+  a.preprod-header-title:is(:hover, :focus-visible) {
     color: #3b4173 !important;
     text-decoration: underline !important;
   }
 
-  .preprod-voices-submenu {
+  .preprod-header-title small {
+    display: block;
+    margin-top: 6px;
+    color: #3b4173;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .preprod-header-title:has(small) {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .preprod-header-submenu {
     position: absolute;
     top: 12px;
     right: 0;
@@ -770,9 +774,26 @@ body {
     flex-direction: column;
     gap: 15px;
     padding-left: 80px;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-in-out;
   }
 
-  .preprod-voices-submenu a {
+  .preprod-header-row.is-active .preprod-header-submenu,
+  .preprod-header-row:is(:hover, :focus-within) .preprod-header-submenu {
+    z-index: 1;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .preprod-header-links:has(.preprod-header-row:not(.is-active):hover) .preprod-header-row.is-active .preprod-header-submenu,
+  .preprod-header-links:has(.preprod-header-row:not(.is-active):focus-within) .preprod-header-row.is-active .preprod-header-submenu {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .preprod-header-submenu a {
     width: 100%;
     max-width: 310px;
     color: #3b4173;
@@ -781,12 +802,12 @@ body {
     text-decoration-color: transparent;
   }
 
-  .preprod-voices-submenu a:is(:hover, :focus-visible) {
+  .preprod-header-submenu a:is(:hover, :focus-visible) {
     color: #3b4173;
     text-decoration-color: #3b4173;
   }
 
-  .preprod-voices-footer {
+  .preprod-header-footer {
     display: grid;
     grid-template-columns: 310px 180px;
     gap: 20px;
@@ -794,26 +815,26 @@ body {
     margin-top: auto;
   }
 
-  .preprod-voices-callback,
-  .preprod-voices-networks {
+  .preprod-header-callback,
+  .preprod-header-networks {
     display: flex;
     align-items: center;
     border: 1px solid #ead2cc;
   }
 
-  .preprod-voices-callback {
+  .preprod-header-callback {
     gap: 16px;
     padding: 10px;
     border-radius: 15px;
   }
 
-  .preprod-voices-callback a {
+  .preprod-header-callback a {
     color: #3b4173;
     font-size: 14px;
     font-weight: 500;
   }
 
-  .preprod-voices-callback button {
+  .preprod-header-callback button {
     min-height: 0;
     padding: 0;
     color: #c1492e;
@@ -823,20 +844,20 @@ body {
     cursor: pointer;
   }
 
-  .preprod-voices-networks {
+  .preprod-header-networks {
     justify-content: center;
     gap: 20px;
     padding: 12px 15px;
     border-radius: 17px;
   }
 
-  .preprod-voices-networks a {
+  .preprod-header-networks a {
     color: #c1492e;
     font-size: 14px;
     font-weight: 500;
   }
 
-  .preprod-voices-promo {
+  .preprod-header-promo {
     position: relative;
     display: flex;
     min-height: 320px;
@@ -848,7 +869,7 @@ body {
     background: #c1492e;
   }
 
-  .preprod-voices-promo p {
+  .preprod-header-promo p {
     margin: 0;
     color: #fff;
     font-size: 18px;
@@ -856,7 +877,7 @@ body {
     line-height: 1.25;
   }
 
-  .preprod-voices-promo > a {
+  .preprod-header-promo > a {
     z-index: 1;
     display: flex;
     min-height: 50px;
@@ -870,17 +891,32 @@ body {
     border-radius: 15px;
   }
 
-  .preprod-voices-promo > a:is(:hover, :focus-visible) {
+  .preprod-header-promo > a:is(:hover, :focus-visible) {
     color: #c1492e;
     background: #fff;
     text-decoration: none;
   }
 
-  .preprod-voices-promo img {
+  .preprod-header-promo img {
     width: auto;
     height: 134px;
     margin: auto auto -30px;
     object-fit: contain;
+  }
+
+  .header-mega-preprod-compact .preprod-header-menu {
+    grid-template-columns: 660px;
+  }
+
+  .header-mega-preprod-compact .preprod-header-content {
+    min-height: 326px;
+  }
+
+  .header-mega-preprod-compact .preprod-header-links { gap: 18px; }
+
+  .header-mega-preprod-compact .preprod-header-row {
+    min-height: 76px;
+    height: auto;
   }
 }
 

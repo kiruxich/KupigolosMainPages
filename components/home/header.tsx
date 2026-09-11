@@ -5,6 +5,12 @@ const site = "https://kupigolos.ru";
 
 type HeaderLink = readonly [label: string, path: string];
 type AiGroup = { title: string; links: readonly HeaderLink[] };
+type PreprodGroup = {
+  title: string;
+  titlePath?: string;
+  description?: string;
+  links?: readonly HeaderLink[];
+};
 
 const preprodLinkReplacements: readonly (readonly [from: string, to: string])[] = [
   [`${site}/audioroliki`, `${site}/reklamnyie-audioroliki`],
@@ -77,54 +83,158 @@ const aiGroups: readonly AiGroup[] = [
 
 const fullUrl = (path: string) => `${site}${path}`;
 
-const aiPanel = `<section class="header-mega" id="header-panel-ai" data-header-panel="ai" aria-hidden="true" aria-label="ИИ сервисы">
-  <div class="shell header-mega-grid header-mega-grid-ai header-mega-grid-ai-preprod">
-    ${aiGroups.map(({ title, links }) => `<div><p>${title}</p>${links.map(([label, path]) => `<a href="${fullUrl(path)}">${label}</a>`).join("")}</div>`).join("")}
-    <a class="header-mega-feature" href="${site}/ai"><span>ИИ сервисы</span><strong>Озвучьте свой проект с помощью нейросети</strong><i aria-hidden="true">Перейти в сервисы →</i></a>
-  </div>
-</section>`;
+const serviceGroups: readonly PreprodGroup[] = [
+  {
+    title: "Озвучка видео",
+    titlePath: "/ozvuchka-video",
+    links: [
+      ["Фильмов и сериалов", "/ozvuchka-filmov"],
+      ["Мультфильмов", "/ozvuchka-multfilmov"],
+      ["YouTube каналов", "/ozvuchka-video-youtube"],
+      ["Видеорекламы", "/ozvuchka-videoreklamy"],
+    ],
+  },
+  {
+    title: "Работа с аудио",
+    links: [
+      ["Озвучка игр", "/ozvuchka-igr"],
+      ["Озвучка рекламы", "/ozvuchka-reklamy"],
+      ["Запись аудиогидов", "/audiogidy"],
+      ["Запись аудиокниг", "/audioknigi"],
+      ["Рекламные аудиоролики", "/reklamnyie-audioroliki"],
+      ["Голосовые приветствия", "/zapis-avtootvetchik-ivr"],
+    ],
+  },
+  {
+    title: "Работа с текстом",
+    links: [
+      ["Перевод и укладка", "/perevod"],
+      ["Сценарии аудиороликов", "/scenarii-audiorolikov"],
+    ],
+  },
+  {
+    title: "Локализация и перевод",
+    titlePath: "/perevod",
+    links: [
+      ["Перевод видео", "/perevod-i-ozvuchka-video"],
+      ["Перевод игр", "/lokalizaciya-igr"],
+      ["Перевод фильмов и сериалов", "/perevod-filmov-i-serialov"],
+    ],
+  },
+  {
+    title: "Другие услуги",
+    links: [
+      ["Озвучка презентаций / слайдов", "/ozvuchka-prezentacij"],
+      ["Озвучка обучающих материалов", "/ozvuchka-obuchayushhih-materialov"],
+    ],
+  },
+];
 
-const infoPanel = `<section class="header-mega" id="header-panel-info" data-header-panel="info" aria-hidden="true" aria-label="Инфопортал">
-  <div class="shell header-mega-grid header-mega-grid-info">
-    <div><a class="header-mega-group-link" href="${site}/kto-ozvuchivaet">Кто озвучивает <small>Актёры озвучки, персонажи и известные роли</small></a></div>
-    <div><a class="header-mega-group-link" href="https://info.kupigolos.ru/">Что посмотреть <small>Фильмы, сериалы и идеи для просмотра</small></a></div>
-  </div>
-</section>`;
+const voiceGroups: readonly PreprodGroup[] = [
+  { title: "Иностранные дикторы", titlePath: "/diktory/inostrannye_golosa" },
+  {
+    title: "Русские дикторы",
+    titlePath: "/diktory/russkie",
+    links: [
+      ["Федеральные", "/diktory/izvestnye_golosa"],
+      ["Региональные", "/diktory/reginalnye_golosa"],
+    ],
+  },
+  { title: "Актеры озвучки", titlePath: "/diktory/dubbing" },
+  { title: "Контакты дикторов", titlePath: "/diktory/napryamuiu" },
+  { title: "ИИ голоса", titlePath: "/diktory/ai" },
+];
 
-const voicesPanel = `<section class="header-mega header-mega-voices-preprod" id="header-panel-voices" data-header-panel="voices" aria-hidden="true" aria-label="Дикторы">
-  <div class="preprod-voices-menu">
-    <div class="preprod-voices-content">
-      <nav class="preprod-voices-links" aria-label="Разделы дикторов">
-        <a class="preprod-voices-title" href="${site}/diktory/inostrannye_golosa">Иностранные дикторы</a>
-        <div class="preprod-voices-row preprod-voices-row-russian">
-          <a class="preprod-voices-title" href="${site}/diktory/russkie">Русские дикторы</a>
-          <div class="preprod-voices-submenu">
-            <a href="${site}/diktory/izvestnye_golosa">Федеральные</a>
-            <a href="${site}/diktory/reginalnye_golosa">Региональные</a>
-          </div>
-        </div>
-        <a class="preprod-voices-title" href="${site}/diktory/dubbing">Актеры озвучки</a>
-        <a class="preprod-voices-title" href="${site}/diktory/napryamuiu">Контакты дикторов</a>
-        <a class="preprod-voices-title" href="${site}/diktory/ai">ИИ голоса</a>
-      </nav>
-      <div class="preprod-voices-footer">
-        <div class="preprod-voices-callback">
-          <a href="tel:88002004551">8 800 200-45-51</a>
-          <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
-        </div>
-        <nav class="preprod-voices-networks" aria-label="Мессенджеры">
-          <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener">Telegram</a>
-          <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener">MAX</a>
-        </nav>
+const infoGroups: readonly PreprodGroup[] = [
+  {
+    title: "Кто озвучивает",
+    titlePath: "/kto-ozvuchivaet",
+    description: "Актёры озвучки, персонажи и известные роли",
+  },
+  {
+    title: "Что посмотреть",
+    titlePath: "https://info.kupigolos.ru/",
+    description: "Фильмы, сериалы и идеи для просмотра",
+  },
+];
+
+const renderPreprodFooter = () => `<div class="preprod-header-footer">
+  <div class="preprod-header-callback">
+    <a href="tel:88002004551">8 800 200-45-51</a>
+    <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
+  </div>
+  <nav class="preprod-header-networks" aria-label="Мессенджеры">
+    <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener">Telegram</a>
+    <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener">MAX</a>
+  </nav>
+</div>`;
+
+const renderPreprodPromo = () => `<aside class="preprod-header-promo">
+  <p>Озвучьте свой проект с помощью нейросети</p>
+  <a href="${site}/ai" target="_blank" rel="noopener">Сгенерировать озвучку</a>
+  <img src="${site}/img/teacher/mic.png" alt="" aria-hidden="true">
+</aside>`;
+
+function resolveHeaderUrl(path: string) {
+  return path.startsWith("http") ? path : fullUrl(path);
+}
+
+function renderPreprodRows(groups: readonly PreprodGroup[], activeFirst: boolean) {
+  return groups.map(({ title, titlePath, description, links }, index) => {
+    const titleContent = `<span>${title}</span>${description ? `<small>${description}</small>` : ""}`;
+    const titleMarkup = titlePath
+      ? `<a class="preprod-header-title" href="${resolveHeaderUrl(titlePath)}">${titleContent}</a>`
+      : `<span class="preprod-header-title" tabindex="0">${titleContent}</span>`;
+    const submenu = links?.length
+      ? `<div class="preprod-header-submenu">${links.map(([label, path]) => `<a href="${resolveHeaderUrl(path)}">${label}</a>`).join("")}</div>`
+      : "";
+
+    return `<div class="preprod-header-row${activeFirst && index === 0 ? " is-active" : ""}">${titleMarkup}${submenu}</div>`;
+  }).join("");
+}
+
+function renderPreprodPanel({
+  id,
+  label,
+  groups,
+  activeFirst = false,
+  showFooter = true,
+  showPromo = true,
+}: {
+  id: string;
+  label: string;
+  groups: readonly PreprodGroup[];
+  activeFirst?: boolean;
+  showFooter?: boolean;
+  showPromo?: boolean;
+}) {
+  return `<section class="header-mega header-mega-preprod${showPromo ? "" : " header-mega-preprod-compact"}" id="header-panel-${id}" data-header-panel="${id}" aria-hidden="true" aria-label="${label}">
+    <div class="preprod-header-menu">
+      <div class="preprod-header-content">
+        <nav class="preprod-header-links" aria-label="Разделы ${label.toLowerCase()}">${renderPreprodRows(groups, activeFirst)}</nav>
+        ${showFooter ? renderPreprodFooter() : ""}
       </div>
+      ${showPromo ? renderPreprodPromo() : ""}
     </div>
-    <aside class="preprod-voices-promo">
-      <p>Озвучьте свой проект с помощью нейросети</p>
-      <a href="${site}/ai" target="_blank" rel="noopener">Сгенерировать озвучку</a>
-      <img src="${site}/img/teacher/mic.png" alt="" aria-hidden="true">
-    </aside>
-  </div>
-</section>`;
+  </section>`;
+}
+
+const servicesPanel = renderPreprodPanel({ id: "services", label: "Услуги", groups: serviceGroups, activeFirst: true });
+const voicesPanel = renderPreprodPanel({ id: "voices", label: "Дикторы", groups: voiceGroups });
+const aiPanel = renderPreprodPanel({
+  id: "ai",
+  label: "ИИ сервисы",
+  groups: aiGroups.map(({ title, links }) => ({ title, links })),
+  activeFirst: true,
+});
+const infoPanel = renderPreprodPanel({
+  id: "info",
+  label: "Инфопортал",
+  groups: infoGroups,
+  activeFirst: true,
+  showFooter: false,
+  showPromo: false,
+});
 
 const preprodAiMobileLinks = aiGroups
   .flatMap(({ links }) => links)
@@ -138,6 +248,7 @@ function getPreprodHeaderMarkup() {
   );
 
   return withPreprodLinks
+    .replace(/<section class="header-mega" id="header-panel-services"[\s\S]*?<\/section>/, servicesPanel)
     .replace(/<section class="header-mega" id="header-panel-voices"[\s\S]*?<\/section>/, voicesPanel)
     .replace(/<section class="header-mega" id="header-panel-ai"[\s\S]*?<\/section>/, aiPanel)
     .replace(/<section class="header-mega" id="header-panel-info"[\s\S]*?<\/section>/, infoPanel)
