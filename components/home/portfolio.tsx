@@ -20,25 +20,29 @@ const bookWorks = [
     title: "Посейдоника",
     author: "Хельги Толсон",
     voice: "Кирилл Радциг",
-    image: "/assets/services/audiobooks-bg-v1.png",
+    image: "https://img.kupigolos.ru/audiobook/5d67c5e601146.png?p=b&s=296e848cd9533b50c57e2461ebd01e2a",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5d67c67adc9a7.mp3",
   },
   {
     title: "Английское сочинение",
     author: "Геннадий Ахмедов",
     voice: "Егор Серов",
-    image: "/assets/hero-script.jpg",
+    image: "https://img.kupigolos.ru/audiobook/5d82858ea88b9.jpg?p=b&s=82b6fa22ad3bdbfee7a80de7f430ec8e",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5d6900e6b7a13.mp3",
   },
   {
-    title: "Road Show или любовь олигарха",
+    title: "Road show или Любовь олигарха",
     author: "Азарий Абрамович Лапидус",
     voice: "Александр Лавров",
-    image: "/assets/hero-options/04-recording-archive.png",
+    image: "https://img.kupigolos.ru/audiobook/5d800beca72fc.jpg?p=b&s=1be53a6ee1eccc134dea0fa19fde2d62",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5d6913b726700.mp3",
   },
   {
-    title: "Невеста по наследству",
+    title: "Невеста по Наследству",
     author: "Елена Козловская",
     voice: "Татьяна Маерс",
-    image: "/assets/hero-options/02-through-glass.png",
+    image: "https://img.kupigolos.ru/audiobook/5f50d347e5feb.jpg?p=b&s=9f58d7015d1a0ada77f7d69fae08dece",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5f50d359d78ef.mp3",
   },
 ];
 
@@ -46,22 +50,26 @@ const guideWorks = [
   {
     title: "Аудиоэкскурсия по Екатеринбургу",
     voice: "Сергей Чонишвили",
-    image: "/assets/services/localization-bg-v1.png",
+    image: "https://img.kupigolos.ru/audioguide/5f565242e6f4a.jpg?p=vi&s=f66e3af3e0450e2efac0f6db87568527",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5f5229cd3d500.wav",
   },
   {
     title: "Петергоф, Павловск, Царское Село, Гатчина",
     voice: "Luigino",
-    image: "/assets/hero-options/01-directors-desk.png",
+    image: "https://img.kupigolos.ru/audioguide/5f5652581a2a1.jpg?p=vi&s=05f18cf0f6e2304a698726b53e3e88db",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5f524c977f124.mp3",
   },
   {
     title: "VR гид для МФЦ",
     voice: "Russell",
-    image: "/assets/services/game-voiceover-bg-v1.png",
+    image: "https://img.kupigolos.ru/audioguide/5f56526a3d295.jpg?p=vi&s=71646ea548e994a347993a998dd9e066",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5f524dfa48f84.mp3",
   },
   {
     title: "Гид по зданиям Москвы",
-    voice: "Felik",
-    image: "/assets/studio/hero-cinema-background-v2.jpg",
+    voice: "Falk",
+    image: "https://img.kupigolos.ru/audioguide/5f56527fe36d3.jpg?p=vi&s=ea169a35ab8c610c3edb485e8733ea9b",
+    src: "https://storage.kupigolos.ru/audio/portfolio/5f524f28961fc.mp3",
   },
 ];
 
@@ -144,13 +152,23 @@ function AudioCard({ work }: { work: (typeof audioWorks.audio)[number] }) {
 function EditorialCard({ work, kind }: { work: (typeof bookWorks)[number] | (typeof guideWorks)[number]; kind: "book" | "guide" }) {
   const author = "author" in work ? work.author : null;
   return (
-    <article className={styles.editorialCard}>
+    <article className={`${styles.editorialCard} ${kind === "book" ? styles.bookCard : styles.guideCard}`}>
       <div className={styles.editorialMedia}><img src={work.image} alt="" loading="lazy" /></div>
       <div className={styles.editorialBody}>
         <h3>{work.title}</h3>
         {author && <p>Автор: {author}</p>}
         <div className={styles.voiceLine}>
-          <span className={styles.smallPlay}><PlayIcon /></span>
+          <button
+            className={styles.smallPlay}
+            type="button"
+            data-audio-src={work.src}
+            data-audio-label={work.title}
+            aria-label={`Слушать ${work.title}`}
+            aria-pressed="false"
+          >
+            <PlayIcon />
+            <span className={styles.pause} aria-hidden="true">Ⅱ</span>
+          </button>
           <span>{kind === "book" ? "Чтец" : "Диктор"}: {work.voice}</span>
         </div>
       </div>
