@@ -25,11 +25,6 @@ export function StudioDirections() {
         <h2 id="studio-directions-title" className={styles.title}>
           Направления студии
         </h2>
-        <p className={styles.intro}>
-          Перелинковка помогает пользователю сразу перейти на страницу с нужным
-          форматом, а поисковым системам помогает разделить семантику главной и
-          специализированные запросы.
-        </p>
         <nav className={styles.links} aria-label="Направления студии">
           {directions.map(([label, href]) => (
             <a href={href} key={label}>{label}</a>
