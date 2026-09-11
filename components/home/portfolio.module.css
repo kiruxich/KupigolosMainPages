@@ -1,5 +1,5 @@
 .section {
-  padding: 86px 32px 92px;
+  padding: 32px 32px 34px;
   background: #fff;
   color: #3b4173;
   scroll-margin-top: 120px;
@@ -11,12 +11,16 @@
   margin-inline: auto;
 }
 
+:global(#portfolio).section {
+  background: #fff;
+}
+
 .section h2 {
   width: 100%;
   max-width: none;
   margin: 0;
   font-family: var(--body);
-  font-size: clamp(32px, 3vw, 48px);
+  font-size: clamp(36px, 2.75vw, 44px);
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: -.035em;
@@ -32,23 +36,23 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 22px;
-  margin: 28px auto 48px;
+  gap: 18px;
+  margin: 26px auto 34px;
 }
 
-.tabs button {
-  min-height: 56px;
+:global(#portfolio) .tabs button {
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0 16px;
-  border: 1px solid #c1492e;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid #cf4a30;
   border-radius: 999px;
   background: #fff;
-  color: #c1492e;
+  color: #cf4a30;
   font: inherit;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.2;
   cursor: pointer;
@@ -56,8 +60,8 @@
 }
 
 .tabs button svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   flex: 0 0 auto;
   fill: none;
   stroke: currentColor;
@@ -71,8 +75,9 @@
   stroke: none;
 }
 
-.tabs button[aria-selected="true"] {
-    background: #c1492e;
+:global(#portfolio) .tabs button[aria-selected="true"] {
+  border-color: #c1492e;
+  background: #c1492e;
   color: #fff;
   font-weight: 700;
 }
@@ -84,7 +89,7 @@
 .landscapeGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
+  gap: 44px;
 }
 
 .posterGrid {
@@ -108,7 +113,7 @@
 .media {
   position: relative;
   display: block;
-  aspect-ratio: 1.92 / 1;
+  aspect-ratio: 1.95 / 1;
   overflow: hidden;
   background: #d7d7d7;
 }
@@ -132,8 +137,8 @@
 
 .tag {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 20px;
+  left: 20px;
   max-width: calc(100% - 32px);
   padding: 8px 14px;
   border-radius: 999px;
@@ -166,8 +171,8 @@
 }
 
 .cardBody {
-  min-height: 128px;
-  padding: 18px 22px 22px;
+  min-height: 134px;
+  padding: 38px 20px 20px;
 }
 
 .cardBody h3,
@@ -188,6 +193,16 @@
   color: #717171;
   font-size: 14px;
   line-height: 1.45;
+}
+
+.cardBody h3 {
+  font-size: 22px;
+}
+
+.cardBody p {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .posterCard .cardBody {
@@ -337,13 +352,14 @@
 .controls {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 26px;
+  gap: 28px;
+  margin-top: 24px;
+  padding-right: 8px;
 }
 
 .controls button {
-  width: 43px;
-  height: 43px;
+  width: 56px;
+  height: 56px;
   display: grid;
   place-items: center;
   border: 1px solid #c1492e;

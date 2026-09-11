@@ -106,7 +106,7 @@ export const videoWorks = [
     "image": "https://img.kupigolos.ru/video/6114bf3ed7380.jpg?p=vi&s=3320723ddcac571f4997912cf6c31220",
     "href": "https://rutube.ru/play/embed/ec0645347280fb63a95f618824dbc58e",
     "duration": "03:14",
-    "description": "Запись актёра в студии с присутствием заказчика."
+    "description": "Организовали запись актера в студии с присутствием заказчика"
   },
   {
     "title": "M.INT",
@@ -122,7 +122,7 @@ export const videoWorks = [
     "image": "https://img.kupigolos.ru/video/5ac207100a9b2.jpg?p=vi&s=5097aa9a69ea02fa9cae2b160aa6ed66",
     "href": "https://rutube.ru/play/embed/0317dd2247ff4fbaefcf39c790268e31",
     "duration": "01:00",
-    "description": "Локализация ролика с британским ресторатором Джейми Оливером."
+    "description": "Известный британский ресторатор Джейми Оливер рассказывает о рецептах приготовления различных вкусных блюд, презентуя продукцию марки Tefal."
   },
   {
     "title": "Красный Октябрь",

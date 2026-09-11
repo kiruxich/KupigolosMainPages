@@ -202,7 +202,7 @@ export function Portfolio() {
         >
           {category === "video" && (
             <div className={styles.landscapeGrid}>
-              {videoWorks.slice(0, 2).map((work) => <VideoCard key={work.title} work={work} />)}
+              {[videoWorks[2], videoWorks[4]].map((work) => <VideoCard key={work.title} work={work} />)}
             </div>
           )}
 
