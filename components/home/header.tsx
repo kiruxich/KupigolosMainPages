@@ -241,6 +241,20 @@ const preprodAiMobileLinks = aiGroups
   .map(([label, path]) => `<a href="${fullUrl(path)}">${label}</a>`)
   .join("");
 
+const preprodNetworksPopover = `<nav class="header-action-popover header-networks-popover" id="header-networks-popover" data-header-popover="networks" aria-hidden="true" aria-label="Связаться в мессенджере">
+  <a href="https://telegram.dog/studio_kupigolos" target="_blank" rel="noopener" aria-label="Telegram">
+    <img class="header-network-icon header-network-icon-hover" src="${site}/img/telegram_hover.svg" alt="">
+    <img class="header-network-icon" src="${site}/img/telegram.svg" alt="">
+  </a>
+  <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener" aria-label="MAX">
+    <img class="header-network-icon" src="${site}/img/max.svg" alt="">
+  </a>
+  <a href="whatsapp://send?phone=79302125534" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <img class="header-network-icon header-network-icon-hover" src="${site}/img/whatsapp_hover.svg" alt="">
+    <img class="header-network-icon" src="${site}/img/whatsapp.svg" alt="">
+  </a>
+</nav>`;
+
 function getPreprodHeaderMarkup() {
   const withPreprodLinks = preprodLinkReplacements.reduce<string>(
     (markup, [from, to]) => markup.replaceAll(from, to),
@@ -255,6 +269,10 @@ function getPreprodHeaderMarkup() {
     .replace(
       /<details><summary>ИИ сервисы <span aria-hidden="true">\+<\/span><\/summary><div>[\s\S]*?<\/div><\/details>/,
       `<details><summary>ИИ сервисы <span aria-hidden="true">+</span></summary><div>${preprodAiMobileLinks}</div></details>`,
+    )
+    .replace(
+      /<nav class="header-action-popover header-networks-popover"[\s\S]*?<\/nav>/,
+      preprodNetworksPopover,
     );
 }
 
