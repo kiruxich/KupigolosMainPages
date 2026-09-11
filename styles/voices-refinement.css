@@ -545,7 +545,7 @@
   box-shadow: 0 16px 24px -10px rgba(36, 49, 80, .25), inset 0 1px 0 #fff;
   text-align: left;
   gap: 0;
-  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, background-color .28s ease, box-shadow .28s ease;
+  transition: min-height .36s cubic-bezier(.22, 1, .36, 1), transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, background-color .28s ease, box-shadow .28s ease;
 }
 
 #voices .figma-voice-card.is-active .figma-voice-body {
@@ -557,6 +557,7 @@
 @media (hover: hover) and (pointer: fine) {
   #voices .figma-voice-card.is-active:hover .figma-voice-body,
   #voices .figma-voice-card:has(.voice-play.is-playing) .figma-voice-body {
+    min-height: 469px;
     transform: translateY(-3px);
     box-shadow: 0 30px 48px -24px rgba(36, 49, 80, .42), 0 12px 28px -24px rgba(var(--brand-accent-rgb), .52), inset 0 1px 0 #fff;
   }
@@ -568,8 +569,29 @@
 
 #voices .figma-voice-card:not(.is-active) .figma-voice-body { padding-inline: 16px; }
 
-#voices .figma-voice-role { align-self: stretch; margin: 0 0 8px; min-height: 30px; font-size: 13px; font-weight: 500; line-height: 1.25; color: var(--ink); text-align: center; }
-#voices .figma-voice-meta, #voices .voice-card-spine { display: none; }
+#voices .figma-voice-role, #voices .voice-card-spine { display: none; }
+#voices .figma-voice-meta {
+  display: grid;
+  grid-template-columns: 24px 24px minmax(0, 1fr) 24px;
+  align-items: center;
+  min-height: 24px;
+  margin: 0 0 12px;
+  color: var(--header-rust);
+}
+#voices .figma-voice-meta > :is(a, i, .figma-voice-favorite) {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: inherit;
+}
+#voices .figma-voice-meta > i[hidden] { display: none; }
+#voices .figma-voice-meta > span:not(.figma-voice-favorite) {
+  justify-self: center;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+#voices .figma-voice-meta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 #voices .figma-voice-card :is(.figma-voice-role, .figma-voice-name, .figma-voice-price, .figma-voice-portrait, .voice-play) { opacity: 1 !important; }
 #voices .figma-voice-portrait::before { display: none; }
 
@@ -584,7 +606,7 @@
 #voices  .figma-voice-portrait > img { display: block; width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: none; transition: transform .38s cubic-bezier(.22, 1, .36, 1), filter .28s ease; }
 #voices .figma-voice-card.is-active:hover .figma-voice-portrait > img,
 #voices .figma-voice-card:has(.voice-play.is-playing) .figma-voice-portrait > img { transform: scale(1.035); filter: saturate(1.04) contrast(1.02); }
-#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price) { text-align: left; font-family: var(--body); white-space: normal; }
+#voices .figma-voice-body :is(.figma-voice-name, .figma-voice-price) { text-align: center; font-family: var(--body); white-space: normal; }
 #voices .figma-voice-portrait .voice-play {
   width: 56px; min-width: 56px; height: 56px;
   top: 14.645%; left: 14.645%; right: auto; bottom: auto;
@@ -605,16 +627,18 @@
 #voices .figma-voice-portrait .voice-play:active { transform: translate(-50%, -50%) scale(.97); }
 #voices .figma-voice-portrait .voice-play::before,
 #voices .figma-voice-portrait .voice-play::after { display: none; }
-#voices .voice-progress-ring { position: absolute; inset: auto; left: 50%; top: 50%; width: calc(100% + 14px); height: calc(100% + 14px); max-width: none; max-height: none; transform: translate(-50%, -50%) rotate(-135deg); fill: none; pointer-events: none; }
-#voices .voice-progress-ring { z-index: 1; opacity: 0; }
+#voices .voice-progress-ring { position: absolute; inset: auto; left: 50%; top: 50%; width: calc(100% + 4px); height: calc(100% + 4px); max-width: none; max-height: none; transform: translate(-50%, -50%) rotate(-135deg); transform-origin: center; fill: none; pointer-events: none; z-index: 1; opacity: 0; }
 #voices .figma-voice-portrait:has(.voice-play.is-playing) > .voice-progress-ring,
 #voices .figma-voice-portrait.has-audio-progress > .voice-progress-ring { opacity: 1; }
-/* Keep dashes in the same coordinate system as pathLength to avoid repeated arcs. */
-#voices .voice-progress-ring circle { stroke-width: .75; vector-effect: none; }
-#voices .voice-progress-track { stroke: #ead5ca; }
-#voices .voice-progress-value { stroke: var(--header-rust); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--voice-progress-value, 0)); transition: stroke-dashoffset .2s linear; }
+#voices .figma-voice-portrait:has(.voice-play.is-playing) > .voice-progress-ring { animation: voice-ring-spin 1.8s linear infinite; }
+#voices .voice-progress-ring circle { stroke-width: 2.4; vector-effect: none; }
+#voices .voice-progress-track { stroke: rgba(var(--brand-accent-rgb), .16); }
+#voices .voice-progress-value { stroke: var(--header-rust); stroke-linecap: round; stroke-dasharray: 27 73; stroke-dashoffset: calc(-1 * var(--voice-progress-value, 0)); transition: stroke-dashoffset .2s linear; }
+@keyframes voice-ring-spin {
+  to { transform: translate(-50%, -50%) rotate(225deg); }
+}
 #voices .voice-demo-time { position: absolute; top: calc(100% + 6px); right: -6px; color: var(--muted); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-#voices .figma-voice-body .figma-voice-name { display: block; min-height: 0; margin: 0 0 6px; font-size: clamp(17px, 1.2vw, 20px); line-height: 1.12; letter-spacing: -.025em; font-family: var(--body); font-weight: 700; }
+#voices .figma-voice-body .figma-voice-name { display: block; min-height: 0; margin: 0 0 6px; color: var(--header-rust); font-size: clamp(17px, 1.2vw, 20px); line-height: 1.12; letter-spacing: -.025em; font-family: var(--body); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 #voices .figma-voice-description { margin: 0 0 9px; color: var(--muted); font-size: clamp(12px, .92vw, 14px); line-height: 1.3; min-height: 0; text-wrap: pretty; }
 #voices .figma-voice-body .figma-voice-price { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 10px 4px 0; margin-top: auto; border: 0; border-top: 1px solid rgba(39, 48, 82, .14); border-radius: 0; background: transparent; font-size: clamp(13px, .9vw, 15px); line-height: 1.25; font-weight: 600; letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
 #voices .figma-voice-price::after { content: '→'; display: block; flex: 0 0 auto; color: var(--header-rust); font-size: 20px; line-height: 1; font-weight: 400; transform: translateX(0); transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
@@ -635,7 +659,7 @@
   #voices .figma-voices-panel { padding: 22px 16px; border-radius: 26px; }
   #voices .figma-voices-panel > h2 { font-size: 32px; }
   #voices .figma-voices-grid { --voice-card-width: min(74vw, 250px); width: calc(100% + 24px); margin-inline: -12px; }
-  #voices .figma-voice-body { min-height: 370px; }
+  #voices .figma-voice-body { min-height: 469px; }
   #voices .figma-voice-portrait { width: 140px; height: 140px; }
   #voices .figma-voice-role { font-size: 12px; }
   #voices .figma-voice-body .figma-voice-name { font-size: 20px; }
@@ -652,6 +676,7 @@
   #voices .figma-voice-price,
   #voices .figma-voice-price::after,
   #voices .voice-progress-value { transition: none; }
+  #voices .figma-voice-portrait:has(.voice-play.is-playing) > .voice-progress-ring { animation: none; }
 }
 
 #voices .figma-voice-body { opacity: 1; visibility: visible; }
