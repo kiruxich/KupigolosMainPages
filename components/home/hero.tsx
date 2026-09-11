@@ -29,20 +29,28 @@ export function Hero() {
               <span>Выбрать голос</span>
             </a>
           </div>
-          <ul className="hero-production-steps" aria-label="Этапы работы">
-            <li>
-              <strong>Сценарий</strong>
-              <span>Разработаем цепляющий текст, сценарий ролика</span>
-            </li>
-            <li>
-              <strong>Запись</strong>
-              <span>Подберем и запишем дикторов на любом языке</span>
-            </li>
-            <li>
-              <strong>Монтаж</strong>
-              <span>Качественно смонтируем запись в готовый ролик</span>
-            </li>
-          </ul>
+          <div className="hero-production-flow" aria-label="Этапы работы">
+            <svg className="hero-production-wave" viewBox="0 0 620 120" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 72C48 72 65 34 103 34C160 34 177 82 221 82C258 82 274 49 310 49C354 49 370 22 413 22C459 22 472 76 517 76C553 76 570 52 620 52" />
+            </svg>
+            <ol className="hero-production-steps">
+              <li>
+                <i aria-hidden="true">01</i>
+                <strong>Сценарий</strong>
+                <span>Разработаем цепляющий текст, сценарий ролика</span>
+              </li>
+              <li>
+                <i aria-hidden="true">02</i>
+                <strong>Запись</strong>
+                <span>Подберем и запишем дикторов на любом языке</span>
+              </li>
+              <li>
+                <i aria-hidden="true">03</i>
+                <strong>Монтаж</strong>
+                <span>Качественно смонтируем запись в готовый ролик</span>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </section>
