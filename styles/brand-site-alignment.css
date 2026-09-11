@@ -1027,9 +1027,9 @@ body {
   }
 
   .hero-sound-art {
-    right: -3%;
-    width: 60%;
-    height: min(78svh, 48vw);
+    right: -2%;
+    width: 54%;
+    height: 42svh;
   }
 }
 
