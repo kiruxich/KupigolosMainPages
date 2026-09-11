@@ -980,7 +980,7 @@ body {
   .hero-product.hero-product-cinema .hero-sound-art {
     top: 50%;
     bottom: auto;
-    height: min(72svh, 760px);
+    height: 42svh;
     transform: translateY(calc(-50% + var(--hero-content-offset)));
   }
 }
@@ -1024,12 +1024,6 @@ body {
   .header-mega-layer {
     width: 74vw;
     max-width: none;
-  }
-
-  .hero-sound-art {
-    right: -2%;
-    width: 54%;
-    height: 42svh;
   }
 }
 
