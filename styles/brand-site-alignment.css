@@ -818,20 +818,26 @@ body {
   .preprod-header-callback,
   .preprod-header-networks {
     display: flex;
+    min-height: 60px;
     align-items: center;
     border: 1px solid #ead2cc;
   }
 
   .preprod-header-callback {
-    gap: 16px;
-    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 12px;
     border-radius: 15px;
+    text-align: center;
   }
 
   .preprod-header-callback a {
-    color: #3b4173;
+    color: #c1492e;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
   }
 
   .preprod-header-callback button {
@@ -842,19 +848,37 @@ body {
     background: transparent;
     border: 0;
     cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .preprod-header-networks {
     justify-content: center;
     gap: 20px;
-    padding: 12px 15px;
+    padding: 10px 15px;
     border-radius: 17px;
   }
 
   .preprod-header-networks a {
-    color: #c1492e;
-    font-size: 14px;
-    font-weight: 500;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    transition: transform .18s ease;
+  }
+
+  .preprod-header-networks a:is(:hover, :focus-visible) {
+    outline: 2px solid rgba(193, 73, 46, .28);
+    outline-offset: 3px;
+    transform: translateY(-1px);
+  }
+
+  .preprod-header-networks img {
+    display: block;
+    width: 34px;
+    height: 34px;
   }
 
   .preprod-header-promo {

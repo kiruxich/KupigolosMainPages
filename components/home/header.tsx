@@ -164,8 +164,12 @@ const renderPreprodFooter = () => `<div class="preprod-header-footer">
     <button type="button" data-callback-open aria-expanded="false" aria-controls="callback-drawer">Заказать звонок</button>
   </div>
   <nav class="preprod-header-networks" aria-label="Мессенджеры">
-    <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener">Telegram</a>
-    <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener">MAX</a>
+    <a href="https://telegram.dog/kupigolos_channel" target="_blank" rel="noopener" aria-label="Telegram">
+      <img src="${site}/img/telegram_hover.svg" alt="">
+    </a>
+    <a href="https://max.ru/u/f9LHodD0cOK-G2obtd_M0YIQMT0QPDbV7eVLequXg2kyv2Ns6b_L2NhBBwM" target="_blank" rel="noopener" aria-label="MAX">
+      <img src="${site}/img/max.svg" alt="">
+    </a>
   </nav>
 </div>`;
 
