@@ -845,7 +845,6 @@ body {
   }
 
   .preprod-header-networks {
-    width: 100%;
     justify-content: center;
     gap: 20px;
     padding: 12px 15px;
@@ -853,29 +852,9 @@ body {
   }
 
   .preprod-header-networks a {
-    position: relative;
-    display: block;
-    width: 33px;
-    height: 33px;
-  }
-
-  .preprod-header-network-icon,
-  .preprod-header-network-hover {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .preprod-header-network-hover {
-    z-index: 1;
-    opacity: 0;
-    transition: opacity .2s ease-in-out;
-  }
-
-  .preprod-header-networks a:is(:hover, :focus-visible) .preprod-header-network-hover {
-    opacity: 1;
+    color: #c1492e;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .preprod-header-promo {
@@ -918,25 +897,11 @@ body {
     text-decoration: none;
   }
 
-  .preprod-header-promo-mic {
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    margin: auto 0 -30px;
-  }
-
-  .preprod-header-promo-mic img {
+  .preprod-header-promo img {
     width: auto;
     height: 134px;
+    margin: auto auto -30px;
     object-fit: contain;
-  }
-
-  .preprod-header-promo-art {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    max-width: 100%;
-    pointer-events: none;
   }
 
   .header-mega-preprod-compact .preprod-header-menu {
