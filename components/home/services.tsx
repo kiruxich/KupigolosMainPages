@@ -1,11 +1,11 @@
 const serviceCards = [
   {
     number: "01",
-    type: "дубляж и закадр",
-    title: "Озвучка видео",
+    type: "",
+    title: "ОЗВУЧКА ВИДЕО",
     description:
-      "Фильмы, реклама, YouTube и презентации: запишем, почистим, сведём и подготовим дорожку к монтажу.",
-    note: "60+ языков",
+      "У нас вы можете заказать качественную озвучку видео. Мы профессионально занимаемся как закадровой озвучкой аудиопроектов, так и синхронным озвучанием «в губы» - липсинком",
+    note: "",
     action: "Озвучить видео",
     href: "https://kupigolos.ru/ozvuchka-video",
     className: "service-item-video service-priority-high service-span-7",
@@ -45,31 +45,32 @@ const serviceCards = [
   },
   {
     number: "05",
-    type: "телефония",
-    title: "IVR и голосовые меню",
-    description: "Приветствия и навигация для контактных центров и автоответчиков.",
-    note: "от 1 500 ₽",
-    action: "Создать IVR",
+    type: "",
+    title: "СОЗДАНИЕ АВТООТВЕТЧИКОВ IVR",
+    description: "Самые живые IVR меню и голосовые автоответчики для вашего бизнеса",
+    note: "",
+    action: "Заказать IVR",
     href: "https://kupigolos.ru/zapis-avtootvetchik-ivr",
     className: "service-item-ivr service-priority-compact service-span-4",
   },
   {
     number: "06",
-    type: "под ключ",
-    title: "Аудиореклама",
-    description: "Идея, запись диктора, музыка, саунд-дизайн и готовый мастер.",
-    note: "от 2 500 ₽",
-    action: "Заказать ролик",
+    type: "",
+    title: "ПРОИЗВОДСТВО АУДИОРЕКЛАМЫ",
+    description:
+      "Изготовление и озвучка аудиорекламы любой сложности - реклама на радио и в интернете, ролики для магазинов и торговых центров, автосалонов и салонов красоты, кафе и ресторанов.",
+    note: "",
+    action: "Заказать аудиоролик",
     href: "https://kupigolos.ru/reklamnyie-audioroliki",
     className: "service-item-ad service-priority-compact service-span-4",
   },
   {
     number: "07",
-    type: "текст",
-    title: "Написание сценариев",
-    description: "Тексты под хронометраж, площадку и нужный характер подачи.",
-    note: "от 2 000 ₽",
-    action: "Заказать текст",
+    type: "",
+    title: "НАПИСАНИЕ СЦЕНАРИЕВ",
+    description: "Самые креативные и оригинальные сценарии для ваших рекламных роликов и другого аудиоконтента",
+    note: "",
+    action: "Заказать сценарий",
     href: "https://kupigolos.ru/scenarii-audiorolikov",
     className: "service-item-copy service-priority-compact service-span-4",
   },
@@ -124,22 +125,24 @@ export function Services() {
         <div className="section-heading split-heading reveal">
           <div>
             <p className="kicker">Что мы умеем</p>
-            <h2 id="services-title">Наши услуги</h2>
+            <h2 id="services-title">НАШИ УСЛУГИ</h2>
           </div>
-          <p>Берём на себя весь звуковой продакшн: от первой строки сценария до готового мастер-файла.</p>
+          <p>Мы воплощаем в качественных аудиопродуктах ваши самые амбициозные идеи</p>
         </div>
 
         <div className="service-editorial">
           <article className="service-feature service-feature-voice reveal">
             <div className="service-copy">
-              <span>Самое востребованное направление</span>
-              <h3>Запись дикторов</h3>
+              <span>2080 ДИКТОРОВ</span>
+              <h3>ЗАПИСЬ ДИКТОРОВ</h3>
               <p>
-                Российские и иностранные голоса, актёры дубляжа и знакомые тембры для рекламы, видео,
-                игр и корпоративных проектов.
+                Мужские и женские, взрослые и детские, бархатные и звонкие, томные и агрессивные,
+                мягкие и грубые - всевозможные голоса для изготовления радиорекламы. В нашей студии вы
+                можете подобрать голос любых акустических параметров, на любом языке и под любой бюджет!
+                Стоимость дикторской начитки стартует всего от 400 рублей.
               </p>
               <a href="https://kupigolos.ru/diktory">
-                Выбрать голос <span aria-hidden="true">↗</span>
+                Выбрать диктора <span aria-hidden="true">↗</span>
               </a>
             </div>
             <div className="service-visual service-wave" aria-hidden="true">
