@@ -6,11 +6,14 @@
 }
 
 .inner {
-  max-width: 1268px;
+  width: 100%;
+  max-width: 1480px;
   margin-inline: auto;
 }
 
 .section h2 {
+  width: 100%;
+  max-width: none;
   margin: 0;
   font-family: var(--body);
   font-size: clamp(32px, 3vw, 48px);
