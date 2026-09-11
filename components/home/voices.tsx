@@ -5,6 +5,10 @@ export function Voices() {
     .replace(/^\s*<section[^>]*>/, "")
     .replace(/<\/section>\s*$/, "")
     .replace('</h2>', '</h2><p class="voice-arc-intro">Знакомые голоса. Новые истории.</p>')
+    .replace(
+      /(<a class="figma-voice-price" href="([^"]+)">[^<]*<\/a>)/g,
+      '$1<a class="figma-voice-contact" href="$2">Связаться <span aria-hidden="true">→</span></a>',
+    )
     .replace(/<div class="figma-voices-footer">[\s\S]*$/, `
       <div class="figma-voices-footer">
         <p class="voice-arc-caption">20 голосов для ваших проектов</p>
